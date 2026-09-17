@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 2: Fundamentos Epistemológicos y Modelos Teóricos de la RSC</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --primary:#0f766e; --primary-dark:#134e4a; --primary-light:#5eead4;
+  --accent:#ea580c; --accent-light:#fed7aa; --accent-dark:#c2410c;
+  --bg:#fafaf5; --bg-card:#ffffff; --text:#1f2937; --text-muted:#6b7280;
+  --border:#e5e7eb; --success:#16a34a; --warning:#d97706; --danger:#dc2626;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.05);
+  --shadow:0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.08);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.10);
+  --serif:'Source Serif Pro','Georgia','Times New Roman',serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;font-size:16px}
+
+header.hero{
+  background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 60%,#0d9488 100%);
+  color:white;padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;
+}
+header.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(circle at 20% 20%,rgba(255,255,255,0.08) 0,transparent 50%),
+                   radial-gradient(circle at 80% 80%,rgba(255,255,255,0.05) 0,transparent 50%);
+  pointer-events:none;
+}
+header.hero h1{font-family:var(--serif);font-size:2.2rem;margin-bottom:0.5rem;position:relative;letter-spacing:-0.01em}
+header.hero .subtitle{opacity:0.92;font-size:1.05rem;position:relative;margin-bottom:0.25rem}
+header.hero .meta{opacity:0.78;font-size:0.9rem;position:relative;margin-top:0.5rem}
+
+.tabs{
+  display:flex;flex-wrap:wrap;background:white;position:sticky;top:0;z-index:100;
+  box-shadow:var(--shadow);border-bottom:2px solid var(--primary);
+}
+.tab-btn{
+  flex:1;min-width:180px;padding:1rem 1.25rem;background:white;border:none;cursor:pointer;
+  font-size:0.92rem;font-weight:600;color:var(--text-muted);
+  border-bottom:3px solid transparent;transition:all 0.2s;text-align:center;
+  font-family:inherit;line-height:1.3;
+}
+.tab-btn .num{display:inline-block;width:24px;height:24px;line-height:24px;border-radius:50%;
+  background:var(--primary);color:white;font-size:0.8rem;margin-right:0.4rem;font-weight:700}
+.tab-btn:hover{background:#f0fdfa;color:var(--primary)}
+.tab-btn.active{
+  color:var(--primary);border-bottom-color:var(--primary);
+  background:linear-gradient(to bottom,rgba(15,118,110,0.07) 0%,transparent 100%);
+}
+.tab-btn.active .num{background:var(--primary-dark)}
+
+main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.tab-content{display:none;animation:fadeIn 0.3s ease}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+h2{font-family:var(--serif);font-size:1.85rem;color:var(--primary-dark);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:2px solid var(--primary-light)}
+h2.section-title{font-size:2rem;margin-top:0.5rem;border-bottom:3px solid var(--primary);padding-bottom:0.75rem}
+h3{font-family:var(--serif);font-size:1.4rem;color:var(--primary);margin:2rem 0 0.75rem}
+h4{font-size:1.15rem;color:var(--accent-dark);margin:1.5rem 0 0.5rem;font-weight:700}
+h5{font-size:1.05rem;color:var(--primary-dark);margin:1rem 0 0.5rem;font-weight:700}
+p{margin:0.75rem 0}
+
+.callout{background:linear-gradient(135deg,#ecfdf5 0%,#d1fae5 100%);border-left:4px solid var(--primary);padding:1rem 1.25rem;margin:1.5rem 0;border-radius:6px}
+.callout.warning{background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%);border-left-color:var(--accent)}
+.callout.info{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border-left-color:#2563eb}
+.callout.danger{background:linear-gradient(135deg,#fef2f2 0%,#fee2e2 100%);border-left-color:var(--danger)}
+.callout-title{font-weight:700;margin-bottom:0.4rem;color:var(--primary-dark);text-transform:uppercase;font-size:0.85rem;letter-spacing:0.5px}
+.callout.warning .callout-title{color:var(--accent-dark)}
+.callout.info .callout-title{color:#1e40af}
+.callout.danger .callout-title{color:#b91c1c}
+
+ul,ol{margin:0.75rem 0 0.75rem 1.5rem}
+li{margin:0.4rem 0}
+ul.checklist{list-style:none;margin-left:0}
+ul.checklist li{padding-left:1.6rem;position:relative}
+ul.checklist li::before{content:"✓";position:absolute;left:0;color:var(--success);font-weight:700}
+
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;background:white;box-shadow:var(--shadow-sm);border-radius:8px;overflow:hidden;font-size:0.95rem}
+th{background:var(--primary);color:white;padding:0.85rem 1rem;text-align:left;font-weight:600;vertical-align:top}
+td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+tr:nth-child(even) td{background:#f9fafb}
+tr:last-child td{border-bottom:none}
+table.compact{font-size:0.88rem}
+
+.formula{background:#0f172a;color:#e2e8f0;padding:1.25rem 1.5rem;border-radius:8px;text-align:center;font-family:'KaTeX_Main','Cambria Math',serif;font-size:1.1rem;margin:1.5rem 0;overflow-x:auto;border-left:4px solid var(--accent)}
+.formula .katex{color:#e2e8f0}
+.formula .katex .mord{color:#e2e8f0}
+
+.pyramid{margin:2rem auto;display:flex;flex-direction:column;align-items:center;gap:6px;max-width:520px}
+.pyramid-level{padding:1rem 1.25rem;color:white;text-align:center;font-weight:600;border-radius:6px;transition:transform 0.25s,box-shadow 0.25s;cursor:default;width:100%}
+.pyramid-level:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.pyramid-level strong{display:block;font-size:1.05rem}
+.pyramid-level small{display:block;font-size:0.85rem;opacity:0.92;margin-top:0.25rem;font-weight:400}
+.pyramid-level.l1{background:linear-gradient(135deg,#6b7280,#4b5563)}
+.pyramid-level.l2{width:75%;background:linear-gradient(135deg,#0e7490,#0891b2)}
+.pyramid-level.l3{width:50%;background:linear-gradient(135deg,#0f766e,#0d9488)}
+.pyramid-level.l4{width:25%;background:linear-gradient(135deg,#ea580c,#f97316)}
+
+.solution{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border:2px solid #16a34a;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0}
+.solution::before{content:"✓ Solucionario";display:block;font-weight:700;color:#15803d;margin-bottom:0.75rem;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.5px}
+.solution h5{color:#14532d;margin-top:1rem;margin-bottom:0.4rem}
+.solution .answer{font-weight:700;color:#15803d;background:#bbf7d0;display:inline-block;padding:0.15rem 0.6rem;border-radius:4px;font-size:0.95rem}
+
+.question{background:white;border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:6px;padding:1rem 1.25rem;margin:1rem 0;box-shadow:var(--shadow-sm)}
+.question h5{font-size:1rem;color:var(--primary-dark);margin-bottom:0.75rem;font-weight:700}
+.question .options{list-style:upper-alpha;margin-left:1.5rem}
+.question .options li{margin:0.4rem 0}
+.question .options li.correct{background:#dcfce7;font-weight:600;padding:0.25rem 0.5rem;border-radius:4px}
+
+.references{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:1rem 1.5rem;margin:2rem 0}
+.references h3{margin-top:0;color:var(--primary-dark)}
+.references ul{list-style:none;margin-left:0;padding-left:0}
+.references li{padding:0.5rem 0;font-size:0.92rem;color:var(--text);border-bottom:1px dashed var(--border)}
+.references li:last-child{border-bottom:none}
+.references li::before{content:"📚 ";margin-right:0.25rem}
+
+.diagram-oee{background:white;padding:2rem;border-radius:8px;box-shadow:var(--shadow);margin:1.5rem 0;text-align:center}
+.diagram-oee .row{display:flex;justify-content:center;gap:1rem;margin:1rem 0;flex-wrap:wrap}
+.diagram-oee .box{padding:1rem 1.5rem;border-radius:6px;color:white;font-weight:600;min-width:220px;text-align:left}
+.diagram-oee .box.industrial{background:linear-gradient(135deg,var(--primary),var(--primary-dark))}
+.diagram-oee .box.security{background:linear-gradient(135deg,var(--accent),var(--accent-dark))}
+.diagram-oee .box.oee{background:linear-gradient(135deg,#1e293b,#0f172a)}
+.diagram-oee .box small{display:block;opacity:0.85;font-weight:400;margin-top:0.25rem;font-size:0.82rem}
+.diagram-oee .arrow{font-size:1.8rem;color:var(--text-muted);line-height:1;margin:0.5rem 0}
+
+.sprint-grid{display:grid;grid-template-columns:140px 1fr;gap:0.75rem;margin:1.5rem 0}
+.sprint-grid .time{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:0.6rem;text-align:center;border-radius:6px;font-weight:700;font-size:0.85rem;display:flex;align-items:center;justify-content:center}
+.sprint-grid .desc{background:white;padding:0.75rem 1rem;border-left:3px solid var(--primary-light);border-radius:6px;box-shadow:var(--shadow-sm)}
+.sprint-grid .desc strong{color:var(--primary-dark)}
+
+.case-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1.5rem 0}
+.stat-card{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:white;padding:1.25rem;border-radius:8px;text-align:center;box-shadow:var(--shadow)}
+.stat-card .value{font-size:1.8rem;font-weight:700;font-family:var(--serif);margin-bottom:0.25rem}
+.stat-card .label{font-size:0.85rem;opacity:0.85;text-transform:uppercase;letter-spacing:0.5px}
+.stat-card.warn{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%)}
+.stat-card.success{background:linear-gradient(135deg,#16a34a 0%,#15803d 100%)}
+
+.calc-step{background:white;border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;margin:1.25rem 0;box-shadow:var(--shadow-sm);border-left:4px solid var(--primary)}
+.calc-step h4{margin-top:0;color:var(--primary-dark)}
+.calc-step .result{background:#ecfdf5;padding:0.5rem 0.85rem;border-radius:4px;display:inline-block;margin-top:0.5rem;font-weight:700;color:var(--primary-dark)}
+
+.footer-note{background:#f1f5f9;border-top:3px solid var(--primary);padding:1.5rem 2rem;text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:3rem}
+
+@media (max-width:768px){
+  .tab-btn{font-size:0.78rem;padding:0.75rem 0.4rem;min-width:140px}
+  .tab-btn .num{width:20px;height:20px;line-height:20px;font-size:0.7rem}
+  header.hero h1{font-size:1.5rem}
+  main{padding:1rem 0.75rem 3rem}
+  .diagram-oee .row{flex-direction:column}
+  .sprint-grid{grid-template-columns:1fr}
+  table{font-size:0.85rem}
+  th,td{padding:0.6rem 0.5rem}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Clase 2: Responsabilidad Social Corporativa</h1>
+  <p class="subtitle">Fundamentos Epistemológicos, Modelos Teóricos y Aplicación en Ingeniería Industrial y de Seguridad</p>
+  <p class="meta">MSc. Luis Aníbal Palate Gaibor · Ingeniería Industrial / Seguridad Industrial</p>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="tab1" role="tab"><span class="num">1</span>Fundamentos Epistemológicos y Modelos Teóricos de la RSC</button>
+  <button class="tab-btn" data-tab="tab2" role="tab"><span class="num">2</span>Caso NovaPress</button>
+  <button class="tab-btn" data-tab="tab3" role="tab"><span class="num">3</span>Taller Práctico de Aula</button>
+  <button class="tab-btn" data-tab="tab4" role="tab"><span class="num">4</span>Tarea Asincrónica: Auditoría Avanzada</button>
+  <button class="tab-btn" data-tab="tab5" role="tab"><span class="num">5</span>Caso EcoPack Solutions</button>
+</nav>
+
+<main>
+
+<!-- ============ TAB 1 ============ -->
+<section id="tab1" class="tab-content active">
+<h2 class="section-title">Fundamentos Epistemológicos y Modelos Teóricos de la RSC</h2>
+
+<p>La <strong>Responsabilidad Social Corporativa (RSC)</strong> en la ingeniería moderna trasciende la filantropía para constituirse como una disciplina de gestión de externalidades, control de pérdidas y optimización multivariable. Representa la integración voluntaria y sistemática de las dimensiones sociales, ambientales y de gobernanza en la toma de decisiones técnicas, garantizando la viabilidad de las operaciones sin comprometer el capital humano ni el ecosistema.</p>
+
+<h3>Taxonomía de Carroll: La Pirámide de la RSE (1979, 1991)</h3>
+<p>Archie B. Carroll planteó que la responsabilidad empresarial se compone de cuatro estratos jerárquicos y acumulativos:</p>
+
+<div class="pyramid">
+  <div class="pyramid-level l4"><strong>4. Filantrópica</strong><small>Discrecional / Proactiva</small></div>
+  <div class="pyramid-level l3"><strong>3. Ética</strong><small>Hacer lo correcto y justo</small></div>
+  <div class="pyramid-level l2"><strong>2. Legal</strong><small>Cumplimiento normativo estricto</small></div>
+  <div class="pyramid-level l1"><strong>1. Económica</strong><small>Rentabilidad y eficiencia base</small></div>
+</div>
+
+<ul>
+  <li><strong>Responsabilidad Económica:</strong> Base del modelo. La función primaria es ser rentable, maximizar la eficiencia y generar valor económico agregado.</li>
+  <li><strong>Responsabilidad Legal:</strong> Operar bajo el marco jurídico obligatorio aplicable al territorio y sector industrial (regulaciones laborales, ambientales y de seguridad industrial).</li>
+  <li><strong>Responsabilidad Ética:</strong> Obligación de hacer lo correcto, justo y equitativo, reconociendo expectativas morales tácitas de la sociedad no codificadas en leyes.</li>
+  <li><strong>Responsabilidad Filantrópica:</strong> Acciones corporativas discrecionales orientadas al bienestar social o comunitario.</li>
+</ul>
+
+<h3>Teoría de los Grupos de Interés (<em>Stakeholders</em>) de Freeman (1984)</h3>
+<p>R. Edward Freeman reformuló el enfoque clásico enfocado en los accionistas (<em>shareholders</em>) hacia los grupos de interés (<em>stakeholders</em>): cualquier individuo o grupo susceptible de afectar o ser afectado por el logro de los objetivos de la organización. En ingeniería industrial y de seguridad, la gestión de partes interesadas se formaliza mediante matrices de influencia/impacto para la toma de decisiones en planta:</p>
+
+<ul>
+  <li><strong>Grupos Internos:</strong> Operadores, supervisores, directivos, comités paritarios de seguridad y salud en el trabajo.</li>
+  <li><strong>Grupos Externos:</strong> Comunidades aledañas, contratistas, entidades reguladoras, clientes, proveedores y aseguradoras.</li>
+</ul>
+
+<h3>Creación de Valor Compartido (<em>Creating Shared Value</em> — CSV) de Porter y Kramer (2011)</h3>
+<p>Michael Porter y Mark Kramer superaron la dicotomía entre rentabilidad empresarial y progreso comunitario, postulando que la competitividad de una empresa y la salud de las comunidades circunvecinas son mutuamente dependientes. El Valor Compartido no redistribuye la riqueza creada, sino que reconfigura los modelos de negocio y operaciones mediante:</p>
+
+<ul>
+  <li><strong>Reconcepción de productos y mercados:</strong> Desarrollo de soluciones orientadas a necesidades sociales e industriales críticas (e.g., tecnologías limpias, ergonomía de alta adaptabilidad).</li>
+  <li><strong>Redefinición de la productividad en la cadena de valor:</strong> Optimización en el uso de recursos energéticos, reducción de desperdicios (<em>Lean-Green</em>) y mitigación de riesgos de accidentes laborales.</li>
+  <li><strong>Desarrollo de clústeres locales:</strong> Fortalecimiento de proveedores locales y desarrollo de competencias técnicas en el entorno industrial de proximidad.</li>
+</ul>
+
+<h3>Marcos y Definiciones de Organismos Internacionales</h3>
+<p>Las principales entidades supranacionales y organismos de normalización definen la RSC desde perspectivas regulatorias, operativas y de aseguramiento del riesgo.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organismo</th>
+      <th>Denominación del Instrumento</th>
+      <th>Definición Operativa Central</th>
+      <th>Enfoque Principal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>OCDE</strong></td>
+      <td>Directrices para Empresas Multinacionales sobre Conducta Empresarial Responsable (2023)</td>
+      <td><em>Conducta Empresarial Responsable (CER):</em> Proceso sistemático mediante el cual las empresas identifican, previenen, mitigan y rinden cuentas sobre los impactos adversos reales o potenciales de sus operaciones, cadenas de valor y relaciones comerciales.</td>
+      <td><strong>Debida Diligencia (<em>Due Diligence</em>):</strong> Gestión de riesgos a lo largo de toda la cadena de suministro internacional.</td>
+    </tr>
+    <tr>
+      <td><strong>ONU</strong></td>
+      <td>Pacto Global (<em>UN Global Compact</em>)</td>
+      <td>Iniciativa voluntaria de liderazgo basada en diez principios universales articulados en cuatro áreas: Derechos Humanos, Estándares Laborales, Medio Ambiente y Anticorrupción.</td>
+      <td><strong>Alineación Normativa Global:</strong> Integración estratégica de los Principios con la consecución de los ODS de la Agenda 2030.</td>
+    </tr>
+    <tr>
+      <td><strong>Unión Europea (UE)</strong></td>
+      <td>Estrategia Renovada de RSE (COM/2011/0681) y Directiva CSRD (Directiva UE 2022/2464)</td>
+      <td>«La responsabilidad de las empresas por su impacto en la sociedad». Implica la integración de preocupaciones sociales, medioambientales, éticas y de derechos humanos en su estrategia básica y en estrecha colaboración con las partes interesadas.</td>
+      <td><strong>Doble Materialidad:</strong> Impacto financiero del entorno en la empresa (<em>outside-in</em>) e impacto operacional de la empresa en el entorno (<em>inside-out</em>).</td>
+    </tr>
+    <tr>
+      <td><strong>ISO</strong></td>
+      <td>Norma Técnica Internacional ISO 26000:2010</td>
+      <td>«Responsabilidad de una organización ante los impactos que sus decisiones y actividades ocasionan en la sociedad y el medio ambiente, mediante un comportamiento transparente y ético que contribuya al desarrollo sostenible».</td>
+      <td><strong>Gobernanza y Materias Fundamentales:</strong> Marco de orientación no certificable para operacionalizar la sostenibilidad corporativa.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Análisis Exhaustivo de los Marcos</h3>
+
+<h4>1. OCDE: Conducta Empresarial Responsable y Debida Diligencia</h4>
+<p>La Organización para la Cooperación y el Desarrollo Económicos (OCDE) enfoca la RSC bajo el concepto vinculante de <em>Debida Diligencia Basada en el Riesgo</em>. Este enfoque exige a la ingeniería industrial estructurar sistemas de trazabilidad técnica en seis pasos:</p>
+<ol>
+  <li>Embeber la CER en las políticas y sistemas de gestión de la empresa.</li>
+  <li>Identificar y evaluar impactos adversos en operaciones, cadenas de valor y relaciones de negocio.</li>
+  <li>Cesar, prevenir o mitigar los impactos adversos identificados.</li>
+  <li>Realizar seguimiento de la implementación y de los resultados obtenidos.</li>
+  <li>Comunicar públicamente cómo se abordan dichos impactos.</li>
+  <li>Reparar o colaborar en la remediación cuando se hayan causado daños.</li>
+</ol>
+
+<h4>2. Organización de las Naciones Unidas (ONU): Marco de los Diez Principios</h4>
+<p>El Pacto Global operacionaliza la responsabilidad mediante diez axiomas técnicos derivados de declaraciones internacionales (Declaración Universal de los Derechos Humanos, OIT y Río):</p>
+<ul>
+  <li><strong>Derechos Humanos:</strong> Principios 1 y 2 (Protección y no complicidad en vulneraciones).</li>
+  <li><strong>Relaciones Laborales:</strong> Principios 3 a 6 (Libertad sindical, erradicación del trabajo forzoso e infantil, y eliminación de la discriminación en el empleo).</li>
+  <li><strong>Medio Ambiente:</strong> Principios 7 (Enfoque preventivo), 8 (Iniciativas de mayor responsabilidad) y 9 (Desarrollo y difusión de tecnologías limpias).</li>
+  <li><strong>Anticorrupción:</strong> Principio 10 (Trabajar contra la corrupción en todas sus formas, incluyendo extorsión y soborno).</li>
+</ul>
+
+<h4>3. Comisión Europea: De la Voluntariedad a la Obligación Legal</h4>
+<p>La Unión Europea ha evolucionado desde el Libro Verde (2001) hasta la directiva CSRD (<em>Corporate Sustainability Reporting Directive</em>, 2022/2464) y la directiva CSDDD (<em>Corporate Sustainability Due Diligence Directive</em>). La UE introduce el criterio técnico de <strong>Doble Materialidad</strong>:</p>
+<ul>
+  <li><em>Materialidad Financiera:</em> Cómo los riesgos climáticos, ergonómicos y sociales afectan la continuidad operacional, los costos y el flujo de caja.</li>
+  <li><em>Materialidad de Impacto:</em> Cómo la manufactura, los vertidos industriales, las emisiones atmosféricas y las condiciones de seguridad en planta afectan tangiblemente a los ecosistemas y a las personas.</li>
+</ul>
+
+<h4>4. Organización Internacional de Normalización (ISO): ISO 26000</h4>
+<p>Publicada en 2010 como guía directriz, ISO 26000 desglosa la responsabilidad social en <strong>7 Materias Fundamentales</strong>, interactuando holísticamente con el sistema de gobernanza:</p>
+<ul>
+  <li>Gobernanza de la organización (eje integrador).</li>
+  <li>Derechos humanos.</li>
+  <li>Prácticas laborales (eje directo con SST).</li>
+  <li>Medio ambiente (eje directo con ecoeficiencia).</li>
+  <li>Prácticas justas de operación.</li>
+  <li>Asuntos de consumidores.</li>
+  <li>Participación activa y desarrollo de la comunidad.</li>
+</ul>
+
+<h3>Intersección Crítica: RSC, Ingeniería Industrial e Ingeniería en Seguridad</h3>
+<p>En las ciencias de la ingeniería, la RSC no se reduce a un reporte narrativo; constituye un sistema de control de ingeniería para cerrar brechas de ineficiencia y riesgo operacional.</p>
+
+<div class="diagram-oee">
+  <div class="row">
+    <div class="box industrial">
+      INGENIERÍA INDUSTRIAL
+      <small>• Ecoeficiencia / ACV<br>• Lean-Green Operations<br>• Optimización Energética</small>
+    </div>
+    <div class="box security">
+      ING. EN SEGURIDAD INDUSTRIAL
+      <small>• ISO 45001 / Visión Cero<br>• Higiene &amp; Ergonomía<br>• Integridad Ocupacional</small>
+    </div>
+  </div>
+  <div class="arrow">▼ ▼</div>
+  <div class="row">
+    <div class="box oee">
+      EFECTIVIDAD GLOBAL DE EQUIPOS (OEE)
+      <small>Disponibilidad (A) × Rendimiento (P) × Calidad (Q)</small>
+    </div>
+  </div>
+  <div class="arrow">▼</div>
+  <div class="row">
+    <div class="box" style="background:linear-gradient(135deg,#7c2d12,#9a3412)">
+      RESPONSABILIDAD SOCIAL CORPORATIVA
+      <small>Gobernanza ética, ESG y valor compartido</small>
+    </div>
+  </div>
+</div>
+
+<h3>Relación con la Efectividad Global de los Equipos (OEE)</h3>
+<p>El indicador clave de manufactura $OEE$ mide la eficiencia global de un equipo o línea de producción:</p>
+<div class="formula">$$OEE = A \times P \times Q$$</div>
+<p>Donde:</p>
+<ul>
+  <li>$A$ = Disponibilidad (<em>Availability</em>)</li>
+  <li>$P$ = Rendimiento (<em>Performance</em>)</li>
+  <li>$Q$ = Calidad (<em>Quality</em>)</li>
+</ul>
+<p>La articulación técnica de la RSC y la Seguridad Industrial con cada variable se formula de la siguiente manera:</p>
+<ul>
+  <li><strong>Disponibilidad ($A$):</strong> Paradas no planificadas provocadas por incidentes/accidentes de trabajo, fallos críticos de contención ambiental o clausuras regulatorias degradan directamente $A$. La inversión en sistemas de seguridad (ISO 45001) y mantenimiento preventivo elimina estos micro-paros e interrupciones mayores.</li>
+  <li><strong>Rendimiento ($P$):</strong> Estaciones de trabajo con diseños ergonómicos deficientes provocan fatiga muscular, desaceleración del ritmo de trabajo de los operadores y absentismo por trastornos musculoesqueléticos (TME). La optimización biomecánica de la estación estabiliza la velocidad nominal del ciclo productivo.</li>
+  <li><strong>Calidad ($Q$):</strong> El enfoque <em>Lean-Green</em> y la eliminación de desperdicios garantizan que los consumos de energía y materias primas desemboquen en productos conformes al primer intento (<em>First Time Right</em>), mitigando el impacto ecológico y los reprocesos energéticamente intensivos.</li>
+</ul>
+
+<h3>Sistemas de Gestión Integrados (SGI)</h3>
+<p>La RSC provee el marco ético y estratégico que cohesiona las normas de gestión técnica:</p>
+<ul>
+  <li><strong>ISO 9001 (Calidad):</strong> Aseguramiento de especificaciones técnicas orientadas a la satisfacción de los consumidores y fiabilidad del producto.</li>
+  <li><strong>ISO 14001 (Gestión Ambiental):</strong> Cuantificación y reducción de aspectos ambientales significativos (residuos, efluentes, gases de efecto invernadero).</li>
+  <li><strong>ISO 45001 (Seguridad y Salud en el Trabajo):</strong> Enfoque sistemático de jerarquía de controles (Eliminación, Sustitución, Controles de Ingeniería, Señalización y EPP) para salvaguardar la vida e integridad del trabajador.</li>
+</ul>
+
+<div class="references">
+  <h3>Referencias Bibliográficas (Normas APA, 7.ª Edición)</h3>
+  <ul>
+    <li>Carroll, A. B. (1991). The pyramid of corporate social responsibility: Toward the moral management of organizational stakeholders. <em>Business Horizons</em>, 34(4), 39–48. https://doi.org/10.1016/0007-6813(91)90005-G</li>
+    <li>Comisión Europea. (2011). <em>Estrategia renovada de la UE para 2011-2014 sobre la responsabilidad social de las empresas</em> (COM/2011/0681 final). Bruselas: Comisión Europea.</li>
+    <li>Freeman, R. E. (1984). <em>Strategic management: A stakeholder approach</em>. Pitman.</li>
+    <li>International Organization for Standardization. (2010). <em>Guidance on social responsibility</em> (ISO Standard No. 26000:2010). https://www.iso.org/standard/42546.html</li>
+    <li>Organización para la Cooperación y el Desarrollo Económicos. (2023). <em>Líneas Directrices de la OCDE para Empresas Multinacionales sobre Conducta Empresarial Responsable</em>. OECD Publishing. https://doi.org/10.1787/81f9be8f-es</li>
+    <li>Porter, M. E., &amp; Kramer, M. R. (2011). Creating shared value: How to reinvent capitalism—and unleash a wave of innovation and growth. <em>Harvard Business Review</em>, 89(1-2), 62–77.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ TAB 2 ============ -->
+<section id="tab2" class="tab-content">
+<h2 class="section-title">Caso de Estudio: Optimización de Línea y Mitigación de Riesgos en Planta Metalmecánica "NovaPress"</h2>
+
+<h3>Introducción Motivadora</h3>
+<p>En la planta metalmecánica <strong>NovaPress</strong>, especializada en el estampado y troquelado continuo de componentes estructurales de acero, la dirección se enfrenta a una encrucijada operativa y ética: la línea principal de prensas automáticas presenta una degradación severa en su efectividad operacional debido a eventos recurrentes de seguridad, micro-paradas ergonómicas y generación de scrap por descalibración térmica.</p>
+<p>El ingeniero de planta no puede tratar la Responsabilidad Social Corporativa (RSC) como un eslogan publicitario o un reporte aislado; debe abordarla como un sistema de ingeniería que actúa directamente sobre la Disponibilidad, Rendimiento y Calidad de la planta, mitigando riesgos para los trabajadores y evitando penalizaciones legales y de mercado.</p>
+
+<div class="callout info">
+  <div class="callout-title">iDevice de Lectura · Contextualización del Caso de Estudio</div>
+  Esta sección presenta la situación operacional, los datos técnicos del turno monitoreado y el desglose matemático del OEE, articulando cada pérdida con el marco internacional de RSC aplicable.
+</div>
+
+<h3>1. Situación Operacional y Datos Técnicos</h3>
+<p>La celda de estampado opera en un turno programado de $8\text{ horas}$ ($480\text{ minutos}$). Se tiene programada una parada legal de descanso y mantenimiento preventivo menor de $30\text{ minutos}$, dejando un <strong>Tiempo de Carga Planificado ($T_{c}$)</strong> de:</p>
+<div class="formula">$$T_{c} = 480\text{ min} - 30\text{ min} = 450\text{ min} = 27\,000\text{ s}$$</div>
+
+<p>Durante el último mes de monitoreo continuo, se levantaron los siguientes datos consolidados por turno:</p>
+
+<h4>Eventos de Seguridad e Incidentes Operacionales</h4>
+<ul>
+  <li>Activación de paradas de emergencia por bloqueo en la cortina óptica de seguridad (fallo de interfaz operador-máquina): $42\text{ minutos}$.</li>
+  <li>Parada por investigación técnica de atrapamiento menor de guante en alimentador de chapa: $38\text{ minutos}$.</li>
+  <li><strong>Tiempo total de parada por incidentes de SST:</strong> $T_{\text{paro}} = 42 + 38 = 80\text{ minutos}$.</li>
+  <li><strong>Tiempo de Operación Real ($T_{o}$):</strong></li>
+</ul>
+<div class="formula">$$T_{o} = T_{c} - T_{\text{paro}} = 450 - 80 = 370\text{ minutos} = 22\,200\text{ s}$$</div>
+
+<h4>Desempeño y Capacidad Operativa</h4>
+<ul>
+  <li><strong>Tiempo de Ciclo Ideal ($C_{i}$):</strong> $15\text{ segundos/pieza}$ (Velocidad de diseño nominal: $4\text{ piezas/minuto}$).</li>
+  <li><strong>Producción Total Ejecutada ($P_{\text{total}}$):</strong> $1\,200\text{ piezas/turno}$.</li>
+  <li><em>Observación ergonómica:</em> Debido a posturas forzadas y esfuerzos repetitivos no mitigados en la alimentación manual del fleje de acero, los operadores reducen conscientemente el ritmo de avance de la prensa en las últimas 3 horas del turno.</li>
+</ul>
+
+<h4>Conformidad de Calidad y Pérdidas Materiales</h4>
+<ul>
+  <li>De las $1\,200$ piezas troqueladas, un total de $180\text{ piezas}$ presentaron rebabas fuera de tolerancia (ISO 2768) por desgaste prematuro de matrices y desajuste por vibración excesiva.</li>
+  <li><strong>Piezas Conformes ($P_{\text{conformes}}$):</strong> $1\,200 - 180 = 1\,020\text{ piezas}$.</li>
+</ul>
+
+<h3>2. Formulación Matemática del OEE y su Desglose de Pérdidas</h3>
+<p>A partir de la formulación canónica:</p>
+<div class="formula">$$OEE = A \times P \times Q$$</div>
+
+<div class="case-stats">
+  <div class="stat-card"><div class="value">82,22%</div><div class="label">Disponibilidad (A)</div></div>
+  <div class="stat-card warn"><div class="value">81,08%</div><div class="label">Rendimiento (P)</div></div>
+  <div class="stat-card"><div class="value">85,00%</div><div class="label">Calidad (Q)</div></div>
+  <div class="stat-card warn"><div class="value">56,67%</div><div class="label">OEE Global</div></div>
+</div>
+
+<div class="calc-step">
+  <h4>A) Cálculo de la Disponibilidad ($A$)</h4>
+  <p>Relación entre el tiempo de operación real y el tiempo de carga planificado:</p>
+  <div class="formula">$$A = \frac{T_{o}}{T_{c}} = \frac{370\text{ min}}{450\text{ min}} = \frac{37}{45} \approx 0,8222\quad(82,22\%)$$</div>
+  <div class="result"><strong>Pérdida asociada:</strong> 17,78% de indisponibilidad atribuible directamente a brechas en seguridad y salud ocupacional (ISO 45001).</div>
+</div>
+
+<div class="calc-step">
+  <h4>B) Cálculo del Rendimiento ($P$)</h4>
+  <p>Relación entre la producción real obtenida a la velocidad nominal y el tiempo de funcionamiento:</p>
+  <div class="formula">$$P = \frac{C_{i} \times P_{\text{total}}}{T_{o}} = \frac{15\text{ s/pieza} \times 1\,200\text{ piezas}}{22\,200\text{ s}} = \frac{18\,000}{22\,200} \approx 0,8108\quad(81,08\%)$$</div>
+  <div class="result"><strong>Pérdida asociada:</strong> 18,92% de pérdida de velocidad por fatiga de ciclo de trabajo y condiciones ergonómicas desfavorables.</div>
+</div>
+
+<div class="calc-step">
+  <h4>C) Cálculo de la Calidad ($Q$)</h4>
+  <p>Tasa de piezas conformes respecto a la producción bruta:</p>
+  <div class="formula">$$Q = \frac{P_{\text{conformes}}}{P_{\text{total}}} = \frac{1\,020}{1\,200} = 0,8500\quad(85,00\%)$$</div>
+  <div class="result"><strong>Pérdida asociada:</strong> 15,00% de scrap metálico que requiere refinición o disposición, contraviniendo los principios de economía circular y ecoeficiencia de la ISO 14001 y OECD.</div>
+</div>
+
+<div class="calc-step">
+  <h4>D) OEE Global de la Celda NovaPress</h4>
+  <div class="formula">$$OEE = 0,8222 \times 0,8108 \times 0,8500 = 0,5667\quad(56,67\%)$$</div>
+  <div class="result">El OEE del 56,67% evidencia una planta operando muy por debajo del estándar mundial (&gt;85%), con brechas críticas en seguridad, ergonomía y mantenimiento predictivo.</div>
+</div>
+
+<h3>3. Matriz de Conexión del Caso con los Organismos y Marcos de RSC</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Problema en Planta</th>
+      <th>Eje Técnico de Ingeniería</th>
+      <th>Marco Internacional de RSC</th>
+      <th>Mecanismo de Resolución / Creación de Valor Compartido (CSV)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>80 min de paradas por incidentes SST</strong></td>
+      <td>Eliminación de barreras y automatización de enclavamientos bajo norma ISO 13849 / ISO 45001.</td>
+      <td><strong>OCDE (Debida Diligencia) / ONU (Pacto Global — Principio 3, 4 y 6):</strong> Deber de protección y cero accidentes.</td>
+      <td>El control de ingeniería en prensas restablece $A$ del 82,22% a un target superior al 95%.</td>
+    </tr>
+    <tr>
+      <td><strong>Ritmo degradado por sobrecarga física</strong></td>
+      <td>Rediseño biomecánico del puesto de trabajo e instalación de elevador neumático de bobina.</td>
+      <td><strong>ISO 26000 (Materia: Prácticas Laborales):</strong> Condiciones de trabajo dignas y seguras.</td>
+      <td>Alivia la carga muscular, elevando $P$ del 81,08% a su estándar del 95%.</td>
+    </tr>
+    <tr>
+      <td><strong>180 piezas defectuosas (Scrap)</strong></td>
+      <td>Mantenimiento preventivo predictivo por análisis de vibraciones; reciclaje de retales en ciclo cerrado.</td>
+      <td><strong>UE (Directiva CSRD — Doble Materialidad) / ODS 12:</strong> Minimización del impacto ambiental y ahorro de material.</td>
+      <td>Reduce reprocesos térmicos, elevando $Q$ del 85,00% a más del 98%.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Actividad Práctica: Distribución de la Sesión (30 Minutos)</h3>
+<p>Para asegurar la transposición didáctica efectiva y el cumplimiento de los resultados de aprendizaje, la sesión se divide en 4 bloques:</p>
+
+<div class="sprint-grid">
+  <div class="time">00 – 05 min</div>
+  <div class="desc"><strong>Introducción y Planteamiento del Reto Operacional</strong><br>Presentación del problema en NovaPress. Se proyecta la línea de troquelado y se expone la tensión entre productividad versus incidentes laborales.</div>
+  <div class="time">05 – 15 min</div>
+  <div class="desc"><strong>Análisis Cuantitativo en Pizarra: Cálculo de A, P, Q y OEE</strong><br>Deducción matemática en pizarra del OEE actual (56,67%). Identificación de cómo cada componente ($A$, $P$, $Q$) está afectado por un fallo de gobernanza o seguridad.</div>
+  <div class="time">15 – 23 min</div>
+  <div class="desc"><strong>Debate Estructurado: Soluciones bajo Marcos de RSC (OCDE, UE, ISO)</strong><br>Los estudiantes se dividen en subgrupos para asociar cada fallo a una normativa internacional (OCDE, ISO 26000, UE CSRD) y proponer una solución de ingeniería técnica.</div>
+  <div class="time">23 – 30 min</div>
+  <div class="desc"><strong>Ejecución del Cuestionario SCORM en eXeLearning y Cierre</strong><br>Resolución individual del iDevice de evaluación en eXeLearning y retroalimentación grupal inmediata.</div>
+</div>
+
+<div class="references">
+  <h3>Referencias Bibliográficas (Normas APA, 7.ª Edición)</h3>
+  <ul>
+    <li>Hansen, R. C. (2001). <em>Overall equipment effectiveness: A powerful production/maintenance tool for increased profits</em>. Industrial Press.</li>
+    <li>International Organization for Standardization. (2018). <em>Occupational health and safety management systems — Requirements with guidance for use</em> (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html</li>
+    <li>Nakajima, S. (1988). <em>Introduction to TPM: Total productive maintenance</em>. Productivity Press.</li>
+    <li>Organización para la Cooperación y el Desarrollo Económicos. (2023). <em>Líneas Directrices de la OCDE para Empresas Multinacionales sobre Conducta Empresarial Responsable</em>. OECD Publishing. https://doi.org/10.1787/81f9be8f-es</li>
+    <li>Unión Europea. (2022). <em>Directiva (UE) 2022/2464 del Parlamento Europeo y del Consejo sobre la presentación de información sobre sostenibilidad por parte de las empresas (CSRD)</em>. Diario Oficial de la Unión Europea.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ TAB 3 ============ -->
+<section id="tab3" class="tab-content">
+<h2 class="section-title">Taller Práctico de Aula: Auditoría Cuantitativa de RSC y Optimización de OEE en Prensas Industriales</h2>
+
+<h3>Introducción Motivadora</h3>
+<p>El rol del ingeniero en planta no consiste únicamente en medir la eficiencia de las máquinas, sino en garantizar que el sistema productivo sea éticamente viable, seguro y sostenible. Cuando una línea de prensas se detiene por un atrapamiento o reduce su velocidad por fatiga de los operarios, la empresa no solo sufre pérdidas económicas: vulnera tratados internacionales y compromete la integridad física de las personas. En este taller de 30 minutos, aplicarás el método de <strong>Aprendizaje Basado en Problemas Guiado con Micro-Sprints (PBL-Sprint)</strong>, la técnica más eficiente para el análisis cuantitativo y la toma de decisiones normativas en tiempo real.</p>
+
+<div class="callout info">
+  <div class="callout-title">iDevice de Lectura · Ficha Técnica y Protocolo del Taller</div>
+  Metodología PBL-Sprint en 4 estaciones, modalidad binomios, duración total 30 minutos exactos.
+</div>
+
+<h3>1. Metodología Seleccionada: PBL-Sprint en 4 Estaciones</h3>
+<ul>
+  <li><strong>Método:</strong> Aprendizaje Basado en Problemas por Sprints (<em>Problem-Based Learning / Time-Boxed Sprints</em>).</li>
+  <li><strong>Modalidad:</strong> Parejas de trabajo (binomios de ingeniería: un perfil enfocado en Operaciones/Procesos y otro en Seguridad/SST).</li>
+  <li><strong>Duración Total:</strong> Exactamente $30\text{ minutos}$.</li>
+</ul>
+
+<h4>Distribución Temporal</h4>
+<div class="sprint-grid">
+  <div class="time">Sprint 1<br>00:00 – 05:00</div>
+  <div class="desc"><strong>Asignación de roles y extracción de variables del sistema.</strong> Cada binomio define quién asume el rol de Ingeniero de Operaciones y quién el de Ingeniero de Seguridad/SST. Lectura del enunciado y listado de variables de entrada.</div>
+  <div class="time">Sprint 2<br>05:00 – 15:00</div>
+  <div class="desc"><strong>Diagnóstico matemático del balance de pérdidas ($A$, $P$, $Q$ y $OEE$).</strong> Aplicación de las fórmulas canónicas con conversión correcta de minutos a segundos y conservación de 4 cifras decimales.</div>
+  <div class="time">Sprint 3<br>15:00 – 23:00</div>
+  <div class="desc"><strong>Formulación del plan de mitigación alineado a OCDE, ISO 26000 y UE.</strong> Compleción de la matriz técnica de causalidad con causas raíz, controles de ingeniería y normas aplicables.</div>
+  <div class="time">Sprint 4<br>23:00 – 30:00</div>
+  <div class="desc"><strong>Ingreso de resultados, validación en eXeLearning y retroalimentación grupal.</strong> Captura de evidencias, envío SCORM y discusión final con el docente.</div>
+</div>
+
+<h3>2. Planteamiento del Problema (Datos de Entrada para el Taller)</h3>
+<p>En la celda de estampado continuo <strong>NovaPress</strong>, la jornada laboral programada es de un turno de $8\text{ horas}$ ($480\text{ minutos}$). Se tiene estipulada una parada planificada para pausa activa y relevo de $30\text{ minutos}$. Durante el turno de análisis se registraron los siguientes eventos:</p>
+
+<h4>Pérdidas de Disponibilidad</h4>
+<ul>
+  <li>Parada no programada por activación de barreras ópticas por mala postura de ingreso de lámina: $42\text{ minutos}$.</li>
+  <li>Detención de línea para inspección y primeros auxilios por atrapamiento incipiente de guante: $38\text{ minutos}$.</li>
+</ul>
+
+<h4>Capacidad y Producción</h4>
+<ul>
+  <li>Velocidad nominal de diseño: $4\text{ piezas/minuto}$ (Tiempo de ciclo ideal: $C_{i} = 15\text{ s/pieza}$).</li>
+  <li>Producción real obtenida al final del turno: $P_{\text{total}} = 1\,200\text{ piezas}$.</li>
+</ul>
+
+<h4>Pérdidas de Calidad</h4>
+<ul>
+  <li>Piezas rechazadas con rebabas críticas y deformaciones plásticas no conformes: $180\text{ piezas}$.</li>
+  <li>Piezas aptas al primer intento: $P_{\text{conformes}} = 1\,020\text{ piezas}$.</li>
+</ul>
+
+<h3>Actividad Práctica: Guía de Trabajo para el Estudiante</h3>
+<p>A continuación, los binomios deben completar los cuatro sprints de cálculo y formulación técnica:</p>
+
+<h3>Sprint 1 y 2: Formulación y Deducción Matemática (Minutos 0 a 15)</h3>
+
+<div class="calc-step">
+  <h4>1. Tiempo de Carga Planificado ($T_{c}$)</h4>
+  <div class="formula">$$T_{c} = 480\text{ min} - 30\text{ min} = 450\text{ min} = 27\,000\text{ s}$$</div>
+</div>
+
+<div class="calc-step">
+  <h4>2. Tiempo de Operación ($T_{o}$)</h4>
+  <div class="formula">$$T_{o} = 450\text{ min} - \left( 42\text{ min} + 38\text{ min} \right) = 370\text{ min} = 22\,200\text{ s}$$</div>
+</div>
+
+<div class="calc-step">
+  <h4>3. Cálculo de la Disponibilidad ($A$)</h4>
+  <div class="formula">$$A = \frac{T_{o}}{T_{c}} = \frac{370}{450} \approx 0,8222\quad(82,22\%)$$</div>
+</div>
+
+<div class="calc-step">
+  <h4>4. Cálculo del Rendimiento ($P$)</h4>
+  <div class="formula">$$P = \frac{C_{i} \times P_{\text{total}}}{T_{o}} = \frac{15\text{ s/pieza} \times 1\,200\text{ piezas}}{22\,200\text{ s}} = \frac{18\,000}{22\,200} \approx 0,8108\quad(81,08\%)$$</div>
+</div>
+
+<div class="calc-step">
+  <h4>5. Cálculo de la Calidad ($Q$)</h4>
+  <div class="formula">$$Q = \frac{P_{\text{conformes}}}{P_{\text{total}}} = \frac{1\,020}{1\,200} = 0,8500\quad(85,00\%)$$</div>
+</div>
+
+<div class="calc-step">
+  <h4>6. Efectividad Global de los Equipos ($OEE$)</h4>
+  <div class="formula">$$OEE = A \times P \times Q = 0,8222 \times 0,8108 \times 0,8500 = 0,5667\quad(56,67\%)$$</div>
+</div>
+
+<h3>Sprint 3: Matriz de Acción Ingenieril y Normativa de RSC (Minutos 15 a 23)</h3>
+<p>Completa la siguiente matriz vinculando las causas raíz identificadas con las normas de gestión y los marcos internacionales:</p>
+
+<table class="compact">
+  <thead>
+    <tr>
+      <th>Factor de Pérdida en NovaPress</th>
+      <th>Causa Raíz Técnica</th>
+      <th>Control de Ingeniería Recomendado</th>
+      <th>Norma Técnica / Marco de RSC Aplicable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Paradas de SST ($80\text{ min}$)</strong></td>
+      <td>Diseño de seguridad deficiente en la interfase hombre-máquina; falta de barreras de enclavamiento físico.</td>
+      <td>Implementación de doble mando bimanual y cortinas ópticas categoría 4 integradas a PLC de seguridad.</td>
+      <td><strong>ISO 45001 (Cláusula 8.1.2)</strong> / <strong>OCDE (Debida Diligencia en DDHH y SST)</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>Pérdida de Ritmo (18,92% de baja velocidad)</strong></td>
+      <td>Fatiga musculoesquelética por levantamiento repetitivo y manipulación manual del fleje de acero.</td>
+      <td>Mesa elevadora hidráulica con nivelador neumático automático a la altura de alimentación del troquel.</td>
+      <td><strong>ISO 26000 (Materia: Prácticas Laborales)</strong> / <strong>ISO 11228 (Ergonomía)</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>Generación de Scrap (15,00% no conforme)</strong></td>
+      <td>Desalineación térmica de la matriz y falta de mantenimiento predictivo en troqueles.</td>
+      <td>Sensorización acústica y de vibración para ajuste predictivo; reintroducción del desecho en fundición secundaria.</td>
+      <td><strong>UE (Directiva CSRD — Doble Materialidad)</strong> / <strong>ODS 12</strong>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="references">
+  <h3>Referencias Bibliográficas (Normas APA, 7.ª Edición)</h3>
+  <ul>
+    <li>International Organization for Standardization. (2018). <em>Occupational health and safety management systems — Requirements with guidance for use</em> (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html</li>
+    <li>Nakajima, S. (1988). <em>Introduction to TPM: Total productive maintenance</em>. Productivity Press.</li>
+    <li>Organización para la Cooperación y el Desarrollo Económicos. (2023). <em>Líneas Directrices de la OCDE para Empresas Multinacionales sobre Conducta Empresarial Responsable</em>. OECD Publishing. https://doi.org/10.1787/81f9be8f-es</li>
+    <li>Porter, M. E., &amp; Kramer, M. R. (2011). Creating shared value: How to reinvent capitalism—and unleash a wave of innovation and growth. <em>Harvard Business Review</em>, 89(1-2), 62–77.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ TAB 4 ============ -->
+<section id="tab4" class="tab-content">
+<h2 class="section-title">Tarea Asincrónica: Auditoría Avanzada de RSC, Marcos Supranacionales y Optimización OEE</h2>
+
+<h3>Introducción Motivadora</h3>
+<p>El desempeño de los sistemas productivos modernos ya no se evalúa exclusivamente bajo métricas financieras tradicionales. La integración de la Responsabilidad Social Corporativa (RSC), la debida diligencia en derechos humanos y laborales, la sostenibilidad ambiental y la seguridad industrial constituyen variables determinantes en la continuidad del negocio y en la Efectividad Global de los Equipos (OEE). Esta evaluación asincrónica de 30 reactivos pondrá a prueba tu capacidad analítica para articular modelos teóricos (Carroll, Freeman, Porter &amp; Kramer), directrices internacionales (OCDE, ONU, UE, ISO) y formulaciones cuantitativas de planta bajo un enfoque de ingeniería aplicada.</p>
+
+<div class="callout info">
+  <div class="callout-title">iDevice de Lectura · Banco de Reactivos Heterogéneos</div>
+  La evaluación integra los niveles cognitivos de Bloom (Recordar, Comprender, Aplicar, Analizar y Evaluar) a través de 5 bloques: opción múltiple, V/F con justificación, emparejamiento, completación y resolución numérica.
+</div>
+
+<h3>Bloque I: Opción Múltiple — Fundamentos Teóricos y Marcos Globales (Preguntas 1 a 8)</h3>
+
+<div class="question">
+  <h5>1. En la Pirámide de la Responsabilidad Social de Archie Carroll, ¿cuál es el estrato que sirve de soporte estructural a todos los demás y condiciona la supervivencia de la organización?</h5>
+  <ol class="options">
+    <li>Responsabilidad Filantrópica.</li>
+    <li>Responsabilidad Legal.</li>
+    <li>Responsabilidad Económica.</li>
+    <li>Responsabilidad Ética.</li>
+  </ol>
+</div>
+
+<div class="question">
+  <h5>2. La teoría de los <em>Stakeholders</em> formulada por R. Edward Freeman redefine el propósito corporativo al postular que:</h5>
+  <ol class="options">
+    <li>La dirección debe maximizar únicamente el retorno sobre el capital de los accionistas (<em>shareholders</em>).</li>
+    <li>Toda entidad o individuo que afecte o sea afectado por el logro de los objetivos de la organización debe ser considerado en la toma de decisiones.</li>
+    <li>Las demandas de la comunidad local prevalecen siempre sobre los requerimientos legales y normativos de la industria.</li>
+    <li>Los proveedores no forman parte del núcleo estratégico de gobernanza corporativa.</li>
+  </ol>
+</div>
+
+<div class="question">
+  <h5>3. Según Michael Porter y Mark Kramer (2011), la "Creación de Valor Compartido" (CSV) se diferencia sustancialmente de la RSC tradicional porque:</h5>
+  <ol class="options">
+    <li>Se enfoca en donaciones e inversiones filantrópicas para mejorar la imagen institucional.</li>
+    <li>Redistribuye las utilidades netas entre las comunidades aledañas sin modificar los procesos internos de manufactura.</li>
+    <li>Concibe el progreso social y ambiental como un generador intrínseco de productividad y ventaja competitiva en la cadena de valor.</li>
+    <li>Es un marco puramente regulatorio de cumplimiento obligatorio impuesto por la Unión Europea.</li>
+  </ol>
+</div>
+
+<div class="question">
+  <h5>4. De acuerdo con las <em>Líneas Directrices de la OCDE para Empresas Multinacionales sobre Conducta Empresarial Responsable</em>, el instrumento nuclear de gestión preventiva se denomina:</h5>
+  <ol class="options">
+    <li>Auditoría de balances contables bajo normas NIIF.</li>
+    <li>Debida Diligencia Basada en el Riesgo (<em>Risk-Based Due Diligence</em>).</li>
+    <li>Matriz de Leopold para evaluación pasiva de impacto ambiental.</li>
+    <li>Plan Maestro de Mantenimiento Preventivo (PMMP).</li>
+  </ol>
+</div>
+
+<div class="question">
+  <h5>5. ¿Cuáles son las cuatro áreas temáticas que estructuran los Diez Principios del Pacto Global de las Naciones Unidas?</h5>
+  <ol class="options">
+    <li>Gobernanza, Rentabilidad, Productividad y Logística Inversa.</li>
+    <li>Derechos Humanos, Estándares Laborales, Medio Ambiente y Anticorrupción.</li>
+    <li>Cero Defectos, Mantenimiento Productivo Total, Ergonomía y Ecoeficiencia.</li>
+    <li>Finanzas Sostenibles, Bioseguridad, Trazabilidad Digital y Eficiencia Térmica.</li>
+  </ol>
+</div>
+
+<div class="question">
+  <h5>6. El concepto de <strong>Doble Materialidad</strong>, ratificado en la Directiva CSRD (Directiva UE 2022/2464) de la Unión Europea, exige a las industrias reportar:</h5>
+  <ol class="options">
+    <li>Únicamente los costos fijos y variables de la planta de producción.</li>
+    <li>El impacto financiero de los factores socioambientales sobre la empresa (<em>outside-in</em>) y el impacto de las operaciones de la empresa sobre la sociedad y el entorno (<em>inside-out</em>).</li>
+    <li>La tasa de retorno de inversión combinada con el índice de rotación de inventarios en almacén.</li>
+    <li>El historial de multas laborales y los desembolsos en primas de seguros de accidentes.</li>
+  </ol>
+</div>
+
+<div class="question">
+  <h5>7. Respecto a la norma internacional <strong>ISO 26000:2010</strong>, ¿cuál es su estatus de certificación y alcance operativo?</h5>
+  <ol class="options">
+    <li>Es una norma de gestión de requisitos certificable mediante auditorías de tercera parte, idéntica a la ISO 9001.</li>
+    <li>Es un código penal internacional aplicable únicamente a compañías petroquímicas.</li>
+    <li>Es una guía de orientación voluntaria con directrices sobre siete materias fundamentales, no concebida para certificación contractual ni regulatoria.</li>
+    <li>Es un catálogo exclusivo de límites permisibles de emisión de gases de efecto invernadero.</li>
+  </ol>
+</div>
+
+<div class="question">
+  <h5>8. ¿Cuál de las siguientes materias fundamentales de la ISO 26000 interactúa de forma más directa y vinculante con la norma ISO 45001 sobre Sistemas de Gestión de Seguridad y Salud en el Trabajo?</h5>
+  <ol class="options">
+    <li>Asuntos de consumidores.</li>
+    <li>Prácticas laborales.</li>
+    <li>Participación activa y desarrollo de la comunidad.</li>
+    <li>Prácticas justas de operación.</li>
+  </ol>
+</div>
+
+<h3>Bloque II: Falso o Verdadero con Justificación Técnica (Preguntas 9 a 16)</h3>
+
+<div class="question">
+  <h5>9. (V / F) La implementación de controles de ingeniería para eliminar ruidos excesivos y vibraciones mecánicas en una celda de manufactura es catalogada por Porter y Kramer como un gasto filantrópico no recuperable.</h5>
+</div>
+
+<div class="question">
+  <h5>10. (V / F) La Debida Diligencia de la OCDE estipula que una empresa es responsable de identificar y mitigar impactos adversos no solo en su planta propia, sino a lo largo de toda su cadena de suministro y relaciones comerciales.</h5>
+</div>
+
+<div class="question">
+  <h5>11. (V / F) Bajo el esquema de Carroll, si una corporación genera altos márgenes de utilidad y realiza donaciones altruistas, pero incumple sistemáticamente las normativas de seguridad e higiene laboral, se considera socialmente responsable.</h5>
+</div>
+
+<div class="question">
+  <h5>12. (V / F) En la ecuación canónica del OEE ($A \times P \times Q$), una reducción drástica de la velocidad de línea generada por fatiga de los operarios ante posturas forzadas penaliza directamente el factor de Calidad ($Q$).</h5>
+</div>
+
+<div class="question">
+  <h5>13. (V / F) El Principio 7 del Pacto Global de la ONU exhorta a las empresas a adoptar un enfoque preventivo que favorezca el medio ambiente, lo que a nivel de planta se materializa mediante el ecodiseño y el análisis de ciclo de vida (ISO 14040).</h5>
+</div>
+
+<div class="question">
+  <h5>14. (V / F) La directiva europea CSRD exime a las empresas matrices de evaluar a sus proveedores extranjeros si estos operan fuera de la jurisdicción territorial de la Unión Europea.</h5>
+</div>
+
+<div class="question">
+  <h5>15. (V / F) Las paradas de línea provocadas por la activación recurrente de paradas de emergencia debido a fallos de diseño ergonómico reducen directamente el factor de Disponibilidad ($A$) en el OEE.</h5>
+</div>
+
+<div class="question">
+  <h5>16. (V / F) En la taxonomía de Freeman, las entidades reguladoras gubernamentales y las comunidades colindantes a una refinería se consideran <em>stakeholders</em> externos con poder de veto o interrupción legal de la operación.</h5>
+</div>
+
+<h3>Bloque III: Emparejamiento — Matrices, Normativas y Parámetros Industriales (Preguntas 17 a 22)</h3>
+<p>Relaciona la columna de <strong>Marco / Parámetro</strong> con su correspondiente <strong>Definición o Acción Operativa en Ingeniería</strong>:</p>
+
+<table class="compact">
+  <thead>
+    <tr>
+      <th>Reactivo</th>
+      <th>Marco / Parámetro</th>
+      <th>Opción</th>
+      <th>Definición o Acción Operativa en Ingeniería</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>17</strong></td><td>ISO 45001</td><td>[ &nbsp; ]</td><td><strong>A.</strong> Proceso en 6 pasos para embeber, identificar, cesar, monitorear, comunicar y remediar impactos en la cadena de valor.</td></tr>
+    <tr><td><strong>18</strong></td><td>Rendimiento ($P$)</td><td>[ &nbsp; ]</td><td><strong>B.</strong> Reporte transparente del impacto de emisiones de CO2 y riesgo climático sobre los activos fijos de la compañía.</td></tr>
+    <tr><td><strong>19</strong></td><td>Debida Diligencia OCDE</td><td>[ &nbsp; ]</td><td><strong>C.</strong> Razón matemática entre el tiempo neto de operación a ritmo nominal y el tiempo real de funcionamiento ($C_{i} \times P_{\text{total}}/T_{o}$).</td></tr>
+    <tr><td><strong>20</strong></td><td>Doble Materialidad (UE)</td><td>[ &nbsp; ]</td><td><strong>D.</strong> Jerarquía sistemática de controles: Eliminación, Sustitución, Ingeniería, Señalización/Advertencia y EPP.</td></tr>
+    <tr><td><strong>21</strong></td><td>Creación de Valor Compartido</td><td>[ &nbsp; ]</td><td><strong>E.</strong> Siete materias fundamentales integradas por una gobernanza transparente y ética sin fines de certificación.</td></tr>
+    <tr><td><strong>22</strong></td><td>ISO 26000:2010</td><td>[ &nbsp; ]</td><td><strong>F.</strong> Rediseño de procesos de manufactura para resolver problemáticas sociales e incrementar la productividad industrial.</td></tr>
+  </tbody>
+</table>
+
+<h3>Bloque IV: Completación y Respuesta Corta (Preguntas 23 a 27)</h3>
+
+<div class="question">
+  <h5>23.</h5>
+  <p>En el marco de la seguridad industrial y el OEE, las pérdidas de tiempo asociadas a accidentes de trabajo o activaciones de enclavamientos se clasifican como pérdidas por ____________ y afectan la variable ____________ de la ecuación.</p>
+</div>
+
+<div class="question">
+  <h5>24.</h5>
+  <p>Según Michael Porter y Mark Kramer, las tres vías para la Creación de Valor Compartido son: concebir nuevos productos y mercados, redefinir la productividad en la cadena de valor y posibilitar el desarrollo de ____________ locales.</p>
+</div>
+
+<div class="question">
+  <h5>25.</h5>
+  <p>El estándar de reporte voluntario más utilizado a nivel global para divulgar indicadores cuantitativos no financieros en materia ESG (ambiental, social y gobernanza) se denomina ____________ (por sus siglas en inglés: Global Reporting Initiative).</p>
+</div>
+
+<div class="question">
+  <h5>26.</h5>
+  <p>Si una línea de troquelado tiene un Tiempo de Carga Planificado $T_{c} = 450\text{ min}$ y registra paradas no programadas por incidentes de seguridad de $T_{\text{paro}} = 90\text{ min}$, su factor de Disponibilidad porcentual exacto es de ____________ %.</p>
+</div>
+
+<div class="question">
+  <h5>27.</h5>
+  <p>La directiva europea que establece la obligación corporativa de mitigar impactos negativos sobre derechos humanos y medio ambiente a lo largo de las cadenas de valor globales se abrevia como ____________ (Corporate Sustainability Due Diligence Directive).</p>
+</div>
+
+<h3>Bloque V: Resolución Numérica y Análisis Cuantitativo de Ingeniería (Preguntas 28 a 30)</h3>
+
+<div class="callout warning">
+  <div class="callout-title">Datos del Sistema de Manufactura</div>
+  <p style="margin:0.5rem 0">Una celda automatizada de inyección y mecanizado de polímeros opera durante un turno programado de $8\text{ horas}$ ($480\text{ minutos}$). Se tiene estipulada una detención de $40\text{ minutos}$ para limpieza reglamentaria e inspección programada. Durante el turno, el sistema de telemetría registró:</p>
+  <ul style="margin:0.5rem 0">
+    <li>$50\text{ minutos}$ de detención no programada por activación de sensores de atrapamiento en el robot manipulador.</li>
+    <li>Tiempo de ciclo nominal de diseño: $C_{i} = 30\text{ segundos por unidad}$.</li>
+    <li>Producción bruta total reportada al cierre del turno: $P_{\text{total}} = 700\text{ piezas}$.</li>
+    <li>Control de calidad en línea detectó $70\text{ piezas}$ no conformes con defectos dimensionales.</li>
+  </ul>
+</div>
+
+<div class="question">
+  <h5>28. Deducción de Disponibilidad ($A$):</h5>
+  <p>Calcula con rigor matemático el Tiempo de Carga Planificado ($T_{c}$), el Tiempo de Operación Real ($T_{o}$) y el porcentaje de Disponibilidad ($A$) de la celda.</p>
+</div>
+
+<div class="question">
+  <h5>29. Deducción de Rendimiento ($P$) y Calidad ($Q$):</h5>
+  <p>Determina el valor exacto del factor de Rendimiento ($P$) y de Calidad ($Q$).</p>
+</div>
+
+<div class="question">
+  <h5>30. Cálculo de OEE y Diagnóstico de RSC:</h5>
+  <p>Calcula el $OEE$ global resultante. Posteriormente, redacta un dictamen técnico de 4 a 6 líneas justificando cómo una intervención ergonómica y de enclavamiento de seguridad (ISO 45001 / OCDE) impactaría positivamente en la efectividad global y en la debida diligencia de la empresa.</p>
+</div>
+
+<h3>Actividad Práctica: Protocolo de Envío y Rúbrica de Evaluación</h3>
+<ul>
+  <li><strong>Modalidad de Trabajo:</strong> Individual, trabajo autónomo asincrónico.</li>
+  <li><strong>Formato de Entrega:</strong> Documento PDF exportado desde hoja de cálculo o editor técnico, incluyendo memoria de cálculo para los ítems 28, 29 y 30.</li>
+  <li><strong>Ponderación Global:</strong> 100 puntos netos (calificación normalizada a base 10 o 20 según el sistema de gestión del aprendizaje).</li>
+</ul>
+
+<table class="compact">
+  <thead>
+    <tr><th>Bloque</th><th>Reactivos</th><th>Puntos</th><th>Valor unitario</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Bloque I — Opción Múltiple</td><td>Preguntas 1-8</td><td>24 pts</td><td>3 pts c/u</td></tr>
+    <tr><td>Bloque II — V/F con Justificación</td><td>Preguntas 9-16</td><td>16 pts</td><td>2 pts c/u</td></tr>
+    <tr><td>Bloque III — Emparejamiento</td><td>Preguntas 17-22</td><td>18 pts</td><td>3 pts c/u</td></tr>
+    <tr><td>Bloque IV — Completación</td><td>Preguntas 23-27</td><td>15 pts</td><td>3 pts c/u</td></tr>
+    <tr><td>Bloque V — Resolución Numérica</td><td>Preguntas 28-30</td><td>27 pts</td><td>9 pts c/u</td></tr>
+    <tr><td colspan="2"><strong>Total</strong></td><td><strong>100 pts</strong></td><td>—</td></tr>
+  </tbody>
+</table>
+
+<h2>Retroalimentación Pedagógica y Solucionario Analítico</h2>
+
+<h3>Soluciones del Bloque I (Selección Múltiple)</h3>
+<div class="solution">
+  <ul>
+    <li><span class="answer">1: C</span> — Económica (base estructural de la pirámide de Carroll).</li>
+    <li><span class="answer">2: B</span> — Interés de todas las partes afectadas (definición canónica de Freeman).</li>
+    <li><span class="answer">3: C</span> — Productividad intrínseca en la cadena de valor (CSV de Porter &amp; Kramer).</li>
+    <li><span class="answer">4: B</span> — Debida diligencia basada en riesgos (OCDE 2023).</li>
+    <li><span class="answer">5: B</span> — DDHH, Trabajo, Ambiente, Anticorrupción (Pacto Global ONU).</li>
+    <li><span class="answer">6: B</span> — Doble vertiente financiera y de impacto real (Doble Materialidad UE).</li>
+    <li><span class="answer">7: C</span> — Guía no certificable de orientación voluntaria (ISO 26000:2010).</li>
+    <li><span class="answer">8: B</span> — Prácticas laborales (eje directo con ISO 45001).</li>
+  </ul>
+</div>
+
+<h3>Soluciones del Bloque II (Falso o Verdadero)</h3>
+<div class="solution">
+  <h5>9: Falso</h5>
+  <p>Es una inversión en ergonomía y rediseño de cadena de valor que optimiza la productividad (CSV).</p>
+  <h5>10: Verdadero</h5>
+  <p>La debida diligencia de la OCDE exige trazabilidad transversal a toda la cadena de proveedores y contratistas.</p>
+  <h5>11: Falso</h5>
+  <p>Incumplir la ley y la seguridad anula la base ética y legal requerida por la pirámide de Carroll.</p>
+  <h5>12: Falso</h5>
+  <p>Penaliza la variable de Rendimiento ($P$), pues el equipo produce a una velocidad inferior a la de diseño.</p>
+  <h5>13: Verdadero</h5>
+  <p>El enfoque preventivo ambiental se implementa con herramientas como el Análisis de Ciclo de Vida (ISO 14040).</p>
+  <h5>14: Falso</h5>
+  <p>La directiva CSRD y la directiva de debida diligencia abarcan filiales y cadenas de suministro globales.</p>
+  <h5>15: Verdadero</h5>
+  <p>Toda detención no planificada sustrae minutos de funcionamiento neto, mermando directamente $A$.</p>
+  <h5>16: Verdadero</h5>
+  <p>Poseen capacidad regulatoria, legal y social para decretar suspensiones de operaciones.</p>
+</div>
+
+<h3>Soluciones del Bloque III (Emparejamiento)</h3>
+<div class="solution">
+  <ul>
+    <li><span class="answer">17: D</span> — ISO 45001 → Jerarquía sistemática de controles (Eliminación, Sustitución, Ingeniería, Señalización/Advertencia y EPP).</li>
+    <li><span class="answer">18: C</span> — Rendimiento $P$ → $C_{i} \times P_{\text{total}}/T_{o}$.</li>
+    <li><span class="answer">19: A</span> — Debida Diligencia OCDE → Ciclo de 6 pasos preventivos y de remediación.</li>
+    <li><span class="answer">20: B</span> — Doble Materialidad → Evaluación bidireccional financiera y socioambiental.</li>
+    <li><span class="answer">21: F</span> — Creación de Valor Compartido → Rentabilidad vinculada al progreso social y ambiental.</li>
+    <li><span class="answer">22: E</span> — ISO 26000 → 7 materias fundamentales no certificables.</li>
+  </ul>
+</div>
+
+<h3>Soluciones del Bloque IV (Completación)</h3>
+<div class="solution">
+  <ul>
+    <li><strong>23:</strong> <span class="answer">indisponibilidad / paradas no planificadas</span> ; <span class="answer">Disponibilidad ($A$)</span>.</li>
+    <li><strong>24:</strong> <span class="answer">clústeres</span>.</li>
+    <li><strong>25:</strong> <span class="answer">GRI</span>.</li>
+    <li><strong>26:</strong> <span class="answer">80,00%</span> [calculado como: $(450 - 90)/450 = 360/450 = 0,80$].</li>
+    <li><strong>27:</strong> <span class="answer">CSDDD</span>.</li>
+  </ul>
+</div>
+
+<h3>Soluciones del Bloque V (Deducción Matemática y Análisis de Ingeniería)</h3>
+
+<div class="solution">
+  <h5>28. Cálculo de Disponibilidad ($A$):</h5>
+  <ul>
+    <li>$T_{c} = 480\text{ min} - 40\text{ min} = 440\text{ min} = 26\,400\text{ s}$</li>
+    <li>$T_{o} = 440\text{ min} - 50\text{ min} = 390\text{ min} = 23\,400\text{ s}$</li>
+  </ul>
+  <div class="formula">$$A = \frac{T_{o}}{T_{c}} = \frac{390}{440} \approx 0,8864\quad(88,64\%)$$</div>
+
+  <h5>29. Cálculo de Rendimiento ($P$) y Calidad ($Q$):</h5>
+  <ul>
+    <li>Tiempo de ciclo nominal: $C_{i} = 30\text{ s/pieza}$.</li>
+    <li>Producción total: $P_{\text{total}} = 700\text{ piezas}$.</li>
+    <li>Tiempo nominal de producción: $700 \times 30\text{ s} = 21\,000\text{ s}$.</li>
+  </ul>
+  <div class="formula">$$P = \frac{21\,000\text{ s}}{23\,400\text{ s}} \approx 0,8974\quad(89,74\%)$$</div>
+  <ul>
+    <li>Piezas conformes: $P_{\text{conformes}} = 700 - 70 = 630\text{ piezas}$.</li>
+  </ul>
+  <div class="formula">$$Q = \frac{630}{700} = 0,9000\quad(90,00\%)$$</div>
+
+  <h5>30. OEE Resultante y Dictamen Técnico:</h5>
+  <div class="formula">$$OEE = A \times P \times Q = 0,8864 \times 0,8974 \times 0,9000 \approx 0,7159\quad(71,59\%)$$</div>
+  <p><strong>Dictamen Técnico:</strong> La celda opera en un $71,59\%$ de efectividad, con pérdidas críticas en disponibilidad ($50\text{ min}$ de paradas por riesgos de atrapamiento) y en rendimiento ($10,26\%$ de velocidad subnominal). La implementación de un sistema de enclavamiento por control de ingeniería bajo ISO 45001 eliminaría las paradas de $50\text{ min}$, elevando $A$ al $100\%$ y situando el OEE proyectado en $80,77\%$. Esto responde directamente al principio de debida diligencia de la OCDE al suprimir peligros en la fuente y fortalece la materialidad de impacto exigida en los reportes de sostenibilidad.</p>
+</div>
+
+<h3>Validación de Integridad del Proceso Educativo</h3>
+<ul class="checklist">
+  <li><strong>Diversidad Taxonómica:</strong> La tarea integra los niveles cognitivos de Bloom (Recordar, Comprender, Aplicar, Analizar y Evaluar) a través de reactivos estructurados de selección, asociación y cálculo analítico cerrado.</li>
+  <li><strong>Consistencia Operativa del OEE:</strong> Todas las variables de tiempo ($T_{c}, T_{o}, C_{i}$) y producción ($P_{\text{total}}, P_{\text{conformes}}$) mantienen balance de unidades coherente (minutos y segundos convertidos con exactitud), garantizando un OEE final sin distorsión decimal.</li>
+  <li><strong>Alineación con eXeLearning y SCORM:</strong> La estructura modular y el código HTML5 respetan el estándar del editor eXeLearning para ser desplegados como objeto de aprendizaje SCORM 1.2 o 2004 en entornos LMS institucionales.</li>
+</ul>
+
+<div class="references">
+  <h3>Referencias Bibliográficas (Normas APA, 7.ª Edición)</h3>
+  <ul>
+    <li>Carroll, A. B. (1991). The pyramid of corporate social responsibility: Toward the moral management of organizational stakeholders. <em>Business Horizons</em>, 34(4), 39–48. https://doi.org/10.1016/0007-6813(91)90005-G</li>
+    <li>Freeman, R. E. (1984). <em>Strategic management: A stakeholder approach</em>. Pitman.</li>
+    <li>International Organization for Standardization. (2010). <em>Guidance on social responsibility</em> (ISO Standard No. 26000:2010). https://www.iso.org/standard/42546.html</li>
+    <li>International Organization for Standardization. (2018). <em>Occupational health and safety management systems — Requirements with guidance for use</em> (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html</li>
+    <li>Nakajima, S. (1988). <em>Introduction to TPM: Total productive maintenance</em>. Productivity Press.</li>
+    <li>Organización para la Cooperación y el Desarrollo Económicos. (2023). <em>Líneas Directrices de la OCDE para Empresas Multinacionales sobre Conducta Empresarial Responsable</em>. OECD Publishing. https://doi.org/10.1787/81f9be8f-es</li>
+    <li>Porter, M. E., &amp; Kramer, M. R. (2011). Creating shared value: How to reinvent capitalism—and unleash a wave of innovation and growth. <em>Harvard Business Review</em>, 89(1-2), 62–77.</li>
+    <li>Unión Europea. (2022). <em>Directiva (UE) 2022/2464 del Parlamento Europeo y del Consejo sobre la presentación de información sobre sostenibilidad por parte de las empresas (CSRD)</em>. Diario Oficial de la Unión Europea.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ TAB 5 ============ -->
+<section id="tab5" class="tab-content">
+<h2 class="section-title">Tarea Asincrónica: Caso de Estudio "EcoPack Solutions" — Optimización de OEE, Ecoeficiencia y Debida Diligencia (Dificultad Media)</h2>
+
+<h3>Introducción Motivadora</h3>
+<p>En la ingeniería de planta, la frontera entre rentabilidad económica y responsabilidad corporativa se define en el suelo de fábrica. Cuando una línea de producción de empaques termoformados experimenta paradas térmicas imprevistas, micro-paradas por vapores orgánicos volátiles y generación de desperdicio plástico, no solo se destruye el margen de contribución: se violan normativas ambientales, se compromete la salud respiratoria del personal y se arriesga la pérdida de certificaciones internacionales.</p>
+<p>Como futuro ingeniero industrial y de seguridad, tu misión en este caso asincrónico es auditar el balance de planta, cuantificar las pérdidas de efectividad mediante la Efectividad Global de los Equipos (OEE) y articular un plan de remediación técnica y de debida diligencia alineado con los estándares de la OCDE, la Unión Europea e ISO.</p>
+
+<div class="callout info">
+  <div class="callout-title">iDevice de Lectura · Contextualización del Caso "EcoPack Solutions"</div>
+  Perfil operacional de planta de extrusión y termoformado continuo de envases de polipropileno (PP), con turno de 8 horas y datos de telemetría para auditoría ESG.
+</div>
+
+<h3>1. Perfil Operacional y Datos de Turno</h3>
+<p><strong>EcoPack Solutions S.A.</strong> opera una celda automatizada de extrusión y termoformado continuo para envases de polipropileno (PP). La planta trabaja en turnos de $8\text{ horas}$ ($480\text{ minutos}$).</p>
+<p>El plan de producción contempla:</p>
+<ul>
+  <li><strong>Parada legal y programada:</strong> $30\text{ minutos}$ asignados para colación y cambio de indumentaria/EPP.</li>
+  <li><strong>Tiempo de Carga Planificado ($T_{c}$):</strong></li>
+</ul>
+<div class="formula">$$T_{c} = 480\text{ min} - 30\text{ min} = 450\text{ min} = 27\,000\text{ s}$$</div>
+
+<h3>2. Registro Telemetrado de Paradas e Incidentes (Mes de Auditoría)</h3>
+<p>Durante la corrida de evaluación, el sistema SCADA y el departamento de Seguridad y Salud en el Trabajo (SST) reportaron los siguientes eventos por turno:</p>
+
+<h4>Eventos de Inseguridad y Fallos Ambientales (Pérdidas de Disponibilidad)</h4>
+<ul>
+  <li>$35\text{ minutos}$: Activación repetida de sensores de barrera perimetral en la zona de bobinado por mala calibración y atascos en la guía manual del film.</li>
+  <li>$25\text{ minutos}$: Parada técnica obligatoria por superación de los límites permisibles de vapores orgánicos y gases de termoformado en la cabina de extracción (fallo en filtro electrostático), obligando a la evacuación parcial preventiva del área.</li>
+  <li><strong>Tiempo total de paradas no programadas ($T_{\text{paro}}$):</strong></li>
+</ul>
+<div class="formula">$$T_{\text{paro}} = 35\text{ min} + 25\text{ min} = 60\text{ min} = 3\,600\text{ s}$$</div>
+
+<h4>Parámetros de Desempeño y Velocidad</h4>
+<ul>
+  <li><strong>Tiempo de Ciclo Ideal de Diseño ($C_{i}$):</strong> $0,80\text{ segundos por envase}$ (Velocidad nominal: $75\text{ unidades/minuto} = 4\,500\text{ unidades/hora}$).</li>
+  <li><strong>Producción Total Bruta Contabilizada ($P_{\text{total}}$):</strong> $24\,000\text{ envases}$ al término del turno.</li>
+  <li><em>Condición de fatiga/ergonomía:</em> El equipo de termoformado opera un $17\%$ por debajo de su velocidad nominal debido a que los operarios reducen la cadencia de la cinta transportadora para evitar la saturación manual de empacado final al final de la línea.</li>
+</ul>
+
+<h4>Calidad y Generación de Scrap (Mermas Materiales)</h4>
+<ul>
+  <li>Del total de $24\,000$ unidades procesadas, el sistema de visión artificial y control metrológico rechazó $2\,400\text{ envases}$ por espesor de pared no conforme y rebabas de sellado térmico defectuoso.</li>
+  <li><strong>Unidades Conformes ($P_{\text{conformes}}$):</strong></li>
+</ul>
+<div class="formula">$$P_{\text{conformes}} = 24\,000 - 2\,400 = 21\,600\text{ envases}$$</div>
+
+<div class="case-stats">
+  <div class="stat-card"><div class="value">86,67%</div><div class="label">Disponibilidad (A)</div></div>
+  <div class="stat-card warn"><div class="value">82,05%</div><div class="label">Rendimiento (P)</div></div>
+  <div class="stat-card"><div class="value">90,00%</div><div class="label">Calidad (Q)</div></div>
+  <div class="stat-card warn"><div class="value">64,00%</div><div class="label">OEE Actual</div></div>
+  <div class="stat-card success"><div class="value">85,50%</div><div class="label">OEE Proyectado</div></div>
+</div>
+
+<h3>Actividad Práctica: Guía de Resolución para el Estudiante</h3>
+<p>Esta asignación asincrónica evalúa tu capacidad de cálculo, diagnóstico de causa raíz y propuesta técnica. Debes desarrollar en tu informe los siguientes cuatro requerimientos técnicos:</p>
+
+<h4>Requerimiento 1: Balance Matemático del OEE</h4>
+<p>Calcula de forma explícita y paso a paso, conservando 4 cifras decimales:</p>
+<ol>
+  <li>El <strong>Tiempo de Operación Real ($T_{o}$)</strong> en minutos y segundos.</li>
+  <li>El porcentaje de <strong>Disponibilidad ($A$)</strong>.</li>
+  <li>El porcentaje de <strong>Rendimiento ($P$)</strong>.</li>
+  <li>El porcentaje de <strong>Calidad ($Q$)</strong>.</li>
+  <li>El valor consolidado de <strong>Efectividad Global de los Equipos ($OEE$)</strong>.</li>
+</ol>
+
+<h4>Requerimiento 2: Diagnóstico Causa-Efecto de Pérdidas de Planta</h4>
+<p>Construye una matriz técnica de causalidad donde vincules:</p>
+<ul>
+  <li>La pérdida de $60\text{ minutos}$ de operación con la jerarquía de controles de la <strong>ISO 45001</strong> (¿Qué control de ingeniería falló en la cabina de extracción y en el bobinado?).</li>
+  <li>El factor de <strong>Rendimiento ($P$)</strong> con el diseño del puesto de trabajo bajo <strong>ISO 11228</strong> (Manipulación manual y fatiga).</li>
+  <li>La tasa de descarte de plástico ($10\%$ de scrap) con los principios de <strong>Ecoeficiencia y Economía Circular</strong>.</li>
+</ul>
+
+<h4>Requerimiento 3: Estrategia de Debida Diligencia y ESG (OCDE / UE)</h4>
+<p>Redacta un dictamen técnico-estratégico (máximo 300 palabras) respondiendo a la siguiente situación:</p>
+<div class="callout warning">
+  <em>El principal comprador europeo de EcoPack exige someter la planta a la Directiva CSRD (Doble Materialidad) y a las Líneas Directrices de la OCDE. Explica cómo la remediación de los vapores tóxicos y el reciclaje interno del scrap plástico responden a la materialidad de impacto (inside-out) y a la materialidad financiera (outside-in).</em>
+</div>
+
+<h4>Requerimiento 4: Proyección Post-Mejora</h4>
+<p>Si mediante una inversión en ventilación localizada asistida por PLC y un sistema de paletizado colaborativo (cobot) se eliminan por completo las paradas de SST ($A = 100\%$) y el rendimiento sube a $P = 95\%$, manteniendo la calidad actual ($Q = 90\%$):</p>
+<ul>
+  <li>Determina el nuevo valor proyectado de $OEE$.</li>
+  <li>Justifica este resultado bajo el principio de <strong>Creación de Valor Compartido (CSV)</strong> de Porter y Kramer.</li>
+</ul>
+
+<h2>Retroalimentación Pedagógica y Solucionario Analítico (Exclusivo Docente)</h2>
+
+<h3>Deducción Matemática de Referencia (Requerimiento 1)</h3>
+
+<div class="solution">
+  <h5>1. Tiempos de Proceso:</h5>
+  <ul>
+    <li>$T_{c} = 480 - 30 = 450\text{ min} = 27\,000\text{ s}$</li>
+    <li>$T_{o} = 450 - 60 = 390\text{ min} = 23\,400\text{ s}$</li>
+  </ul>
+
+  <h5>2. Disponibilidad ($A$):</h5>
+  <div class="formula">$$A = \frac{390}{450} \approx 0,8667\quad(86,67\%)$$</div>
+
+  <h5>3. Rendimiento ($P$):</h5>
+  <div class="formula">$$P = \frac{0,8\text{ s/envase} \times 24\,000\text{ envases}}{23\,400\text{ s}} = \frac{19\,200}{23\,400} \approx 0,8205\quad(82,05\%)$$</div>
+
+  <h5>4. Calidad ($Q$):</h5>
+  <div class="formula">$$Q = \frac{21\,600}{24\,000} = 0,9000\quad(90,00\%)$$</div>
+
+  <h5>5. OEE Global:</h5>
+  <div class="formula">$$OEE = 0,8667 \times 0,8205 \times 0,9000 \approx 0,6400\quad(64,00\%)$$</div>
+</div>
+
+<h3>Proyección Post-Mejora (Requerimiento 4)</h3>
+<div class="solution">
+  <ul>
+    <li>Nuevo vector proyectado: $A = 1,0000$ ($100\%$), $P = 0,9500$ ($95\%$), $Q = 0,9000$ ($90\%$).</li>
+  </ul>
+  <div class="formula">$$OEE_{\text{proyectado}} = 1,0000 \times 0,9500 \times 0,9000 = 0,8550\quad(85,50\%)$$</div>
+  <p><strong>Veredicto:</strong> La eliminación de peligros ocupacionales y la optimización ergonómica rescatan $21,50$ <strong>puntos porcentuales netos</strong> de efectividad, situando a la planta en niveles de clase mundial según el marco de Porter y Kramer.</p>
+</div>
+
+<h3>Validación de Integridad</h3>
+<ul class="checklist">
+  <li><strong>Calibración de Dificultad (Nivel Medio):</strong> El caso requiere cálculo multi-etapa con conversión de unidades de tiempo (minutos/segundos), articulación conceptual no lineal entre dos fallas técnicas simultáneas (ventilación industrial y ergonomía de empaque) y vinculación con la doctrina de Doble Materialidad de la UE.</li>
+  <li><strong>Consistencia Operacional:</strong> Los parámetros de producción ($75\text{ piezas/min}$, $450\text{ min}$ de carga) corresponden a valores estándar de la industria plástica de termoformado continuo.</li>
+  <li><strong>Alineación SCORM:</strong> El artefacto interactivo mantiene la semántica HTML5 requerida por la última versión de eXeLearning para publicación en plataformas LMS institucionales.</li>
+</ul>
+
+<div class="references">
+  <h3>Referencias Bibliográficas (Normas APA, 7.ª Edición)</h3>
+  <ul>
+    <li>International Organization for Standardization. (2018). <em>Occupational health and safety management systems — Requirements with guidance for use</em> (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html</li>
+    <li>Nakajima, S. (1988). <em>Introduction to TPM: Total productive maintenance</em>. Productivity Press.</li>
+    <li>Organización para la Cooperación y el Desarrollo Económicos. (2023). <em>Líneas Directrices de la OCDE para Empresas Multinacionales sobre Conducta Empresarial Responsable</em>. OECD Publishing. https://doi.org/10.1787/81f9be8f-es</li>
+    <li>Porter, M. E., &amp; Kramer, M. R. (2011). Creating shared value: How to reinvent capitalism—and unleash a wave of innovation and growth. <em>Harvard Business Review</em>, 89(1-2), 62–77.</li>
+    <li>Unión Europea. (2022). <em>Directiva (UE) 2022/2464 del Parlamento Europeo y del Consejo sobre la presentación de información sobre sostenibilidad por parte de las empresas (CSRD)</em>. Diario Oficial de la Unión Europea.</li>
+  </ul>
+</div>
+</section>
+
+</main>
+
+<div class="footer-note">
+  Documento didáctico generado a partir de <code>clase2.docx</code> · MSc. Luis Aníbal Palate Gaibor ·
+  Referencias bibliográficas en formato APA 7.ª Edición · Para uso académico en plataformas LMS/SCORM
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  // Tab switching
+  const buttons=document.querySelectorAll('.tab-btn');
+  const contents=document.querySelectorAll('.tab-content');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const target=btn.dataset.tab;
+      buttons.forEach(b=>b.classList.remove('active'));
+      contents.forEach(c=>c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+      // Re-render math for the activated tab
+      if(typeof renderMathInElement==='function'){
+        renderMathInElement(document.getElementById(target),{
+          delimiters:[
+            {left:'$$',right:'$$',display:true},
+            {left:'$',right:'$',display:false},
+            {left:'\\(',right:'\\)',display:false},
+            {left:'\\[',right:'\\]',display:true}
+          ],
+          throwOnError:false
+        });
+      }
+    });
+  });
+
+  // Initial math render
+  if(typeof renderMathInElement==='function'){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+});
+</script>
+</body>
+</html>
