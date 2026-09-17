@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APE — Caso "Maderas del Valle S.A." · RSC, OEE y Debida Diligencia</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --primary:#7c2d12; --primary-dark:#431407; --primary-light:#fed7aa;
+  --accent:#15803d; --accent-light:#bbf7d0; --accent-dark:#166534;
+  --wood:#b45309; --wood-light:#fde68a;
+  --bg:#fbf7f0; --bg-card:#ffffff; --text:#1c1917; --text-muted:#78716c;
+  --border:#e7e5e4; --success:#16a34a; --warning:#d97706; --danger:#dc2626;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.05);
+  --shadow:0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.08);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.10);
+  --serif:'Source Serif Pro','Georgia','Times New Roman',serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;font-size:16px}
+
+header.hero{
+  background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 40%,var(--wood) 100%);
+  color:white;padding:2.75rem 2rem 2.25rem;text-align:center;position:relative;overflow:hidden;
+}
+header.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(45deg,rgba(255,255,255,0.04) 0,rgba(255,255,255,0.04) 2px,transparent 2px,transparent 14px),
+    radial-gradient(circle at 80% 20%,rgba(255,255,255,0.10) 0,transparent 50%);
+  pointer-events:none;
+}
+header.hero .badge{
+  display:inline-block;background:rgba(255,255,255,0.15);padding:0.35rem 0.9rem;
+  border-radius:20px;font-size:0.8rem;font-weight:600;letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:0.75rem;position:relative;
+}
+header.hero h1{font-family:var(--serif);font-size:2.1rem;margin-bottom:0.5rem;position:relative;letter-spacing:-0.01em}
+header.hero .subtitle{opacity:0.95;font-size:1.05rem;position:relative;margin-bottom:0.25rem;max-width:900px;margin-left:auto;margin-right:auto}
+header.hero .meta{opacity:0.85;font-size:0.88rem;position:relative;margin-top:0.5rem}
+
+.section-nav{
+  background:var(--primary-dark);position:sticky;top:0;z-index:100;box-shadow:var(--shadow);
+}
+.section-nav ul{
+  list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin:0;padding:0;max-width:1100px;margin:0 auto;
+}
+.section-nav li{flex:1;min-width:130px}
+.section-nav a{
+  display:block;padding:0.85rem 0.6rem;color:rgba(255,255,255,0.78);text-decoration:none;
+  font-size:0.82rem;font-weight:600;text-align:center;transition:all 0.2s;border-bottom:3px solid transparent;
+}
+.section-nav a:hover{background:rgba(255,255,255,0.10);color:white}
+.section-nav a.active{background:rgba(255,255,255,0.15);color:white;border-bottom-color:var(--primary-light)}
+
+main{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 4rem}
+
+section.ape-block{
+  background:white;border-radius:10px;padding:2rem 2.25rem;margin:1.5rem 0;
+  box-shadow:var(--shadow-sm);border:1px solid var(--border);
+}
+section.ape-block h2{
+  font-family:var(--serif);font-size:1.55rem;color:var(--primary);
+  margin-top:0;padding-bottom:0.6rem;border-bottom:3px solid var(--primary-light);
+  display:flex;align-items:center;gap:0.6rem;
+}
+section.ape-block h2 .icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:50%;background:var(--primary);color:white;font-size:0.95rem;font-weight:700;flex-shrink:0;
+}
+section.ape-block h3{
+  font-family:var(--serif);font-size:1.2rem;color:var(--primary-dark);
+  margin:1.5rem 0 0.5rem;
+}
+section.ape-block h4{font-size:1.05rem;color:var(--wood);margin:1.2rem 0 0.4rem;font-weight:700}
+
+p{margin:0.75rem 0}
+ul,ol{margin:0.75rem 0 0.75rem 1.5rem}
+li{margin:0.4rem 0}
+
+.callout{background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%);border-left:4px solid var(--wood);padding:1rem 1.25rem;margin:1.5rem 0;border-radius:6px}
+.callout.info{background:linear-gradient(135deg,#ecfdf5 0%,#d1fae5 100%);border-left-color:var(--accent)}
+.callout.danger{background:linear-gradient(135deg,#fef2f2 0%,#fee2e2 100%);border-left-color:var(--danger)}
+.callout.success{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border-left-color:var(--success)}
+.callout-title{font-weight:700;margin-bottom:0.4rem;color:var(--primary-dark);text-transform:uppercase;font-size:0.82rem;letter-spacing:0.5px}
+.callout.info .callout-title{color:var(--accent-dark)}
+.callout.danger .callout-title{color:#b91c1c}
+.callout.success .callout-title{color:#15803d}
+
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;background:white;box-shadow:var(--shadow-sm);border-radius:8px;overflow:hidden;font-size:0.93rem}
+th{background:var(--primary);color:white;padding:0.8rem 1rem;text-align:left;font-weight:600;vertical-align:top}
+td{padding:0.8rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+tr:nth-child(even) td{background:#fafaf9}
+tr:last-child td{border-bottom:none}
+table.compact{font-size:0.88rem}
+table.compact th,table.compact td{padding:0.6rem 0.75rem}
+
+.formula{background:#1c1917;color:#fef3c7;padding:1.25rem 1.5rem;border-radius:8px;text-align:center;font-family:'KaTeX_Main','Cambria Math',serif;font-size:1.1rem;margin:1.5rem 0;overflow-x:auto;border-left:4px solid var(--wood)}
+.formula .katex{color:#fef3c7}
+
+.case-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1.5rem 0}
+.stat-card{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:white;
+  padding:1.25rem;border-radius:8px;text-align:center;box-shadow:var(--shadow);
+}
+.stat-card .value{font-size:1.8rem;font-weight:700;font-family:var(--serif);margin-bottom:0.25rem}
+.stat-card .label{font-size:0.82rem;opacity:0.88;text-transform:uppercase;letter-spacing:0.5px}
+.stat-card.warn{background:linear-gradient(135deg,var(--wood) 0%,#92400e 100%)}
+.stat-card.success{background:linear-gradient(135deg,#16a34a 0%,#15803d 100%)}
+.stat-card.neutral{background:linear-gradient(135deg,#525252 0%,#3f3f3f 100%)}
+
+.calc-step{background:#fffaf2;border:1px solid var(--wood-light);border-radius:8px;padding:1.25rem 1.5rem;margin:1.25rem 0;box-shadow:var(--shadow-sm);border-left:4px solid var(--wood)}
+.calc-step h4{margin-top:0;color:var(--primary-dark)}
+.calc-step .result{background:#ecfdf5;padding:0.5rem 0.85rem;border-radius:4px;display:inline-block;margin-top:0.5rem;font-weight:700;color:var(--accent-dark)}
+
+.phase-card{
+  background:white;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:1.5rem 0;box-shadow:var(--shadow-sm);
+}
+.phase-header{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:white;
+  padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;
+}
+.phase-header .phase-num{
+  width:44px;height:44px;border-radius:50%;background:white;color:var(--primary);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;font-family:var(--serif);
+  flex-shrink:0;
+}
+.phase-header .phase-info h3{margin:0;color:white;font-family:var(--serif);font-size:1.15rem}
+.phase-header .phase-info .phase-meta{font-size:0.82rem;opacity:0.85;margin-top:0.15rem}
+.phase-body{padding:1.25rem 1.5rem}
+.phase-body h4{color:var(--primary-dark)}
+
+.objectives-list{list-style:none;margin-left:0;padding-left:0}
+.objectives-list li{
+  padding-left:2rem;position:relative;margin:0.7rem 0;
+  padding:0.55rem 0.55rem 0.55rem 2rem;background:#fafaf9;border-radius:6px;border-left:3px solid var(--primary-light);
+}
+.objectives-list li::before{
+  content:"◆";position:absolute;left:0.7rem;color:var(--primary);font-size:0.9rem;top:0.7rem;
+}
+.objectives-list li strong{color:var(--primary-dark)}
+
+.rubric-table th{background:var(--primary-dark);font-size:0.85rem;text-align:center}
+.rubric-table td{font-size:0.85rem}
+.rubric-table td.criterion{font-weight:600;background:#fafaf9;width:22%}
+.rubric-table .level-1{background:#dcfce7}
+.rubric-table .level-2{background:#fef9c3}
+.rubric-table .level-3{background:#fed7aa}
+.rubric-table .level-4{background:#fecaca}
+
+.solution{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border:2px solid var(--success);border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0}
+.solution::before{content:" Solucionario Docente";display:block;font-weight:700;color:#14532d;margin-bottom:0.75rem;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.5px;background:#bbf7d0;padding:0.3rem 0.7rem;border-radius:4px;display:inline-block}
+.solution h4{color:#14532d;margin-top:1rem;margin-bottom:0.4rem}
+.solution .answer{font-weight:700;color:#15803d;background:#bbf7d0;display:inline-block;padding:0.15rem 0.6rem;border-radius:4px;font-size:0.95rem}
+
+.timeline{position:relative;padding-left:2rem;margin:1.5rem 0}
+.timeline::before{content:"";position:absolute;left:0.7rem;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--primary),var(--wood));border-radius:2px}
+.timeline-item{position:relative;margin-bottom:1.25rem;padding:0.85rem 1.1rem;background:white;border-radius:8px;border-left:3px solid var(--primary-light);box-shadow:var(--shadow-sm)}
+.timeline-item::before{content:"";position:absolute;left:-1.5rem;top:1rem;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid white;box-shadow:0 0 0 2px var(--primary)}
+.timeline-item .time{font-weight:700;color:var(--primary);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px}
+.timeline-item .title{font-weight:600;color:var(--primary-dark);margin:0.2rem 0}
+.timeline-item .desc{font-size:0.92rem;color:var(--text)}
+
+.references{background:#fafaf9;border:1px solid var(--border);border-radius:8px;padding:1rem 1.5rem;margin:2rem 0}
+.references h3{margin-top:0;color:var(--primary-dark)}
+.references ul{list-style:none;margin-left:0;padding-left:0}
+.references li{padding:0.5rem 0;font-size:0.92rem;color:var(--text);border-bottom:1px dashed var(--border)}
+.references li:last-child{border-bottom:none}
+.references li::before{content:"📚 ";margin-right:0.25rem}
+
+.footer-note{background:#1c1917;color:#fef3c7;padding:1.5rem 2rem;text-align:center;font-size:0.85rem;margin-top:3rem}
+
+/* ===== Cerradura del Solucionario Docente ===== */
+.lock-screen{
+  background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%);
+  border:2px dashed #b45309;border-radius:10px;padding:2.5rem 2rem;text-align:center;margin:1.5rem 0;
+  box-shadow:var(--shadow);
+}
+.lock-screen .lock-icon{
+  display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;
+  border-radius:50%;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);
+  color:white;font-size:1.8rem;margin-bottom:1rem;box-shadow:var(--shadow-lg);
+}
+.lock-screen h3{color:var(--primary-dark);margin-bottom:0.4rem}
+.lock-screen p{color:var(--text-muted);margin-bottom:1.25rem;max-width:480px;margin-left:auto;margin-right:auto}
+.lock-form{display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.lock-form input{
+  padding:0.65rem 0.9rem;font-size:1rem;border:2px solid var(--wood);border-radius:6px;
+  width:160px;text-align:center;letter-spacing:0.4em;font-family:monospace;font-weight:700;
+  background:white;color:var(--primary-dark);transition:all 0.2s;
+}
+.lock-form input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(124,45,18,0.15)}
+.lock-form button{
+  padding:0.65rem 1.4rem;background:var(--primary);color:white;border:none;border-radius:6px;
+  font-weight:600;cursor:pointer;transition:all 0.2s;font-family:inherit;font-size:0.95rem;
+}
+.lock-form button:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:var(--shadow)}
+.lock-form button:active{transform:translateY(0)}
+.lock-error{color:var(--danger);font-weight:600;font-size:0.88rem;min-height:1.2rem;margin-top:0.5rem;display:none}
+.lock-error.show{display:block;animation:shake 0.4s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
+}
+.lock-hint{font-size:0.78rem;color:var(--text-muted);margin-top:0.5rem;font-style:italic}
+.solution-reveal{display:none;animation:fadeIn 0.4s ease}
+.solution-reveal.visible{display:block}
+.solution-hide-btn{
+  display:inline-block;margin:1rem 0;padding:0.5rem 1rem;background:#fef3c7;color:var(--primary-dark);
+  border:1px solid var(--wood);border-radius:6px;font-size:0.85rem;font-weight:600;cursor:pointer;
+  transition:all 0.2s;font-family:inherit;
+}
+.solution-hide-btn:hover{background:var(--wood);color:white}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+@media (max-width:768px){
+  .section-nav a{font-size:0.72rem;padding:0.6rem 0.3rem;min-width:100px}
+  header.hero h1{font-size:1.45rem}
+  main{padding:1rem 0.75rem 3rem}
+  section.ape-block{padding:1.25rem 1rem}
+  table{font-size:0.82rem}
+  th,td{padding:0.55rem 0.5rem}
+  .rubric-table{display:block;overflow-x:auto;white-space:nowrap}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge">APE · Actividad de Aprendizaje Práctico Experimental</div>
+  <h1>Caso "Maderas del Valle S.A."</h1>
+  <p class="subtitle">Optimización integral de línea, seguridad ocupacional y ecoeficiencia en planta de muebles modulares</p>
+  <p class="meta">MSc. Luis Aníbal Palate Gaibor · Ingeniería Industrial / Seguridad Industrial · Tema: RSC, OEE y Debida Diligencia</p>
+</header>
+
+<nav class="section-nav">
+  <ul>
+    <li><a href="#identificacion">1. Identificación</a></li>
+    <li><a href="#justificacion">2. Justificación</a></li>
+    <li><a href="#objetivos">3. Objetivos</a></li>
+    <li><a href="#competencias">4. Competencias</a></li>
+    <li><a href="#materiales">5. Materiales</a></li>
+    <li><a href="#metodologia">6. Metodología</a></li>
+    <li><a href="#marco">7. Marco Teórico</a></li>
+    <li><a href="#caso">8. Caso</a></li>
+    <li><a href="#fases">9. Fases</a></li>
+    <li><a href="#entregables">10. Entregables</a></li>
+    <li><a href="#rubrica">11. Rúbrica</a></li>
+    <li><a href="#solucionario">12. Solucionario</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- 1. IDENTIFICACIÓN -->
+<section id="identificacion" class="ape-block">
+  <h2><span class="icon">1</span>Identificación General</h2>
+  <table>
+    <tbody>
+      <tr><td style="width:35%;font-weight:600;background:#fafaf9">Asignatura</td><td>Ingeniería Industrial e Ingeniería en Seguridad Industrial</td></tr>
+      <tr><td style="font-weight:600;background:#fafaf9">Unidad didáctica</td><td>Clase 2 — Fundamentos Epistemológicos y Modelos Teóricos de la RSC</td></tr>
+      <tr><td style="font-weight:600;background:#fafaf9">Tipo de actividad</td><td>APE (Actividad de Aprendizaje Práctico Experimental)</td></tr>
+      <tr><td style="font-weight:600;background:#fafaf9">Modalidad</td><td>Presencial, taller guiado con metodología PBL-Sprint</td></tr>
+      <tr><td style="font-weight:600;background:#fafaf9">Agrupamiento</td><td>Equipos de 3 a 4 estudiantes (binomios funcionales: operaciones + seguridad + calidad + ESG)</td></tr>
+      <tr><td style="font-weight:600;background:#fafaf9">Duración total</td><td>90 minutos (1 sesión de aula + trabajo autónomo complementario opcional)</td></tr>
+      <tr><td style="font-weight:600;background:#fafaf9">Nivel cognitivo Bloom</td><td>Aplicar · Analizar · Evaluar · Crear</td></tr>
+      <tr><td style="font-weight:600;background:#fafaf9">Producto final</td><td>Informe técnico de auditoría de planta + memoria de cálculo OEE + plan de remediación alineado a marcos internacionales</td></tr>
+      <tr><td style="font-weight:600;background:#fafaf9">Recurso de referencia</td><td>Clase 2 — Material didáctico RSC/OEE (NovaPress, EcoPack Solutions)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 2. JUSTIFICACIÓN -->
+<section id="justificacion" class="ape-block">
+  <h2><span class="icon">2</span>Justificación Pedagógica</h2>
+  <p>La industria de transformación de madera y manufactura de muebles modulares constituye un sector estratégico en la economía regional andina, generando externalidades ambientales (polvo de madera, ruido, residuos lignocelulósicos) y riesgos ocupacionales (exposición a formaldehído de tableros MDF, lesiones por astillamiento, fatiga postural) que la convierten en un campo ideal para ejercitar la integración de la Responsabilidad Social Corporativa con los sistemas de gestión técnica. A diferencia de los casos anteriores centrados en metalmecánica y termoformado plástico, el caso <strong>Maderas del Valle S.A.</strong> introduce tres elementos pedagógicos nuevos:</p>
+  <ul>
+    <li><strong>Riesgos químicos y biológicos combinados:</strong> polvo de madera clasificado como cancerígeno grupo 1 (IARC) y emisiones de formaldehído, lo que obliga a invocar la jerarquía de controles de ISO 45001 con mayor profundidad que en casos previos.</li>
+    <li><strong>Stakeholders comunitarios externos sensibles:</strong> la planta opera en un polígono industrial periurbano, por lo que las emisiones de polvo y ruido trascienden el perímetro y afectan a la comunidad aledaña, materializando la dimensión <em>inside-out</em> de la Doble Materialidad de la UE.</li>
+    <li><strong>Cadena de suministro certificable (FSC):</strong> los tableros MDF y la madera sólida provienen de proveedores con certificación Forest Stewardship Council, lo que permite ejercitar el principio de <em>Debida Diligencia</em> de la OCDE sobre proveedores con estándar voluntario en lugar de obligatorio.</li>
+  </ul>
+  <p>Esta diversidad de frentes convierte al caso en una herramienta pedagógica capaz de movilizar simultáneamente las competencias cognitivas, procedimentales y actitudinales del futuro ingeniero, articulando la medición cuantitativa (OEE) con el juicio ético-normativo internacional.</p>
+</section>
+
+<!-- 3. OBJETIVOS -->
+<section id="objetivos" class="ape-block">
+  <h2><span class="icon">3</span>Objetivos de Aprendizaje</h2>
+
+  <h3>Objetivo General</h3>
+  <p>Aplicar el modelo de Efectividad Global de los Equipos (OEE) y los marcos internacionales de Responsabilidad Social Corporativa (OCDE, ONU, UE, ISO) para diagnosticar, cuantificar y remediar las pérdidas operacionales, ambientales y de seguridad de una planta industrial real, formulando un plan técnico-económico alineado con el principio de Creación de Valor Compartido (CSV).</p>
+
+  <h3>Objetivos Específicos</h3>
+  <ul class="objectives-list">
+    <li><strong>OE1 — Cálculo cuantitativo:</strong> Determinar con rigor matemático el Tiempo de Carga Planificado ($T_{c}$), Tiempo de Operación Real ($T_{o}$) y los factores de Disponibilidad ($A$), Rendimiento ($P$), Calidad ($Q$) y OEE global, conservando 4 cifras decimales y verificando consistencia de unidades.</li>
+    <li><strong>OE2 — Diagnóstico causa-raíz:</strong> Construir una matriz técnica de causalidad que vincule cada pérdida operacional con la jerarquía de controles de la ISO 45001, los principios de la ISO 26000 y los deberes de Debida Diligencia de la OCDE.</li>
+    <li><strong>OE3 — Mapeo de partes interesadas:</strong> Aplicar la teoría de Freeman para identificar y clasificar los <em>stakeholders</em> internos y externos, evaluando su poder de influencia y su legitimidad en el caso de la planta maderera.</li>
+    <li><strong>OE4 — Doble Materialidad:</strong> Argumentar cómo la remediación del polvo de madera y el reciclaje de retales responden simultáneamente a la materialidad de impacto (<em>inside-out</em>) y a la materialidad financiera (<em>outside-in</em>) de la Directiva CSRD.</li>
+    <li><strong>OE5 — Diseño de mejora:</strong> Proyectar el OEE post-intervención a partir de hipótesis técnicas razonables (enclavamientos, rediseño ergonómico, sensorización) y justificar el resultado bajo el principio de Creación de Valor Compartido (CSV) de Porter y Kramer.</li>
+    <li><strong>OE6 — Comunicación técnica:</strong> Redactar un dictamen técnico-estratégico de máximo 250 palabras defendible ante un comité de dirección, articulando rentabilidad, seguridad y sostenibilidad en un mismo enunciado.</li>
+  </ul>
+</section>
+
+<!-- 4. COMPETENCIAS -->
+<section id="competencias" class="ape-block">
+  <h2><span class="icon">4</span>Competencias a Desarrollar</h2>
+  <table>
+    <thead>
+      <tr><th>Dimensión</th><th>Competencia</th><th>Indicador de logro observable</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Cognitiva</strong></td><td>Aplicar las fórmulas canónicas del OEE y relacionarlas con marcos normativos internacionales.</td><td>Calcula $A$, $P$, $Q$, $OEE$ sin error y vincula cada pérdida con al menos una norma internacional.</td></tr>
+      <tr><td><strong>Procedimental</strong></td><td>Construir matrices de causalidad y diagramas de flujo técnico-normativo.</td><td>Entrega matriz técnica de 3×4 con causa raíz, control, norma y mecanismo CSV completo.</td></tr>
+      <tr><td><strong>Actitudinal / Ética</strong></td><td>Asumir la debida diligencia como deber profesional y no como opcional reputacional.</td><td>Argumenta explícitamente el deber de remediación extendido a proveedores y comunidad.</td></tr>
+      <tr><td><strong>Transversal</strong></td><td>Trabajo en equipo interdisciplinario y comunicación técnica eficaz.</td><td>Coordina roles dentro del equipo y redacta dictamen coherente en menos de 250 palabras.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 5. MATERIALES -->
+<section id="materiales" class="ape-block">
+  <h2><span class="icon">5</span>Materiales y Recursos</h2>
+  <h3>Para cada equipo de estudiantes</h3>
+  <ul>
+    <li>Enunciado impreso del caso Maderas del Valle S.A. (este documento).</li>
+    <li>Hoja de cálculo (Excel / Google Sheets / LibreOffice Calc) para memoria de cálculo.</li>
+    <li>Calculadora científica.</li>
+    <li>Plantilla de matriz de causalidad (3 columnas × 4 filas) en blanco.</li>
+    <li>Cinta métrica y cronómetro (opcional, para simulación de tiempos de ciclo).</li>
+    <li>Acceso al material didáctico de la Clase 2 (Pestañas 1–5 del HTML).</li>
+  </ul>
+  <h3>Para el docente</h3>
+  <ul>
+    <li>Pizarra blanca con marcadores de 4 colores.</li>
+    <li>Proyector con el solucionario analítico (sección 12 de este documento).</li>
+    <li>Rúbrica impresa para evaluación grupal.</li>
+    <li>Sumarios rápidos de ISO 45001:2018, ISO 26000:2010 y Directiva UE CSRD 2022/2464.</li>
+  </ul>
+  <div class="callout info">
+    <div class="callout-title">Recurso digital complementario</div>
+    Se recomienda proyectar en paralelo la pestaña 1 (Fundamentos) y la pestaña 2 (NovaPress) del documento didáctico <code>clase2_RSC_didactica.html</code> como referencia analítica durante toda la sesión.
+  </div>
+</section>
+
+<!-- 6. METODOLOGÍA -->
+<section id="metodologia" class="ape-block">
+  <h2><span class="icon">6</span>Metodología Pedagógica</h2>
+  <p>El APE se desarrolla bajo el enfoque <strong>PBL-Sprint Experimental</strong> (Problem-Based Learning con Sprints de tiempo limitado), adaptado del modelo usado en los casos NovaPress y EcoPack Solutions. La originalidad metodológica de este APE radica en la incorporación de <strong>5 fases</strong> (en lugar de 4) para cubrir explícitamente la dimensión ESG/Doble Materialidad, y en la introducción de un <strong>rol vivo de stakeholder comunitario</strong> que un estudiante asume durante la fase 5.</p>
+  <h3>Principios metodológicos</h3>
+  <ul>
+    <li><strong>Apertura del problema:</strong> el caso se presenta sin solución; los estudiantes la construyen.</li>
+    <li><strong>Time-boxing estricto:</strong> cada fase tiene límite de tiempo no negociable; se busca entregar resultados parciales, no exhaustivos.</li>
+    <li><strong>Trabajo en roles:</strong> cada integrante del equipo asume un rol funcional (Operaciones, Seguridad/SST, Calidad/Ambiente, ESG/Stakeholders).</li>
+    <li><strong>Validación cruzada:</strong> la fase 5 incluye un contra-equipo que actúa como comprador europeo exigente y verifica la coherencia del dictamen ESG.</li>
+    <li><strong>Retroalimentación inmediata:</strong> el docente corrige al final de cada sprint en plenaria, no al final del APE.</li>
+  </ul>
+</section>
+
+<!-- 7. MARCO TEÓRICO -->
+<section id="marco" class="ape-block">
+  <h2><span class="icon">7</span>Marco Teórico de Referencia</h2>
+  <p>El APE articula cinco marcos conceptuales ya introducidos en la Clase 2 y un nuevo marco sectorial específico:</p>
+  <table class="compact">
+    <thead>
+      <tr><th>Marco</th><th>Concepto clave</th><th>Aplicación al caso Maderas del Valle</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Pirámide de Carroll (1991)</strong></td><td>4 estratos jerárquicos: económica, legal, ética, filantrópica</td><td>Evaluación de las cuatro capas: rentabilidad de la planta, cumplimiento de límites de polvo, expectativas comunitarias tácitas, programa de reforestación con proveedores.</td></tr>
+      <tr><td><strong>Stakeholders de Freeman (1984)</strong></td><td>Todo actor que afecta o es afectado por la organización</td><td>Operadores, comunidad periurbana, proveedores FSC, autoridades ambientales locales, aseguradora, clientes de muebles eco-certificados.</td></tr>
+      <tr><td><strong>CSV de Porter &amp; Kramer (2011)</strong></td><td>Valor compartido: reconfiguración de la cadena para unir rentabilidad y progreso social</td><td>Uso del polvo residual como biomasa para caldera de secado; rediseño ergonómico de estación de alimentación de MDF.</td></tr>
+      <tr><td><strong>ISO 45001:2018</strong></td><td>Jerarquía de controles: Eliminación → Sustitución → Ingeniería → Señalización → EPP</td><td>Aplicación jerárquica al riesgo de astillamiento y exposición a polvo de madera.</td></tr>
+      <tr><td><strong>OCDE (2023) + Directiva CSRD UE 2022/2464</strong></td><td>Debida Diligencia + Doble Materialidad (inside-out / outside-in)</td><td>Extensión de la trazabilidad a proveedores FSC y reporte del impacto del polvo sobre la comunidad aledaña.</td></tr>
+      <tr><td><strong>NUEVO — IARC / OSH-PPM</strong></td><td>Polvo de madera clasificado cancerígeno Grupo 1; límites OSHA/ACGIH para formaldehído</td><td>Justificación técnica de las paradas por alarma ambiental y de la obligación de mantener el sistema de aspiración centralizada.</td></tr>
+    </tbody>
+  </table>
+  <h3>Fórmulas canónicas del OEE</h3>
+  <div class="formula">$$OEE = A \times P \times Q$$</div>
+  <div class="formula">$$A = \frac{T_{o}}{T_{c}}\qquad P = \frac{C_{i} \times P_{\text{total}}}{T_{o}}\qquad Q = \frac{P_{\text{conformes}}}{P_{\text{total}}}$$</div>
+  <p>Donde $T_{c}$ = Tiempo de Carga Planificado, $T_{o}$ = Tiempo de Operación Real, $C_{i}$ = Tiempo de Ciclo Ideal, $P_{\text{total}}$ = Producción bruta, $P_{\text{conformes}}$ = Piezas conformes al primer intento.</p>
+</section>
+
+<!-- 8. CASO -->
+<section id="caso" class="ape-block">
+  <h2><span class="icon">8</span>Planteamiento del Caso Maderas del Valle S.A.</h2>
+
+  <h3>Descripción de la empresa</h3>
+  <p><strong>Maderas del Valle S.A.</strong> es una planta industrial de mediano tamaño dedicada al corte, ensamblaje y acabado de muebles modulares para oficina y hogar. Opera en un polígono industrial periurbano, a 250 m del barrio residencial Las Acacias. La planta ocupa a 42 operarios directos distribuidos en dos turnos y mantiene contratos con dos cadenas nacionales de retail y un comprador europeo interesado en certificar la cadena FSC.</p>
+  <p>La celda de corte y ensamble —línea principal del turno matutino— procesa tableros MDF y madera sólida de eucalipto, generando componentes modulares a un ritmo nominal de $5\text{ piezas/minuto}$. En el último mes, la dirección ha recibido tres señales de alerta simultáneas: (i) quejas formales del comité de barrio por depósitos de polvo en patios vecinos, (ii) un near miss reportado por un operador por proyección de astilla sin EPP facial adecuado, y (iii) la advertencia del comprador europeo de auditar la planta bajo los estándares CSRD y OCDE.</p>
+
+  <div class="callout">
+    <div class="callout-title">iDevice de Lectura · Ficha técnica del turno auditado</div>
+    Datos consolidados por el sistema SCADA, el departamento de SST y el laboratorio de calidad durante el último mes de operación en la celda de corte y ensamble.
+  </div>
+
+  <h3>1. Datos del turno</h3>
+  <ul>
+    <li>Jornada programada: $8\text{ horas}$ = $480\text{ min}$.</li>
+    <li>Parada legal y planificada (almuerzo, cambio de turno, briefing de seguridad, EPP): $30\text{ min}$.</li>
+    <li><strong>Tiempo de Carga Planificado ($T_{c}$):</strong></li>
+  </ul>
+  <div class="formula">$$T_{c} = 480\text{ min} - 30\text{ min} = 450\text{ min} = 27\,000\text{ s}$$</div>
+
+  <h3>2. Registro de paradas e incidentes del turno auditado</h3>
+  <ul>
+    <li><strong>25 min</strong> — Parada por activación de alarma ambiental: el sensor de polvo de madera en zona de corte superó el límite permisible ponderado (LPP) por saturación del sistema centralizado de aspiración, cuyo filtro de mangas no recibió mantenimiento predictivo en los últimos 90 días. Se ordenó evacuación técnica del área y limpieza de filtros.</li>
+    <li><strong>30 min</strong> — Detención por atasco recurrente en la sierra principal: la alimentación manual de tableros MDF obliga a posturas forzadas (flexión de tronco &gt; 30°) y provoca desalineación del tablero en la cinta de entrada, con paro automático de seguridad.</li>
+    <li><strong>20 min</strong> — Reunión obligatoria de seguridad tras near miss: un operador reportó proyección de astilla de eucalipto que impactó el visor de seguridad sin lesionarlo. Se activó el protocolo de investigación de incidente (ISO 45001 cláusula 10.2).</li>
+    <li><strong>Tiempo total de paradas no programadas ($T_{\text{paro}}$):</strong></li>
+  </ul>
+  <div class="formula">$$T_{\text{paro}} = 25 + 30 + 20 = 75\text{ min} = 4\,500\text{ s}$$</div>
+  <ul>
+    <li><strong>Tiempo de Operación Real ($T_{o}$):</strong></li>
+  </ul>
+  <div class="formula">$$T_{o} = T_{c} - T_{\text{paro}} = 450 - 75 = 375\text{ min} = 22\,500\text{ s}$$</div>
+
+  <h3>3. Capacidad y producción</h3>
+  <ul>
+    <li><strong>Tiempo de Ciclo Ideal de diseño ($C_{i}$):</strong> $12\text{ s/pieza}$ (equivalente a $5\text{ piezas/min}$).</li>
+    <li><strong>Producción bruta total contabilizada al cierre del turno ($P_{\text{total}}$):</strong> $1\,500\text{ piezas modulares}$.</li>
+    <li><em>Observación ergonómica:</em> la cadencia cae en la última hora del turno por fatiga lumbar en el operador de la sierra, fenómeno consistente con el TME reportado al departamento médico.</li>
+  </ul>
+
+  <h3>4. Calidad y generación de scrap</h3>
+  <ul>
+    <li>Piezas rechazadas por el control de calidad: $135\text{ piezas}$ (grietas por gradiente de humedad, desalineación dimensional por vibración de sierra sin calibración, errores de ensamble por fatiga del operario de prensa manual).</li>
+    <li><strong>Piezas conformes al primer intento ($P_{\text{conformes}}$):</strong></li>
+  </ul>
+  <div class="formula">$$P_{\text{conformes}} = 1\,500 - 135 = 1\,365\text{ piezas}$$</div>
+
+  <div class="case-stats">
+    <div class="stat-card"><div class="value">83,33%</div><div class="label">Disponibilidad (A) — esperada</div></div>
+    <div class="stat-card warn"><div class="value">80,00%</div><div class="label">Rendimiento (P) — esperado</div></div>
+    <div class="stat-card"><div class="value">91,00%</div><div class="label">Calidad (Q) — esperada</div></div>
+    <div class="stat-card warn"><div class="value">60,67%</div><div class="label">OEE Global — a calcular</div></div>
+  </div>
+
+  <div class="callout danger">
+    <div class="callout-title">Advertencia metodológica</div>
+    Los valores anteriores son las metas a verificar por el equipo estudiantil; no deben asumirse como solución. La fase 2 exige deducción matemática completa con 4 cifras decimales.
+  </div>
+
+  <h3>5. Stakeholders identificados (matriz Freeman)</h3>
+  <table class="compact">
+    <thead><tr><th>Stakeholder</th><th>Tipo</th><th>Poder / Interés</th><th>Expectativa principal en el caso</th></tr></thead>
+    <tbody>
+      <tr><td>Operarios de corte y ensamble</td><td>Interno</td><td>Alto interés / Poder medio</td><td>Salud respiratoria, ergonomía, estabilidad laboral</td></tr>
+      <tr><td>Comité paritario de SST</td><td>Interno</td><td>Alto interés / Poder medio</td><td>Investigación del near miss y cierre de hallazgos</td></tr>
+      <tr><td>Directivos de planta</td><td>Interno</td><td>Alto interés / Alto poder</td><td>Recuperar margen de contribución perdido por OEE bajo</td></tr>
+      <tr><td>Comunidad Las Acacias (barrio periurbano)</td><td>Externo</td><td>Alto interés / Poder medio-bajo</td><td>Calidad del aire y reducción de polvo sedimentable</td></tr>
+      <tr><td>Autoridad ambiental municipal</td><td>Externo</td><td>Medio interés / Alto poder</td><td>Cumplimiento de límites de emisión de polvo y ruido</td></tr>
+      <tr><td>Proveedores FSC de madera sólida y MDF</td><td>Externo</td><td>Medio interés / Medio poder</td><td>Continuidad de contrato, volumen de compra estable</td></tr>
+      <tr><td>Comprador europeo (cadena retail)</td><td>Externo</td><td>Alto interés / Alto poder</td><td>Trazabilidad OCDE + reporte CSRD Doble Materialidad</td></tr>
+      <tr><td>Aseguradora de responsabilidad civil</td><td>Externo</td><td>Bajo interés / Alto poder</td><td>Reducción de siniestralidad y near miss reportados</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 9. FASES -->
+<section id="fases" class="ape-block">
+  <h2><span class="icon">9</span>Fases del APE (90 minutos)</h2>
+  <p>Cada equipo recorre las 5 fases siguientes en el orden indicado. El docente anuncia el inicio y el cierre de cada sprint.</p>
+
+  <!-- FASE 1 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div class="phase-info">
+        <h3>Fase 1 · Inmersión y asignación de roles</h3>
+        <div class="phase-meta">Duración: 10 min · Productos: roles definidos, variables listadas</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <h4>Instrucciones</h4>
+      <ol>
+        <li>Cada equipo define internamente los 4 roles: <strong>(a) Ingeniero de Operaciones</strong>, <strong>(b) Ingeniero de SST</strong>, <strong>(c) Ingeniero de Calidad/Ambiente</strong>, <strong>(d) Oficial de ESG/Stakeholders</strong>.</li>
+        <li>Lectura silenciosa del enunciado del caso (3 min).</li>
+        <li>El equipo lista en una hoja las variables de entrada del sistema: $T_{c}$, $T_{\text{paro}}$, $C_{i}$, $P_{\text{total}}$, scrap. Identifica también los stakeholders críticos.</li>
+      </ol>
+      <h4>Producto de fase</h4>
+      <p>Hoja con variables listadas y roles firmados. Sin cálculos todavía.</p>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div class="phase-info">
+        <h3>Fase 2 · Diagnóstico matemático del OEE</h3>
+        <div class="phase-meta">Duración: 25 min · Productos: $T_c$, $T_o$, $A$, $P$, $Q$, $OEE$ con 4 decimales</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <h4>Instrucciones</h4>
+      <ol>
+        <li>El ingeniero de Operaciones calcula $T_{c}$ y $T_{o}$ (en min y s).</li>
+        <li>El ingeniero de Calidad/Ambiente calcula $A$, $P$ y $Q$ con 4 cifras decimales.</li>
+        <li>El ingeniero de SST valida que la pérdida asociada a cada factor esté correctamente identificada (SST → $A$; ergonomía → $P$; scrap → $Q$).</li>
+        <li>El Oficial ESG registra el OEE global y proyecta tres hipótesis de mejora (mejor, media, conservadora) para los factores A, P, Q.</li>
+      </ol>
+      <h4>Entrega intermedia</h4>
+      <p>El equipo escribe en la pizarra sus valores de $A$, $P$, $Q$ y $OEE$ al cierre del sprint 2. El docente verifica en plenaria.</p>
+    </div>
+  </div>
+
+  <!-- FASE 3 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div class="phase-info">
+        <h3>Fase 3 · Diagnóstico causa-raíz y matriz técnica</h3>
+        <div class="phase-meta">Duración: 20 min · Productos: matriz 3 × 4 completa</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <h4>Instrucciones</h4>
+      <ol>
+        <li>Construir una matriz con 3 filas (las tres pérdidas: 25 min polvo, 30 min atasco, 20 min near miss + scrap) y 4 columnas:</li>
+      </ol>
+      <ul>
+        <li><strong>Causa raíz técnica</strong> (¿por qué se produjo la pérdida?).</li>
+        <li><strong>Control de ingeniería recomendado</strong> (jerarquía ISO 45001).</li>
+        <li><strong>Norma técnica / Marco RSC aplicable</strong> (ISO 45001, ISO 14001, ISO 26000, OCDE, UE CSRD, ONU).</li>
+        <li><strong>Mecanismo CSV</strong> (¿cómo la remediación crea valor compartido?).</li>
+      </ul>
+      <ol start="2">
+        <li>El ingeniero de SST lidera la causa raíz; el de Calidad/Ambiente, las normas; el de Operaciones, el control de ingeniería; el Oficial ESG, el mecanismo CSV.</li>
+      </ol>
+      <h4>Plantilla en blanco</h4>
+      <table class="compact">
+        <thead><tr><th>Pérdida</th><th>Causa raíz</th><th>Control de ingeniería</th><th>Norma / Marco RSC</th><th>Mecanismo CSV</th></tr></thead>
+        <tbody>
+          <tr><td>25 min polvo</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>30 min atasco</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>20 min near miss</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>135 piezas scrap</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FASE 4 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div class="phase-info">
+        <h3>Fase 4 · Propuesta técnica y proyección post-mejora</h3>
+        <div class="phase-meta">Duración: 20 min · Productos: OEE proyectado + justificación CSV</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <h4>Instrucciones</h4>
+      <ol>
+        <li>El equipo define un paquete técnico de intervención con 3 acciones concretas (una por pérdida principal + scrap).</li>
+        <li>Asigna hipótesis de mejora razonables (A &gt; 0,93; P &gt; 0,90; Q &gt; 0,95) y justifica cada valor en una frase.</li>
+        <li>Calcula el OEE proyectado con la fórmula canónica.</li>
+        <li>Redacta un dictamen técnico-estratégico de máximo 250 palabras defendiendo el resultado bajo el principio de CSV de Porter y Kramer: ¿cómo la remediación genera productividad adicional y no solo costo?</li>
+      </ol>
+      <div class="callout info">
+        <div class="callout-title">Pista técnica para el equipo</div>
+        Recuerden que la cadena de valor de Maderas del Valle permite dos CSV visibles: (i) uso del polvo residual como combustible de biomasa en la caldera de secado, (ii) rediseño ergonómico de la estación de alimentación que reduce TME y estabiliza el ritmo de producción.
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 5 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">5</div>
+      <div class="phase-info">
+        <h3>Fase 5 · Validación ESG y rol vivo de stakeholder</h3>
+        <div class="phase-meta">Duración: 15 min · Productos: dictamen ESG validado, contra-equipo firma conformidad</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <h4>Instrucciones</h4>
+      <ol>
+        <li>El Oficial ESG del equipo expone oralmente (90 segundos) el dictamen sobre la Doble Materialidad: ¿cómo la remediación del polvo responde al <em>inside-out</em> (impacto en comunidad Las Acacias) y al <em>outside-in</em> (riesgo de pérdida del contrato europeo)?</li>
+        <li>Un estudiante designado de otro equipo actúa como <strong>comprador europeo</strong> y formula dos preguntas críticas.</li>
+        <li>El equipo responde y el comprador firma o rechaza la conformidad ESG en una tarjeta de validación.</li>
+      </ol>
+      <h4>Criterio de aceptación del comprador</h4>
+      <ul>
+        <li>¿La remediación del polvo reduce materialmente el riesgo de pérdida del contrato? (SI/NO)</li>
+        <li>¿El plan extiende la debida diligencia a proveedores FSC? (SI/NO)</li>
+        <li>¿La proyección de OEE es técnicamente creíble? (SI/NO)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CRONOGRAMA -->
+  <h3>Cronograma total del APE (90 minutos)</h3>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time">00:00 – 00:10</div>
+      <div class="title">Fase 1 · Inmersión y roles</div>
+      <div class="desc">Lectura del enunciado, asignación de roles, listado de variables.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">00:10 – 00:35</div>
+      <div class="title">Fase 2 · Diagnóstico OEE</div>
+      <div class="desc">Cálculo de $T_{c}$, $T_{o}$, $A$, $P$, $Q$ y $OEE$ con 4 decimales. Verificación en pizarra.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">00:35 – 00:55</div>
+      <div class="title">Fase 3 · Matriz causa-raíz</div>
+      <div class="desc">Construcción de la matriz 3×4 con causa, control, norma y CSV.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">00:55 – 01:15</div>
+      <div class="title">Fase 4 · Propuesta técnica + OEE proyectado</div>
+      <div class="desc">Paquete de 3 acciones, hipótesis de mejora, dictamen CSV (250 palabras).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">01:15 – 01:30</div>
+      <div class="title">Fase 5 · Validación ESG y rol vivo</div>
+      <div class="desc">Exposición ESG, preguntas del comprador, firma de conformidad.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. ENTREGABLES -->
+<section id="entregables" class="ape-block">
+  <h2><span class="icon">10</span>Entregables Esperados</h2>
+  <p>Cada equipo debe entregar al cierre de la sesión (o en plazo adicional de 24 h si el docente lo autoriza) los siguientes productos:</p>
+  <table>
+    <thead><tr><th>#</th><th>Entregable</th><th>Formato</th><th>Extensión máxima</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Memoria de cálculo del OEE actual</td><td>Hoja de cálculo (.xlsx) o PDF</td><td>1 página A4</td></tr>
+      <tr><td>2</td><td>Matriz de causalidad 3 × 4 completa</td><td>Tabla en el informe</td><td>1 página A4</td></tr>
+      <tr><td>3</td><td>Mapa de stakeholders con clasificación Freeman</td><td>Diagrama o tabla</td><td>1 página A4</td></tr>
+      <tr><td>4</td><td>Plan de intervención técnica + OEE proyectado</td><td>Sección del informe</td><td>1 página A4</td></tr>
+      <tr><td>5</td><td>Dictamen técnico-estratégico CSV (máx. 250 palabras)</td><td>Texto incluido en el informe</td><td>250 palabras</td></tr>
+      <tr><td>6</td><td>Dictamen ESG Doble Materialidad (máx. 250 palabras)</td><td>Texto incluido en el informe</td><td>250 palabras</td></tr>
+      <tr><td>7</td><td>Tarjeta de conformidad firmada por el comprador europeo</td><td>Física o escaneada</td><td>1 tarjeta</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <div class="callout-title">Formato del informe</div>
+    PDF tamaño A4, fuente Times New Roman 11 pt o Calibri 11 pt, márgenes 2 cm, interlineado 1,15. Carátula con nombre del equipo, fecha y rol de cada integrante.
+  </div>
+</section>
+
+<!-- 11. RÚBRICA -->
+<section id="rubrica" class="ape-block">
+  <h2><span class="icon">11</span>Rúbrica de Evaluación</h2>
+  <p>Calificación sobre 100 puntos. Ponderación por criterio según la siguiente tabla. Niveles: <strong>Excelente</strong> (100% del puntaje), <strong>Suficiente</strong> (75%), <strong>En desarrollo</strong> (50%), <strong>Insuficiente</strong> (25%).</p>
+  <table class="rubric-table compact">
+    <thead>
+      <tr>
+        <th>Criterio</th>
+        <th>Excelente (100%)</th>
+        <th>Suficiente (75%)</th>
+        <th>En desarrollo (50%)</th>
+        <th>Insuficiente (25%)</th>
+        <th>Pts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="criterion">Cálculo OEE (OE1)</td>
+        <td class="level-1">$T_c$, $T_o$, $A$, $P$, $Q$, $OEE$ correctos a 4 decimales con unidades coherentes.</td>
+        <td class="level-2">Cálculo correcto con 1 error menor de redondeo.</td>
+        <td class="level-3">2-3 errores de cálculo, pero estructura correcta.</td>
+        <td class="level-4">Errores conceptuales en fórmulas o unidades.</td>
+        <td>20</td>
+      </tr>
+      <tr>
+        <td class="criterion">Matriz causalidad (OE2)</td>
+        <td class="level-1">3 filas × 4 columnas completas, cada celda con causa-control-norma-CSV coherentes y específicas.</td>
+        <td class="level-2">Matriz completa, 1 celda débil.</td>
+        <td class="level-3">2 celdas vacías o imprecisas.</td>
+        <td class="level-4">Matriz incompleta o genérica.</td>
+        <td>20</td>
+      </tr>
+      <tr>
+        <td class="criterion">Stakeholders (OE3)</td>
+        <td class="level-1">8+ stakeholders clasificados con poder/interés y expectativa explícita.</td>
+        <td class="level-2">6-7 stakeholders con clasificación completa.</td>
+        <td class="level-3">4-5 stakeholders, clasificación parcial.</td>
+        <td class="level-4">Menos de 4 stakeholders o sin clasificación.</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td class="criterion">OEE proyectado (OE5)</td>
+        <td class="level-1">Hipótesis técnicamente fundamentadas; OEE proyectado entre 80% y 88% con justificación CSV robusta.</td>
+        <td class="level-2">OEE proyectado razonable, justificación CSV correcta pero superficial.</td>
+        <td class="level-3">OEE proyectado &gt; 90% sin sustento o &lt; 70% sin mejora.</td>
+        <td class="level-4">Sin hipótesis o sin cálculo proyectado.</td>
+        <td>15</td>
+      </tr>
+      <tr>
+        <td class="criterion">Doble Materialidad (OE4)</td>
+        <td class="level-1">Dictamen distingue inside-out y outside-in; vincula con CSRD y OCDE; ≤250 palabras.</td>
+        <td class="level-2">Dictamen correcto, omite una vertiente o excede límite.</td>
+        <td class="level-3">Dictamen genérico, sin CSRD ni OCDE.</td>
+        <td class="level-4">Sin dictamen ESG.</td>
+        <td>15</td>
+      </tr>
+      <tr>
+        <td class="criterion">Dictamen CSV (OE6)</td>
+        <td class="level-1">≤250 palabras, articula rentabilidad + seguridad + sostenibilidad en un mismo enunciado, defensa sólida.</td>
+        <td class="level-2">Dictamen correcto, falta uno de los tres ejes.</td>
+        <td class="level-3">Dictamen descriptivo, sin argumentación.</td>
+        <td class="level-4">Sin dictamen CSV.</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td class="criterion">Trabajo en equipo y rol vivo</td>
+        <td class="level-1">Roles claros, validación del comprador europeo aprobada con 3/3 SI.</td>
+        <td class="level-2">Validación 2/3 SI, trabajo coordinado.</td>
+        <td class="level-3">Validación 1/3 SI, roles confusos.</td>
+        <td class="level-4">Sin validación o roles inexistentes.</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td colspan="5" style="text-align:right;font-weight:700;background:#fafaf9">TOTAL</td>
+        <td style="font-weight:700;background:#fafaf9">100</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout success">
+    <div class="callout-title">Equivalencia en escala 0-10</div>
+    La nota final sobre 10 se obtiene dividiendo el puntaje total entre 10. Aprobado ≥ 60/100 (6,0/10). Excelente académico ≥ 90/100.
+  </div>
+</section>
+
+<!-- 12. SOLUCIONARIO (PROTEGIDO CON CLAVE) -->
+<section id="solucionario" class="ape-block">
+  <h2><span class="icon">12</span>Solucionario Docente (Exclusivo para el Profesorado)</h2>
+
+  <!-- Pantalla de candado -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-icon">🔒</div>
+    <h3>Contenido reservado para docentes</h3>
+    <p>Esta sección contiene el solucionario analítico completo, los dictámenes modelo y la validación de integridad del APE. Su divulgación anticipada compromete la evaluación formativa del caso Maderas del Valle S.A.</p>
+    <form class="lock-form" id="lockForm" autocomplete="off" onsubmit="return false;">
+      <input type="password" id="lockKey" placeholder="••••" maxlength="8" inputmode="numeric" aria-label="Clave de acceso docente">
+      <button type="submit" id="lockBtn">Acceder</button>
+    </form>
+    <div class="lock-error" id="lockError">Clave incorrecta. Intenta nuevamente.</div>
+    <div class="lock-hint">Acceso restringido · Clave docente de 4 dígitos</div>
+  </div>
+
+  <!-- Contenido real del solucionario (oculto por defecto) -->
+  <div class="solution-reveal" id="solutionReveal">
+    <button class="solution-hide-btn" id="hideBtn" type="button">🔒 Ocultar solucionario</button>
+
+  <div class="solution">
+    <h3>Deducción matemática del OEE actual</h3>
+
+    <h4>1. Tiempos</h4>
+    <ul>
+      <li>$T_{c} = 480\text{ min} - 30\text{ min} = 450\text{ min} = 27\,000\text{ s}$</li>
+      <li>$T_{\text{paro}} = 25 + 30 + 20 = 75\text{ min} = 4\,500\text{ s}$</li>
+      <li>$T_{o} = T_{c} - T_{\text{paro}} = 450 - 75 = 375\text{ min} = 22\,500\text{ s}$</li>
+    </ul>
+
+    <h4>2. Disponibilidad ($A$)</h4>
+    <div class="formula">$$A = \frac{T_{o}}{T_{c}} = \frac{375}{450} = 0,8333\quad(83,33\%)$$</div>
+    <p>Pérdida asociada: <span class="answer">16,67%</span> de indisponibilidad atribuible a fallos del sistema de aspiración (alarma polvo), atasco por postura forzada y reunión de investigación de near miss. Las tres pérdidas son problemas de seguridad y gobernanza ISO 45001.</p>
+
+    <h4>3. Rendimiento ($P$)</h4>
+    <div class="formula">$$P = \frac{C_{i} \times P_{\text{total}}}{T_{o}} = \frac{12\text{ s/pieza} \times 1\,500\text{ piezas}}{22\,500\text{ s}} = \frac{18\,000}{22\,500} = 0,8000\quad(80,00\%)$$</div>
+    <p>Pérdida asociada: <span class="answer">20,00%</span> de velocidad subnominal por fatiga lumbar del operador de la sierra en la última hora del turno (TME).</p>
+
+    <h4>4. Calidad ($Q$)</h4>
+    <div class="formula">$$Q = \frac{P_{\text{conformes}}}{P_{\text{total}}} = \frac{1\,365}{1\,500} = 0,9100\quad(91,00\%)$$</div>
+    <p>Pérdida asociada: <span class="answer">9,00%</span> de scrap por gradiente de humedad en MDF, vibración de sierra sin calibración y errores de ensamble por fatiga del operario.</p>
+
+    <h4>5. OEE global actual</h4>
+    <div class="formula">$$OEE = A \times P \times Q = 0,8333 \times 0,8000 \times 0,9100 = 0,6067\quad(60,67\%)$$</div>
+    <p><strong>Diagnóstico:</strong> la planta opera en nivel mediocrity (60–65%), muy por debajo del estándar mundial (&gt; 85%), con tres frentes de pérdida simultáneos (SST, ergonomía, calidad) y un problema ESG comunitario no contenido.</p>
+  </div>
+
+  <div class="solution">
+    <h3>Matriz causa-raíz recomendada</h3>
+    <table class="compact">
+      <thead><tr><th>Pérdida</th><th>Causa raíz</th><th>Control de ingeniería</th><th>Norma / Marco RSC</th><th>Mecanismo CSV</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>25 min polvo ambiental</strong></td>
+          <td>Filtro de mangas del sistema centralizado de aspiración sin mantenimiento predictivo durante 90 días.</td>
+          <td>Mantenimiento predictivo por sensorización de caída de presión diferencial + reemplazo programado cada 30 días.</td>
+          <td><strong>ISO 45001 (Cláusula 8.1.2)</strong> + <strong>ISO 14001 (6.1.2 aspectos)</strong> + <strong>OCDE Debida Diligencia</strong> + <strong>UE CSRD (Doble Materialidad inside-out)</strong>.</td>
+          <td>El polvo capturado se compacta y se quema como biomasa en la caldera de secado, sustituyendo gas natural y reduciendo costos energéticos + emisiones Scope 1.</td>
+        </tr>
+        <tr>
+          <td><strong>30 min atasco sierra</strong></td>
+          <td>Postura forzada (flexión &gt; 30°) del operador al alimentar MDF manualmente; ausencia de ayuda mecánica.</td>
+          <td>Mesa elevadora con rodillos motorizados y topes neumáticos autoajustables; rediseño biomecánico del puesto bajo NIOSH.</td>
+          <td><strong>ISO 11228-1 (Ergonomía manipulación manual)</strong> + <strong>ISO 26000 (Prácticas Laborales)</strong> + <strong>ONU Pacto Global Principio 3-6</strong>.</td>
+          <td>La estabilización del ciclo productivo eleva $P$ de 80% a 92%, recuperando margen de contribución y reduciendo absentismo por TME (12% actual).</td>
+        </tr>
+        <tr>
+          <td><strong>20 min near miss astilla</strong></td>
+          <td>Visor de seguridad sin certificación ANSI Z87.1 + ausencia de pantalla deflectora en la sierra principal.</td>
+          <td>Instalación de pantalla deflectora de policarbonato + visores certificados + enclavamiento de la sierra con sensor de presencia.</td>
+          <td><strong>ISO 45001 (Cláusula 8.1.2 jerarquía de controles)</strong> + <strong>OCDE Debida Diligencia</strong> + <strong>ONU Principio 1 (Derechos Humanos / condiciones seguras)</strong>.</td>
+          <td>Eliminación de peligros en la fuente reduce primas de seguro y fortalece reputación ante el comprador europeo (continuidad de contrato).</td>
+        </tr>
+        <tr>
+          <td><strong>135 piezas scrap</strong></td>
+          <td>Gradiente de humedad del MDF sin control; sierra sin calibración vibración; ensamble manual fatigoso.</td>
+          <td>Sensor de humedad in-line + calibración de sierra por análisis de vibración + rediseño ergonómico de prensa de ensamble.</td>
+          <td><strong>ISO 14001 (Ecoeficiencia)</strong> + <strong>UE CSRD / ODS 12</strong> + <strong>ISO 9001</strong>.</td>
+          <td>Los 135 retales se reintroducen como tableros aglomerados secundarios o compost industrial; se reduce compra de MDF en 9% y se vende subproducto.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="solution">
+    <h3>Proyección post-mejora (RFR)</h3>
+    <p>Hipótesis técnicas recomendadas (escenario medio, conservador):</p>
+    <ul>
+      <li>$A$ mejora a <span class="answer">0,95</span> (95%) al eliminar la alarma de polvo y el atasco por rediseño ergonómico; el 5% residual son paradas planificadas de mantenimiento.</li>
+      <li>$P$ mejora a <span class="answer">0,92</span> (92%) con la mesa elevadora y la estabilización del ciclo productivo; restante 8% por micro-paros inherentes.</li>
+      <li>$Q$ mejora a <span class="answer">0,96</span> (96%) con la sensorización de humedad y la calibración de vibración; restante 4% por variabilidad natural del MDF.</li>
+    </ul>
+    <div class="formula">$$OEE_{\text{proyectado}} = 0,95 \times 0,92 \times 0,96 = 0,8390\quad(83,90\%)$$</div>
+    <p><strong>Salto de efectividad:</strong> <span class="answer">+23,23 puntos porcentuales</span> (de 60,67% a 83,90%), situando a la planta en zona de clase mundial (&gt; 80%).</p>
+    <p><strong>Dictamen CSV (modelo, ≤ 250 palabras):</strong> La inversión combinada en mantenimiento predictivo de aspiración, rediseño ergonómico de la estación de alimentación y enclavamiento de la sierra no constituye un costo no recuperable: reconfigura la cadena de valor de Maderas del Valle. Primero, el polvo de madera recuperado se quema como biomasa en la caldera de secado, sustituyendo el 12-15% del gas natural y reduciendo simultáneamente el costo energético y las emisiones Scope 1. Segundo, la mesa elevadora estabiliza el ciclo productivo, elevando $P$ de 80% a 92%, lo que recupera margen de contribución sin ampliar planta. Tercero, la reducción del scrap de 9% a 4% libera 75 piezas/día que se reincorporan al flujo de valor, evitando compra adicional de MDF certificado FSC. Bajo el marco de Porter y Kramer, las tres acciones cumplen el principio de Creación de Valor Compartido: redefinen la productividad en la cadena de valor (energía + ergonomía + materiales), reconceptualizan el producto (mueble con huella de carbono menor) y fortalecen el clúster local de proveedores FSC. La rentabilidad incremental proyectada supera la Tasa Interna de Retorno de la inversión en menos de 18 meses.</p>
+    <p><strong>Dictamen ESG Doble Materialidad (modelo, ≤ 250 palabras):</strong> Bajo la Directiva CSRD (UE 2022/2464), Maderas del Valle debe reportar la Doble Materialidad de sus operaciones. En la vertiente <em>inside-out</em> (impacto de la empresa en el entorno), la remediación del polvo de madera reduce la emisión de partículas PM10 hacia el barrio Las Acacias, alineándose con el derecho a un medio ambiente sano y con el Principio 7 del Pacto Global de la ONU; simultáneamente, el reciclaje interno del scrap de madera como tableros aglomerados secundarios o biomasa reduce el consumo de MDF virgen, evitando deforestación y fortaleciendo la trazabilidad FSC. En la vertiente <em>outside-in</em> (impacto del entorno en la empresa), la mejora del OEE de 60,67% a 83,90% mitiga el riesgo de pérdida del contrato con el comprador europeo, que exigía trazabilidad OCDE y reporte CSRD; reduce el riesgo regulatorio de clausura por superación de LPP de polvo; y disminuye el riesgo de siniestralidad laboral que encarece las primas de la aseguradora. El plan extiende la Debida Diligencia a los proveedores FSC mediante auditorías cruzadas de emisiones y prácticas laborales, satisfaciendo los seis pasos del ciclo OCDE 2023. Esta integración convierte una obligación regulatoria en una fuente de competitividad, cumpliendo simultáneamente con la pirámide de Carroll en sus cuatro estratos: rentabilidad (OEE proyectado 83,90%), legal (ISO 45001/14001), ética (comunidad Las Acacias) y filantrópica (reforestación con proveedores).</p>
+  </div>
+
+  <div class="solution">
+    <h3>Validación de integridad del APE</h3>
+    <ul>
+      <li><strong>Calibración de dificultad:</strong> el caso combina tres tipos de pérdida (química, biomecánica, de calidad) y obliga a distinguir entre pérdidas de $A$ (incidentes/atascos), $P$ (fatiga) y $Q$ (scrap), evitando la confusión común de asignar el near miss al factor $Q$.</li>
+      <li><strong>Consistencia operativa:</strong> $5\text{ piezas/min}$ × $60 = 300\text{ piezas/h}$; $300 × 7,5\text{ h netas} = 2\,250$ piezas teóricas; producción real $1\,500$ → coherente con $P = 80\%$.</li>
+      <li><strong>Novedad pedagógica:</strong> la incorporación del rol vivo de comprador europeo en la Fase 5 simula la presión real del mercado y obliga al equipo a articular la Doble Materialidad oralmente, no solo por escrito.</li>
+    </ul>
+  </div>
+
+  </div><!-- /solution-reveal -->
+</section>
+
+<!-- REFERENCIAS -->
+<div class="references" style="margin:2rem 1.5rem">
+  <h3>Referencias Bibliográficas (Normas APA, 7.ª Edición)</h3>
+  <ul>
+    <li>Carroll, A. B. (1991). The pyramid of corporate social responsibility: Toward the moral management of organizational stakeholders. <em>Business Horizons</em>, 34(4), 39–48. https://doi.org/10.1016/0007-6813(91)90005-G</li>
+    <li>Freeman, R. E. (1984). <em>Strategic management: A stakeholder approach</em>. Pitman.</li>
+    <li>International Agency for Research on Cancer. (2012). <em>IARC monographs on the evaluation of carcinogenic risks to humans: Wood dust and formaldehyde</em> (Vol. 100F). IARC.</li>
+    <li>International Organization for Standardization. (2010). <em>Guidance on social responsibility</em> (ISO Standard No. 26000:2010). https://www.iso.org/standard/42546.html</li>
+    <li>International Organization for Standardization. (2018). <em>Occupational health and safety management systems — Requirements with guidance for use</em> (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html</li>
+    <li>Nakajima, S. (1988). <em>Introduction to TPM: Total productive maintenance</em>. Productivity Press.</li>
+    <li>Organización para la Cooperación y el Desarrollo Económicos. (2023). <em>Líneas Directrices de la OCDE para Empresas Multinacionales sobre Conducta Empresarial Responsable</em>. OECD Publishing. https://doi.org/10.1787/81f9be8f-es</li>
+    <li>Porter, M. E., &amp; Kramer, M. R. (2011). Creating shared value: How to reinvent capitalism—and unleash a wave of innovation and growth. <em>Harvard Business Review</em>, 89(1-2), 62–77.</li>
+    <li>Unión Europea. (2022). <em>Directiva (UE) 2022/2464 del Parlamento Europeo y del Consejo sobre la presentación de información sobre sostenibilidad por parte de las empresas (CSRD)</em>. Diario Oficial de la Unión Europea.</li>
+  </ul>
+</div>
+
+</main>
+
+<div class="footer-note">
+  APE — Actividad de Aprendizaje Práctico Experimental · Caso "Maderas del Valle S.A." ·
+  MSc. Luis Aníbal Palate Gaibor · Diseño alineado con el material de la Clase 2 (RSC/OEE) ·
+  Compatible con despliegue SCORM en LMS institucional
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  // Render math
+  if(typeof renderMathInElement==='function'){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+
+  // Section nav active state on scroll
+  const sections=document.querySelectorAll('section.ape-block');
+  const navLinks=document.querySelectorAll('.section-nav a');
+  function updateActive(){
+    let current='';
+    sections.forEach(sec=>{
+      const top=sec.getBoundingClientRect().top;
+      if(top<120) current=sec.id;
+    });
+    navLinks.forEach(a=>{
+      a.classList.toggle('active',a.getAttribute('href')==='#'+current);
+    });
+  }
+  window.addEventListener('scroll',updateActive);
+  updateActive();
+
+  // ===== Cerradura del Solucionario Docente =====
+  const TEACHER_KEY='1981';
+  const lockScreen=document.getElementById('lockScreen');
+  const solutionReveal=document.getElementById('solutionReveal');
+  const lockForm=document.getElementById('lockForm');
+  const lockInput=document.getElementById('lockKey');
+  const lockBtn=document.getElementById('lockBtn');
+  const lockError=document.getElementById('lockError');
+  const hideBtn=document.getElementById('hideBtn');
+
+  function unlock(){
+    const value=(lockInput.value||'').trim();
+    if(value===TEACHER_KEY){
+      lockScreen.style.display='none';
+      solutionReveal.classList.add('visible');
+      lockError.classList.remove('show');
+      lockInput.value='';
+      // Re-render math inside the newly revealed section
+      if(typeof renderMathInElement==='function'){
+        renderMathInElement(solutionReveal,{
+          delimiters:[
+            {left:'$$',right:'$$',display:true},
+            {left:'$',right:'$',display:false},
+            {left:'\\(',right:'\\)',display:false},
+            {left:'\\[',right:'\\]',display:true}
+          ],
+          throwOnError:false
+        });
+      }
+      solutionReveal.scrollIntoView({behavior:'smooth',block:'start'});
+    } else {
+      lockError.classList.add('show');
+      lockInput.value='';
+      lockInput.focus();
+    }
+  }
+
+  lockBtn.addEventListener('click',unlock);
+  lockForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    unlock();
+  });
+  lockInput.addEventListener('input',function(){
+    if(lockError.classList.contains('show')){
+      lockError.classList.remove('show');
+    }
+  });
+
+  hideBtn.addEventListener('click',function(){
+    solutionReveal.classList.remove('visible');
+    lockScreen.style.display='block';
+    window.scrollTo({top:lockScreen.offsetTop-100,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
