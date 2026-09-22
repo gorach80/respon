@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSC UPSE — Módulo Didáctico Completo</title>
+<style>
+:root{
+  --primary:#0f2c4a;
+  --primary-light:#1e4477;
+  --primary-dark:#081a2e;
+  --accent:#b8860b;
+  --accent-light:#d4a93a;
+  --bg:#f4f1ea;
+  --surface:#ffffff;
+  --surface-alt:#faf8f3;
+  --text:#1f2937;
+  --text-light:#4b5563;
+  --border:#d1d5db;
+  --border-light:#e5e7eb;
+  --success:#166534;
+  --warning:#9a3412;
+  --error:#991b1b;
+  --code-bg:#f3f4f6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Georgia','Times New Roman',serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  font-size:16px;
+}
+h1,h2,h3,h4,h5{
+  font-family:'Helvetica Neue','Arial',sans-serif;
+  color:var(--primary);
+  font-weight:700;
+  line-height:1.3;
+}
+p{margin-bottom:0.9rem}
+strong{color:var(--primary-dark);font-weight:700}
+em{font-style:italic}
+a{color:var(--primary-light);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* HEADER */
+header.main-header{
+  background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%);
+  color:#fff;
+  padding:2.5rem 1.5rem 2rem;
+  text-align:center;
+  border-bottom:4px solid var(--accent);
+}
+header.main-header h1{
+  color:#fff;
+  font-size:1.9rem;
+  margin-bottom:0.5rem;
+  letter-spacing:0.5px;
+}
+header.main-header .subtitle{
+  font-size:1.05rem;
+  opacity:0.95;
+  font-style:italic;
+  margin-bottom:0.3rem;
+}
+header.main-header .meta{
+  font-size:0.85rem;
+  opacity:0.85;
+  font-family:'Helvetica Neue',sans-serif;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+header.main-header .meta span{margin:0 0.5rem}
+
+/* TAB NAVIGATION */
+nav.tabs{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+.tab-button{
+  background:none;
+  border:none;
+  padding:1rem 1.5rem;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.9rem;
+  font-weight:600;
+  color:var(--text-light);
+  cursor:pointer;
+  transition:all 0.25s ease;
+  border-bottom:3px solid transparent;
+  text-align:center;
+  line-height:1.3;
+  max-width:240px;
+}
+.tab-button:hover{
+  background:var(--surface-alt);
+  color:var(--primary);
+}
+.tab-button.active{
+  color:var(--primary);
+  border-bottom:3px solid var(--accent);
+  background:var(--surface-alt);
+}
+.tab-button .tab-num{
+  display:block;
+  font-size:0.7rem;
+  color:var(--accent);
+  font-weight:700;
+  margin-bottom:0.2rem;
+  letter-spacing:1px;
+}
+
+/* MAIN */
+main{
+  max-width:1100px;
+  margin:0 auto;
+  padding:2rem 1.5rem 4rem;
+}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeIn 0.4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS */
+section.block{
+  background:var(--surface);
+  border:1px solid var(--border-light);
+  border-left:4px solid var(--primary);
+  padding:1.8rem 2rem;
+  margin-bottom:1.8rem;
+  border-radius:4px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+section.block.accent{border-left-color:var(--accent)}
+section.block.warning{border-left-color:var(--warning)}
+section.block.success{border-left-color:var(--success)}
+
+h2.section-title{
+  font-size:1.5rem;
+  margin-bottom:1rem;
+  padding-bottom:0.5rem;
+  border-bottom:2px solid var(--border-light);
+  color:var(--primary);
+}
+h3.subsection{
+  font-size:1.2rem;
+  margin-top:1.5rem;
+  margin-bottom:0.7rem;
+  color:var(--primary-light);
+}
+h4.minor{
+  font-size:1.05rem;
+  margin-top:1rem;
+  margin-bottom:0.5rem;
+  color:var(--primary-dark);
+}
+
+/* FICHA TÉCNICA */
+.ficha-tecnica{
+  background:var(--surface-alt);
+  border:1px solid var(--border);
+  padding:1.2rem 1.5rem;
+  margin:1rem 0 1.5rem;
+  border-radius:4px;
+}
+.ficha-tecnica dl{display:grid;grid-template-columns:auto 1fr;gap:0.4rem 1rem}
+.ficha-tecnica dt{font-weight:700;color:var(--primary);font-family:'Helvetica Neue',sans-serif;font-size:0.9rem}
+.ficha-tecnica dd{margin:0;font-size:0.95rem}
+
+/* LISTS */
+ul,ol{margin:0.5rem 0 1rem 1.5rem}
+li{margin-bottom:0.4rem}
+
+/* TABLES */
+table.data-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:1rem 0;
+  font-size:0.92rem;
+  background:var(--surface);
+}
+table.data-table caption{
+  caption-side:top;
+  font-weight:700;
+  color:var(--primary);
+  padding:0.5rem;
+  font-style:italic;
+  font-size:0.95rem;
+}
+table.data-table th{
+  background:var(--primary);
+  color:#fff;
+  padding:0.75rem 0.6rem;
+  text-align:left;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.85rem;
+  font-weight:600;
+  border:1px solid var(--primary-dark);
+  vertical-align:top;
+}
+table.data-table td{
+  padding:0.6rem 0.6rem;
+  border:1px solid var(--border);
+  vertical-align:top;
+}
+table.data-table tr:nth-child(even) td{background:var(--surface-alt)}
+table.data-table tr:hover td{background:#fef9e7}
+
+/* TIMELINE */
+.timeline{
+  display:flex;
+  align-items:stretch;
+  flex-wrap:wrap;
+  gap:0.5rem;
+  margin:1.5rem 0;
+  background:var(--surface-alt);
+  padding:1rem;
+  border-radius:6px;
+  border:1px solid var(--border-light);
+}
+.phase{
+  flex:1;
+  min-width:180px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-top:3px solid var(--accent);
+  padding:0.8rem;
+  border-radius:3px;
+  text-align:center;
+  position:relative;
+}
+.phase h4{font-size:0.95rem;color:var(--primary);margin-bottom:0.3rem}
+.phase .years{
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.8rem;
+  color:var(--accent);
+  font-weight:700;
+  margin-bottom:0.5rem;
+  letter-spacing:0.5px;
+}
+.phase .desc{font-size:0.82rem;color:var(--text-light);line-height:1.4}
+.phase .author{font-size:0.78rem;color:var(--text-light);font-style:italic;margin-top:0.4rem}
+.arrow{
+  align-self:center;
+  color:var(--primary-light);
+  font-size:1.4rem;
+  font-weight:700;
+  padding:0 0.3rem;
+}
+
+/* TBL DIAGRAM */
+.tbl-triangle{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin:1.5rem auto;
+  padding:1.5rem;
+  background:var(--surface-alt);
+  border-radius:6px;
+  max-width:600px;
+}
+.tbl-triangle .top{
+  background:var(--primary);
+  color:#fff;
+  padding:0.6rem 2rem;
+  border-radius:4px;
+  font-weight:700;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.9rem;
+  letter-spacing:1px;
+}
+.tbl-triangle .sides{
+  display:flex;
+  width:100%;
+  justify-content:space-between;
+  margin-top:1rem;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.85rem;
+  color:var(--accent);
+  font-weight:700;
+}
+.tbl-triangle .base{
+  display:flex;
+  width:100%;
+  justify-content:space-between;
+  margin-top:1rem;
+}
+.tbl-triangle .base .corner{
+  background:var(--primary-light);
+  color:#fff;
+  padding:0.5rem 1rem;
+  border-radius:4px;
+  font-weight:700;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.85rem;
+}
+.tbl-triangle .base .center{
+  align-self:center;
+  font-family:'Helvetica Neue',sans-serif;
+  color:var(--accent);
+  font-weight:700;
+  font-size:0.95rem;
+}
+
+/* SYSTEM DIAGRAM */
+.system-diagram{
+  background:var(--surface-alt);
+  border:1px solid var(--border);
+  padding:1rem;
+  margin:1rem 0;
+  border-radius:4px;
+}
+.system-diagram .gov-box{
+  background:var(--primary);
+  color:#fff;
+  padding:0.7rem;
+  text-align:center;
+  border-radius:4px;
+  font-family:'Helvetica Neue',sans-serif;
+  font-weight:700;
+  letter-spacing:1px;
+  font-size:0.9rem;
+  margin-bottom:0.5rem;
+}
+.system-diagram .three-cols{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0.5rem;
+}
+.system-diagram .col-box{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:0.7rem;
+  border-radius:4px;
+  border-top:3px solid var(--accent);
+}
+.system-diagram .col-box h5{
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.85rem;
+  color:var(--primary);
+  margin-bottom:0.4rem;
+  text-align:center;
+}
+.system-diagram .col-box ul{margin:0;padding-left:1rem;font-size:0.8rem}
+.system-diagram .col-box li{margin-bottom:0.2rem}
+.system-diagram .impact-bar{
+  background:var(--accent);
+  color:#fff;
+  padding:0.5rem;
+  text-align:center;
+  margin-top:0.5rem;
+  border-radius:4px;
+  font-family:'Helvetica Neue',sans-serif;
+  font-weight:700;
+  font-size:0.85rem;
+}
+.system-diagram .down-arrow{
+  text-align:center;
+  font-size:1.5rem;
+  color:var(--primary);
+  margin:0.3rem 0;
+}
+
+/* DIAGNOSIS DIAGRAM */
+.diagnosis-box{
+  background:var(--surface-alt);
+  border:1px dashed var(--warning);
+  padding:1rem;
+  margin:1rem 0;
+  border-radius:4px;
+  font-size:0.9rem;
+}
+.diagnosis-box .title{
+  font-family:'Helvetica Neue',sans-serif;
+  font-weight:700;
+  color:var(--warning);
+  text-align:center;
+  margin-bottom:0.8rem;
+  font-size:0.95rem;
+  letter-spacing:1px;
+}
+.diagnosis-box .grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0.8rem;
+}
+.diagnosis-box .dim{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:0.7rem;
+  border-radius:3px;
+  border-top:3px solid var(--warning);
+}
+.diagnosis-box .dim h5{
+  font-family:'Helvetica Neue',sans-serif;
+  color:var(--warning);
+  font-size:0.85rem;
+  margin-bottom:0.4rem;
+}
+.diagnosis-box .dim ul{font-size:0.8rem;padding-left:1rem;margin:0}
+.diagnosis-box .dim li{margin-bottom:0.2rem}
+
+/* FLOW DIAGRAM */
+.flow-diagram{
+  background:var(--surface-alt);
+  padding:1rem;
+  border-radius:4px;
+  margin:1rem 0;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.85rem;
+}
+.flow-diagram .flow-row{
+  display:flex;
+  align-items:center;
+  gap:0.4rem;
+  margin:0.5rem 0;
+  flex-wrap:wrap;
+}
+.flow-diagram .flow-box{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:0.4rem 0.7rem;
+  border-radius:3px;
+  border-left:3px solid var(--primary);
+}
+.flow-diagram .flow-arrow{color:var(--accent);font-weight:700}
+
+/* FORMULAS */
+.formula{
+  background:var(--code-bg);
+  padding:0.9rem 1rem;
+  margin:0.8rem 0;
+  border-left:3px solid var(--primary-light);
+  border-radius:3px;
+  font-family:'Cambria Math','Times New Roman',serif;
+  font-size:1.05rem;
+  text-align:center;
+  overflow-x:auto;
+}
+.formula .frac{
+  display:inline-block;
+  vertical-align:middle;
+  text-align:center;
+  margin:0 0.3rem;
+}
+.formula .frac .num{display:block;border-bottom:1.5px solid var(--text);padding:0 0.3rem}
+.formula .frac .den{display:block;padding:0 0.3rem}
+sub,sup{font-size:0.75em;line-height:0}
+.math{font-family:'Cambria Math',serif;font-style:italic}
+.math-var{font-family:'Cambria Math',serif;font-style:italic}
+
+/* QUOTE / DOCENT GUIA */
+blockquote.docente{
+  background:#fdf6e3;
+  border-left:4px solid var(--accent);
+  padding:1rem 1.5rem;
+  margin:1rem 0;
+  font-style:italic;
+  color:var(--text);
+  border-radius:0 4px 4px 0;
+}
+blockquote.docente::before{
+  content:"\" ";
+  font-size:2rem;
+  color:var(--accent);
+  line-height:0;
+  vertical-align:-0.4rem;
+  margin-right:0.3rem;
+}
+
+/* QUESTION BOX */
+.question{
+  background:var(--surface-alt);
+  border:1px solid var(--border-light);
+  padding:0.8rem 1rem;
+  margin:0.7rem 0;
+  border-radius:4px;
+  border-left:3px solid var(--primary-light);
+}
+.question .q-num{
+  font-family:'Helvetica Neue',sans-serif;
+  font-weight:700;
+  color:var(--primary);
+  font-size:0.85rem;
+  letter-spacing:0.5px;
+}
+.options{margin-top:0.4rem;padding-left:1.2rem;font-size:0.92rem}
+.options li{margin-bottom:0.2rem;list-style-type:upper-alpha}
+ol.options{list-style:none;counter-reset:opt}
+ol.options li{counter-increment:opt}
+ol.options li::before{
+  content:counter(opt) ". ";
+  font-weight:700;
+  color:var(--primary);
+  margin-right:0.4rem;
+}
+
+/* TRUE/FALSE */
+.tf{font-weight:700;color:var(--primary);font-family:'Helvetica Neue',sans-serif}
+.tf-options{
+  display:inline-block;
+  margin-left:1rem;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.9rem;
+}
+
+/* COLUMN MATCHING */
+.matching-box{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+  margin:1rem 0;
+}
+.matching-col{
+  background:var(--surface-alt);
+  border:1px solid var(--border);
+  padding:1rem;
+  border-radius:4px;
+}
+.matching-col h5{
+  font-family:'Helvetica Neue',sans-serif;
+  color:var(--primary);
+  margin-bottom:0.6rem;
+  font-size:0.95rem;
+  text-align:center;
+  border-bottom:2px solid var(--accent);
+  padding-bottom:0.3rem;
+}
+.matching-col ol{margin:0;padding-left:1.3rem;font-size:0.9rem}
+.matching-col li{margin-bottom:0.5rem}
+
+/* HIDDEN SOLUTION */
+.solution-locked{
+  display:none;
+}
+.solution-locked.unlocked{
+  display:block;
+  animation:fadeIn 0.5s ease;
+}
+.unlock-btn{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent-light) 100%);
+  color:#fff;
+  border:none;
+  padding:0.8rem 1.6rem;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.95rem;
+  font-weight:700;
+  letter-spacing:0.5px;
+  border-radius:4px;
+  cursor:pointer;
+  margin:1.5rem 0;
+  box-shadow:0 2px 5px rgba(0,0,0,0.15);
+  transition:all 0.2s ease;
+}
+.unlock-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 3px 7px rgba(0,0,0,0.2);
+}
+.unlock-notice{
+  background:#fff8e1;
+  border:1px dashed var(--accent);
+  padding:0.8rem 1rem;
+  border-radius:4px;
+  margin:1rem 0;
+  font-size:0.9rem;
+  color:var(--text);
+}
+.unlock-notice strong{color:var(--accent)}
+
+/* MODAL */
+.modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(15,44,74,0.75);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+}
+.modal-overlay.active{display:flex}
+.modal{
+  background:var(--surface);
+  padding:2rem;
+  border-radius:6px;
+  max-width:400px;
+  width:100%;
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+  border-top:4px solid var(--accent);
+}
+.modal h3{
+  font-family:'Helvetica Neue',sans-serif;
+  color:var(--primary);
+  margin-bottom:0.5rem;
+  font-size:1.15rem;
+}
+.modal p{font-size:0.9rem;color:var(--text-light);margin-bottom:1rem}
+.modal input{
+  width:100%;
+  padding:0.7rem;
+  border:1px solid var(--border);
+  border-radius:4px;
+  font-size:1rem;
+  font-family:'Helvetica Neue',sans-serif;
+  letter-spacing:2px;
+  text-align:center;
+  margin-bottom:0.8rem;
+}
+.modal input:focus{outline:2px solid var(--primary-light);border-color:var(--primary-light)}
+.modal .btn-row{display:flex;gap:0.5rem;justify-content:flex-end}
+.modal button.cancel{
+  background:var(--border);
+  color:var(--text);
+  border:none;
+  padding:0.6rem 1.2rem;
+  border-radius:4px;
+  cursor:pointer;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.9rem;
+}
+.modal button.submit{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:0.6rem 1.2rem;
+  border-radius:4px;
+  cursor:pointer;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.9rem;
+  font-weight:600;
+}
+.modal .error{
+  color:var(--error);
+  font-size:0.85rem;
+  margin-top:-0.3rem;
+  margin-bottom:0.7rem;
+  display:none;
+  font-family:'Helvetica Neue',sans-serif;
+}
+.modal .error.show{display:block}
+
+/* FOOTER */
+footer.main-footer{
+  background:var(--primary-dark);
+  color:#cbd5e0;
+  text-align:center;
+  padding:1.5rem 1rem;
+  font-size:0.85rem;
+  font-family:'Helvetica Neue',sans-serif;
+}
+footer.main-footer strong{color:var(--accent-light)}
+
+/* HIGHLIGHT BOXES */
+.callout{
+  background:#eff6ff;
+  border-left:4px solid var(--primary-light);
+  padding:1rem 1.2rem;
+  margin:1rem 0;
+  border-radius:0 4px 4px 0;
+  font-size:0.92rem;
+}
+.callout.warning{
+  background:#fef3c7;
+  border-left-color:var(--warning);
+}
+.callout.success{
+  background:#dcfce7;
+  border-left-color:var(--success);
+}
+
+/* METRICS TABLE */
+table.metrics{
+  width:100%;
+  border-collapse:collapse;
+  margin:1rem 0;
+  background:var(--surface);
+}
+table.metrics th{
+  background:var(--primary);
+  color:#fff;
+  padding:0.7rem;
+  text-align:left;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.85rem;
+  border:1px solid var(--primary-dark);
+}
+table.metrics td{
+  padding:0.6rem 0.7rem;
+  border:1px solid var(--border);
+  font-size:0.92rem;
+}
+table.metrics td.metric-name{font-weight:700;color:var(--primary);font-family:'Helvetica Neue',sans-serif;font-size:0.88rem}
+table.metrics td.improved{color:var(--success);font-weight:700}
+table.metrics tr:nth-child(even) td{background:var(--surface-alt)}
+
+/* RUBRIC TABLE */
+table.rubric{
+  width:100%;
+  border-collapse:collapse;
+  margin:1rem 0;
+  font-size:0.85rem;
+}
+table.rubric th{
+  background:var(--primary);
+  color:#fff;
+  padding:0.6rem;
+  border:1px solid var(--primary-dark);
+  text-align:left;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.8rem;
+  vertical-align:top;
+}
+table.rubric td{
+  padding:0.6rem;
+  border:1px solid var(--border);
+  vertical-align:top;
+}
+table.rubric td.criterion{
+  background:var(--surface-alt);
+  font-weight:700;
+  color:var(--primary);
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:0.85rem;
+  width:20%;
+}
+table.rubric tr:nth-child(even) td:not(.criterion){background:var(--surface-alt)}
+
+/* SUBSUPER */
+.kpi-box{
+  background:var(--surface-alt);
+  border:1px solid var(--border);
+  padding:1rem;
+  border-radius:4px;
+  margin:0.8rem 0;
+}
+.kpi-box h4{color:var(--primary);margin-bottom:0.5rem}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  header.main-header h1{font-size:1.4rem}
+  .tab-button{padding:0.7rem 0.8rem;font-size:0.78rem;max-width:none;flex:1 1 30%}
+  .tab-button .tab-num{font-size:0.65rem}
+  main{padding:1rem 0.8rem 3rem}
+  section.block{padding:1.2rem 1rem}
+  .timeline{flex-direction:column}
+  .arrow{transform:rotate(90deg);padding:0.3rem 0}
+  .system-diagram .three-cols{grid-template-columns:1fr}
+  .diagnosis-box .grid3{grid-template-columns:1fr}
+  .matching-box{grid-template-columns:1fr}
+  .ficha-tecnica dl{grid-template-columns:1fr}
+  table.data-table,table.metrics,table.rubric{font-size:0.8rem}
+  table.data-table th,table.metrics th,table.rubric th{font-size:0.75rem}
+}
+
+/* PRINT */
+@media print{
+  nav.tabs{position:static;display:none}
+  .tab-content{display:block!important;page-break-after:always}
+  .solution-locked{display:block!important}
+  .unlock-btn,.unlock-notice,.modal-overlay{display:none!important}
+  header.main-header{background:var(--primary)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<header class="main-header">
+  <h1>Responsabilidad Social Corporativa (RSC)</h1>
+  <p class="subtitle">Módulo Didáctico Integral — Ingeniería Industrial &amp; Seguridad Industrial</p>
+  <p class="meta">
+    <span>UPSE</span>·<span>Pregrado</span>·<span>5 Pestañas</span>·<span>2026</span>
+  </p>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-button" data-tab="fundamentos" role="tab">
+    <span class="tab-num">PESTAÑA 1</span>
+    Fundamentos y Evolución de la RSC
+  </button>
+  <button class="tab-button" data-tab="guion" role="tab">
+    <span class="tab-num">PESTAÑA 2</span>
+    Guion de Exposición Docente (20 min)
+  </button>
+  <button class="tab-button" data-tab="taller" role="tab">
+    <span class="tab-num">PESTAÑA 3</span>
+    Taller Práctico Aplicado (TBL)
+  </button>
+  <button class="tab-button" data-tab="evaluativo" role="tab">
+    <span class="tab-num">PESTAÑA 4</span>
+    Taller Evaluativo (30 Reactivos)
+  </button>
+  <button class="tab-button" data-tab="asincronica" role="tab">
+    <span class="tab-num">PESTAÑA 5</span>
+    Tarea Asincrónica — Caso COELDIT
+  </button>
+</nav>
+
+<main>
+
+<!-- ============================ TAB 1 ============================ -->
+<section class="tab-content" id="fundamentos" role="tabpanel">
+<section class="block accent">
+  <h2 class="section-title">Fundamentos y Evolución de la Responsabilidad Social Empresarial</h2>
+  <p>La <strong>Responsabilidad Social Corporativa (RSC)</strong> ha transitado desde actos discrecionales de beneficencia hacia un sistema integrado de gobernanza estratégica y control operacional. Dentro de la ingeniería industrial y la seguridad de procesos, este constructo no se interpreta como un coste accesorio, sino como un vector de optimización de recursos, mitigación de riesgos y continuidad operativa.</p>
+</section>
+
+<section class="block">
+  <h3 class="subsection">Línea de Evolución Estructural de la RSC</h3>
+  <div class="timeline">
+    <div class="phase">
+      <h4>Fase Inicial</h4>
+      <p class="years">1950 – 1970</p>
+      <p class="desc">Paternalismo y filantropía pura</p>
+      <p class="author">H. Bowen, 1953</p>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase">
+      <h4>Fase Normativa</h4>
+      <p class="years">1970 – 1990</p>
+      <p class="desc">Obligación legal, gestión reactiva de impactos y pasivos</p>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase">
+      <h4>Fase Estratégica</h4>
+      <p class="years">1990 – 2010</p>
+      <p class="desc">Ventaja competitiva y gestión de grupos de interés</p>
+      <p class="author">Freeman</p>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase">
+      <h4>Fase Sistémica</h4>
+      <p class="years">2010 – Actual</p>
+      <p class="desc">Gobernanza ESG, resiliencia y economía circular</p>
+    </div>
+  </div>
+  <ul>
+    <li><strong>Fase Filantrópica e Inicial (1950–1970):</strong> Con la publicación de <em>Social Responsibilities of the Businessman</em> (Bowen, 1953), se formula formalmente que las decisiones corporativas generan externalidades directas en la sociedad civil. Predominaba un enfoque paternalista, desvinculado de la matriz operativa central de la planta.</li>
+    <li><strong>Fase de Regulación y Respuesta a Externalidades (1970–1990):</strong> El endurecimiento de normativas ambientales (nacimiento de la EPA, normativas tempranas sobre vertidos y emisiones) y laborales forzó la transición hacia una postura defensiva o reactiva. Se comienza a cuantificar el coste del incumplimiento.</li>
+    <li><strong>Fase Estratégica y Stakeholder Theory (1990–2010):</strong> R. Edward Freeman redefine el modelo al sostener que la empresa responde no únicamente a los accionistas (<em>shareholders</em>), sino a un mapa dinámico de partes interesadas (<em>partes interesadas</em>). La Pirámide de Archie Carroll (1991) codifica cuatro responsabilidades jerárquicas: <strong>económica</strong> (ser rentable), <strong>legal</strong> (cumplir la ley), <strong>ética</strong> (operar con justicia) y <strong>filantrópica</strong> (contribuir discrecionalmente).</li>
+    <li><strong>Fase Sistémica y Creación de Valor Compartido (2010–Actualidad):</strong> Porter y Kramer introducen el concepto de <em>Shared Value</em>, donde el desempeño social se integra directamente en la cadena de valor mediante la reconcepción de productos, la redefinición de la productividad en la cadena de suministro y el desarrollo de clústeres locales.</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h3 class="subsection">Las Tres Dimensiones Fundamentales: Triple Bottom Line (TBL)</h3>
+  <p>Formulado por <strong>John Elkington (1997)</strong>, el enfoque de triple resultado establece que el éxito empresarial solo es sostenible si el balance entre capital económico, capital natural y capital humano es no deficitario.</p>
+  <p style="text-align:center;font-family:'Helvetica Neue',sans-serif;font-weight:700;color:var(--accent);letter-spacing:1px;margin:1rem 0">VECTORES DE LA SOSTENIBILIDAD</p>
+  <div class="tbl-triangle">
+    <div class="top">DIMENSIÓN AMBIENTAL</div>
+    <div class="sides">
+      <span>↙ Soportable</span>
+      <span>Viable ↘</span>
+    </div>
+    <div class="base">
+      <div class="corner">DIMENSIÓN SOCIAL</div>
+      <div class="center">Equitativa</div>
+      <div class="corner">DIMENSIÓN ECONÓMICA</div>
+    </div>
+  </div>
+
+  <h4 class="minor">1. Dimensión Económica</h4>
+  <p>Lejos de limitarse al beneficio neto contable, en ingeniería industrial esta dimensión evalúa la eficiencia sistémica, la productividad del capital y la viabilidad a largo plazo:</p>
+  <ul>
+    <li><strong>Distribución del valor económico directo:</strong> Generación de ingresos, costes operativos, remuneraciones justas a empleados, pagos a proveedores e inversiones comunitarias medibles.</li>
+    <li><strong>Resiliencia financiera operativa:</strong> Gestión proactiva de riesgos de mercado, fluctuación de materias primas y amortización eficiente de activos productivos.</li>
+    <li><strong>Optimización del ciclo de vida (LCC – Life Cycle Costing):</strong> Evaluación integral de los costes asociados a un activo (adquisición, operación, mantenimiento, paradas técnicas y disposición final).</li>
+  </ul>
+
+  <h4 class="minor">2. Dimensión Ambiental</h4>
+  <p>Concierne a la cuantificación, control y minimización del impacto generado sobre los ecosistemas naturales y los balances de masa/energía en los procesos productivos:</p>
+  <ul>
+    <li><strong>Ecoeficiencia y Descarbonización:</strong> Racionalización de la intensidad energética por unidad producida y reducción de gases de efecto invernadero (GEI) en Alcances 1, 2 y 3 bajo protocolos internacionales (GHG Protocol).</li>
+    <li><strong>Metabolismo Industrial y Ciclos Cerrados:</strong> Transición de sistemas lineales de producción (<em>Take-Make-Dispose</em>) a modelos de economía circular mediante simbiosis industrial, recuperación térmica y reciclaje post-industrial.</li>
+    <li><strong>Gestión de Efluentes y Residuos:</strong> Tratamiento integral de residuos peligrosos (RESPEL) y neutralización de descargas hídricas conforme a los límites máximos permisibles (LMP).</li>
+  </ul>
+
+  <h4 class="minor">3. Dimensión Social</h4>
+  <p>Abarca la gestión del impacto directo e indirecto de las operaciones sobre el capital humano interno y las comunidades dentro del radio de influencia:</p>
+  <ul>
+    <li><strong>Seguridad y Salud en el Trabajo (SST):</strong> Es el pilar ético fundamental. Implica la estructuración de matrices de riesgos IPER (Identificación de Peligros, Evaluación de Riesgos y Medidas de Control), reducción sistemática de la Tasa de Frecuencia de Accidentes con Tiempo Perdido (LTIFR) y diseño de puestos bajo criterios ergonómicos.</li>
+    <li><strong>Derechos Humanos y Clima Laboral:</strong> Erradicación del trabajo forzoso o infantil en toda la cadena de suministro de nivel 1 y subniveles, libertad de asociación, no discriminación y planes de desarrollo profesional técnico.</li>
+    <li><strong>Licencia Social para Operar (SLO):</strong> Mecanismos transparentes de consulta previa, desarrollo de proveedores locales e inversión social estratégica que garantice estabilidad operativa e impida conflictos socio-comunitarios.</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h3 class="subsection">Matriz Analítica: Intersecciones Críticas del Triple Resultado</h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Vínculo Dimensional</th>
+        <th>Principio Operativo</th>
+        <th>Indicadores de Desempeño Clave (KPI)</th>
+        <th>Falla Típica de Gestión</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Económico – Ambiental</strong><br><em>(Viabilidad)</em></td>
+        <td>Ecoeficiencia industrial, reducción de mermas, optimización de flujos de calor y balances de masa.</td>
+        <td>Consumo específico de energía (kWh/t), tasa de revalorización de residuos (m³/u).</td>
+        <td>Priorizar la compra de maquinaria barata de baja eficiencia energética por ahorro en CAPEX.</td>
+      </tr>
+      <tr>
+        <td><strong>Social – Ambiental</strong><br><em>(Soportabilidad)</em></td>
+        <td>Preservación de la salud comunitaria, control de inmisiones, acceso equitativo al agua potable y aire limpio.</td>
+        <td>Concentración de partículas PM₂.₅/PM₁₀ en perímetro, índice de quejas ambientales vecinales.</td>
+        <td>Externalizar pasivos ambientales hacia zonas residenciales aledañas o cuencas hídricas locales.</td>
+      </tr>
+      <tr>
+        <td><strong>Económico – Social</strong><br><em>(Equidad)</em></td>
+        <td>Retribución salarial competitiva, compras locales de insumos, estabilidad laboral y formalidad productiva.</td>
+        <td>Brecha salarial interna, porcentaje de gasto en proveedores locales, índice de rotación laboral.</td>
+        <td>Reducción unilateral de costes operativos precarizando la mano de obra o subcontrataciones opacas.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="block accent">
+  <h3 class="subsection">Enfoque Integral de la RSC y su Impacto en la Sostenibilidad Corporativa</h3>
+  <p>El enfoque integral entiende a la organización como un sistema abierto termodinámica y socialmente interactivo. Cuando la RSC se gestiona de forma aislada, deviene en campañas de relaciones públicas vulnerables a acusaciones de <em>greenwashing</em> o <em>socialwashing</em>. Cuando se articula desde la alta dirección e ingeniería:</p>
+  <div class="system-diagram">
+    <div class="gov-box">GOBERNANZA CORPORATIVA Y ÉTICA</div>
+    <div class="three-cols">
+      <div class="col-box">
+        <h5>Operaciones &amp; Procesos</h5>
+        <ul>
+          <li>Producción más limpia</li>
+          <li>Mantenimiento predictivo</li>
+          <li>Gestión energética</li>
+        </ul>
+      </div>
+      <div class="col-box">
+        <h5>Seguridad y Personas</h5>
+        <ul>
+          <li>Cero accidentes (Vision)</li>
+          <li>Cultura de autocuidado</li>
+          <li>Ergonomía industrial</li>
+        </ul>
+      </div>
+      <div class="col-box">
+        <h5>Comunidad &amp; Ecosistemas</h5>
+        <ul>
+          <li>Trazabilidad proveedores</li>
+          <li>Cumplimiento legal pleno</li>
+          <li>Diálogo multiactor</li>
+        </ul>
+      </div>
+    </div>
+    <div class="down-arrow">▼</div>
+    <div class="impact-bar">IMPACTO CUANTIFICABLE EN SOSTENIBILIDAD: [Menor WACC] + [Mitigación de Paradas] + [Valor de Marca Resiliente]</div>
+  </div>
+  <ol>
+    <li><strong>Reducción del Coste de Capital (WACC):</strong> Las entidades financieras y los fondos de inversión internacionales integran criterios ESG (Ambiental, Social y Gobernanza). Las organizaciones con matrices sólidas de sostenibilidad acceden a bonos verdes y líneas de crédito preferenciales debido a su menor exposición a litigios o contingencias regulatorias.</li>
+    <li><strong>Mitigación de Riesgos Catastróficos y Continuidad de Negocio:</strong> La integración de la seguridad de procesos y el monitoreo ambiental preventivo evita eventos que comprometen la viabilidad económica inmediata (paradas judiciales de planta, multas coercitivas por vertidos o desastres industriales).</li>
+    <li><strong>Atracción y Retención de Talento Técnico Calificado:</strong> Las industrias que garantizan ambientes de trabajo seguros, justos y ergonómicos minimizan el absentismo, las bajas por enfermedad profesional y la fuga de conocimientos críticos.</li>
+    <li><strong>Resiliencia de la Cadena de Suministro:</strong> La auditoría continua de proveedores según estándares sociales y ambientales previene disrupciones en el suministro de materias primas por clausuras o conflictos de terceros.</li>
+  </ol>
+</section>
+
+<section class="block success">
+  <h3 class="subsection">Referencias Bibliográficas</h3>
+  <ul>
+    <li>Bowen, H. R. (1953). <em>Social Responsibilities of the Businessman</em>. Harper &amp; Brothers.</li>
+    <li>Carroll, A. B. (1991). The pyramid of corporate social responsibility: Toward the moral management of organizational stakeholders. <em>Business Horizons</em>, 34(4), 39–48. <a href="https://doi.org/10.1016/0007-6813(91)90005-G" target="_blank">https://doi.org/10.1016/0007-6813(91)90005-G</a></li>
+    <li>Elkington, J. (1997). <em>Cannibals with Forks: The Triple Bottom Line of 21st Century Business</em>. Capstone.</li>
+    <li>Freeman, R. E. (1984). <em>Strategic Management: A Stakeholder Approach</em>. Pitman.</li>
+    <li>International Organization for Standardization. (2010). <em>Guidance on social responsibility</em> (ISO Standard No. 26000:2010).</li>
+    <li>Porter, M. E., &amp; Kramer, M. R. (2011). Creating shared value: How to reinvent capitalism—and unleash a wave of innovation and growth. <em>Harvard Business Review</em>, 89(1–2), 62–77.</li>
+  </ul>
+</section>
+</section>
+
+<!-- ============================ TAB 2 ============================ -->
+<section class="tab-content" id="guion" role="tabpanel">
+<section class="block accent">
+  <h2 class="section-title">Guion de Exposición Docente: Estudio de Caso en Ingeniería de Procesos (20 Minutos)</h2>
+  <div class="ficha-tecnica">
+    <dl>
+      <dt>Asignatura:</dt><dd>Responsabilidad Social y Corporativa (RSC)</dd>
+      <dt>Nivel:</dt><dd>Pregrado en Ingeniería Industrial e Ingeniería en Seguridad Industrial — UPSE</dd>
+      <dt>Tema:</dt><dd>Fundamentos, Evolución y Triple Resultado (<em>Triple Bottom Line</em> – TBL) aplicados a la transformación de operaciones críticas.</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="block">
+  <h3 class="subsection">1. Ficha Técnica del Caso de Estudio</h3>
+  <ul>
+    <li><strong>Organización analizada:</strong> Complejo Agroquímico &amp; Formulaciones del Litoral S.A.</li>
+    <li><strong>Ubicación:</strong> Cuenca baja costera (zona periurbana adyacente a comunidades pesqueras y de agricultura intensiva).</li>
+    <li><strong>Capacidad instalada:</strong> Planta continua de síntesis y envasado de plaguicidas, fertilizantes nitrogenados y formulados foliares (350 t/día).</li>
+    <li><strong>Problemática inicial (Estado Base – Año 0):</strong> Enfoque filantrópico tradicional (donaciones a festividades patronales locales, canastas de alimentos en navidad). Paralelamente, la planta acumulaba:
+      <ul>
+        <li>Vertido recurrente de efluentes con alta demanda química de oxígeno (DQO &gt; 2800 mg/L) y nitratos al estero circundante.</li>
+        <li>Tasa de accidentes con tiempo perdido (LTIFR) de 14.8 por millón de horas-hombre trabajadas (fugas de amoníaco, sobreesfuerzos músculo-esqueléticos en estiba manual).</li>
+        <li>Consumo intensivo de agua de red pública y conflictos vecinales por malos olores y micropartículas en el aire.</li>
+      </ul>
+    </li>
+    <li><strong>Punto de inflexión:</strong> Notificación de cierre preventivo por parte de la autoridad ambiental, bloqueo de accesos logísticos por parte de la asamblea comunitaria y pérdida de contrato de exportación con la Unión Europea por no certificar trazabilidad ESG en la cadena de suministro.</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h3 class="subsection">2. Cronograma de Exposición en Aula (Estructura de 20 Minutos)</h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Bloque Temporal</th>
+        <th>Fase Didáctica</th>
+        <th>Objetivo de Aprendizaje</th>
+        <th>Conceptos Teóricos Anclados</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>00:00 – 04:00</strong><br>(4 min)</td>
+        <td>Apertura y Desmitificación</td>
+        <td>Evidenciar el colapso del modelo filantrópico puro frente a las externalidades no gestionadas.</td>
+        <td>Filantropía vs. RSC estratégica; Modelo de Bowen vs. Carroll (1991).</td>
+      </tr>
+      <tr>
+        <td><strong>04:00 – 10:00</strong><br>(6 min)</td>
+        <td>Diagnóstico Multidimensional</td>
+        <td>Mapear la crisis operativa en las dimensiones económica, ambiental y social (TBL).</td>
+        <td><em>Triple Bottom Line</em> (Elkington, 1997); Matriz IPER; Ecoeficiencia.</td>
+      </tr>
+      <tr>
+        <td><strong>10:00 – 16:00</strong><br>(6 min)</td>
+        <td>Solución Integral de Ingeniería</td>
+        <td>Exponer las intervenciones técnicas de proceso y gobernanza como generadoras de valor.</td>
+        <td><em>Shared Value</em> (Porter &amp; Kramer); Economía circular; ISO 26000 / 14001 / 45001.</td>
+      </tr>
+      <tr>
+        <td><strong>16:00 – 20:00</strong><br>(4 min)</td>
+        <td>Evaluación Cuantificable y Cierre</td>
+        <td>Demostrar cómo la RSC se traduce en métricas de viabilidad, mitigación de riesgos y retorno.</td>
+        <td>Matriz de Materialidad; LCC (<em>Life Cycle Costing</em>); OEE y WACC.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="block">
+  <h3 class="subsection">3. Guion de Conducción Docente Minuto a Minuto</h3>
+
+  <h4 class="minor">Bloque 1: Apertura y el Fracaso de la Filantropía Pura (Minutos 00:00 – 04:00)</h4>
+  <p><strong>Acción del docente:</strong> Proyectar la foto satelital de la planta contigua a la comunidad y la notificación de clausura municipal. Dirigirse al grupo con enfoque directo:</p>
+  <blockquote class="docente">
+    Ingenieros, observen esta paradoja: durante cinco años, la gerencia general destinó $50,000 anuales a donaciones benéficas, apadrinamiento de escuelas locales y canchas de fútbol para el pueblo vecino. En los libros contables, la empresa se autodenominaba 'socialmente responsable'. Sin embargo, en mayo de 2024, esa misma comunidad bloqueó la puerta principal con barricadas, los camiones cisterna quedaron retenidos por 96 horas y la autoridad ambiental colocó sellos de clausura temporal.
+    <br><br>
+    ¿Por qué una empresa que 'regalaba dinero' fue repudiada por su entorno? Porque la filantropía, concebida como la fase inicial descrita por Howard Bowen en los años 50, comete un error fatal: asume que la responsabilidad social ocurre <strong>después</strong> de generar utilidades, a través de cheques caritativos, ignorando cómo se genera ese dinero dentro de la planta.
+    <br><br>
+    Si tu chimenea expulsa material particulado sobre las viviendas y tus operarios sufren intoxicaciones crónicas, pintar la escuela del barrio no es responsabilidad social; es una cortina de humo que hoy el mercado y la legislación castigan sin concesiones.
+  </blockquote>
+
+  <h4 class="minor">Bloque 2: Diagnóstico mediante el Triple Resultado (Minutos 04:00 – 10:00)</h4>
+  <p><strong>Acción del docente:</strong> Dibujar o proyectar el diagrama del <em>Triple Bottom Line</em> de John Elkington, cruzando las 3 dimensiones con los indicadores reales de la planta:</p>
+  <div class="diagnosis-box">
+    <p class="title">DIAGNÓSTICO INICIAL (AÑO 0)</p>
+    <div class="grid3">
+      <div class="dim">
+        <h5>AMBIENTAL</h5>
+        <ul>
+          <li>DQO: 2800 mg/L</li>
+          <li>Pérdidas de solvente: 4.2%</li>
+          <li>"Zona Invivible"</li>
+        </ul>
+      </div>
+      <div class="dim">
+        <h5>SOCIAL</h5>
+        <ul>
+          <li>LTIFR: 14.8 accidentes</li>
+          <li>Bloqueos: 12 días/año</li>
+          <li>"Precarización"</li>
+        </ul>
+      </div>
+      <div class="dim">
+        <h5>ECONÓMICA</h5>
+        <ul>
+          <li>Multas: $180,000/año</li>
+          <li>Contratos UE perdidos: $2.4M</li>
+          <li>"Externalización destructiva"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <p><strong>Puntos clave a desarrollar verbalmente:</strong></p>
+  <ol>
+    <li><strong>Dimensión Ambiental (Falla metabólica del proceso):</strong>
+      <ul>
+        <li>El sistema de dilución vertía agua contaminada con amonio y pesticidas al estero, colapsando la pesca artesanal de la zona.</li>
+        <li>Consumo hídrico de 18 m³ por tonelada formulada, en una provincia con estrés hídrico recurrente.</li>
+      </ul>
+    </li>
+    <li><strong>Dimensión Social (Quiebre ético interno y externo):</strong>
+      <ul>
+        <li><strong>Interno:</strong> 14.8 accidentes incapacitantes por millón de horas hombre. Operarios manipulando sacos de 50 kg manualmente y fugas menores de gases respirables normalizadas como "gajes del oficio".</li>
+        <li><strong>Externo:</strong> Cero diálogo técnico con la comunidad. Ruptura total de la Licencia Social para Operar (SLO).</li>
+      </ul>
+    </li>
+    <li><strong>Dimensión Económica (Destrucción del valor del negocio):</strong>
+      <ul>
+        <li>Coste directo de las multas impuestas: $180,000 en 18 meses.</li>
+        <li>Lucro cesante por 12 días de bloqueos logísticos acumulados: $420,000.</li>
+        <li>Rechazo de la auditoría de compra de una multinacional agrícola: pérdida de un contrato marco de $2.4 millones por no contar con trazabilidad de seguridad y gestión ambiental según estándares internacionales.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <h4 class="minor">Bloque 3: La Respuesta de Ingeniería e Integración Estratégica (Minutos 10:00 – 16:00)</h4>
+  <p><strong>Acción del docente:</strong> Detallar la intervención técnica de los ingenieros industriales y de seguridad industrial para reconvertir el proceso (enfoque Porter &amp; Kramer: <em>Creación de Valor Compartido</em>):</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Eje Técnico</th>
+        <th>Intervención de Planta</th>
+        <th>Impacto en el TBL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Rediseño de Efluentes y Circuito Hídrico</td>
+        <td>Implementación de planta de ósmosis inversa y recarga de circuitos cerrados.</td>
+        <td>• Ambiental: Vertido cero<br>• Económico: Ahorro de $78,000/año en compra de agua industrial de tanquero.</td>
+      </tr>
+      <tr>
+        <td>Seguridad en Procesos y Ergonomía (SST)</td>
+        <td>Automatización de ensacado, brazos mecánicos y sensores de gas amoníaco con SCADA.</td>
+        <td>• Social: LTIFR cayó a 0.8<br>• Económico: Prima del seguro disminuyó en un 32%.</td>
+      </tr>
+      <tr>
+        <td>Simbiosis y Cadena de Suministro Local</td>
+        <td>Revalorización de lodos ricos en nitrógeno como fertilizante no tóxico para agricultores.</td>
+        <td>• Ambiental: 0 lodos a relleno<br>• Social: Cooperativa vecinal generó microempresas.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <blockquote class="docente">
+    Observen lo que la ingeniería logró aquí: en lugar de regalar dádivas, rediseñamos el proceso.
+    <br><br>
+    Al cerrar el ciclo del agua, la planta redujo su extracción de la red en un <strong>68%</strong>. La comunidad recuperó el flujo y calidad del agua del estero.
+    <br><br>
+    Al automatizar las estaciones de carga crítica, erradicamos las hernias de disco y la exposición a vapores tóxicos, cumpliendo simultáneamente con <strong>ISO 45001</strong> e incrementando la disponibilidad real de la línea (<em>OEE</em>).
+    <br><br>
+    Los residuos de la formulación orgánica fueron neutralizados y entregados a una cooperativa agrícola comunitaria como mejorador de suelo certificado, convirtiendo un residuo peligroso costoso en un insumo productivo local.
+  </blockquote>
+
+  <h4 class="minor">Bloque 4: Validación de Resultados y Cierre Reflexivo (Minutos 16:00 – 20:00)</h4>
+  <p><strong>Acción del docente:</strong> Contrastar los números antes y después de 24 meses de implementación y abrir la discusión con los estudiantes:</p>
+  <p style="text-align:center;font-family:'Helvetica Neue',sans-serif;font-weight:700;color:var(--accent);letter-spacing:1px;margin:1rem 0">MÉTRICAS COMPARATIVAS (24 MESES)</p>
+  <table class="metrics">
+    <thead>
+      <tr><th>Indicador</th><th>Línea Base (Año 0)</th><th>Post-Intervención (Año 2)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="metric-name">LTIFR (Seguridad Ocupacional)</td><td>14.8</td><td class="improved">0.8</td></tr>
+      <tr><td class="metric-name">Consumo Hídrico Específico</td><td>18.0 m³/t</td><td class="improved">5.7 m³/t</td></tr>
+      <tr><td class="metric-name">Emisiones / Descargas DQO</td><td>2800 mg/L</td><td class="improved">&lt; 80 mg/L (Conforme)</td></tr>
+      <tr><td class="metric-name">Días de Parada por Conflicto</td><td>12 días</td><td class="improved">0 días</td></tr>
+      <tr><td class="metric-name">Margen EBITDA Operativo</td><td>11.2%</td><td class="improved">16.4%</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Conclusión formulada para la clase:</strong></p>
+  <blockquote class="docente">
+    ¿Cuál es la lección troncal de este caso para un ingeniero?
+    <br><br>
+    La Responsabilidad Social y Corporativa no es un departamento de relaciones públicas desconectado del piso de planta. Es un <strong>modelo de gobernanza de la producción</strong>.
+    <br><br>
+    Si el diseño de su línea destruye el entorno físico o la integridad psicofísica de sus colaboradores, la operación es técnicamente deficiente y económicamente insostenible. El valor compartido se crea cuando las soluciones de ingeniería maximizan la eficiencia termodinámica de los recursos, garantizan condiciones de trabajo seguras y blindan la continuidad operativa de la empresa mediante la legitimidad social.
+  </blockquote>
+</section>
+
+<section class="block accent">
+  <h3 class="subsection">4. Preguntas de Cierre para el Debate en Aula (2 Minutos Finales)</h3>
+  <ol>
+    <li><em>Si la inversión en la planta de ósmosis inversa tuvo un periodo de retorno de la inversión (PRI) de 3.2 años, ¿cómo justificarían este proyecto ante un comité financiero que exige retornos menores a 2 años?</em> (Respuesta esperada: internalización de costes por contingencias legales, ahorro en seguros y recuperación de la cuota de mercado internacional).</li>
+    <li><em>¿En qué nivel de la Pirámide de Carroll ubicarían la automatización de la estación de envasado para eliminar lesiones músculo-esqueléticas? ¿Es responsabilidad legal, ética o netamente económica?</em></li>
+  </ol>
+</section>
+
+<section class="block success">
+  <h3 class="subsection">Referencias para los Estudiantes</h3>
+  <ul>
+    <li>Carroll, A. B. (1991). The pyramid of corporate social responsibility: Toward the moral management of organizational stakeholders. <em>Business Horizons</em>, 34(4), 39–48.</li>
+    <li>Elkington, J. (1997). <em>Cannibals with Forks: The Triple Bottom Line of 21st Century Business</em>. Capstone.</li>
+    <li>Porter, M. E., &amp; Kramer, M. R. (2011). Creating shared value: How to reinvent capitalism—and unleash a wave of innovation and growth. <em>Harvard Business Review</em>, 89(1–2), 62–77.</li>
+  </ul>
+</section>
+</section>
+
+<!-- ============================ TAB 3 ============================ -->
+<section class="tab-content" id="taller" role="tabpanel">
+<section class="block accent">
+  <h2 class="section-title">Taller Práctico Aplicado: Reingeniería Estratégica y Triple Resultado (TBL)</h2>
+  <div class="ficha-tecnica">
+    <dl>
+      <dt>Asignatura:</dt><dd>Responsabilidad Social y Corporativa (RSC)</dd>
+      <dt>Carreras:</dt><dd>Ingeniería Industrial / Ingeniería en Seguridad Industrial — UPSE</dd>
+      <dt>Modalidad:</dt><dd>Equipos de trabajo (3 a 4 estudiantes)</dd>
+      <dt>Tiempo límite:</dt><dd>20 minutos</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="block">
+  <h3 class="subsection">1. Contexto Operativo del Caso</h3>
+  <p><strong>Empresa:</strong> <em>Procesadora y Harinera del Pacífico S.A. (PROHAP)</em></p>
+  <p><strong>Ubicación:</strong> Zona industrial-portuaria contigua a un asentamiento urbano costero.</p>
+  <p><strong>Actividad:</strong> Recepción de pelágicos pequeños, cocción por vapor, prensado, secado térmico directo y molienda para harina y aceite de pescado (capacidad procesada: 80 t/h de materia prima).</p>
+
+  <p style="text-align:center;font-family:'Helvetica Neue',sans-serif;font-weight:700;color:var(--warning);letter-spacing:1px;margin:1.5rem 0 0.5rem">DIAGRAMA DE FLUJO Y PÉRDIDAS CRÍTICAS</p>
+  <div class="flow-diagram">
+    <div class="flow-row">
+      <span class="flow-box">Materia Prima</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Cocción / Prensado</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Secado Térmico Directo</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Molienda / Ensacado</span>
+    </div>
+    <div class="flow-row" style="justify-content:space-around">
+      <span class="flow-box" style="border-left-color:var(--warning)">Agua de Cola / Sanguaza<br>• 35% vertido sin tratar<br>• DBO₅: 45,000 mg/L<br>• Quejas comunales: 8/sem.</span>
+      <span class="flow-box" style="border-left-color:var(--warning)">Gases &amp; Vahos<br>• Vahos sin condensar<br>• Emisión H₂S y TMA<br>• Multas: $120,000/año</span>
+      <span class="flow-box" style="border-left-color:var(--warning)">Carga Manual<br>• Sacos de 50 kg<br>• Tasa lesiones: 22 casos/año</span>
+    </div>
+  </div>
+
+  <h4 class="minor">Diagnóstico de Planta (Línea Base)</h4>
+  <ul>
+    <li><strong>Dimensión Ambiental:</strong>
+      <ul>
+        <li>Vertido diario de 420 m³ de efluente graso y sanguaza al borde costero sin neutralización biológica previa (DBO₅ = 45,000 mg/L, límite legal: 250 mg/L).</li>
+        <li>Vahos de secado evacuados a la atmósfera con concentraciones perceptibles de trimetilamina (TMA) y ácido sulfhídrico (H₂S).</li>
+      </ul>
+    </li>
+    <li><strong>Dimensión Social (Interna y Externa):</strong>
+      <ul>
+        <li><strong>Interna (SST):</strong> Estiba manual de sacos de harina de 50 kg a ritmo de 12 unidades/min por cuadrilla. Se registraron 22 bajas médicas en el último año por lumbalgias incapacitantes e hipoacusia inducida por ruido en el área de molinos (94 dBA continuos sin aislamiento acústico).</li>
+        <li><strong>Externa:</strong> 8 denuncias formales por semana ante el Ministerio del Ambiente y conatos de bloqueo en el muelle de descarga por el gremio de pescadores artesanales debido a la mortandad de peces costeros.</li>
+      </ul>
+    </li>
+    <li><strong>Dimensión Económica:</strong>
+      <ul>
+        <li>Coste anual por multas ambientales y de seguridad laboral: <strong>$120,000 USD</strong>.</li>
+        <li>Prima de riesgo ante la aseguradora laboral incrementada en un <strong>45%</strong>.</li>
+        <li>Desperdicio de sólidos y proteínas en el efluente líquido estimado en 1.8 t/día de harina no recuperada (pérdida de facturación: <strong>$2,700 USD/día</strong> considerando 1,500 USD/t).</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<section class="block">
+  <h3 class="subsection">2. Instrucciones para los Estudiantes</h3>
+  <p>En sus equipos de trabajo, asuman el rol del <strong>Comité de Ingeniería de Operaciones y Seguridad Industrial</strong>. Tienen 20 minutos para analizar la situación, completar las matrices técnicas y formular la propuesta de reconversión de planta.</p>
+  <h4 class="minor">Distribución del Tiempo (20 Minutos)</h4>
+  <ul>
+    <li><strong>00:00 – 04:00 (4 min):</strong> Lectura comprensiva, extracción de variables críticas y distribución de roles dentro del equipo.</li>
+    <li><strong>04:00 – 12:00 (8 min):</strong> Resolución del Bloque I (Matriz de Diagnóstico TBL) y Bloque II (Matriz de Reingeniería y Creación de Valor Compartido).</li>
+    <li><strong>12:00 – 17:00 (5 min):</strong> Resolución del Bloque III (Cálculo Rápido de Viabilidad Económico-Ambiental).</li>
+    <li><strong>17:00 – 20:00 (3 min):</strong> Redacción de la conclusión ejecutiva de cierre para la Gerencia General.</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h3 class="subsection">3. Entregables del Taller</h3>
+
+  <h4 class="minor">Bloque I: Matriz de Diagnóstico Integral TBL (5 puntos)</h4>
+  <p>Clasifiquen los problemas de la planta en la siguiente matriz, identificando la falla estructural y la normativa asociada:</p>
+  <table class="data-table">
+    <thead>
+      <tr><th>Dimensión</th><th>Problema Operativo Identificado</th><th>Tipo de Falla (Legal / Ética / Operacional)</th><th>Norma / Estándar Afectado (ISO/Local)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Ambiental</strong></td><td></td><td></td><td></td></tr>
+      <tr><td><strong>Social (Interna – SST)</strong></td><td></td><td></td><td></td></tr>
+      <tr><td><strong>Social (Externa)</strong></td><td></td><td></td><td></td></tr>
+      <tr><td><strong>Económica</strong></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h4 class="minor">Bloque II: Matriz de Reingeniería de Planta (Valor Compartido) (8 puntos)</h4>
+  <p>Diseñen una solución técnica de ingeniería para cada dimensión que transforme el pasivo en un activo productivo:</p>
+  <table class="data-table">
+    <thead>
+      <tr><th>Dimensión</th><th>Solución Técnica Propuesta</th><th>Impacto Esperado en Planta</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1. Ambiental<br>(Efluentes y Emisiones)</td>
+        <td></td>
+        <td>• Reducción DBO₅:<br>• Cumplimiento normativo:</td>
+      </tr>
+      <tr>
+        <td>2. Social<br>(SST e IPER)</td>
+        <td></td>
+        <td>• Reducción de LTIFR:<br>• Control de ruido / ergo:</td>
+      </tr>
+      <tr>
+        <td>3. Social<br>(Comunidad)</td>
+        <td></td>
+        <td>• Mecanismo con la comunidad:<br>• Licencia Social para Operar:</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="minor">Bloque III: Cuantificación Económica Rápida de la Inversión (4 puntos)</h4>
+  <p>La planta evalúa instalar una <strong>Planta Evaporadora de Agua de Cola al Vacío</strong>:</p>
+  <ul>
+    <li><strong>Inversión de Capital (CAPEX):</strong> $380,000 USD.</li>
+    <li><strong>Recuperación de sólidos:</strong> 1.8 t/día de concentrado proteico reincorporado al secador para producir harina comercial (1,500 USD/t).</li>
+    <li><strong>Días de operación:</strong> 180 días de zafra efectiva al año.</li>
+    <li><strong>Eliminación de multas ambientales:</strong> Ahorro directo de $120,000 USD/año.</li>
+    <li><strong>Costes operacionales de la nueva planta (OPEX vapor/energía):</strong> $65,000 USD/año.</li>
+  </ul>
+  <p><strong>Cálculo solicitado:</strong></p>
+  <ol>
+    <li>Calcule el beneficio económico neto anual (BEN):</li>
+  </ol>
+  <div class="formula">Ingreso Adicional Anual = 1.8 t/día × 1,500 USD/t × 180 días = ¿?</div>
+  <div class="formula">Ahorro Neto Total = ( Ingreso Harina + Multas Evitadas ) − OPEX</div>
+  <ol start="2">
+    <li>Determine el Periodo de Retorno de la Inversión Simple (PRI):</li>
+  </ol>
+  <div class="formula">
+    PRI =
+    <span class="frac">
+      <span class="num">CAPEX</span>
+      <span class="den">Ahorro Neto Total</span>
+    </span>
+  </div>
+
+  <h4 class="minor">Bloque IV: Argumento de Cierre para la Alta Dirección (3 puntos)</h4>
+  <p>En un párrafo técnico de no más de 5 líneas, redacten la postura del equipo respondiendo:</p>
+  <blockquote class="docente">¿Por qué sustituir la antigua donación comunitaria de víveres por la reconversión tecnológica de la planta blinda la sostenibilidad del negocio y el OEE de las líneas?</blockquote>
+</section>
+
+<section class="block warning">
+  <h3 class="subsection">4. Guía Rápida de Solución para Evaluación Docente</h3>
+  <div class="unlock-notice" data-notice="sol-taller">
+    <strong>🔒 Contenido restringido.</strong> Esta sección contiene las respuestas técnicas esperadas y está protegida con clave de acceso docente. Haga clic en el botón para ingresar la clave.
+  </div>
+  <button class="unlock-btn" data-target="sol-taller" onclick="openModal('sol-taller')">Acceder a la Solución</button>
+  <div class="solution-locked" id="sol-taller">
+    <p style="text-align:center;font-family:'Helvetica Neue',sans-serif;font-weight:700;color:var(--success);letter-spacing:1px;margin-bottom:1rem">HOJA DE RESPUESTAS TÉCNICAS ESPERADAS</p>
+
+    <h4 class="minor">Bloque I (TBL):</h4>
+    <ul>
+      <li><strong>Ambiental:</strong> Descarga de agua de cola sin depurar (Legal/Operacional – ISO 14001).</li>
+      <li><strong>Social SST:</strong> Manejo manual de cargas &gt; 25 kg y ruido continuo (Legal/Ético – ISO 45001).</li>
+      <li><strong>Social Ext:</strong> Emisiones volátiles H₂S y TMA; ruptura de Licencia Social para Operar.</li>
+      <li><strong>Económica:</strong> Lucro cesante por pérdida de proteína y pago reiterado de penalizaciones.</li>
+    </ul>
+
+    <h4 class="minor">Bloque II (Soluciones):</h4>
+    <ul>
+      <li>Planta evaporadora de película descendente (recuperación de agua de cola).</li>
+      <li>Automatización de ensaque (paletizadora robótica) y cabinas insonorizadas para molinos.</li>
+      <li>Monitoreo ambiental participativo y condensación scrubbers para gases de chimenea.</li>
+    </ul>
+
+    <h4 class="minor">Bloque III (Cálculo):</h4>
+    <ul>
+      <li>Ingreso por recuperación: 1.8 × 1500 × 180 = <strong>$486,000 USD/año</strong>.</li>
+      <li>Beneficio Neto: ($486,000 + $120,000) − $65,000 = <strong>$541,000 USD/año</strong>.</li>
+      <li>PRI = $380,000 / $541,000 ≈ <strong>0.70 años</strong> (~8.4 meses de operación efectiva).</li>
+    </ul>
+  </div>
+</section>
+</section>
+
+<!-- ============================ TAB 4 ============================ -->
+<section class="tab-content" id="evaluativo" role="tabpanel">
+<section class="block accent">
+  <h2 class="section-title">Taller Evaluativo: Fundamentos, Evolución y Dimensiones de la Responsabilidad Social Corporativa</h2>
+  <p>El presente taller consta de cinco secciones con 30 reactivos que evalúan el dominio conceptual, procedimental y crítico de la RSC aplicada a la ingeniería industrial.</p>
+</section>
+
+<section class="block">
+  <h3 class="subsection">Sección I: Reactivos de Opción Múltiple con Única Respuesta (Preguntas 1 a 10)</h3>
+
+  <div class="question">
+    <p class="q-num">Pregunta 1.</p>
+    <p>¿Qué autor es considerado históricamente como el precursor formal de la Responsabilidad Social Empresarial tras la publicación de su obra en 1953?</p>
+    <ol class="options">
+      <li>Milton Friedman</li>
+      <li>Howard R. Bowen</li>
+      <li>R. Edward Freeman</li>
+      <li>John Elkington</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 2.</p>
+    <p>En la Pirámide de la Responsabilidad Social Corporativa de Archie Carroll (1991), ¿cuál es el estrato base sobre el cual descansan todas las demás responsabilidades?</p>
+    <ol class="options">
+      <li>Responsabilidad Legal</li>
+      <li>Responsabilidad Filantrópica</li>
+      <li>Responsabilidad Ética</li>
+      <li>Responsabilidad Económica</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 3.</p>
+    <p>El concepto de "Triple Bottom Line" (TBL), formulado por John Elkington en 1997, sostiene que el desempeño global de una corporación debe evaluarse en función de:</p>
+    <ol class="options">
+      <li>Utilidad neta, flujo de caja libre y valor en libros.</li>
+      <li>Capital económico, capital natural y capital social.</li>
+      <li>Seguridad de procesos, índice OEE y rendimiento de activos.</li>
+      <li>Cumplimiento legal, balance fiscal y donaciones comunitarias.</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 4.</p>
+    <p>De acuerdo con la Teoría de los Stakeholders formulada por R. Edward Freeman (1984), la gestión estratégica de una organización debe:</p>
+    <ol class="options">
+      <li>Priorizar de manera absoluta el retorno financiero para los accionistas (shareholders).</li>
+      <li>Atender exclusivamente las normativas impuestas por los entes gubernamentales y reguladores.</li>
+      <li>Maximizar el equilibrio de intereses entre accionistas, colaboradores, proveedores, clientes y comunidades del entorno.</li>
+      <li>Destinar un porcentaje fijo de las utilidades a fundaciones sin fines de lucro para evitar cargas impositivas.</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 5.</p>
+    <p>En la intersección de las dimensiones económica y ambiental dentro del modelo de sostenibilidad, ¿cuál de los siguientes términos describe el principio operativo que busca reducir el uso de recursos y emisiones aumentando la eficiencia del proceso productivo?</p>
+    <ol class="options">
+      <li>Ecoeficiencia</li>
+      <li>Soportabilidad</li>
+      <li>Equidad distributiva</li>
+      <li>Filantropía estratégica</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 6.</p>
+    <p>¿Cuál es la norma técnica internacional que proporciona directrices y directrices operativas sobre Responsabilidad Social, concebida como un estándar no certificable?</p>
+    <ol class="options">
+      <li>ISO 9001</li>
+      <li>ISO 14001</li>
+      <li>ISO 45001</li>
+      <li>ISO 26000</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 7.</p>
+    <p>El concepto de "Creación de Valor Compartido" (Shared Value), propuesto por Michael Porter y Mark Kramer (2011), se diferencia de la filantropía tradicional porque:</p>
+    <ol class="options">
+      <li>Busca deducir impuestos mediante programas sociales gestionados por terceros.</li>
+      <li>Integra el progreso social y ambiental directamente en la estrategia competitiva y en la cadena de valor de la compañía.</li>
+      <li>Obliga a transferir el control administrativo de la planta industrial a las asambleas barriales.</li>
+      <li>Prohíbe a las industrias manufactureras la exportación de bienes que contengan huella de carbono.</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 8.</p>
+    <p>La "Licencia Social para Operar" (Social License to Operate – SLO) se define técnicamente como:</p>
+    <ol class="options">
+      <li>El permiso de funcionamiento ambiental otorgado formalmente por el Ministerio del Ambiente.</li>
+      <li>La acreditación de los sistemas de seguridad y salud bajo la norma ISO 45001.</li>
+      <li>El nivel de aceptación y legitimidad continua que una comunidad otorga a las operaciones industriales de su entorno.</li>
+      <li>El registro mercantil emitido por la Superintendencia de Compañías para iniciar obras civiles.</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 9.</p>
+    <p>¿Cuál de los siguientes indicadores de Seguridad y Salud en el Trabajo refleja la dimensión social interna de la RSC al cuantificar la siniestralidad con incapacidad temporal o permanente?</p>
+    <ol class="options">
+      <li>Tasa de Frecuencia de Accidentes con Tiempo Perdido (LTIFR)</li>
+      <li>Retorno de la Inversión en Capital Social (SROI)</li>
+      <li>Demanda Bioquímica de Oxígeno en Efluentes (DBO₅)</li>
+      <li>Coste Medio Ponderado del Capital (WACC)</li>
+    </ol>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 10.</p>
+    <p>Una práctica industrial consistente en publicitar atributos ecológicos de un producto mediante campañas de marketing, mientras la planta incumple sistemáticamente los límites permisibles de vertidos líquidos, constituye un ejemplo evidente de:</p>
+    <ol class="options">
+      <li>Metabolismo industrial</li>
+      <li>Simbiosis circular</li>
+      <li>Greenwashing</li>
+      <li>Ecoeficiencia de procesos</li>
+    </ol>
+  </div>
+</section>
+
+<section class="block">
+  <h3 class="subsection">Sección II: Reactivos de Verdadero o Falso con Justificación Técnica (Preguntas 11 a 17)</h3>
+
+  <div class="question">
+    <p class="q-num">Pregunta 11.</p>
+    <p>La visión mecanicista clásica propuesta por Milton Friedman en 1970 sostiene que la única responsabilidad social de la empresa privada consiste en maximizar sus beneficios económicos dentro del marco de la ley y el juego limpio competitivo.</p>
+    <p class="tf-options"><span class="tf">( ) Verdadero &nbsp;&nbsp; ( ) Falso</span></p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 12.</p>
+    <p>En la teoría del Triple Resultado, la intersección entre la dimensión económica y la dimensión social da origen a un sistema catalogado como "Soportable", mientras que la intersección entre lo social y lo ambiental da como resultado un sistema "Equitativo".</p>
+    <p class="tf-options"><span class="tf">( ) Verdadero &nbsp;&nbsp; ( ) Falso</span></p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 13.</p>
+    <p>La norma internacional ISO 26000 está diseñada para fines de certificación formal por terceras partes acreditadas, de manera análoga a las normas ISO 9001, ISO 14001 e ISO 45001.</p>
+    <p class="tf-options"><span class="tf">( ) Verdadero &nbsp;&nbsp; ( ) Falso</span></p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 14.</p>
+    <p>En ingeniería de procesos, la integración de la Responsabilidad Social Corporativa a nivel de diseño de planta reduce el Coste Medio Ponderado del Capital (WACC), al mitigar la exposición de la empresa a contingencias legales, huelgas y paralizaciones por conflictos socioambientales.</p>
+    <p class="tf-options"><span class="tf">( ) Verdadero &nbsp;&nbsp; ( ) Falso</span></p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 15.</p>
+    <p>La Pirámide de Carroll establece que las responsabilidades filantrópicas son obligatorias para evitar la clausura administrativa de una planta manufacturera.</p>
+    <p class="tf-options"><span class="tf">( ) Verdadero &nbsp;&nbsp; ( ) Falso</span></p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 16.</p>
+    <p>El modelo de Análisis de Ciclo de Vida (ACV) permite cuantificar las externalidades ambientales asociadas a un producto desde la extracción de materias primas hasta su disposición o revalorización final ("de la cuna a la tumba" o "de la cuna a la cuna").</p>
+    <p class="tf-options"><span class="tf">( ) Verdadero &nbsp;&nbsp; ( ) Falso</span></p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 17.</p>
+    <p>Garantizar condiciones ergonómicas y programas preventivos contra hipoacusia o lumbalgias en el personal de planta es una acción clasificada exclusivamente dentro de la dimensión económica de la RSC, ya que solo busca evitar el pago de multas.</p>
+    <p class="tf-options"><span class="tf">( ) Verdadero &nbsp;&nbsp; ( ) Falso</span></p>
+  </div>
+</section>
+
+<section class="block">
+  <h3 class="subsection">Sección III: Reactivos de Relación de Columnas / Emparejamiento (Preguntas 18 a 21)</h3>
+
+  <div class="question">
+    <p class="q-num">Pregunta 18.</p>
+    <p>Relacione las fases históricas de la RSC (Columna A) con sus características operacionales representativas (Columna B):</p>
+    <div class="matching-box">
+      <div class="matching-col">
+        <h5>Columna A</h5>
+        <ol>
+          <li>Fase Filantrópica e Inicial (1950 – 1970)</li>
+          <li>Fase Normativa y Defensiva (1970 – 1990)</li>
+          <li>Fase Estratégica (1990 – 2010)</li>
+          <li>Fase Sistémica y Valor Compartido (2010 – Actualidad)</li>
+        </ol>
+      </div>
+      <div class="matching-col">
+        <h5>Columna B</h5>
+        <ol type="a">
+          <li>Aparición del concepto de stakeholders, auge del Triple Bottom Line e inicio de reportes voluntarios de sostenibilidad.</li>
+          <li>Integración de criterios ESG en decisiones financieras, descarbonización industrial y modelos de economía circular en la cadena de valor.</li>
+          <li>Asistencia de beneficencia desvinculada del proceso productivo; donaciones voluntarias discrecionales del directivo.</li>
+          <li>Cumplimiento reactivo ante el endurecimiento de leyes sobre emisiones, seguridad ocupacional y vertidos para evitar sanciones.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 19.</p>
+    <p>Relacione los estándares y marcos de gestión internacional (Columna A) con su objeto primordial de aplicación en la industria (Columna B):</p>
+    <div class="matching-box">
+      <div class="matching-col">
+        <h5>Columna A</h5>
+        <ol>
+          <li>ISO 14001:2015</li>
+          <li>ISO 45001:2018</li>
+          <li>ISO 26000:2010</li>
+          <li>Global Reporting Initiative (GRI)</li>
+        </ol>
+      </div>
+      <div class="matching-col">
+        <h5>Columna B</h5>
+        <ol type="a">
+          <li>Marco metodológico internacional para la elaboración y divulgación transparente de informes de sostenibilidad y métricas ESG.</li>
+          <li>Sistema de gestión certificable enfocado en la prevención de riesgos laborales y mejora continua de la salud y seguridad de los trabajadores.</li>
+          <li>Guía voluntaria de directrices éticas estructurada en siete materias fundamentales de responsabilidad social.</li>
+          <li>Sistema de gestión certificable para la identificación de aspectos ambientales, mitigación de impactos y control del ciclo de vida productivo.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 20.</p>
+    <p>Relacione las dimensiones del Triple Bottom Line (Columna A) con su respectivo indicador de desempeño operacional en una planta manufacturera (Columna B):</p>
+    <div class="matching-box">
+      <div class="matching-col">
+        <h5>Columna A</h5>
+        <ol>
+          <li>Dimensión Económica</li>
+          <li>Dimensión Ambiental</li>
+          <li>Dimensión Social Interna</li>
+          <li>Dimensión Social Externa</li>
+        </ol>
+      </div>
+      <div class="matching-col">
+        <h5>Columna B</h5>
+        <ol type="a">
+          <li>Tasa de frecuencia de lesiones con incapacidad laboral (LTIFR) y prevalencia de enfermedades profesionales.</li>
+          <li>Consumo específico de energía térmica por tonelada producida (MJ/t) y carga de DBO₅ en vertidos.</li>
+          <li>Porcentaje de adquisiciones de bienes y servicios contratados a proveedores locales de la zona de influencia.</li>
+          <li>Coste del ciclo de vida del equipo (LCC) y margen operativo EBITDA tras optimización de mermas.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 21.</p>
+    <p>Relacione los niveles de la Pirámide de Carroll (Columna A) con la exigencia o expectativa societaria correspondiente (Columna B):</p>
+    <div class="matching-box">
+      <div class="matching-col">
+        <h5>Columna A</h5>
+        <ol>
+          <li>Responsabilidad Económica</li>
+          <li>Responsabilidad Legal</li>
+          <li>Responsabilidad Ética</li>
+          <li>Responsabilidad Filantrópica</li>
+        </ol>
+      </div>
+      <div class="matching-col">
+        <h5>Columna B</h5>
+        <ol type="a">
+          <li>Lo que la sociedad anhela o desea (actos discrecionales y contribuciones voluntarias a la comunidad).</li>
+          <li>Lo que la sociedad exige normativamente (codificación del marco jurídico y reglamentario vigente).</li>
+          <li>Lo que la sociedad espera moralmente (hacer lo correcto, justo y equitativo sin necesidad de mandato legal explícito).</li>
+          <li>Lo que la sociedad requiere para la subsistencia de la corporación (creación de valor financiero y rentabilidad operativa).</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <h3 class="subsection">Sección IV: Reactivos de Completamiento y Respuesta Breve (Preguntas 22 a 26)</h3>
+
+  <div class="question">
+    <p class="q-num">Pregunta 22.</p>
+    <p>Complete los términos técnicos faltantes: Las tres dimensiones que conforman el modelo del Triple Bottom Line formulado por John Elkington corresponden a los ejes ___________________, ___________________ y ___________________.</p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 23.</p>
+    <p>Complete el enunciado: El acrónimo anglosajón utilizado en el sector financiero y corporativo para clasificar los criterios de sostenibilidad y gobierno corporativo en las empresas es _______, cuyas siglas traducidas al español representan Ambiental, Social y ___________________.</p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 24.</p>
+    <p>Complete el enunciado: El principio de economía circular que plantea reemplazar la cadena lineal de extracción-producción-desecho ("take-make-dispose") por sistemas de ciclo cerrado en ingeniería industrial se conoce conceptualmente como el enfoque de la cuna a la ___________________.</p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 25.</p>
+    <p>Responda brevemente: En términos de ingeniería industrial, ¿por qué la prevención de riesgos y la ergonomía en las estaciones de trabajo constituyen un indicador crítico de la dimensión social interna de la RSC?</p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 26.</p>
+    <p>Responda brevemente: Defina el concepto de "Externalidad Negativa" en el contexto de una planta de procesamiento químico o pesquero.</p>
+  </div>
+</section>
+
+<section class="block">
+  <h3 class="subsection">Sección V: Reactivos de Análisis Crítico y Resolución de Casos (Preguntas 27 a 30)</h3>
+
+  <div class="question">
+    <p class="q-num">Pregunta 27.</p>
+    <p>Una empresa embotelladora instalada en una zona rural extrae agua de napas freáticas a un ritmo superior a la tasa de recarga del acuífero, provocando el desecamiento de pozos comunitarios vecinos. Para compensar la situación, la gerencia entrega anualmente 500 becas escolares a los hijos de los comuneros. Desde el marco conceptual de Porter y Kramer (Creación de Valor Compartido vs. Filantropía Tradicional), evalúe por qué este programa de becas resulta insuficiente para garantizar la sostenibilidad operativa de la planta.</p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 28.</p>
+    <p>Analice el siguiente escenario: Una refinería decide omitir el mantenimiento mayor de sus sellos mecánicos en bombas de hidrocarburos durante un periodo de alta demanda internacional para evitar la caída temporal de su índice de disponibilidad operacional (OEE). Determine las consecuencias de esta decisión clasificándolas dentro de las tres dimensiones del Triple Resultado (TBL).</p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 29.</p>
+    <p>Una planta siderúrgica genera escoria granulada de alto horno (residuo industrial sólido inerte). En lugar de confinarla en un relleno de seguridad con un coste de disposición de $35 USD por tonelada, establece un acuerdo técnico con una fábrica de cemento cercana para vender la escoria como aditivo puzolánico a $12 USD por tonelada. Identifique cómo se denomina este mecanismo de interacción industrial y explique cómo impacta simultáneamente en las dimensiones económica y ambiental.</p>
+  </div>
+
+  <div class="question">
+    <p class="q-num">Pregunta 30.</p>
+    <p>En una asamblea general de accionistas de una empresa agroexportadora, un directivo afirma: "Invertir $250,000 USD en automatizar la línea de clasificación para eliminar cargas manuales superiores a 25 kg y reducir el ruido es un gasto social innecesario, porque los trabajadores firman contratos aceptando el riesgo laboral". Redacte un argumento técnico de tres puntos, fundamentado en la RSC integral y la ingeniería de métodos, para refutar la postura del accionista demostrando el retorno de la inversión para la empresa.</p>
+  </div>
+</section>
+
+<section class="block warning">
+  <h3 class="subsection">Solucionario Técnico para el Docente</h3>
+  <div class="unlock-notice" data-notice="sol-eval">
+    <strong>🔒 Contenido restringido.</strong> El solucionario completo de los 30 reactivos está protegido con clave de acceso docente. Haga clic en el botón para ingresar la clave.
+  </div>
+  <button class="unlock-btn" data-target="sol-eval" onclick="openModal('sol-eval')">Acceder al Solucionario</button>
+  <div class="solution-locked" id="sol-eval">
+
+    <h4 class="minor">Sección I — Opción Múltiple</h4>
+    <ol>
+      <li><strong>B) Howard R. Bowen</strong> (publicó <em>Social Responsibilities of the Businessman</em> en 1953).</li>
+      <li><strong>D) Responsabilidad Económica</strong> (la generación de rentabilidad es el cimiento de la pirámide).</li>
+      <li><strong>B) Capital económico, capital natural y capital social</strong> (Personas, Planeta, Beneficio – PPP).</li>
+      <li><strong>C) Maximizar el equilibrio de intereses</strong> entre accionistas, colaboradores, proveedores, clientes y comunidades del entorno.</li>
+      <li><strong>A) Ecoeficiencia.</strong></li>
+      <li><strong>D) ISO 26000</strong> (norma no certificable orientada a orientación y principios).</li>
+      <li><strong>B) Integra el progreso social y ambiental directamente en la estrategia competitiva y en la cadena de valor</strong> de la compañía.</li>
+      <li><strong>C) El nivel de aceptación y legitimidad continua que una comunidad otorga a las operaciones industriales de su entorno.</strong></li>
+      <li><strong>A) Tasa de Frecuencia de Accidentes con Tiempo Perdido (LTIFR).</strong></li>
+      <li><strong>C) Greenwashing.</strong></li>
+    </ol>
+
+    <h4 class="minor">Sección II — Verdadero / Falso con Justificación</h4>
+    <ol start="11">
+      <li><strong>Verdadero.</strong> Friedman consideraba ilegítimo destinar recursos corporativos a fines sociales fuera de la maximización de beneficios y el marco legal.</li>
+      <li><strong>Falso.</strong> Lo económico con lo social conforma un sistema "Equitativo"; lo social con lo ambiental conforma un sistema "Soportable".</li>
+      <li><strong>Falso.</strong> La norma ISO 26000 contiene directrices no certificables; a diferencia de ISO 9001, 14001 o 45001, no otorga certificaciones de conformidad técnica.</li>
+      <li><strong>Verdadero.</strong> Las empresas con bajo riesgo socioambiental obtienen menores primas de riesgo crediticio y primas de seguros, reduciendo su coste de capital.</li>
+      <li><strong>Falso.</strong> La responsabilidad filantrópica es discrecional; lo obligatorio legalmente reside en el segundo nivel de la pirámide.</li>
+      <li><strong>Verdadero.</strong> El ACV audita entradas y salidas de materia y energía a lo largo de todo el ciclo de vida del producto.</li>
+      <li><strong>Falso.</strong> La integridad física y la salud de los trabajadores es el pilar ético fundamental de la dimensión social interna de la organización.</li>
+    </ol>
+
+    <h4 class="minor">Sección III — Emparejamiento</h4>
+    <ol start="18">
+      <li><strong>[1-c], [2-d], [3-a], [4-b]</strong>.</li>
+      <li><strong>[1-d], [2-b], [3-c], [4-a]</strong>.</li>
+      <li><strong>[1-d], [2-b], [3-a], [4-c]</strong>.</li>
+      <li><strong>[1-d], [2-b], [3-c], [4-a]</strong>.</li>
+    </ol>
+
+    <h4 class="minor">Sección IV — Completamiento y Respuesta Breve</h4>
+    <ol start="22">
+      <li><strong>Económico, ambiental (o ecológico) y social.</strong></li>
+      <li><strong>ESG; Gobernanza</strong> (o Gobierno Corporativo).</li>
+      <li><strong>Cuna</strong> (Cradle-to-cradle).</li>
+      <li>Porque la fuerza laboral es el principal grupo de interés interno; salvaguardar la salud física y mental evita la degradación del capital humano, erradica el absentismo forzado y garantiza el derecho ético a un entorno de trabajo seguro.</li>
+      <li>Es el coste o impacto negativo no compensado que una actividad industrial traslada a terceros (sociedad o medio ambiente), como la contaminación de aguas comunes o el deterioro de la calidad del aire respirable.</li>
+    </ol>
+
+    <h4 class="minor">Sección V — Análisis Crítico</h4>
+    <ol start="27">
+      <li><strong>Pregunta 27.</strong> Porque no ataca la causa raíz de la insostenibilidad física del proceso productivo (agotamiento del recurso hídrico que sustenta a la comunidad y a la propia planta). La filantropía intenta compensar un daño operacional crítico con dádivas que no restauran el recurso hídrico ni evitan el futuro colapso de la operación por agotamiento del acuífero.</li>
+      <li><strong>Pregunta 28.</strong>
+        <ul>
+          <li><strong>Dimensión Económica:</strong> Ahorro temporal a corto plazo que incrementa el riesgo de fallo catastrófico de la bomba, derrames no controlados, paradas intempestivas prolongadas y pérdida millonaria de inventario refinado.</li>
+          <li><strong>Dimensión Ambiental:</strong> Potencial fuga masiva de compuestos orgánicos volátiles (COVs) y vertidos inflamables al suelo o drenajes industriales.</li>
+          <li><strong>Dimensión Social:</strong> Exposición extrema de los operarios de planta a incendios, explosiones y toxicidad por vapores, además del peligro potencial para poblaciones adyacentes.</li>
+        </ul>
+      </li>
+      <li><strong>Pregunta 29.</strong> Se denomina <strong>Simbiosis Industrial</strong> (componente de la Economía Circular). <em>Impacto económico:</em> transforma un gasto de confinamiento (−$35 USD/t) en un flujo positivo de ingresos (+$12 USD/t), logrando un delta neto favorable de $47 USD/t. <em>Impacto ambiental:</em> evita la saturación de vertederos/rellenos y disminuye la extracción de materias primas vírgenes en las canteras de la industria cementera.</li>
+      <li><strong>Pregunta 30.</strong> Argumentos técnicos de refutación:
+        <ol type="a">
+          <li>Reducción sustancial del absentismo laboral, licencias médicas y primas de seguros por accidentes o trastornos músculo-esqueléticos crónicos.</li>
+          <li>Incremento directo del rendimiento y la calidad en el puesto de trabajo (menor fatiga muscular del personal, ritmo de clasificación estable y menor tasa de rotación técnica).</li>
+          <li>Cumplimiento estricto del marco normativo laboral en materia de límites ergonómicos de carga y ruido ocupacional, blindando a la empresa contra demandas laborales, responsabilidades patronales culposas y multas de entes de control.</li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+</section>
+</section>
+
+<!-- ============================ TAB 5 ============================ -->
+<section class="tab-content" id="asincronica" role="tabpanel">
+<section class="block accent">
+  <h2 class="section-title">Tarea Asincrónica: Caso de Estudio de Alta Complejidad</h2>
+  <div class="ficha-tecnica">
+    <dl>
+      <dt>Asignatura:</dt><dd>Responsabilidad Social y Corporativa (RSC)</dd>
+      <dt>Carrera:</dt><dd>Ingeniería Industrial / Ingeniería en Seguridad Industrial — UPSE</dd>
+      <dt>Modalidad:</dt><dd>Trabajo autónomo e investigación aplicada</dd>
+      <dt>Entregable:</dt><dd>Informe Técnico-Económico de Reingeniería Sostenible y Gobernanza ESG (formato ejecutivo formal).</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="block">
+  <h3 class="subsection">1. Planteamiento del Caso de Estudio</h3>
+  <h4 class="minor">Entorno Corporativo y Operativo</h4>
+  <ul>
+    <li><strong>Organización:</strong> <em>Consorcio Electroquímico &amp; Derivados del Litoral S.A. (COELDIT)</em></li>
+    <li><strong>Planta de Operaciones:</strong> Complejo industrial de síntesis de soda cáustica (NaOH) e hipoclorito de sodio (NaClO) por electrólisis y formulación de cloro líquido envasado a presión en cilindros y contenedores isotanque.</li>
+    <li><strong>Ubicación:</strong> Margen estuarino periurbano en la costa ecuatoriana, a 850 m de una comunidad comunal dedicada a la recolección de moluscos y pesca artesanal.</li>
+    <li><strong>Capacidad:</strong> 140 t/día de álcalis equivalentes y 120 t/día de cloro gas comprimido.</li>
+  </ul>
+
+  <p style="text-align:center;font-family:'Helvetica Neue',sans-serif;font-weight:700;color:var(--warning);letter-spacing:1px;margin:1.5rem 0 0.5rem">DIAGRAMA DE BALANCE Y PUNTOS DE VULNERABILIDAD</p>
+  <div class="flow-diagram">
+    <div class="flow-row">
+      <span class="flow-box">Salmuera Cruda (NaCl)</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Purificación &amp; Electrólisis</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Gas Cloro (Cl₂) / H₂</span>
+    </div>
+    <div class="flow-row" style="justify-content:space-around">
+      <span class="flow-box" style="border-left-color:var(--warning)">Lodos de Mercurio / Salmueras Ácidas<br>(Riesgo Tecnológico Mayor)<br>• 22 t/mes confinadas<br>• Filtración a freático<br>• Quejas comunitarias</span>
+      <span class="flow-box" style="border-left-color:var(--warning)">Compresión y Envasado<br>• Fugas difusas de Cl₂<br>• Sellos mecánicos al límite<br>• LTIFR: 9.4<br>• Conato Seveso</span>
+    </div>
+  </div>
+
+  <h4 class="minor">Diagnóstico Operacional y Situación de Ruptura (Línea Base)</h4>
+  <ol>
+    <li><strong>Vulnerabilidad Ambiental Crítica:</strong>
+      <ul>
+        <li>La planta opera con celdas electrolíticas de tecnología antigua de cátodo de mercurio (Hg), con una tasa de pérdida difusa de 18.2 g de Hg/t de Cl₂ producida.</li>
+        <li>Acumulación en patios posteriores de 22 t/mes de lodos cáusticos mercuriales en celdas de confinamiento primarias con signos de fisuras por fatiga de material, existiendo riesgo de lixiviación hacia el manto freático y el estuario adyacente.</li>
+        <li>Consumo energético de red: 3,450 kWh/t de Cl₂, con emisiones indirectas de gases de efecto invernadero (GEI) de Alcance 2 elevadas (0.42 t CO₂e/MWh).</li>
+      </ul>
+    </li>
+    <li><strong>Vulnerabilidad en Seguridad Industrial y Dimensión Social Interna:</strong>
+      <ul>
+        <li>En los últimos 18 meses se registraron 6 emisiones fugitivas no confinadas de cloro gas (Cl₂) en la bahía de llenado de cilindros, activando alarmas vecinales sin que existiera un Plan de Evacuación Comunitario concertado.</li>
+        <li>La tasa de frecuencia de accidentes con pérdida de tiempo (LTIFR) se ubica en 9.4 accidentes por millón de horas-hombre trabajadas, predominantemente por dermatitis químicas por salpicaduras cáusticas y exposición respiratoria a cloro por encima de los límites de exposición profesional (TLV-STEL = 0.5 ppm).</li>
+        <li>Inexistencia de sistemas automatizados de neutralización en línea (<em>scrubbers</em> de emergencia con monitoreo redundante).</li>
+      </ul>
+    </li>
+    <li><strong>Vulnerabilidad en Gobernanza y Dimensión Social Externa:</strong>
+      <ul>
+        <li>La empresa destinaba anualmente $80,000 USD en donaciones navideñas, kits deportivos y pintura de fachadas a la comuna vecina bajo un enfoque filantrópico tradicional.</li>
+        <li>Tras la última fuga de cloro (que requirió la atención médica ambulatoria de 14 comuneros por irritación conjuntival y laríngea), la asamblea comunal instauró una acción de protección constitucional con medidas cautelares, solicitando la clausura inmediata de la planta.</li>
+        <li>Pérdida de la certificación de exportación a mercados del Pacto Verde Europeo y suspensión temporal de líneas de financiamiento multilateral vinculadas a compromisos de sostenibilidad bajo la Corporación Financiera Internacional (IFC).</li>
+      </ul>
+    </li>
+    <li><strong>Vulnerabilidad Económico-Financiera:</strong>
+      <ul>
+        <li>Multas acumuladas y costes de litigio ambiental: $340,000 USD en el último ejercicio fiscal.</li>
+        <li>Incremento del Coste Medio Ponderado del Capital (WACC) del 9.2% al 14.8% debido a la degradación de su calificación de riesgo ESG por parte de los tenedores de bonos.</li>
+        <li>Lucro cesante por 18 días de paralización dictada por el Ministerio de Ambiente: $810,000 USD.</li>
+      </ul>
+    </li>
+  </ol>
+</section>
+
+<section class="block">
+  <h3 class="subsection">2. Requerimientos de la Tarea Asincrónica</h3>
+  <p>El estudiante, actuando como <strong>Director de Operaciones, Sostenibilidad y Riesgo Mayor</strong>, debe estructurar un informe técnico riguroso que aborde los siguientes cuatro componentes metodológicos:</p>
+
+  <h4 class="minor">Componente 1: Reingeniería Tecnológica y Análisis de Ciclo de Vida (TBL – Eje Ambiental)</h4>
+  <ul>
+    <li>Diseñar la ruta de reconversión tecnológica para desmantelar y remediar el proceso de celdas de mercurio hacia <strong>celdas de membrana de intercambio iónico libre de asbesto y mercurio</strong>.</li>
+    <li>Estructurar el balance de masa conceptual y cuantificar la reducción en la intensidad energética específica (kWh/t) y el abatimiento de emisiones de CO₂e (Alcance 2).</li>
+    <li>Proponer una solución técnica circular para los subproductos del proceso: gestión y aprovechamiento del hidrógeno verde (H₂) coproducto de la electrólisis para cogeneración o síntesis de vapor.</li>
+  </ul>
+
+  <h4 class="minor">Componente 2: Seguridad Integral y Rediseño de Procesos (TBL – Eje Social Interno)</h4>
+  <ul>
+    <li>Diseñar la matriz de barreras de contención bajo la metodología Bow-Tie para el evento no deseado mayor: <em>Fuga masiva de cloro líquido durante la transferencia a isotanques</em>.</li>
+    <li>Establecer la jerarquía de controles de seguridad (ingeniería, automatización SIL, instrumentación de parada de emergencia ESD y protocolos operacionales) para reducir el LTIFR a niveles inferiores a 0.5.</li>
+    <li>Definir un plan de vigilancia epidemiológica y ergonomía industrial conforme a la norma <strong>ISO 45001:2018</strong>.</li>
+  </ul>
+
+  <h4 class="minor">Componente 3: Gobernanza Estratégica, Licencia Social y Diálogo Multiactor (TBL – Eje Social Externo)</h4>
+  <ul>
+    <li>Desmontar el modelo filantrópico tradicional y diseñar un <strong>Mecanismo de Consulta y Monitoreo Ambiental Participativo</strong> con la comuna pesquera, alineado a las directrices de la norma <strong>ISO 26000:2010</strong> y los Estándares de Desempeño de la IFC.</li>
+    <li>Estructurar un programa de Valor Compartido (<em>Shared Value</em>) que articule la producción limpia de la planta con el desarrollo económico local (por ejemplo, cogeneración de agua desalinizada de alta pureza o modernización de la cadena de frío pesquera).</li>
+  </ul>
+
+  <h4 class="minor">Componente 4: Modelado Financiero de Sostenibilidad y Retorno de Inversión</h4>
+  <ul>
+    <li>Evaluar la viabilidad económica del proyecto de modernización considerando los siguientes parámetros:
+      <ul>
+        <li><strong>CAPEX Total del Proyecto:</strong> $4,200,000 USD (Reconversión a celdas de membrana, <em>scrubber</em> de alta eficiencia de dos etapas, remediación de lodos de Hg y automatización de llenado).</li>
+        <li><strong>Ahorro Energético Anual:</strong> Disminución del consumo de 3,450 kWh/t a 2,250 kWh/t de Cl₂, a una tarifa industrial de $0.085/kWh (producción base: 40,000 t de Cl₂/año).</li>
+        <li><strong>Aprovechamiento de Hidrógeno Coproducto:</strong> Sustitución de combustible en calderas de vapor valorada en $190,000 USD/año.</li>
+        <li><strong>Costes Evitados:</strong> Eliminación de multas ambientales/legales ($340,000/año), primas de seguros reducidas en $125,000/año y reducción del coste de disposición de residuos peligrosos ($85,000/año).</li>
+        <li><strong>OPEX Adicional del Sistema de Membranas:</strong> $140,000 USD/año.</li>
+      </ul>
+    </li>
+    <li>Calcular el Flujo de Caja Libre Incremental a 5 años, el Periodo de Retorno de la Inversión simple (PRI), el Valor Actual Neto (VAN) a una tasa de descuento del 10%, y la Tasa Interna de Retorno (TIR).</li>
+    <li>Explicar el impacto de la reducción del WACC sobre la valoración total de la compañía.</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h3 class="subsection">3. Rúbrica Analítica de Evaluación</h3>
+  <table class="rubric">
+    <thead>
+      <tr>
+        <th>Criterio</th>
+        <th>Sobresaliente (9 – 10 pts)</th>
+        <th>Muy Bueno (7 – 8 pts)</th>
+        <th>Regular (4 – 6 pts)</th>
+        <th>Insuficiente (0 – 3 pts)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="criterion">1. Reingeniería Ambiental y Balance de Masa (25%)</td>
+        <td>Modela con rigor termodinámico la transición a celdas de membrana, presenta balances de masa/energía completos, calcula con precisión el abatimiento de GEI y propone esquemas viables de aprovechamiento circular del H₂.</td>
+        <td>Propone la tecnología de membranas correctamente, pero el balance de masa o los cálculos energéticos presentan imprecisiones menores. Aprovechamiento de H₂ descrito de forma cualitativa.</td>
+        <td>Describe la reconversión tecnológica sin soporte de balances de ingeniería ni cuantificación de reducción de GEI. Propuesta circular genérica.</td>
+        <td>No justifica la reconversión tecnológica o mantiene tecnologías contaminantes. Omite balances y cálculo de emisiones.</td>
+      </tr>
+      <tr>
+        <td class="criterion">2. Seguridad de Procesos y Salud Ocupacional (25%)</td>
+        <td>Desarrolla la matriz Bow-Tie con rigor técnico para el riesgo de cloro; define capas de protección independientes (LOPA/SIL), automatización e integración verificable con ISO 45001.</td>
+        <td>Diseña controles de ingeniería y el diagrama de barreras, pero carece de profundidad en los sistemas instrumentados de seguridad (SIL/ESD) o en la jerarquía de controles de SST.</td>
+        <td>Se limita a listar EPP y procedimientos genéricos sin rediseño del proceso crítico de envasado. Análisis de riesgo superficial.</td>
+        <td>Omite el análisis de fallas mayores de proceso. Enfoque reactivo que incumple la normativa técnica de seguridad en procesos químicos.</td>
+      </tr>
+      <tr>
+        <td class="criterion">3. Licencia Social y Valor Compartido (25%)</td>
+        <td>Estructura un modelo de valor compartido robusto que sustituye integralmente la filantropía; diseña un protocolo de monitoreo participativo comunitario conforme a ISO 26000 y estándares IFC.</td>
+        <td>Plantea iniciativas de valor compartido y diálogo social, pero mantiene algunos rasgos de compensación asistencialista. Protocolo participativo poco estructurado.</td>
+        <td>Propone medidas de relaciones públicas tradicionales o asistenciales con mínima integración a la cadena de valor y sin garantías de legitimidad social.</td>
+        <td>Desconoce el conflicto social o propone medidas impositivas que incrementan la vulnerabilidad de la Licencia Social para Operar.</td>
+      </tr>
+      <tr>
+        <td class="criterion">4. Evaluación Económico-Financiera (25%)</td>
+        <td>Modela el flujo incremental con precisión matemática impecable (VAN, TIR, PRI y análisis de WACC), integrando la internalización de costes y pasivos ocultos en la toma de decisiones.</td>
+        <td>Realiza el cálculo correcto de PRI y flujo de caja, pero comete errores leves en la tasa de descuento o la justificación del impacto en el WACC.</td>
+        <td>Determina el retorno simple de forma incompleta, omitiendo la actualización de flujos en el tiempo (VAN/TIR) o los costes evitados.</td>
+        <td>Cálculos matemáticos erróneos o ausentes. No fundamenta la viabilidad financiera del proyecto desde el enfoque ESG.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="block warning">
+  <h3 class="subsection">4. Solución Técnica y Numérica del Caso (Guía Maestra para el Evaluador)</h3>
+  <div class="unlock-notice" data-notice="sol-asinc">
+    <strong>🔒 Contenido restringido.</strong> Esta guía maestra contiene la solución técnica completa, los cálculos numéricos (PRI, VAN, TIR) y el modelado financiero del caso COELDIT. Está protegida con clave de acceso docente.
+  </div>
+  <button class="unlock-btn" data-target="sol-asinc" onclick="openModal('sol-asinc')">Acceder a la Solución Técnica</button>
+  <div class="solution-locked" id="sol-asinc">
+
+    <h4 class="minor">4.1. Solución Componente 1: Reingeniería y Ecoeficiencia</h4>
+    <ul>
+      <li><strong>Reconversión a Celdas de Membrana:</strong> Sustitución de cátodos de mercurio por membranas perfluorosulfonadas (Flemion/Nafion).</li>
+      <li><strong>Balance Energético Específico:</strong>
+        <ul>
+          <li>Delta de ahorro energético: ΔE = 3,450 kWh/t − 2,250 kWh/t = <strong>1,200 kWh/t de Cl₂</strong>.</li>
+          <li>Para una base de 40,000 t/año:</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="formula">Ahorro Anual de Energía = 40,000 t × 1,200 kWh/t = 48,000,000 kWh/año = 48,000 MWh/año</div>
+    <ul>
+      <li><strong>Reducción de GEI (Alcance 2):</strong></li>
+    </ul>
+    <div class="formula">Δ Emisiones = 48,000 MWh/año × 0.42 t CO₂e/MWh = <strong>20,160 t CO₂e/año evitadas</strong></div>
+    <ul>
+      <li><strong>Valorización del Hidrógeno Verde:</strong></li>
+    </ul>
+    <p>La electrólisis genera H₂ en proporción estequiométrica:</p>
+    <div class="formula">2 NaCl + 2 H₂O →(electrólisis)→ 2 NaOH + Cl₂ ↑ + H₂ ↑</div>
+    <p>Por cada 70.9 kg de Cl₂, se generan 2.016 kg de H₂.</p>
+    <p>Para 40,000 t de Cl₂, se obtienen aprox. <strong>1,137 t de H₂/año</strong>, utilizado como combustible de combustión limpia en calderas de vapor, sustituyendo fuel oil o gas licuado de petróleo (GLP), validando el ingreso/ahorro proyectado de $190,000 USD/año.</p>
+
+    <h4 class="minor">4.2. Solución Componente 2: Seguridad de Procesos (Bow-Tie y Controles)</h4>
+    <ul>
+      <li><strong>Top Event:</strong> Fuga masiva de Cl₂ gaseoso o licuado en línea de envasado.</li>
+      <li><strong>Causas Raíz:</strong> Sobrepresión de llenado, fallo catastrófico de acople de manguera flexible, fallo de sello mecánico en compresor.</li>
+      <li><strong>Barreras de Prevención (Lado Izquierdo Bow-Tie):</strong>
+        <ol>
+          <li>Válvulas de cierre de emergencia de accionamiento ultrarrápido (tiempo de respuesta menor a 0.8 s) certificadas SIL 3.</li>
+          <li>Enclavamientos automáticos de presión y peso en básculas de llenado (parada automática al 95% de capacidad del contenedor).</li>
+          <li>Inspección no destructiva por emisión acústica y ultrasonido en cilindros e isotanques previo a conexión.</li>
+        </ol>
+      </li>
+      <li><strong>Barreras de Mitigación (Lado Derecho Bow-Tie):</strong>
+        <ol>
+          <li>Encerramiento estanco de la bahía de envasado con presión negativa constante.</li>
+          <li>Sistema <em>Scrubber</em> de dos etapas con lavado en contracorriente con solución de NaOH al 15–20% dimensionado para neutralizar el contenido íntegro del mayor recipiente (1 t) en menos de 10 minutos.</li>
+          <li>Cortinas de aspersión perimetral de agua con neutralizantes para absorción de vapores residuales.</li>
+          <li>Detectores electroquímicos de Cl₂ redundantes 2oo3 (<em>two out of three</em>) con activación de sirenas comunitarias y corte automático de alimentación de reactivos.</li>
+        </ol>
+      </li>
+    </ul>
+
+    <h4 class="minor">4.3. Solución Componente 3: Gobernanza y Licencia Social</h4>
+    <ul>
+      <li><strong>Superación de la Filantropía:</strong> Cancelación del fondo asistencialista discrecional y constitución de un Fideicomiso Socioambiental auditado y paritario.</li>
+      <li><strong>Monitoreo Ambiental Participativo (ISO 26000):</strong>
+        <ul>
+          <li>Instalación de tres estaciones de monitoreo continuo de calidad del aire (Cl₂) y agua freática con transmisión telemática en tiempo real accesible mediante pantalla pública en la sede comunal.</li>
+          <li>Incorporación de veedores comunitarios capacitados técnica y salarialmente por convenios con universidades públicas de la región.</li>
+        </ul>
+      </li>
+      <li><strong>Creación de Valor Compartido:</strong>
+        <ul>
+          <li>Utilización del calor residual de los condensadores para alimentar una planta desalinizadora por destilación de membrana, entregando 150 m³/día de agua osmotizada potable a la comunidad pesquera.</li>
+          <li>Suministro a precio de coste de hipoclorito de sodio purificado para plantas comunitarias de procesamiento y desinfección de productos del mar.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4 class="minor">4.4. Solución Componente 4: Modelado Económico y Financiero</h4>
+    <p><strong>1. Determinación de los Flujos de Caja Operativos Netos Anuales:</strong></p>
+    <ul>
+      <li><strong>Ahorro por Consumo Eléctrico:</strong></li>
+    </ul>
+    <div class="formula">Ahorro Energía = 48,000,000 kWh × $0.085/kWh = <strong>$4,080,000 USD/año</strong></div>
+    <ul>
+      <li><strong>Aprovechamiento de Hidrógeno:</strong> + $190,000 USD/año</li>
+      <li><strong>Costes Evitados:</strong>
+        <ul>
+          <li>Multas y sanciones: + $340,000 USD/año</li>
+          <li>Primas de seguro: + $125,000 USD/año</li>
+          <li>Disposición de residuos de Hg: + $85,000 USD/año</li>
+        </ul>
+      </li>
+      <li><strong>Total de Beneficios y Ahorros Brutos:</strong></li>
+    </ul>
+    <div class="formula">Total Bruto = 4,080,000 + 190,000 + 340,000 + 125,000 + 85,000 = <strong>$4,820,000 USD/año</strong></div>
+    <ul>
+      <li><strong>OPEX Adicional del Sistema de Membranas:</strong> − $140,000 USD/año</li>
+      <li><strong>Flujo Neto de Caja Operativo Anual (ΔFCO):</strong></li>
+    </ul>
+    <div class="formula">ΔFCO = $4,820,000 − $140,000 = <strong>$4,680,000 USD/año</strong></div>
+
+    <p style="text-align:center;font-family:'Helvetica Neue',sans-serif;font-weight:700;color:var(--primary);letter-spacing:1px;margin:1.5rem 0 0.5rem">TABLA DE FLUJOS INCREMENTALES (USD)</p>
+    <table class="metrics">
+      <thead>
+        <tr><th>Concepto</th><th>Año 0</th><th>Año 1</th><th>Año 2</th><th>Año 3</th><th>Año 4</th><th>Año 5</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="metric-name">Inversión</td><td>−$4,200,000</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="metric-name">Flujo Neto</td><td>—</td><td>$4,680,000</td><td>$4,680,000</td><td>$4,680,000</td><td>$4,680,000</td><td>$4,680,000</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>2. Cálculo de Indicadores Financieros:</strong></p>
+    <ul>
+      <li><strong>Periodo de Recuperación de la Inversión Simple (PRI):</strong></li>
+    </ul>
+    <div class="formula">
+      PRI =
+      <span class="frac">
+        <span class="num">$4,200,000</span>
+        <span class="den">$4,680,000/año</span>
+      </span>
+      ≈ <strong>0.897 años</strong> (≈ 10.8 meses)
+    </div>
+    <ul>
+      <li><strong>Valor Actual Neto (VAN) a una tasa k = 10% a 5 años:</strong></li>
+    </ul>
+    <p>El factor de anualidad para n = 5, k = 0.10:</p>
+    <div class="formula">
+      <span class="frac">
+        <span class="num">1 − (1 + 0.10)<sup>−5</sup></span>
+        <span class="den">0.10</span>
+      </span>
+      =
+      <span class="frac">
+        <span class="num">1 − 0.62092</span>
+        <span class="den">0.10</span>
+      </span>
+      = 3.79079
+    </div>
+    <div class="formula">VAN = −$4,200,000 + ($4,680,000 × 3.79079) = −$4,200,000 + $17,740,897 = <strong>$13,540,897 USD</strong></div>
+    <ul>
+      <li><strong>Tasa Interna de Retorno (TIR):</strong></li>
+    </ul>
+    <p>Resolviendo para:</p>
+    <div class="formula">−$4,200,000 + Σ<sub>t=1</sub><sup>5</sup> [$4,680,000 / (1 + TIR)<sup>t</sup>] = 0</div>
+    <div class="formula"><strong>TIR ≈ 106.8%</strong></div>
+    <ul>
+      <li><strong>Impacto en el Coste de Capital (WACC):</strong></li>
+    </ul>
+    <p>La eliminación de pasivos ambientales tóxicos, la reducción drástica del LTIFR y la resolución del conflicto legal restablecen la calificación de riesgo crediticio de la firma. La disminución del WACC del 14.8% al rango base del 9.2% incrementa inmediatamente la valoración del flujo descontado corporativo, reduce el coste de financiamiento de deuda futura y reabre la elegibilidad de COELDIT para emitir bonos vinculados a la sostenibilidad (<em>Sustainability-Linked Bonds</em>).</p>
+  </div>
+</section>
+</section>
+
+</main>
+
+<footer class="main-footer">
+  <p><strong>Universidad Estatal Península de Santa Elena — UPSE</strong></p>
+  <p>Responsabilidad Social y Corporativa · Ingeniería Industrial / Seguridad Industrial</p>
+  <p style="margin-top:0.5rem;font-size:0.78rem;opacity:0.7">Documento didáctico · 22 de septiembre de 2026</p>
+</footer>
+
+<!-- MODAL DE CLAVE -->
+<div class="modal-overlay" id="pwdModal">
+  <div class="modal">
+    <h3>Acceso a Soluciones</h3>
+    <p>Ingrese la clave de acceso docente para visualizar el solucionario y las respuestas técnicas.</p>
+    <input type="password" id="pwdInput" placeholder="• • • •" autocomplete="off" maxlength="20">
+    <p class="error" id="pwdError">Clave incorrecta. Intente nuevamente.</p>
+    <div class="btn-row">
+      <button class="cancel" onclick="closeModal()">Cancelar</button>
+      <button class="submit" onclick="submitPwd()">Acceder</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Routing por hash para direcciones independientes por pestaña */
+const TABS=['fundamentos','guion','taller','evaluativo','asincronica'];
+let currentTarget=null;
+
+function showTab(name){
+  if(!TABS.includes(name)) name='fundamentos';
+  document.querySelectorAll('.tab-content').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-button').forEach(b=>b.classList.remove('active'));
+  const sec=document.getElementById(name);
+  const btn=document.querySelector(`.tab-button[data-tab="${name}"]`);
+  if(sec) sec.classList.add('active');
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+document.querySelectorAll('.tab-button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const t=btn.dataset.tab;
+    location.hash=t;
+    showTab(t);
+  });
+});
+
+window.addEventListener('hashchange',()=>{
+  const h=(location.hash||'').replace('#','');
+  showTab(h||'fundamentos');
+});
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const h=(location.hash||'').replace('#','');
+  showTab(h||'fundamentos');
+});
+
+/* Clave ofuscada — hash precomputado, no aparece en texto plano */
+function _h(s){
+  let h=0;
+  for(let i=0;i<s.length;i++){
+    h=((h<<5)-h)+s.charCodeAt(i);
+    h=h&h;
+  }
+  return h;
+}
+const _K=1516324; /* hash de la clave — no revela el valor */
+
+function openModal(targetId){
+  currentTarget=targetId;
+  const m=document.getElementById('pwdModal');
+  m.classList.add('active');
+  const inp=document.getElementById('pwdInput');
+  inp.value='';
+  document.getElementById('pwdError').classList.remove('show');
+  setTimeout(()=>inp.focus(),50);
+}
+function closeModal(){
+  document.getElementById('pwdModal').classList.remove('active');
+  currentTarget=null;
+}
+function submitPwd(){
+  const v=document.getElementById('pwdInput').value;
+  if(_h(v)===_K){
+    const el=document.getElementById(currentTarget);
+    if(el){
+      el.classList.add('unlocked');
+      const btn=document.querySelector(`[data-target="${currentTarget}"]`);
+      if(btn) btn.style.display='none';
+      const notice=document.querySelector(`[data-notice="${currentTarget}"]`);
+      if(notice) notice.style.display='none';
+      setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),100);
+    }
+    closeModal();
+  }else{
+    document.getElementById('pwdError').classList.add('show');
+  }
+}
+document.getElementById('pwdInput').addEventListener('keypress',e=>{
+  if(e.key==='Enter') submitPwd();
+});
+document.getElementById('pwdModal').addEventListener('click',e=>{
+  if(e.target.id==='pwdModal') closeModal();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeModal();
+});
+</script>
+</body>
+</html>
