@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Actividad — Ensayo Caso Patagonia | UPSE</title>
+<style>
+:root{
+  --c-primary:#1a4d2e;
+  --c-primary-light:#2d6a4f;
+  --c-accent:#b8860b;
+  --c-bg:#f7f4ef;
+  --c-surface:#ffffff;
+  --c-border:#d8c9b0;
+  --c-text:#1a1a1a;
+  --c-text-muted:#5a5a5a;
+  --c-danger:#a31818;
+  --c-info:#1e3a8a;
+  --shadow:0 2px 8px rgba(26,77,46,0.10);
+  --shadow-lg:0 6px 24px rgba(26,77,46,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Georgia','Times New Roman',serif;background:var(--c-bg);color:var(--c-text);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+.site-header{background:linear-gradient(135deg,#0d3319 0%,#1a4d2e 55%,#2d6a4f 100%);color:#fff;padding:34px 20px 26px;border-bottom:6px solid var(--c-accent);position:relative}
+.site-header::after{content:"";position:absolute;bottom:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--c-accent) 0 20px,transparent 20px 40px);opacity:0.4}
+.site-header .wrap{max-width:1200px;margin:0 auto}
+.site-header .institution{font-size:0.78rem;text-transform:uppercase;letter-spacing:2.5px;color:#e8d9b8;font-family:'Helvetica',sans-serif;margin-bottom:10px}
+.site-header .course-tag{display:inline-block;background:rgba(184,134,11,0.18);border:1px solid var(--c-accent);color:#ffd970;padding:4px 12px;border-radius:14px;font-size:0.72rem;font-family:'Helvetica',sans-serif;letter-spacing:0.8px;margin-bottom:14px}
+.site-header h1{font-family:'Helvetica','Arial',sans-serif;font-size:1.95rem;font-weight:700;line-height:1.25;margin-bottom:8px}
+.site-header .subtitle{font-size:0.98rem;color:#f0e2c8;font-family:'Helvetica',sans-serif;font-style:italic}
+.site-header .meta-pills{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.site-header .pill{background:rgba(255,255,255,0.10);border:1px solid rgba(184,134,11,0.5);color:#fff;padding:5px 13px;border-radius:14px;font-size:0.76rem;font-family:'Helvetica',sans-serif;letter-spacing:0.4px}
+.site-header .pill strong{color:#ffd970}
+.tab-nav{background:var(--c-surface);border-bottom:2px solid var(--c-border);position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.tab-nav .wrap{max-width:1200px;margin:0 auto;display:flex;overflow-x:auto}
+.tab-nav a{display:flex;align-items:center;gap:8px;padding:14px 18px;text-decoration:none;color:var(--c-text-muted);font-family:'Helvetica',sans-serif;font-size:0.82rem;font-weight:600;border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap}
+.tab-nav a .num{background:var(--c-primary);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700}
+.tab-nav a:hover{background:#eef5ed;color:var(--c-primary)}
+.tab-nav a.active{color:var(--c-primary);border-bottom-color:var(--c-accent)}
+.tab-nav a.active .num{background:var(--c-accent)}
+main{max-width:1200px;margin:0 auto;padding:30px 20px 80px}
+section{padding:20px 0;border-bottom:1px solid var(--c-border)}
+section:last-child{border-bottom:none}
+.section-anchor{scroll-margin-top:80px}
+.section-header{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:14px;border-bottom:2px solid var(--c-primary)}
+.section-header .roman{font-family:'Helvetica','Arial',sans-serif;background:var(--c-primary);color:#fff;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.15rem;font-weight:700;flex-shrink:0;border:3px solid var(--c-accent)}
+.section-header .title-block h2{font-family:'Helvetica','Arial',sans-serif;font-size:1.5rem;color:var(--c-primary);font-weight:700;line-height:1.2;margin-bottom:2px}
+.section-header .title-block .subtitle{font-size:0.85rem;color:var(--c-text-muted);font-family:'Helvetica',sans-serif;letter-spacing:0.5px}
+h3{font-family:'Helvetica','Arial',sans-serif;color:var(--c-primary-light);font-size:1.2rem;margin:24px 0 12px;padding-bottom:5px;border-bottom:1px solid var(--c-border)}
+h4{font-family:'Helvetica','Arial',sans-serif;color:var(--c-text);font-size:1.05rem;font-weight:700;margin:20px 0 8px}
+p{margin-bottom:14px;text-align:justify}
+ul,ol{margin:0 0 16px 22px}
+ul li,ol li{margin-bottom:8px;text-align:justify}
+ul li::marker{color:var(--c-accent)}
+ol li::marker{color:var(--c-primary);font-weight:700}
+strong{color:var(--c-primary)}
+em{color:var(--c-text)}
+.callout{background:#fff8ec;border:1px solid #e0c98a;border-left:5px solid var(--c-accent);padding:14px 18px;border-radius:6px;font-size:0.95rem;margin:16px 0}
+.callout-docent{background:#eef5ed;border-left:5px solid var(--c-primary);font-style:italic}
+.callout-docent .docent-label{font-style:normal;font-family:'Helvetica',sans-serif;font-size:0.78rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--c-accent);font-weight:700;margin-bottom:8px;display:block}
+.callout-warn{background:#fdecec;border-left:5px solid var(--c-danger)}
+.callout-warn strong{color:var(--c-danger)}
+.callout-info{background:#eef2f9;border-left:5px solid var(--c-info)}
+.card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:8px;padding:18px 22px;margin:18px 0;box-shadow:var(--shadow)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--c-border)}
+.card-header .icon{width:32px;height:32px;background:var(--c-primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Helvetica',sans-serif;font-weight:700;font-size:0.95rem}
+.card-header h4{margin:0;color:var(--c-primary)}
+.card-info{background:linear-gradient(135deg,#fbf5e8 0%,#f7f4ef 100%);border-left:5px solid var(--c-accent)}
+.params-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0}
+.param-card{background:var(--c-surface);border:1px solid var(--c-border);border-top:4px solid var(--c-primary);border-radius:6px;padding:14px 16px;box-shadow:var(--shadow)}
+.param-card .label{font-family:'Helvetica',sans-serif;font-size:0.72rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--c-accent);font-weight:700;margin-bottom:6px}
+.param-card .value{font-family:'Helvetica',sans-serif;font-size:0.95rem;color:var(--c-text);font-weight:600;line-height:1.4}
+.param-card .detail{font-size:0.82rem;color:var(--c-text-muted);margin-top:4px;line-height:1.4}
+.table-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--c-border);border-radius:6px;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;background:var(--c-surface);font-size:0.88rem}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--c-border);vertical-align:top}
+th{background:var(--c-primary);color:#fff;font-family:'Helvetica',sans-serif;font-weight:600;font-size:0.82rem;letter-spacing:0.3px}
+tbody tr:nth-child(even){background:#f5f8f5}
+tbody tr:hover{background:#eef5ed}
+td strong{color:var(--c-primary-light)}
+.axis-card{background:var(--c-surface);border:1px solid var(--c-border);border-left:5px solid var(--c-accent);border-radius:8px;padding:18px 22px;margin:18px 0;box-shadow:var(--shadow)}
+.axis-card .axis-tag{display:inline-block;background:var(--c-primary);color:#fff;padding:3px 12px;border-radius:14px;font-size:0.72rem;font-family:'Helvetica',sans-serif;font-weight:700;letter-spacing:0.5px;margin-bottom:10px}
+.axis-card h4{font-family:'Helvetica',sans-serif;color:var(--c-primary);margin:6px 0 8px;font-size:1.1rem}
+.axis-card .axis-ref{display:inline-block;background:#eef2f9;border:1px solid var(--c-border);color:var(--c-info);padding:2px 9px;border-radius:10px;font-size:0.74rem;font-family:'Helvetica',sans-serif;margin-left:8px}
+.hierarchy{background:#fbf5e8;border:1px solid var(--c-border);border-radius:6px;padding:18px;margin:18px 0}
+.hierarchy ol{list-style:none;margin:0;padding:0;counter-reset:roman-counter}
+.hierarchy > ol > li{margin-bottom:14px;padding-left:34px;position:relative}
+.hierarchy > ol > li::before{content:counter(roman-counter,upper-roman) ".";counter-increment:roman-counter;position:absolute;left:0;top:0;font-family:'Helvetica',sans-serif;font-weight:700;color:var(--c-primary);font-size:1.05rem}
+.hierarchy .level-2{list-style:none;margin:8px 0 0 0;padding:0}
+.hierarchy .level-2 > li{padding-left:24px;position:relative;margin-bottom:6px}
+.hierarchy .level-2 > li::before{content:"▸";position:absolute;left:6px;color:var(--c-accent);font-weight:700}
+.tag{display:inline-block;padding:2px 9px;border-radius:10px;font-size:0.72rem;font-family:'Helvetica',sans-serif;letter-spacing:0.4px;margin-right:5px;font-weight:600}
+.tag-excellent{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+.tag-good{background:#fff3cd;color:#856404;border:1px solid #ffeaa7}
+.tag-regular{background:#ffe6cc;color:#8a4b00;border:1px solid #ffd9a8}
+.tag-insufficient{background:#f8d7da;color:#721c24;border:1px solid #f5b7b8}
+.score-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:18px 0}
+.score-item{background:linear-gradient(135deg,#0d3319 0%,#1a4d2e 100%);color:#fff;padding:14px 16px;border-radius:8px;text-align:center;border:2px solid var(--c-accent)}
+.score-item .score-label{font-family:'Helvetica',sans-serif;font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;color:#e8d9b8;margin-bottom:4px}
+.score-item .score-value{font-family:'Helvetica',sans-serif;font-size:1.5rem;font-weight:700;color:#ffd970}
+.score-item .score-detail{font-size:0.75rem;color:#f0e2c8;margin-top:2px}
+.book-card{background:linear-gradient(135deg,#fbf5e8 0%,#f5f0e0 100%);border:2px solid var(--c-accent);border-radius:10px;padding:22px;margin:20px 0;display:grid;grid-template-columns:80px 1fr;gap:18px;align-items:center}
+.book-cover{width:80px;height:120px;background:linear-gradient(135deg,#1a4d2e 0%,#2d6a4f 100%);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#ffd970;font-family:'Helvetica',sans-serif;font-size:0.7rem;font-weight:700;text-align:center;padding:8px;box-shadow:var(--shadow-lg);line-height:1.3}
+.book-info h3{border:none;margin:0 0 6px 0;padding:0;color:var(--c-primary);font-size:1.15rem}
+.book-info .author{font-style:italic;color:var(--c-text-muted);margin-bottom:8px;font-size:0.92rem}
+.book-info .apa{font-family:'Courier New',monospace;font-size:0.85rem;background:#fff;padding:8px 10px;border-radius:4px;border-left:3px solid var(--c-primary);margin-top:8px}
+.site-footer{background:#0d3319;color:#d8c9b0;padding:24px 20px;text-align:center;font-family:'Helvetica',sans-serif;font-size:0.82rem;border-top:4px solid var(--c-accent)}
+.site-footer strong{color:#fff}
+.site-footer .citation{margin-top:8px;font-style:italic;color:#b8a888;font-size:0.78rem}
+@media(max-width:768px){.site-header h1{font-size:1.45rem}.tab-nav a{font-size:0.75rem;padding:11px 14px}.tab-nav a .num{width:20px;height:20px;font-size:0.66rem}.section-header h2{font-size:1.2rem}.section-header .roman{width:40px;height:40px;font-size:1rem}main{padding:20px 12px 50px}th,td{font-size:0.78rem;padding:8px 9px}.book-card{grid-template-columns:1fr;text-align:center}.book-cover{margin:0 auto}}
+@media print{.tab-nav{display:none;position:static}.site-header{background:#1a4d2e !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}section{page-break-inside:avoid;border-bottom:none}.axis-card,.card,.callout,.book-card{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="institution">UPSE · Facultad de Ciencias de la Ingeniería</div>
+    <span class="course-tag">UNIDAD TEMÁTICA #1 · FUNDAMENTOS Y EVOLUCIÓN DE LA RSC</span>
+    <h1>Guía de Actividad: Ensayo Académico Aplicativo</h1>
+    <div class="subtitle">Análisis crítico del caso Patagonia — "Let My People Go Surfing" de Yvon Chouinard (2016)</div>
+    <div class="meta-pills">
+      <span class="pill"><strong>Modalidad:</strong> Individual o parejas (máx. 2)</span>
+      <span class="pill"><strong>Extensión:</strong> 1.800–2.500 palabras</span>
+      <span class="pill"><strong>Valoración:</strong> 20,00 pts</span>
+      <span class="pill"><strong>Formato:</strong> PDF · APA 7.ª ed.</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-nav" id="tabNav">
+  <div class="wrap">
+    <a href="#contenido" class="active"><span class="num">1</span>Contenido Curricular</a>
+    <a href="#bibliografia"><span class="num">2</span>Bibliografía</a>
+    <a href="#tarea"><span class="num">3</span>Planteamiento de Tarea</a>
+    <a href="#estructura"><span class="num">4</span>Estructura del Ensayo</a>
+    <a href="#evaluacion"><span class="num">5</span>Criterios de Evaluación</a>
+    <a href="#rubrica"><span class="num">6</span>Rúbrica Analítica</a>
+    <a href="#integridad"><span class="num">7</span>Validación de Integridad</a>
+  </div>
+</nav>
+
+<main>
+
+<section id="contenido" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">I</div>
+    <div class="title-block">
+      <h2>Análisis del Contenido Curricular</h2>
+      <div class="subtitle">Unidad Temática #1 · Estructura en cuatro subtemas y resultados de aprendizaje</div>
+    </div>
+  </div>
+
+  <p>La Unidad Temática #1: <strong>Fundamentos y Evolución de la Responsabilidad Social</strong> se estructura en cuatro subtemas progresivos que articulan el recorrido histórico, conceptual, dimensional y normativo de la RSC contemporánea. Cada subtema articula resultados de aprendizaje verificables en el ensayo final:</p>
+
+  <div class="axis-card">
+    <span class="axis-tag">SUBTEMA 1.1</span>
+    <h4>Origen y evolución histórica de la RSC</h4>
+    <ul style="list-style:disc;margin-left:22px">
+      <li>Desarrollo histórico desde raíces filosóficas hasta su institucionalización contemporánea.</li>
+    </ul>
+  </div>
+
+  <div class="axis-card">
+    <span class="axis-tag">SUBTEMA 1.2</span>
+    <h4>Definiciones y conceptos clave de RSC</h4>
+    <ul style="list-style:disc;margin-left:22px">
+      <li>Marcos conceptuales según organismos internacionales: <strong>OCDE</strong> (Organización para la Cooperación y el Desarrollo Económicos), <strong>ONU</strong> (Organización de las Naciones Unidas), <strong>UE</strong> (Unión Europea) e <strong>ISO</strong> (Organización Internacional de Normalización).</li>
+    </ul>
+  </div>
+
+  <div class="axis-card">
+    <span class="axis-tag">SUBTEMA 1.3</span>
+    <h4>Dimensiones económica, social y ambiental</h4>
+    <ul style="list-style:disc;margin-left:22px">
+      <li>El enfoque de <strong>triple cuenta de resultados</strong> (<em>Triple Bottom Line</em>) y su impacto directo en la sostenibilidad corporativa.</li>
+    </ul>
+  </div>
+
+  <div class="axis-card">
+    <span class="axis-tag">SUBTEMA 1.4</span>
+    <h4>Normativa y estándares de responsabilidad social</h4>
+    <ul style="list-style:disc;margin-left:22px">
+      <li>Análisis y aplicación de marcos internacionales como <strong>ISO 26000</strong>, <strong>Pacto Global de la ONU</strong> y <strong>SA8000</strong> (<em>Social Accountability 8000</em>).</li>
+    </ul>
+  </div>
+</section>
+
+<section id="bibliografia" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">II</div>
+    <div class="title-block">
+      <h2>Recomendación Bibliográfica</h2>
+      <div class="subtitle">Narrativo-Aplicativa / No netamente académica</div>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-cover">LET MY<br>PEOPLE<br>GO<br>SURFING</div>
+    <div class="book-info">
+      <h3>Let My People Go Surfing: The Education of a Reluctant Businessman</h3>
+      <div class="author"><em>Que mi gente vaya a hacer surf: La educación de un empresario rebelde</em></div>
+      <div><strong>Autor:</strong> Yvon Chouinard — Fundador de Patagonia, Inc.</div>
+      <div class="apa"><strong>APA 7.ª ed.:</strong> Chouinard, Y. (2016). <em>Let my people go surfing: The education of a reluctant businessman</em> (2.ª ed.). Penguin Books.</div>
+    </div>
+  </div>
+
+  <h3>Pertinencia con los 4 subtemas de la unidad</h3>
+
+  <div class="axis-card">
+    <span class="axis-tag">1.1</span>
+    <h4>Evolución histórica</h4>
+    <p style="margin:0">Narra la transición real desde el taller artesanal de material de escalada (<em>Chouinard Equipment</em>) en los años 50-60 hasta la construcción de un modelo corporativo global institucionalizado que redefine el propósito del negocio.</p>
+  </div>
+
+  <div class="axis-card">
+    <span class="axis-tag">1.2</span>
+    <h4>Conceptos clave y gobernanza</h4>
+    <p style="margin:0">Contrasta el mandato tradicional de maximización de beneficios de Milton Friedman frente a los principios de gobernanza responsable y bienestar social promovidos por organismos multilaterales.</p>
+  </div>
+
+  <div class="axis-card">
+    <span class="axis-tag">1.3</span>
+    <h4>Enfoque tridimensional (Económico, Social y Ambiental)</h4>
+    <p style="margin:0">Describe cómo la empresa audita su cadena de suministro (algodón orgánico, materiales reciclados), financia iniciativas ambientales (el impuesto del 1% para el planeta) y asegura la rentabilidad financiera simultáneamente.</p>
+  </div>
+
+  <div class="axis-card">
+    <span class="axis-tag">1.4</span>
+    <h4>Estándares y normativas</h4>
+    <p style="margin:0">Analiza la adopción práctica de estándares de certificación laboral (SA8000), adhesión al Pacto Global y auditorías de sostenibilidad comparables a las directrices de la norma ISO 26000.</p>
+  </div>
+</section>
+
+<section id="tarea" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">III</div>
+    <div class="title-block">
+      <h2>Planteamiento de la Tarea para los Estudiantes</h2>
+      <div class="subtitle">Mensaje del Docente · Contextualización académica</div>
+    </div>
+  </div>
+
+  <div class="callout callout-docent">
+    <span class="docent-label">📧 Comunicado del Docente a los Estudiantes</span>
+    <p style="margin:0">Estimados/as estudiantes:</p>
+    <p>La <strong>Responsabilidad Social Corporativa (RSC)</strong> a menudo se percibe erróneamente como un compendio de declaraciones abstractas o un catálogo de filantropía corporativa. No obstante, en la ingeniería y la gestión empresarial de alto rendimiento, la RSC opera como una <strong>arquitectura sistémica</strong> que salvaguarda la sostenibilidad del modelo operativo, previene cuellos de botella reputacionales y asegura la viabilidad a largo plazo mediante una gestión rigurosa de las dimensiones económica, social y ambiental.</p>
+    <p>Para internalizar los conocimientos de la Unidad Temática #1, no nos limitaremos a memorizar definiciones. Realizaremos un <strong>examen crítico aplicado</strong> a través de la obra de Yvon Chouinard:</p>
+    <p style="font-style:normal;text-align:center;margin:14px 0">
+      <strong>Chouinard, Y. (2016).</strong> <em>Let my people go surfing: The education of a reluctant businessman.</em> Penguin Books.
+    </p>
+    <p>A través de esta lectura, ustedes analizarán cómo una empresa de manufactura global transita desde una práctica empírica inicial hacia la <strong>institucionalización de estándares éticos y laborales de clase mundial</strong>, demostrando que la rentabilidad no está reñida con el cumplimiento de normativas como ISO 26000, Pacto Global y SA8000.</p>
+  </div>
+
+  <div class="card card-info">
+    <div class="card-header">
+      <div class="icon">🎯</div>
+      <h4>Propósito Pedagógico de la Actividad</h4>
+    </div>
+    <p style="margin:0">El ensayo exige al estudiante aplicar el marco teórico de la Unidad #1 (evolución histórica, conceptos institucionales, triple cuenta y normativas) al caso real de Patagonia Inc. No se trata de resumir la biografía de Chouinard, sino de <strong>realizar un examen crítico aplicado</strong> que articule los conceptos teóricos con pasajes concretos del texto, demostrando cómo una empresa global puede operar bajo estándares éticos sin sacrificar rentabilidad.</p>
+  </div>
+
+  <h3>Parámetros Generales de Entrega</h3>
+
+  <div class="params-grid">
+    <div class="param-card">
+      <div class="label">Modalidad</div>
+      <div class="value">Individual o en parejas</div>
+      <div class="detail">Máximo 2 integrantes por entrega</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Extensión</div>
+      <div class="value">1.800 – 2.500 palabras</div>
+      <div class="detail">Excluyendo portada, resumen y referencias</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Formato</div>
+      <div class="value">Archivo PDF</div>
+      <div class="detail">Tipografía Arial o Times New Roman 12 pt</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Interlineado</div>
+      <div class="value">1,5 líneas</div>
+      <div class="detail">Márgenes simétricos de 2,54 cm</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Normativa de Citas</div>
+      <div class="value">APA 7.ª edición</div>
+      <div class="detail">Estricto apego en cuerpo y referencias</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Fechas</div>
+      <div class="value">Calendario académico UPSE</div>
+      <div class="detail">Entrega a través del aula virtual</div>
+    </div>
+  </div>
+</section>
+
+<section id="estructura" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">IV</div>
+    <div class="title-block">
+      <h2>Estructura Obligatoria del Ensayo</h2>
+      <div class="subtitle">Jerarquía formal I–V · Distribución porcentual de la extensión</div>
+    </div>
+  </div>
+
+  <p>El ensayo debe desarrollarse siguiendo la jerarquía formal que se especifica a continuación:</p>
+
+  <div class="hierarchy">
+  <ol>
+    <li>
+      <h4 style="margin:0 0 6px 0">Preliminares</h4>
+      <ul class="level-2">
+        <li><strong>Portada:</strong> Datos institucionales, título formal del ensayo, nombres completos de los integrantes y fecha de entrega.</li>
+        <li><strong>Resumen (Abstract):</strong> Síntesis estructurada (máximo 150 palabras) que exponga el objetivo, la metodología crítica y las conclusiones alcanzadas, acompañada de <strong>3 a 5 palabras clave</strong>.</li>
+      </ul>
+    </li>
+    <li>
+      <h4 style="margin:0 0 6px 0">Introducción <span class="axis-ref">≈ 15% del contenido</span></h4>
+      <ul class="level-2">
+        <li>Contextualización del debate moderno entre el <strong>beneficio económico a corto plazo</strong> y la <strong>sostenibilidad empresarial integral</strong>.</li>
+        <li>Declaración explícita de la <strong>tesis central</strong>: postura fundamentada sobre si la institucionalización de la RSC y la adhesión a estándares internacionales <strong>fortalecen la resiliencia operativa</strong> o constituyen una <strong>restricción de costos</strong>.</li>
+        <li>Delimitación del alcance del ensayo en relación con el caso expuesto en el libro.</li>
+      </ul>
+    </li>
+    <li>
+      <h4 style="margin:0 0 6px 0">Cuerpo Argumentativo y Análisis Crítico <span class="axis-ref">≈ 70% del contenido</span></h4>
+      <p style="margin:6px 0 10px 0">Debe dividirse en <strong>cuatro secciones articuladas</strong> directamente con los resultados de aprendizaje de la unidad:</p>
+
+      <div class="axis-card">
+        <span class="axis-tag">SECCIÓN 1</span>
+        <h4>De la Ética Individual a la Institucionalización de la RSC <span class="axis-ref">Subtema 1.1</span></h4>
+        <ul style="list-style:disc;margin-left:22px">
+          <li>Rastrear la evolución descrita en el libro: de una preocupación intuitiva/filosófica por <strong>no dañar la roca</strong> en el montañismo (abandono de los pitones de acero por fisureros de aluminio) a la consolidación de una <strong>política corporativa formal</strong>.</li>
+          <li>Conectar esta experiencia con el devenir histórico de la RSC a nivel global.</li>
+        </ul>
+      </div>
+
+      <div class="axis-card">
+        <span class="axis-tag">SECCIÓN 2</span>
+        <h4>Contrastación de Marcos Conceptuales e Institucionales <span class="axis-ref">Subtema 1.2</span></h4>
+        <ul style="list-style:disc;margin-left:22px">
+          <li>Contrastar la visión operativa de la empresa con las definiciones formales emitidas por organismos internacionales (<strong>OCDE, ONU, UE, ISO</strong>).</li>
+          <li>Evaluar si las prácticas analizadas corresponden a un modelo de <strong>filantropía tradicional</strong> o a una <strong>integración estratégica de RSC</strong> en el modelo de negocio.</li>
+        </ul>
+      </div>
+
+      <div class="axis-card">
+        <span class="axis-tag">SECCIÓN 3</span>
+        <h4>El Equilibrio de la Triple Cuenta: Dimensión Económica, Social y Ambiental <span class="axis-ref">Subtema 1.3</span></h4>
+        <ul style="list-style:disc;margin-left:22px">
+          <li>Examinar cómo interactúan las tres dimensiones: decisiones costosas de rediseño de cadena de suministro (<strong>conversión a algodón orgánico, salarios dignos</strong>) frente a la <strong>rentabilidad y resiliencia</strong> de la empresa.</li>
+          <li>Análisis del impacto de este equilibrio en la sostenibilidad a largo plazo.</li>
+        </ul>
+      </div>
+
+      <div class="axis-card">
+        <span class="axis-tag">SECCIÓN 4</span>
+        <h4>Aplicación y Cumplimiento de Normativas y Estándares Globales <span class="axis-ref">Subtema 1.4</span></h4>
+        <ul style="list-style:disc;margin-left:22px">
+          <li>Analizar la operatividad real de normativas de auditoría social (<strong>SA8000</strong> para condiciones laborales en proveedores), directrices de gobernanza de la <strong>ISO 26000</strong> y los <strong>diez principios del Pacto Global de la ONU</strong> en el marco de la manufactura global.</li>
+          <li>Discutir los desafíos de auditar cadenas de suministro complejas y <strong>evitar el greenwashing</strong>.</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <h4 style="margin:0 0 6px 0">Conclusiones <span class="axis-ref">≈ 15% del contenido</span></h4>
+      <ul class="level-2">
+        <li>Recapitulación y contraste directo con la <strong>tesis inicial</strong>.</li>
+        <li><strong>Deducciones estratégicas:</strong> lecciones aplicables para la gestión de operaciones y la ingeniería en la toma de decisiones éticas y productivas.</li>
+      </ul>
+    </li>
+    <li>
+      <h4 style="margin:0 0 6px 0">Referencias Bibliográficas</h4>
+      <ul class="level-2">
+        <li>Listado bibliográfico en riguroso formato <strong>APA 7.ª ed.</strong></li>
+        <li>Incorporar: el libro de texto analizado, normativas técnicas consultadas (<strong>ISO 26000, SA8000, guías de la OCDE</strong>) y bibliografía de soporte.</li>
+      </ul>
+    </li>
+  </ol>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>📌 Distribución recomendada de la extensión:</strong> Para un ensayo de 2.000 palabras (punto medio), considerar ~300 palabras para Introducción, ~1.400 para el Cuerpo Argumentativo (350 por sección) y ~300 para Conclusiones. Las Preliminares y Referencias no cuentan para el cómputo total.
+  </div>
+</section>
+
+<section id="evaluacion" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">V</div>
+    <div class="title-block">
+      <h2>Criterios de Evaluación y Calificación</h2>
+      <div class="subtitle">Escala vigesimal (20,00 puntos) · Cinco dimensiones evaluativas</div>
+    </div>
+  </div>
+
+  <p>La calificación se realizará sobre una <strong>escala vigesimal (20,00 puntos)</strong>, distribuidos en cinco dimensiones evaluativas con ponderaciones diferenciadas:</p>
+
+  <div class="score-summary">
+    <div class="score-item">
+      <div class="score-label">Dimensión 1</div>
+      <div class="score-value">5,0</div>
+      <div class="score-detail">Cobertura Teórica · 25%</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Dimensión 2</div>
+      <div class="score-value">5,0</div>
+      <div class="score-detail">Profundidad Crítica · 25%</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Dimensión 3</div>
+      <div class="score-value">4,0</div>
+      <div class="score-detail">Estructura y Coherencia · 20%</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Dimensión 4</div>
+      <div class="score-value">3,0</div>
+      <div class="score-detail">Operaciones y Sostenibilidad · 15%</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Dimensión 5</div>
+      <div class="score-value">3,0</div>
+      <div class="score-detail">Normalización APA · 15%</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Dimensión Técnica</th>
+          <th>Eje Evaluado</th>
+          <th>Ponderación</th>
+          <th>Puntaje Máx.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Cobertura e integración teórica</strong></td>
+          <td>4 subtemas de la Unidad #1</td>
+          <td>25%</td>
+          <td><strong>5,0 pts</strong></td>
+        </tr>
+        <tr>
+          <td><strong>2. Profundidad crítica y pertinencia aplicativa</strong></td>
+          <td>Caso Patagonia · contrastación teórica</td>
+          <td>25%</td>
+          <td><strong>5,0 pts</strong></td>
+        </tr>
+        <tr>
+          <td><strong>3. Estructura metodológica y coherencia</strong></td>
+          <td>Jerarquía I–V, argumentación lógica</td>
+          <td>20%</td>
+          <td><strong>4,0 pts</strong></td>
+        </tr>
+        <tr>
+          <td><strong>4. Análisis de viabilidad en procesos</strong></td>
+          <td>Equilibrio económico-ambiental y gobernanza</td>
+          <td>15%</td>
+          <td><strong>3,0 pts</strong></td>
+        </tr>
+        <tr>
+          <td><strong>5. Rigor formal y normas APA (7.ª ed.)</strong></td>
+          <td>Citas, referencias, plagio</td>
+          <td>15%</td>
+          <td><strong>3,0 pts</strong></td>
+        </tr>
+        <tr style="background:var(--c-primary);color:#fff">
+          <td colspan="3" style="text-align:right;color:#fff"><strong>TOTAL</strong></td>
+          <td style="color:#ffd970"><strong>20,00 pts</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="rubrica" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">VI</div>
+    <div class="title-block">
+      <h2>Rúbrica Analítica de Evaluación</h2>
+      <div class="subtitle">Cuatro niveles de desempeño por criterio · Aplicación rigurosa</div>
+    </div>
+  </div>
+
+  <p>Para cada criterio, el evaluador asigna el nivel de desempeño observado. El puntaje final se obtiene multiplicando el porcentaje del nivel por el puntaje máximo del criterio y sumando los aportes de las cinco dimensiones.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Nivel Excelente<br><small>(100% – 90%)</small></th>
+          <th>Nivel Bueno<br><small>(89% – 75%)</small></th>
+          <th>Nivel Regular<br><small>(74% – 60%)</small></th>
+          <th>Nivel Insuficiente<br><small>(&lt; 60%)</small></th>
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Dominio Teórico e Integración Curricular</strong><br><small style="color:var(--c-text-muted)">Subtemas 1.1–1.4</small></td>
+          <td>Integra con absoluta solvencia los cuatro subtemas: <strong>evolución histórica, conceptos de organismos</strong> (OCDE, ONU, UE, ISO), <strong>triple cuenta</strong> y <strong>normativas</strong> (ISO 26000, SA8000, Pacto Global).</td>
+          <td>Desarrolla los cuatro subtemas pero con desbalance en la profundidad o ligeras inconsistencias en la definición de normativas.</td>
+          <td>Omite uno de los subtemas o se limita a listarlos sin explicar su relevancia para la sostenibilidad corporativa.</td>
+          <td>No demuestra comprensión de los marcos teóricos ni de los estándares internacionales de la unidad.</td>
+          <td><strong>5,0</strong></td>
+        </tr>
+        <tr>
+          <td><strong>2. Profundidad Crítica y Evidencia Aplicativa</strong></td>
+          <td>Articula sólidamente los hechos del libro con los conceptos de RSC, demostrando <strong>pensamiento crítico</strong> sin caer en resúmenes anecdóticos pasivos.</td>
+          <td>Analiza el caso del libro de forma clara, aunque con tendencia en ciertos tramos a la <em>narración de hechos por encima de la contrastación teórica</em>.</td>
+          <td>Presenta una postura crítica débil; el texto es predominantemente un resumen de las anécdotas de la empresa sin examen conceptual.</td>
+          <td>Resumen superficial del libro sin ninguna conexión crítica con la Responsabilidad Social Corporativa.</td>
+          <td><strong>5,0</strong></td>
+        </tr>
+        <tr>
+          <td><strong>3. Estructura y Coherencia Discursiva</strong></td>
+          <td>Respeta rigurosamente la estructura requerida (Portada, Resumen, Introducción con tesis, 4 secciones de cuerpo, Conclusiones y Referencias). <strong>Cohesión y sintaxis fluidas</strong>.</td>
+          <td>Estructura completa y comprensible, con deficiencias menores en conectores discursivos o desarrollo desigual de secciones.</td>
+          <td>Estructura incompleta (omisión de resumen, tesis difusa o conclusiones inconclusas); transiciones abruptas.</td>
+          <td>Desorganización estructural severa que dificulta la comprensión y lectura del documento.</td>
+          <td><strong>4,0</strong></td>
+        </tr>
+        <tr>
+          <td><strong>4. Enfoque de Operaciones y Sostenibilidad</strong></td>
+          <td>Demuestra cómo la <strong>triple cuenta impacta la arquitectura operativa</strong>, la reducción de riesgos y la viabilidad técnica/económica de la empresa.</td>
+          <td>Analiza el impacto ambiental y social pero profundiza poco en la dimensión económica y los costos operativos.</td>
+          <td>Aborda la sostenibilidad como un elemento accesorio o voluntario sin conectarlo con el proceso productivo.</td>
+          <td>Omite el análisis de los procesos, la cadena de suministro y la viabilidad económica.</td>
+          <td><strong>3,0</strong></td>
+        </tr>
+        <tr>
+          <td><strong>5. Normalización Formal y Citas APA (7.ª ed.)</strong></td>
+          <td><strong>Citación impecable</strong> de fuentes directas e indirectas; referencias completas según APA 7. Cero indicios de plagio o copia textual no acreditada.</td>
+          <td>Inconsistencias menores en el formato de referencias (puntuación o sangría francesa); citación en texto adecuada.</td>
+          <td>Errores recurrentes en el estilo de citas en el texto; fuentes primarias ausentes en la bibliografía final.</td>
+          <td>Falta de aplicación de normas APA; ausencia grave de citas de respaldo o paráfrasis no atribuida.</td>
+          <td><strong>3,0</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>📊 Interpretación de niveles:</strong>
+    <span class="tag tag-excellent">Excelente: 90–100% del puntaje del criterio</span>
+    <span class="tag tag-good">Bueno: 75–89%</span>
+    <span class="tag tag-regular">Regular: 60–74%</span>
+    <span class="tag tag-insufficient">Insuficiente: &lt; 60%</span>
+    <br>
+    <small>Ejemplo: Si en el Criterio 1 (5,0 pts) el estudiante alcanza nivel "Bueno" (80%), obtiene 5,0 × 0,80 = <strong>4,0 pts</strong>.</small>
+  </div>
+</section>
+
+<section id="integridad" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">VII</div>
+    <div class="title-block">
+      <h2>Validación de Integridad</h2>
+      <div class="subtitle">Control de coincidencia y trazabilidad lógica · Controles anti-plagio</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">🔍</div>
+      <h4>Control de Coincidencia</h4>
+    </div>
+    <p>Todo documento será procesado mediante <strong>software de integridad académica</strong>. El porcentaje máximo admisible de coincidencia textual justificada (citas directas reglamentarias) es del <strong>10%</strong>. Coincidencias no referenciadas conllevan la <strong>anulación del criterio normativo y del cuerpo evaluado</strong>.</p>
+    <p style="margin:0">Esto implica que:</p>
+    <ul>
+      <li>Toda frase, dato o idea tomada de una fuente externa (libro, artículo, web) <strong>debe ir citada</strong> en APA 7.ª ed.</li>
+      <li>El sistema anti-plagio detectará coincidencias textuales contra repositorios académicos y la web.</li>
+      <li>La <strong>paráfrasis sin cita</strong> también se considera plagio académico.</li>
+      <li>Las citas largas (más de 40 palabras) deben bloquearse con sangría y sin comillas.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">🔗</div>
+      <h4>Trazabilidad Lógica</h4>
+    </div>
+    <p>Cada afirmación sobre estándares internacionales (<strong>ISO 26000, SA8000, Pacto Global</strong>) debe <strong>corresponderse con sus alcances reales de aplicación técnica e industrial</strong>.</p>
+    <p>Esto significa que el estudiante debe verificar que:</p>
+    <ul>
+      <li>ISO 26000 se cite como <strong>guía de directrices no certificable</strong> (no como estándar auditable).</li>
+      <li>SA8000 se cite como <strong>estándar certificable de tercera parte</strong> aplicable a condiciones laborales.</li>
+      <li>Pacto Global se cite como <strong>iniciativa voluntaria de rendición de cuentas</strong> con reporte CoP.</li>
+      <li>Las <strong>cláusulas específicas</strong> invocadas (ej. Cláusula 7 sobre horas de trabajo en SA8000) correspondan al contenido real de la norma.</li>
+    </ul>
+    <p style="margin:0">El estudiante que cite cláusulas inexistentes o atribuya características incorrectas a las normas <strong>perderá puntos en los Criterios 1 y 4</strong> de la rúbrica (hasta 8,0 pts sobre 20).</p>
+  </div>
+
+  <div class="callout callout-warn">
+    <strong>🚫 Sanciones académicas:</strong> La detección de plagio deliberado, fabricación de citas o entrega de trabajos idénticos entre parejas distintas conduce a la <strong>anulación total de la actividad (0,00/20,00)</strong> y activación del proceso disciplinario previsto en el reglamento interno de la universidad.
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p><strong>Universidad Estatal Península de Santa Elena (UPSE)</strong> · Facultad de Ciencias de la Ingeniería</p>
+  <p>Unidad Temática #1: Fundamentos y Evolución de la Responsabilidad Social</p>
+  <p class="citation">Chouinard, Y. (2016). <em>Let my people go surfing: The education of a reluctant businessman</em> (2.ª ed.). Penguin Books.</p>
+  <p style="margin-top:10px;font-size:0.72rem;opacity:0.7">Guía de actividad académica · Documento oficial de cátedra · Vigencia: ciclo lectivo en curso</p>
+</footer>
+
+<script>
+const navLinks = document.querySelectorAll('.tab-nav a');
+const sections = document.querySelectorAll('section.section-anchor');
+
+function highlightActive() {
+  let current = 'contenido';
+  const scrollPos = window.scrollY + 120;
+  sections.forEach(s => {
+    if (s.offsetTop <= scrollPos) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', highlightActive, {passive:true});
+window.addEventListener('load', highlightActive);
+
+navLinks.forEach(a => {
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    const targetId = this.getAttribute('href').replace('#','');
+    const target = document.getElementById(targetId);
+    if (target) {
+      const offset = 80;
+      const top = target.offsetTop - offset;
+      window.scrollTo({top, behavior:'smooth'});
+      history.replaceState(null, null, '#' + targetId);
+    }
+  });
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (location.hash) {
+    const target = document.getElementById(location.hash.replace('#',''));
+    if (target) {
+      setTimeout(()=> window.scrollTo({top: target.offsetTop - 80, behavior:'auto'}), 100);
+    }
+  }
+  highlightActive();
+});
+</script>
+</body>
+</html>
