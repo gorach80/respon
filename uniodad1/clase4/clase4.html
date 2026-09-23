@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSC - Módulo Académico | UPSE</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root{
+  --c-primary:#0f2c5c;
+  --c-primary-light:#1e3a8a;
+  --c-accent:#b8860b;
+  --c-bg:#f7f8fa;
+  --c-surface:#ffffff;
+  --c-border:#d8dce3;
+  --c-text:#1a1a1a;
+  --c-text-muted:#555;
+  --c-tab-active:#0f2c5c;
+  --c-tab-inactive:#e8eaef;
+  --c-success:#1b7a3d;
+  --c-danger:#a31818;
+  --c-warn:#7a4d00;
+  --shadow:0 2px 8px rgba(15,44,92,0.08);
+  --shadow-lg:0 6px 20px rgba(15,44,92,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Georgia','Times New Roman',serif;
+  background:var(--c-bg);
+  color:var(--c-text);
+  line-height:1.65;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+.site-header{
+  background:linear-gradient(135deg,#0a1d3d 0%,#0f2c5c 55%,#1e3a8a 100%);
+  color:#fff;
+  padding:30px 20px 22px;
+  border-bottom:5px solid var(--c-accent);
+}
+.site-header .wrap{max-width:1200px;margin:0 auto}
+.site-header .institution{
+  font-size:0.78rem;
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  color:#c8d3e8;
+  font-family:'Helvetica',sans-serif;
+  margin-bottom:8px;
+}
+.site-header h1{
+  font-family:'Helvetica','Arial',sans-serif;
+  font-size:1.7rem;
+  font-weight:700;
+  line-height:1.25;
+  margin-bottom:6px;
+}
+.site-header .subtitle{
+  font-size:0.95rem;
+  color:#dde5f3;
+  font-family:'Helvetica',sans-serif;
+}
+.site-header .meta-pills{
+  margin-top:14px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.site-header .pill{
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(184,134,11,0.6);
+  color:#fff;
+  padding:4px 11px;
+  border-radius:14px;
+  font-size:0.75rem;
+  font-family:'Helvetica',sans-serif;
+  letter-spacing:0.4px;
+}
+.tab-nav{
+  background:var(--c-surface);
+  border-bottom:2px solid var(--c-border);
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:var(--shadow);
+}
+.tab-nav .wrap{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  overflow-x:auto;
+}
+.tab-nav a{
+  display:flex;
+  flex-direction:column;
+  padding:14px 18px;
+  text-decoration:none;
+  color:var(--c-text-muted);
+  font-family:'Helvetica',sans-serif;
+  font-size:0.82rem;
+  font-weight:600;
+  border-bottom:3px solid transparent;
+  transition:all 0.2s;
+  white-space:nowrap;
+  min-width:170px;
+  text-align:left;
+}
+.tab-nav a .tab-num{
+  font-size:0.65rem;
+  letter-spacing:1.5px;
+  color:var(--c-accent);
+  margin-bottom:3px;
+  font-weight:700;
+}
+.tab-nav a:hover{background:#f0f2f7;color:var(--c-primary)}
+.tab-nav a.active{
+  background:var(--c-tab-active);
+  color:#fff;
+  border-bottom-color:var(--c-accent);
+}
+.tab-nav a.active .tab-num{color:#ffd970}
+main{max-width:1200px;margin:0 auto;padding:30px 20px 60px}
+.tab-content{display:none;animation:fadeIn 0.4s ease}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.section-title{
+  font-family:'Helvetica','Arial',sans-serif;
+  color:var(--c-primary);
+  font-size:1.45rem;
+  border-left:6px solid var(--c-accent);
+  padding-left:14px;
+  margin:32px 0 18px;
+  line-height:1.3;
+}
+.section-title.first{margin-top:0}
+.subsection-title{
+  font-family:'Helvetica','Arial',sans-serif;
+  color:var(--c-primary-light);
+  font-size:1.15rem;
+  margin:24px 0 12px;
+  padding-bottom:5px;
+  border-bottom:1px solid var(--c-border);
+}
+.minor-title{
+  font-family:'Helvetica','Arial',sans-serif;
+  color:var(--c-text);
+  font-size:1rem;
+  font-weight:700;
+  margin:18px 0 8px;
+}
+p{margin-bottom:12px;text-align:justify}
+.lead{
+  font-size:1.05rem;
+  background:#eef2f9;
+  border-left:4px solid var(--c-primary-light);
+  padding:14px 18px;
+  margin-bottom:20px;
+  border-radius:0 6px 6px 0;
+}
+ul,ol{margin:0 0 16px 22px}
+ul li,ol li{margin-bottom:7px;text-align:justify}
+ul li::marker{color:var(--c-accent)}
+ol li::marker{color:var(--c-primary);font-weight:700}
+strong{color:var(--c-primary)}
+em{color:var(--c-text)}
+.table-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--c-border);border-radius:6px;box-shadow:var(--shadow)}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:var(--c-surface);
+  font-size:0.9rem;
+}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--c-border);vertical-align:top}
+th{background:var(--c-primary);color:#fff;font-family:'Helvetica',sans-serif;font-weight:600;font-size:0.85rem;letter-spacing:0.3px}
+tbody tr:nth-child(even){background:#f5f7fb}
+tbody tr:hover{background:#e8eef7}
+td strong{color:var(--c-primary-light)}
+.card{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:8px;
+  padding:18px 22px;
+  margin:18px 0;
+  box-shadow:var(--shadow);
+}
+.card-info{
+  background:linear-gradient(135deg,#eef2f9 0%,#f7f9fc 100%);
+  border-left:5px solid var(--c-primary-light);
+}
+.card-warning{
+  background:#fff8ec;
+  border-left:5px solid var(--c-accent);
+}
+.card-danger{
+  background:#fdecec;
+  border-left:5px solid var(--c-danger);
+}
+.card-success{
+  background:#eaf6ee;
+  border-left:5px solid var(--c-success);
+}
+.callout{
+  background:#fff8ec;
+  border:1px solid #e0c98a;
+  border-left:5px solid var(--c-accent);
+  padding:12px 16px;
+  border-radius:6px;
+  font-size:0.92rem;
+  margin:14px 0;
+}
+.callout strong{color:var(--c-warn)}
+.flow-diagram{
+  background:#eef2f9;
+  border:1px solid var(--c-border);
+  border-radius:6px;
+  padding:18px;
+  margin:18px 0;
+  font-family:'Courier New',monospace;
+  font-size:0.85rem;
+  white-space:pre-wrap;
+  overflow-x:auto;
+}
+.timeline{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  margin:18px 0;
+}
+.timeline-item{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-top:4px solid var(--c-accent);
+  border-radius:6px;
+  padding:12px 14px;
+  box-shadow:var(--shadow);
+}
+.timeline-item .year{
+  font-family:'Helvetica',sans-serif;
+  font-size:0.78rem;
+  color:var(--c-accent);
+  font-weight:700;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+.timeline-item .author{
+  font-family:'Helvetica',sans-serif;
+  font-size:0.95rem;
+  font-weight:700;
+  color:var(--c-primary);
+  margin-bottom:5px;
+}
+.timeline-item .desc{font-size:0.85rem;line-height:1.4}
+.locked-block{
+  margin-top:30px;
+  border:2px dashed var(--c-accent);
+  border-radius:10px;
+  padding:24px;
+  background:linear-gradient(135deg,#fafaf5 0%,#f7f8fa 100%);
+}
+.locked-block .lock-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+.locked-block .lock-icon{
+  width:36px;height:36px;
+  background:var(--c-accent);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:700;font-size:1.1rem;
+  font-family:'Helvetica',sans-serif;
+}
+.locked-block h3{
+  font-family:'Helvetica',sans-serif;
+  color:var(--c-primary);
+  font-size:1.15rem;
+}
+.locked-block .lock-desc{
+  font-size:0.92rem;
+  color:var(--c-text-muted);
+  margin-bottom:16px;
+}
+.lock-form{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.lock-form input{
+  padding:9px 14px;
+  border:1px solid var(--c-border);
+  border-radius:5px;
+  font-size:0.95rem;
+  font-family:'Helvetica',sans-serif;
+  width:160px;
+  letter-spacing:2px;
+  background:#fff;
+}
+.lock-form input:focus{outline:none;border-color:var(--c-primary);box-shadow:0 0 0 3px rgba(15,44,92,0.15)}
+.lock-form button{
+  padding:9px 22px;
+  background:var(--c-primary);
+  color:#fff;
+  border:none;
+  border-radius:5px;
+  font-family:'Helvetica',sans-serif;
+  font-size:0.9rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:background 0.2s;
+}
+.lock-form button:hover{background:var(--c-primary-light)}
+.lock-form button:disabled{opacity:0.6;cursor:not-allowed}
+.lock-status{
+  margin-top:12px;
+  font-size:0.88rem;
+  font-family:'Helvetica',sans-serif;
+  min-height:18px;
+}
+.lock-status.error{color:var(--c-danger)}
+.lock-status.success{color:var(--c-success)}
+.locked-content{display:none;margin-top:20px;animation:fadeIn 0.5s ease}
+.locked-content.visible{display:block}
+.kbd{
+  display:inline-block;
+  padding:2px 7px;
+  background:#eef2f9;
+  border:1px solid var(--c-border);
+  border-radius:3px;
+  font-family:'Courier New',monospace;
+  font-size:0.85rem;
+  color:var(--c-primary);
+}
+.figure-caption{
+  font-size:0.85rem;
+  color:var(--c-text-muted);
+  font-style:italic;
+  margin-top:-8px;
+  margin-bottom:14px;
+}
+.tag{
+  display:inline-block;
+  padding:2px 9px;
+  background:var(--c-primary-light);
+  color:#fff;
+  border-radius:10px;
+  font-size:0.72rem;
+  font-family:'Helvetica',sans-serif;
+  letter-spacing:0.4px;
+  margin-right:5px;
+}
+.tag.danger{background:var(--c-danger)}
+.tag.warn{background:var(--c-accent)}
+.tag.success{background:var(--c-success)}
+.site-footer{
+  background:#0a1d3d;
+  color:#a9b6cc;
+  padding:20px;
+  text-align:center;
+  font-family:'Helvetica',sans-serif;
+  font-size:0.82rem;
+  border-top:3px solid var(--c-accent);
+}
+.site-footer strong{color:#fff}
+@media(max-width:768px){
+  .site-header h1{font-size:1.3rem}
+  .tab-nav a{min-width:140px;font-size:0.75rem;padding:10px 12px}
+  .section-title{font-size:1.2rem}
+  main{padding:20px 12px 40px}
+  th,td{font-size:0.8rem;padding:7px 9px}
+}
+@media print{
+  .tab-nav{display:none}
+  .site-header{background:#0a1d3d !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tab-content{display:block !important;page-break-after:always}
+  .locked-content{display:block !important}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="institution">UPSE &middot; Facultad de Ciencias de la Ingeniería</div>
+    <h1>Responsabilidad Social y Corporativa (RSC)</h1>
+    <div class="subtitle">Módulo Académico Integral &mdash; Fundamentos, Evolución, Normativa, Casos de Estudio y Talleres Forenses</div>
+    <div class="meta-pills">
+      <span class="pill">Ingeniería Industrial</span>
+      <span class="pill">Ingeniería en Seguridad Industrial</span>
+      <span class="pill">Cátedra RSC</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-nav" id="tabNav">
+  <div class="wrap">
+    <a href="#fundamentos" data-tab="fundamentos"><span class="tab-num">PESTAÑA 01</span>Fundamentos, Evolución y Marco Normativo</a>
+    <a href="#propaca" data-tab="propaca"><span class="tab-num">PESTAÑA 02</span>Crisis Operacional &mdash; PROPACA</a>
+    <a href="#taller-clase" data-tab="taller-clase"><span class="tab-num">PESTAÑA 03</span>Taller Práctico AGROLIT</a>
+    <a href="#banco-reactivos" data-tab="banco-reactivos"><span class="tab-num">PESTAÑA 04</span>Banco de Reactivos</a>
+    <a href="#taller-asincrono" data-tab="taller-asincrono"><span class="tab-num">PESTAÑA 05</span>Taller Asíncrono CAPAPSA</a>
+  </div>
+</nav>
+
+<main>
+<!-- ============== PESTAÑA 1: FUNDAMENTOS ============== -->
+<section id="fundamentos" class="tab-content">
+<div class="lead">
+<p style="margin:0"><strong>Definición operativa.</strong> La Responsabilidad Social Corporativa (RSC) constituye el modelo de gestión estratégica mediante el cual las organizaciones internalizan los impactos sociales, éticos, ambientales y laborales derivados de sus operaciones productivas dentro de su toma de decisiones formal.</p>
+</div>
+<p>En los campos de la <strong>Ingeniería Industrial</strong> y la <strong>Seguridad Industrial</strong>, la RSC representa una herramienta rigurosa para mitigar riesgos operacionales, blindar legalmente a la empresa, garantizar la continuidad de la cadena de suministro y maximizar la sostenibilidad y confiabilidad de los procesos productivos.</p>
+
+<h2 class="section-title first">1. Evolución Teórica y Epistemológica de la RSC</h2>
+<p>La conceptualización de la responsabilidad de la empresa frente a la sociedad ha transitado por <strong>cinco etapas paradigmáticas</strong>:</p>
+
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="year">1950s</div>
+    <div class="author">H. Bowen</div>
+    <div class="desc">La obligación ética del directivo frente a los impactos sociales. <em>Génesis Moral.</em></div>
+  </div>
+  <div class="timeline-item">
+    <div class="year">1970s</div>
+    <div class="author">M. Friedman</div>
+    <div class="desc">Maximización de utilidades bajo el marco estricto de la ley. <em>Enfoque Accionarial.</em></div>
+  </div>
+  <div class="timeline-item">
+    <div class="year">1980s</div>
+    <div class="author">R. E. Freeman</div>
+    <div class="desc">Teoría de los Stakeholders (equilibrio de intereses operativos). <em>Modelo Multiactor.</em></div>
+  </div>
+  <div class="timeline-item">
+    <div class="year">1990s</div>
+    <div class="author">A. B. Carroll</div>
+    <div class="desc">Cuatro estratos obligatorios y discrecionales (Econ./Leg./Étic./Filant.). <em>Taxonomía Piramidal.</em></div>
+  </div>
+  <div class="timeline-item">
+    <div class="year">2010s</div>
+    <div class="author">M. Porter &amp; M. Kramer</div>
+    <div class="desc">Sostenibilidad integrada al core del negocio. <em>Valor Compartido.</em></div>
+  </div>
+</div>
+
+<h3 class="subsection-title">1.1. Década de 1950: La Doctrina del Deber Individual</h3>
+<ul>
+<li><strong>Howard R. Bowen (1953):</strong> En su obra seminal <em>Social Responsibilities of the Businessman</em>, introduce la definición formal contemporánea. Bowen argumenta que las corporaciones operan como centros neurálgicos de poder cuyas decisiones condicionan el bienestar comunitario. La responsabilidad recae principalmente en el directivo (<em>decision maker</em>), quien debe orientar sus políticas conforme a los valores y fines de la sociedad.</li>
+</ul>
+
+<h3 class="subsection-title">1.2. Década de 1970: La Postura Neoclásica y la Primacía Financiera</h3>
+<ul>
+<li><strong>Milton Friedman (1970):</strong> En su artículo <em>"The Social Responsibility of Business is to Increase its Profits"</em>, consolida la doctrina contractual neoclásica. Sostiene que los administradores son agentes de los accionistas (<em>shareholders</em>) y que desviar fondos hacia proyectos sociales no directamente rentables equivale a imponer un gravamen no autorizado. Define como único límite ético y operativo el cumplimiento irrestricto de las leyes y las normas básicas de libre competencia sin engaño ni fraude.</li>
+</ul>
+
+<h3 class="subsection-title">1.3. Década de 1980: La Teoría de los Grupos de Interés (<em>Stakeholder Theory</em>)</h3>
+<ul>
+<li><strong>R. Edward Freeman (1984):</strong> Publica <em>Strategic Management: A Stakeholder Approach</em>, quebrando la exclusividad de los accionistas. Demuestra que la continuidad operacional depende de la gestión articulada con cualquier grupo o individuo que afecte o sea afectado por el logro de los objetivos organizacionales (colaboradores, proveedores, clientes, comunidades locales y reguladores).</li>
+</ul>
+
+<h3 class="subsection-title">1.4. Década de 1990: La Estructura Multidimensional</h3>
+<p><strong>Archie B. Carroll (1991):</strong> Plantea su modelo de cuatro capas (<em>Carroll's Pyramid of CSR</em>), superando la ambigüedad conceptual:</p>
+<ol>
+<li><strong>Responsabilidad Económica (Cimiento):</strong> Rentabilidad, eficiencia productiva y retribución justa al capital invertido.</li>
+<li><strong>Responsabilidad Legal:</strong> Cumplimiento técnico y jurídico estricto de códigos laborales, ambientales y de comercio.</li>
+<li><strong>Responsabilidad Ética:</strong> Prácticas, normas y expectativas no tipificadas por ley, pero exigidas socialmente (principio de no daño o <em>do no harm</em>).</li>
+<li><strong>Responsabilidad Filantrópica:</strong> Actos discrecionales corporativos para promover el bienestar de la comunidad (apoyo a infraestructura, educación, cultura).</li>
+</ol>
+
+<h3 class="subsection-title">1.5. Siglo XXI: Creación de Valor Compartido (<em>Creating Shared Value &mdash; CSV</em>)</h3>
+<ul>
+<li><strong>Michael Porter y Mark Kramer (2011):</strong> Sostienen que la RSC tradicional se convirtió en un mecanismo reactivo de contención reputacional desconectado del núcleo técnico de las empresas. El enfoque de <em>Valor Compartido</em> reubica el reto social dentro de la estrategia de competitividad:
+<ul>
+<li>Rediseño de productos y mercados atendiendo necesidades insatisfechas.</li>
+<li>Reconfiguración de la productividad en la cadena de valor (reducción de consumos energéticos, minimización de mermas, optimización de logística).</li>
+<li>Desarrollo de clústeres locales que fortalezcan el tejido industrial circundante.</li>
+</ul>
+</li>
+</ul>
+
+<h2 class="section-title">2. Marco Normativo y Estándares Internacionales</h2>
+<p>Para que los principios de sostenibilidad sean ejecutables en ingeniería, deben operar bajo metodologías medibles y verificables. Las organizaciones emplean principalmente <strong>tres marcos de referencia</strong>:</p>
+
+<div class="flow-diagram">┌──────────────────────────────────────────────┐
+│  Pacto Global (ONU - 2000)                    │
+│  Compromiso Político Macro y 10 Principios    │
+└──────────────────────┬───────────────────────┘
+                       │
+┌──────────────────────▼───────────────────────┐
+│  ISO 26000:2010 (Directrices)                │
+│  Marco Holístico Integral (No Certificable) │
+└──────────────────────┬───────────────────────┘
+                       │
+┌──────────────────────▼───────────────────────┐
+│  SA8000:2014 (Auditoría SAI)                 │
+│  Requisitos Laborales / SST (Certificable)   │
+└──────────────────────────────────────────────┘</div>
+
+<h3 class="subsection-title">2.1. ISO 26000:2010 (Guía de Responsabilidad Social)</h3>
+<p>Desarrollada por la Organización Internacional de Normalización (ISO) mediante consenso global multipartito.</p>
+<ul>
+<li><strong>Naturaleza jurídica y operacional:</strong> Es una norma de <strong>directrices y orientación</strong>. <strong>No es certificable</strong> ni está diseñada para fines contractuales o regulatorios. Busca armonizar la terminología y las acciones preventivas a nivel global.</li>
+<li><strong>Siete Materias Fundamentales:</strong>
+<ol>
+<li><em>Gobernanza de la Organización:</em> Procesos de toma de decisiones éticos, rendición de cuentas y transparencia.</li>
+<li><em>Derechos Humanos:</em> Diligencia debida, resolución de reclamaciones, no discriminación y derechos fundamentales en el trabajo.</li>
+<li><em>Prácticas Laborales:</em> Condiciones de empleo, protección social, diálogo social y Salud y Seguridad en el Trabajo (SST).</li>
+<li><em>Medio Ambiente:</em> Enfoque precautorio, prevención de la contaminación, uso eficiente y sostenible de recursos naturales, mitigación y adaptación al cambio climático.</li>
+<li><em>Prácticas Justas de Operación:</em> Lucha anticorrupción, competencia leal, respeto a los derechos de propiedad y promoción de la responsabilidad social en la cadena de valor.</li>
+<li><em>Asuntos de Consumidores:</em> Prácticas justas de marketing, protección de la salud y seguridad de los consumidores, consumo sostenible y protección de datos.</li>
+<li><em>Participación Activa y Desarrollo de la Comunidad:</em> Generación de empleo, desarrollo de habilidades, inversión social y acceso a tecnología.</li>
+</ol>
+</li>
+</ul>
+
+<h3 class="subsection-title">2.2. Pacto Global de las Naciones Unidas (<em>UN Global Compact</em>)</h3>
+<p>Iniciativa voluntaria de liderazgo directivo lanzada por la ONU en el año 2000.</p>
+<ul>
+<li><strong>Naturaleza operacional:</strong> Es una red de rendición de cuentas pública donde las empresas se comprometen a alinear sus estrategias con <strong>Diez Principios Universales</strong> agrupados en cuatro ejes:
+<ul>
+<li><strong>Derechos Humanos:</strong>
+<ul>
+<li><em>Principio 1:</em> Apoyo y respeto a la protección de los derechos humanos proclamados internacionalmente.</li>
+<li><em>Principio 2:</em> No ser cómplices de abusos de los derechos humanos.</li>
+</ul>
+</li>
+<li><strong>Estándares Laborales:</strong>
+<ul>
+<li><em>Principio 3:</em> Apoyo a la libertad de asociación y el reconocimiento del derecho a la negociación colectiva.</li>
+<li><em>Principio 4:</em> Eliminación de toda forma de trabajo forzoso y obligatorio.</li>
+<li><em>Principio 5:</em> Abolición efectiva del trabajo infantil.</li>
+<li><em>Principio 6:</em> Eliminación de la discriminación en el empleo y la ocupación.</li>
+</ul>
+</li>
+<li><strong>Medio Ambiente:</strong>
+<ul>
+<li><em>Principio 7:</em> Apoyo al enfoque preventivo frente a los desafíos ambientales.</li>
+<li><em>Principio 8:</em> Fomento de una mayor responsabilidad ambiental.</li>
+<li><em>Principio 9:</em> Promoción del desarrollo y difusión de tecnologías ambientalmente racionales.</li>
+</ul>
+</li>
+<li><strong>Anticorrupción:</strong>
+<ul>
+<li><em>Principio 10:</em> Acción corporativa contra la corrupción en todas sus formas, incluyendo la extorsión y el soborno.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Mecanismo de Evaluación:</strong> Exige la presentación obligatoria y periódica de la Comunicación sobre el Progreso (<em>Communication on Progress &mdash; CoP</em>). Si una empresa no reporta sus avances, es suspendida o dada de baja de la base de datos pública.</li>
+</ul>
+
+<h3 class="subsection-title">2.3. Estándar SA8000:2014 (<em>Social Accountability</em>)</h3>
+<p>Desarrollada por <em>Social Accountability International</em> (SAI) en base a los convenios de la Organización Internacional del Trabajo (OIT), la Declaración Universal de los Derechos Humanos y la Convención de la ONU sobre los Derechos del Niño.</p>
+<ul>
+<li><strong>Naturaleza jurídica y operacional:</strong> Es un estándar de <strong>gestión técnica totalmente certificable</strong> mediante auditorías de tercera parte acreditadas. Establece requisitos mínimos auditables sobre condiciones laborales en fábricas y centros de operación.</li>
+<li><strong>Requisitos Técnicos Auditables:</strong>
+<ol>
+<li><em>Trabajo infantil:</em> Prohibición absoluta; establecimiento de políticas obligatorias de apoyo económico y remediación escolar si se detecta a un menor.</li>
+<li><em>Trabajo forzoso o compulsorio:</em> Cero retención de documentos de identidad o depósitos de dinero como condición de contratación.</li>
+<li><em>Seguridad y Salud en el Trabajo (SST):</em> Obligación de proveer ambientes seguros, equipos de protección personal (EPP), comités mixtos paritarios, agua potable, instalaciones higiénicas y capacitación técnica documentada.</li>
+<li><em>Libertad de asociación y negociación colectiva:</em> Respeto al derecho a sindicalizarse sin represalias.</li>
+<li><em>Discriminación:</em> Cero tolerancia a sesgos en contratación, remuneración, ascenso o despido por etnia, casta, nacionalidad, religión, género u orientación.</li>
+<li><em>Medidas disciplinarias:</em> Prohibición estricta de castigos corporales, coerción física o mental y abusos verbales.</li>
+<li><em>Horas de trabajo:</em> Cumplimiento de la jornada máxima legal ordinaria (máximo 48 horas semanales) y límites a las horas extraordinarias (máximo 12 horas adicionales por semana, voluntarias y remuneradas con sobretasa).</li>
+<li><em>Remuneración:</em> Salario base que cubra el costo de la canasta básica de consumo del trabajador y su familia, más un remanente discrecional (<em>Living Wage</em> / Salario digno).</li>
+<li><em>Sistemas de Gestión:</em> Creación del Equipo de Desempeño Social (<em>Social Performance Team &mdash; SPT</em>) para la gestión preventiva de riesgos y trazabilidad interna.</li>
+</ol>
+</li>
+</ul>
+
+<h2 class="section-title">3. Matriz Comparativa Exhaustiva</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Parámetro Evaluado</th>
+<th>ISO 26000:2010</th>
+<th>Pacto Global (ONU)</th>
+<th>SA8000:2014 (SAI)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><strong>Entidad Reguladora</strong></td><td>International Organization for Standardization (ISO).</td><td>Oficina del Pacto Global de las Naciones Unidas.</td><td>Social Accountability International (SAI).</td></tr>
+<tr><td><strong>Tipo de Instrumento</strong></td><td>Guía metodológica integral.</td><td>Marco de compromiso ético e institucional.</td><td>Estándar de sistema de gestión auditable.</td></tr>
+<tr><td><strong>Carácter Certificable</strong></td><td><strong>No certificable.</strong></td><td><strong>No certificable.</strong></td><td><strong>Certificable</strong> (validez trienal con auditorías de seguimiento).</td></tr>
+<tr><td><strong>Enfoque Dominante</strong></td><td>Multidisciplinario (Gobernanza, Medio Ambiente, Derechos Humanos).</td><td>Macropolítico, reputacional y de alineación a los ODS.</td><td>Micro-operacional: Derechos del trabajador y Seguridad y Salud Ocupacional.</td></tr>
+<tr><td><strong>Público Objetivo</strong></td><td>Todo tipo de organizaciones (públicas, privadas, ONGs).</td><td>Empresas privadas, corporaciones globales y pymes.</td><td>Plantas de manufactura, agroindustria y centros logísticos.</td></tr>
+<tr><td><strong>Mecanismo de Verificación</strong></td><td>Autodiagnósticos y matrices de brechas operacionales.</td><td>Informe periódico de progreso (CoP).</td><td>Auditorías presenciales, inspección de instalaciones y entrevistas confidenciales al personal.</td></tr>
+<tr><td><strong>Implicación en Cadena de Suministro</strong></td><td>Directrices para incorporar cláusulas éticas y ambientales en compras.</td><td>Compromiso declarativo para extender principios a contratistas.</td><td>Auditorías coercitivas y verificación directa en proveedores clave (Tier 1 / Tier 2).</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 class="section-title">4. Aplicación Práctica en Operaciones Industriales y Seguridad Ocupacional</h2>
+<p>La articulación entre estos estándares y la gestión técnica de planta se traduce en <strong>tres aplicaciones concretas</strong>:</p>
+
+<h3 class="subsection-title">4.1. Conexión entre SA8000 e ISO 45001 (Control Operacional de Riesgos)</h3>
+<ul>
+<li>La aplicación de SA8000 en el subsistema de Seguridad y Salud en el Trabajo actúa en sinergia con ISO 45001. En lugar de limitarse al cumplimiento formal de EPP, exige conformar comités paritarios donde los operadores participan activamente en el Análisis de Trabajo Seguro (ATS) y en el levantamiento de matrices IPERC (Identificación de Peligros, Evaluación de Riesgos y Medidas de Control).</li>
+<li><strong>Impacto en planta:</strong> Al eliminar actos inseguros derivados de sobretiempos desregulados o ambientes con estrés térmico y acústico, disminuye el ausentismo laboral y los accidentes incapacitantes, mejorando la disponibilidad de línea y el indicador de Efectividad Global de los Equipos (OEE &mdash; <em>Overall Equipment Effectiveness</em>).</li>
+</ul>
+
+<h3 class="subsection-title">4.2. Homologación de Proveedores y Mitigación de Responsabilidad Solidaria</h3>
+<ul>
+<li>En cadenas de manufactura y distribución, el uso de SA8000 sirve como filtro cuantitativo para la selección y mantenimiento de proveedores críticos (<em>Tier 1</em>). Se realizan auditorías de segunda parte para verificar que los contratistas de servicios auxiliares (transporte, limpieza industrial, mantenimiento electromecánico) no operen bajo esquemas de subcontratación precaria o informalidad salarial.</li>
+<li><strong>Impacto en planta:</strong> Blinda a la compañía principal contra multas por responsabilidad solidaria en el ámbito laboral y previene paros de planta causados por conflictos sindicales en empresas subcontratadas.</li>
+</ul>
+
+<h3 class="subsection-title">4.3. Implementación de ISO 26000 en Procesos Productivos (Ecoeficiencia)</h3>
+<ul>
+<li>Al aplicar la Materia Fundamental "Medio Ambiente" de la ISO 26000, los ingenieros industriales ejecutan balances de materia y energía enfocados en Producción Más Limpia (P+L). Esto implica sustituir materias primas tóxicas, optimizar el uso de agua industrial mediante circuitos cerrados de recirculación y segregar residuos industriales en origen para su valorización o coprocesamiento.</li>
+<li><strong>Impacto en planta:</strong> Reduce los costos unitarios de manufactura por eliminación de mermas y minimiza el riesgo de clausuras operativas derivadas de vertimientos o emisiones fuera de los límites máximos permisibles (LMP).</li>
+</ul>
+
+<h2 class="section-title">5. Referencias Normativas y Bibliográficas (Normas APA)</h2>
+<ul>
+<li>Bowen, H. R. (1953). <em>Social responsibilities of the businessman</em>. Harper &amp; Row.</li>
+<li>Carroll, A. B. (1991). The pyramid of corporate social responsibility: Toward the moral management of organizational stakeholders. <em>Business Horizons</em>, 34(4), 39-48. https://doi.org/10.1016/0007-6813(91)90005-G</li>
+<li>Freeman, R. E. (1984). <em>Strategic management: A stakeholder approach</em>. Pitman.</li>
+<li>Friedman, M. (1970, 13 de septiembre). The Social Responsibility of Business is to Increase its Profits. <em>The New York Times Magazine</em>, 32-33.</li>
+<li>International Organization for Standardization. (2010). <em>Guidance on social responsibility</em> (ISO Standard No. 26000:2010). https://www.iso.org/standard/42546.html</li>
+<li>Porter, M. E., y Kramer, M. R. (2011). Creating shared value: How to reinvent capitalism&mdash;and unleash a wave of innovation and growth. <em>Harvard Business Review</em>, 89(1-2), 62-77.</li>
+<li>Social Accountability International. (2014). <em>Social Accountability 8000: International Standard (SA8000:2014)</em>. SAI.</li>
+<li>United Nations Global Compact. (2020). <em>The Ten Principles of the UN Global Compact</em>. United Nations Global Compact Office.</li>
+</ul>
+</section>
+<!-- ============== PESTAÑA 2: PROPACA ============== -->
+<section id="propaca" class="tab-content">
+<div class="card card-info">
+<h3 style="font-family:Helvetica,Arial,sans-serif;color:var(--c-primary);margin-bottom:6px">Guía Docente: Estudio de Caso Industrial (20 minutos)</h3>
+<p style="margin:0"><strong>Asignatura:</strong> Responsabilidad Social y Corporativa (RSC)<br>
+<strong>Carreras:</strong> Ingeniería Industrial / Ingeniería en Seguridad Industrial &mdash; UPSE</p>
+</div>
+
+<h2 class="section-title first">1. Ficha Técnica y Distribución Temporal (Timing del Docente)</h2>
+<ul>
+<li><strong>Título del Caso:</strong> Crisis Operacional y Quiebre de Cadena de Suministro en "Procesadora del Pacífico S.A. (PROPACA)"</li>
+<li><strong>Duración total:</strong> 20 minutos cronometrados.</li>
+<li><strong>Objetivo de Aprendizaje:</strong> Evaluar el impacto de fallas operacionales, laborales y ambientales frente a los marcos <strong>ISO 26000</strong>, <strong>Pacto Global</strong> y <strong>SA8000</strong>, demostrando cómo la ausencia de un sistema de gestión de RSC destruye la continuidad de negocio y degrada la Efectividad Global de los Equipos (OEE &mdash; <em>Overall Equipment Effectiveness</em>).</li>
+</ul>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Bloque Temporal</th>
+<th>Fase Didáctica</th>
+<th>Acción del Docente</th>
+<th>Foco Metodológico</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><strong>00:00 - 04:00</strong></td><td><strong>Fase 1:</strong> Presentación del Escenario</td><td>Exposición de la línea base operativa, económica y de planta de PROPACA.</td><td>Datos duros de producción y condiciones de planta.</td></tr>
+<tr><td><strong>04:00 - 10:00</strong></td><td><strong>Fase 2:</strong> El Evento Crítico</td><td>Detalle de las tres fallas concurrentes: laboral (SST), ambiental y de cadena de suministro.</td><td>Evidencia empírica de no conformidades.</td></tr>
+<tr><td><strong>10:00 - 16:00</strong></td><td><strong>Fase 3:</strong> Análisis Forense Normativo</td><td>Contraste directo contra cláusulas de ISO 26000, Pacto Global y SA8000.</td><td>Matriz de incumplimiento técnico.</td></tr>
+<tr><td><strong>16:00 - 20:00</strong></td><td><strong>Fase 4:</strong> Cierre y Preguntas Socráticas</td><td>Planteamiento de soluciones ingenieriles y apertura de debate en el aula.</td><td>Discusión guiada de ingeniería de planta.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 class="section-title">2. Guion de Exposición por Fases</h2>
+
+<h3 class="subsection-title">Fase 1: Contexto Operacional de PROPACA (Minutos 00:00 a 04:00)</h3>
+<div class="callout"><em>Voz del docente hacia los estudiantes:</em><br><br>
+"Ingenieros, situémonos en la planta procesadora de harina y congelado de pescado 'PROPACA', ubicada en la zona costera. Una planta con capacidad de 120 toneladas diarias de procesamiento, 280 operarios en tres turnos rotativos y exportación directa hacia la Unión Europea."</div>
+
+<p><strong>Condiciones de Operación:</strong></p>
+<ul>
+<li>La planta opera a una capacidad instalada del 92%, con márgenes brutos reducidos.</li>
+<li>Para abaratar costos logísticos, la empresa subcontrató el mantenimiento electromecánico y la estiba en muelles a empresas tercerizadoras (<em>outsourcing</em>).</li>
+<li>No cuenta con certificación SA8000; la alta gerencia consideró que "cumplir la ley local era suficiente" y firmó de manera formal la carta de adhesión al Pacto Global hace tres años, sin emitir ningún informe de Comunicación sobre el Progreso (CoP).</li>
+</ul>
+
+<h3 class="subsection-title">Fase 2: El Evento Crítico y Quiebre Operativo (Minutos 04:00 a 10:00)</h3>
+<div class="callout"><em>Voz del docente:</em><br><br>
+"Durante el pico de la temporada de captura, ocurren simultáneamente tres incidentes que paralizan la planta. Analicemos los hechos:"</div>
+
+<h4 class="minor-title">1. Falla en Seguridad Industrial y Prácticas Laborales</h4>
+<ul>
+<li>En el área de calderas y cocción, un operario de la cuadrilla subcontratada sufre quemaduras de segundo y tercer grado por la rotura de una válvula de vapor sobrecalentado.</li>
+<li><em>Investigación interna:</em> El operario llevaba 14 horas de turno continuo (acumulando 68 horas de trabajo en la semana). No contaba con Inducción Básica de Seguridad ni Equipo de Protección Personal (EPP) ignífugo adecuado. La válvula tenía una orden de mantenimiento preventivo pospuesta por falta de repuestos.</li>
+</ul>
+
+<h4 class="minor-title">2. Falla Ambiental y de Relaciones Comunitarias</h4>
+<ul>
+<li>La planta de tratamiento de aguas residuales industriales (PTARI) colapsa por sobrecarga orgánica. La jefatura de turno autoriza una purga directa de efluentes no tratados con alta carga de DBO/DQO hacia el estero adyacente a una comunidad pesquera artesanal.</li>
+<li>Se genera mortandad de peces y proliferación de olores sulfurosos. La comunidad bloquea la vía principal de acceso a la planta, impidiendo la entrada de camiones isotérmicos con materia prima fresca.</li>
+</ul>
+
+<h4 class="minor-title">3. Impacto Comercial Inmediato</h4>
+<ul>
+<li>Una auditoría no anunciada del cliente europeo principal (comprador del 65% de la producción) detecta el bloqueo, el efluente clandestino y la falta de registros de mantenimiento y jornadas laborales.</li>
+<li>El cliente suspende la orden de compra invocando las cláusulas de su Código de Conducta de Proveedores basado en estándares éticos internacionales.</li>
+</ul>
+
+<h3 class="subsection-title">Fase 3: Análisis Forense bajo Normas y Estándares (Minutos 10:00 a 16:00)</h3>
+<div class="callout"><em>Voz del docente:</em><br><br>
+"Comparemos ahora el desempeño de la planta frente a los tres marcos regulatorios internacionales que hemos estudiado:"</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Eje del Incidente</th>
+<th>Hecho en Planta PROPACA</th>
+<th>Vulneración: SA8000:2014</th>
+<th>Vulneración: Pacto Global (ONU)</th>
+<th>Desviación: ISO 26000:2010</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jornadas y Horas Extra</strong></td>
+<td>68 horas semanales; 14 horas continuas en puestos de alto riesgo.</td>
+<td><strong>No Conformidad Mayor:</strong> Cláusula 7 (máximo 48 h ordinarias + 12 h extra voluntarias).</td>
+<td>Incumplimiento del <strong>Principio 3 y 6</strong> (condiciones laborales dignas y seguras).</td>
+<td>Materia 6.4: <em>Prácticas laborales</em> (condiciones de trabajo y protección social).</td>
+</tr>
+<tr>
+<td><strong>Seguridad y Salud (SST)</strong></td>
+<td>Válvula rota sin mantenimiento, personal sin EPP adecuado ni inducción.</td>
+<td><strong>No Conformidad Mayor:</strong> Cláusula 3 (evaluación de riesgos, EPP gratuito, mantenimiento de equipos).</td>
+<td>Violación del <strong>Principio 1 y 2</strong> (derecho a la integridad física en el trabajo).</td>
+<td>Materia 6.4.6: <em>Salud y seguridad en el trabajo</em>.</td>
+</tr>
+<tr>
+<td><strong>Vertimiento Industrial</strong></td>
+<td>Descarga no tratada al estero para descongestionar la PTARI.</td>
+<td>Cláusula 9 (Sistema de gestión: control de impacto en el entorno laboral y circundante).</td>
+<td>Vulneración frontal del <strong>Principio 7 y 8</strong> (falta de enfoque precautorio y daño ambiental directo).</td>
+<td>Materia 6.5: <em>Medio ambiente</em> (prevención de la contaminación y control de efluentes).</td>
+</tr>
+<tr>
+<td><strong>Gestión de Terceros</strong></td>
+<td>Proveedor de estiba sin control documental ni trazabilidad.</td>
+<td><strong>No Conformidad Mayor:</strong> Cláusula 9.9 (control y homologación obligatoria de proveedores y subcontratistas).</td>
+<td>Falta de diligencia en la cadena de valor global.</td>
+<td>Materia 6.6.6: <em>Promoción de la responsabilidad social en la cadena de valor</em>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="subsection-title">Fase 4: Impacto en Ingeniería y Cierre Socrático (Minutos 16:00 a 20:00)</h3>
+<div class="flow-diagram">[Falla Operacional y Laboral]
+                          │
+        ┌─────────────────┴─────────────────┐
+        ▼                                   ▼
+  Impacto OEE / Productivo          Impacto Comercial y Legal
+  - Disponibilidad: Caída a 0%      - Pérdida del contrato con UE (65% venta)
+    (bloqueo de planta + paro       - Sanción ministerial y clausura temporal.
+    técnico).                       - Responsabilidad solidaria patronal
+  - Rendimiento: Mermas de materia   por accidente del trabajador
+    prima en descomposición           tercerizado.
+    por retención.</div>
+
+<div class="callout"><em>Voz del docente (planteamiento directo al auditorio):</em><br><br>
+"Como ingenieros industriales y de seguridad industrial, demostramos que la RSC no es filantropía: es mitigación de riesgos y continuidad operativa. Les dejo tres interrogantes operativas para resolver en los próximos 5 minutos:"</div>
+
+<ol>
+<li><strong>Pregunta de Seguridad Industrial:</strong> ¿Qué mecanismo de gobernanza interna debió implementar el <em>Social Performance Team</em> (SPT) de SA8000 para detectar que el contratista violaba los límites de jornada laboral antes de que ocurriera la falla mecánica?</li>
+<li><strong>Pregunta de Ingeniería de Procesos:</strong> ¿Cómo se justificaba financieramente el rediseño de la PTARI frente a la pérdida del contrato del 65% de facturación internacional?</li>
+<li><strong>Pregunta de Cumplimiento:</strong> PROPACA firmó el Pacto Global de la ONU. ¿Por qué este instrumento no evitó la crisis a diferencia de lo que hubiera exigido una certificación SA8000?</li>
+</ol>
+</section>
+
+<!-- ============== PESTAÑA 3: TALLER AGROLIT ============== -->
+<section id="taller-clase" class="tab-content">
+<div class="card card-info">
+<h3 style="font-family:Helvetica,Arial,sans-serif;color:var(--c-primary);margin-bottom:6px">Taller Práctico en Clase: Auditoría Forense y Plan de Remediación Operativa (RSC)</h3>
+<p style="margin:0"><strong>Asignatura:</strong> Responsabilidad Social y Corporativa (RSC)<br>
+<strong>Carreras:</strong> Ingeniería Industrial / Ingeniería en Seguridad Industrial &mdash; UPSE</p>
+</div>
+
+<ul>
+<li><strong>Modalidad:</strong> Equipos de 3 a 4 estudiantes.</li>
+<li><strong>Tiempo total de ejecución:</strong> 20 minutos.</li>
+<li><strong>Nivel de complejidad:</strong> Medio (Análisis de discrepancias normativas, cálculo de impacto operacional y formulación de acciones correctivas).</li>
+</ul>
+
+<h2 class="section-title first">1. Contexto Operacional del Caso: "AgroIndustrias del Litoral S.A. (AGROLIT)"</h2>
+<p>AGROLIT es una planta agroindustrial dedicada al procesamiento y envasado de conservas vegetales con fines de exportación. Cuenta con una nómina de <strong>320 trabajadores en planta</strong> más <strong>85 operarios subcontratados</strong> mediante una empresa de servicios complementarios para el área de enlatado y autoclave.</p>
+<p>Una auditoría no anunciada de segunda parte, comisionada por un consorcio comprador de la Unión Europea bajo estándares de compra ética, arrojó el siguiente registro de evidencias objetivas durante el turno de máxima producción:</p>
+
+<div class="flow-diagram">[ÁREA DE AUTOCLAVES Y ENVASADO]
+├── Evidencia 1: Cuadrilla de 15 operadores tercerizados con jornadas de
+│   13 h/día por 6 días consecutivos
+│   (78 h semanales acumuladas). Sin constancia de pago de sobretiempo con
+│   recargo legal.
+├── Evidencia 2: Dos operadores de 16 y 17 años laborando en zona de
+│   alta temperatura (> 38 °C) sin EPP
+│   térmico homologado ni registro médico ocupacional de aptitud.
+└── Evidencia 3: Salidas de emergencia del área de calderas bloqueadas
+    con pallets de producto terminado;
+    extintores con carga vencida desde hace 5 meses.
+
+[GESTIÓN AMBIENTAL Y RESIDUOS]
+└── Evidencia 4: Disposición de lodos de lavado con trazas químicas en
+    una fosa a cielo abierto contigua
+    a predios agrícolas vecinales, careciendo de geomembrana impermeable.
+
+[GOBERNANZA Y COMUNICACIÓN]
+└── Evidencia 5: AGROLIT es firmante del Pacto Global de la ONU desde
+    2023, pero no posee registro
+    de reporte CoP (Communication on Progress) ni cuenta con un Comité
+    Paritario de SST activo.</div>
+
+<h2 class="section-title">2. Entregables Obligatorios del Estudiante (15 minutos de resolución)</h2>
+<p>Cada equipo de trabajo debe resolver las siguientes tres tareas en su hoja de entrega técnica:</p>
+
+<h3 class="subsection-title">Tarea A: Matriz de Tipificación y Gravedad Normativa (8 minutos)</h3>
+<p>Clasifiquen los 5 hallazgos operacionales completando la siguiente estructura:</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Hallazgo Operacional</th>
+<th>Requisito Vulnerado (SA8000:2014)</th>
+<th>Principio Vulnerado (Pacto Global)</th>
+<th>Materia Fundamental (ISO 26000:2010)</th>
+<th>Nivel de Severidad (NC Mayor / Menor)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><strong>E-1</strong></td><td>78 h semanales en personal tercerizado sin pago de horas extra.</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><strong>E-2</strong></td><td>Menores de 18 años en autoclaves (> 38 °C) sin EPP.</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><strong>E-3</strong></td><td>Salidas de emergencia bloqueadas y extintores vencidos.</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><strong>E-4</strong></td><td>Fosa de lodos sin geomembrana junto a predios vecinos.</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><strong>E-5</strong></td><td>Omisión de reporte CoP y falta de comité paritario.</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><em>Criterio de severidad:</em></p>
+<ul>
+<li><strong>No Conformidad Mayor (NC Mayor):</strong> Falla sistémica que pone en peligro inminente la vida, la libertad, infringe los derechos humanos fundamentales o evidencia trabajo forzoso/infantil peligroso. Provoca la pérdida o denegación automática de la certificación.</li>
+<li><strong>No Conformidad Menor (NC Menor):</strong> Desviación puntual o procedimental que no compromete inmediatamente la integridad del sistema ni los derechos fundamentales.</li>
+</ul>
+
+<h3 class="subsection-title">Tarea B: Cálculo de Pérdida de Eficiencia Operacional (4 minutos)</h3>
+<p>Debido a la intervención del auditor, el área de autoclaves (cuello de botella de la planta) fue detenida por <strong>4 horas continuas</strong> para levantar las salidas de emergencia y reordenar las cuadrillas.</p>
+<p>Con los siguientes datos técnicos de planta:</p>
+<ul>
+<li><strong>Capacidad teórica de línea:</strong> $1.200\text{ latas/hora}$.</li>
+<li><strong>Margen de contribución neto:</strong> $\$ 0,35\text{ por lata}$.</li>
+<li><strong>Jornada diaria total programada:</strong> $16\text{ horas}$.</li>
+<li><strong>Producción real obtenida en el día:</strong> $10.800\text{ latas}$ (todas conformes en calidad).</li>
+</ul>
+<ol>
+<li>Determine la <strong>Disponibilidad ($D$)</strong> de la línea para esa jornada:
+ $$D = \frac{\text{Tiempo de Operación Real}}{\text{Tiempo de Carga Programado}}$$</li>
+<li>Calcule la <strong>pérdida económica directa</strong> por las unidades no producidas durante el paro no programado derivado del incumplimiento de seguridad.</li>
+</ol>
+
+<h3 class="subsection-title">Tarea C: Plan de Acción Correctiva Inmediata &mdash; CAP (3 minutos)</h3>
+<p>Para el hallazgo <strong>E-2</strong> (trabajo infantil peligroso):</p>
+<ul>
+<li>Indique <strong>dos acciones inmediatas de remediación</strong> requeridas por el estándar <strong>SA8000</strong> que el jefe de planta debe ejecutar en menos de 24 horas (Nota: No es simplemente "despedir al menor").</li>
+</ul>
+
+<!-- LOCKED BLOCK: SOLUCIONARIO -->
+<div class="locked-block" data-lock="agrolit">
+  <div class="lock-header">
+    <div class="lock-icon">🔒</div>
+    <h3>3. Guía de Solución y Criterios de Evaluación para el Docente</h3>
+  </div>
+  <p class="lock-desc">Esta sección contiene el solucionario técnico del taller. Requiere autenticación del docente para visualizar el contenido.</p>
+  <div class="lock-form">
+    <input type="password" id="pwd-agrolit" placeholder="Clave de acceso" autocomplete="off">
+    <button onclick="unlock('agrolit')">Desbloquear</button>
+  </div>
+  <div class="lock-status" id="status-agrolit"></div>
+
+  <div class="locked-content" id="content-agrolit">
+    <h2 class="section-title first">Solución Tarea A: Matriz de Tipificación</h2>
+    <ul>
+    <li><strong>E-1 (78 h/sem tercerizados):</strong> SA8000 Cláusula 7 (<em>Horas de trabajo</em>) y Cláusula 9 (<em>Control de proveedores</em>) &nbsp;|&nbsp; Pacto Global Principio 3 y 6 &nbsp;|&nbsp; ISO 26000 Materia 6.4 (<em>Prácticas laborales</em>) &nbsp;|&nbsp; <span class="tag danger">NC Mayor</span> (excede límite de 48 h + 12 h extra; afecta personal de la cadena de valor).</li>
+    <li><strong>E-2 (Menores en zona de riesgo):</strong> SA8000 Cláusula 1 (<em>Trabajo infantil</em> &mdash; exposición de jóvenes trabajadores a faenas peligrosas) &nbsp;|&nbsp; Pacto Global Principio 5 &nbsp;|&nbsp; ISO 26000 Materia 6.3 (<em>Derechos humanos</em>) &nbsp;|&nbsp; <span class="tag danger">NC Mayor</span> (crítica; violación de convenios OIT 138 y 182).</li>
+    <li><strong>E-3 (Emergencias bloqueadas / extintores):</strong> SA8000 Cláusula 3 (<em>Seguridad y Salud</em>) &nbsp;|&nbsp; Pacto Global Principio 1 &nbsp;|&nbsp; ISO 26000 Materia 6.4.6 (<em>SST</em>) &nbsp;|&nbsp; <span class="tag danger">NC Mayor</span> (riesgo inminente de trampa de fuego y fatalidad colectiva).</li>
+    <li><strong>E-4 (Fosa sin geomembrana):</strong> SA8000 Cláusula 9 (<em>Sistema de gestión</em>) &nbsp;|&nbsp; Pacto Global Principio 7 y 8 (<em>Medio ambiente y prevención</em>) &nbsp;|&nbsp; ISO 26000 Materia 6.5 (<em>Prevención de contaminación</em>) &nbsp;|&nbsp; <span class="tag warn">NC Menor / Mayor</span> según nivel de infiltración a acuíferos.</li>
+    <li><strong>E-5 (Falta de CoP y Comité):</strong> SA8000 Cláusula 3.2 y 9 &nbsp;|&nbsp; Pacto Global (Gobernanza / Regla de reporte) &nbsp;|&nbsp; ISO 26000 Materia 6.2 (<em>Gobernanza</em>) &nbsp;|&nbsp; <span class="tag">NC Menor</span> (desvío administrativo-procedimental).</li>
+    </ul>
+
+    <h2 class="section-title">Solución Tarea B: Modelado de Impacto Operacional</h2>
+    <h3 class="subsection-title">1. Disponibilidad ($D$):</h3>
+    <p>$$\text{Tiempo de Carga} = 16\text{ h}$$</p>
+    <p>$$\text{Tiempo de Operación} = 16\text{ h} - 4\text{ h} = 12\text{ h}$$</p>
+    <p>$$D = \frac{12}{16} = 0,75\quad \rightarrow \quad \mathbf{75\%}$$</p>
+
+    <h3 class="subsection-title">2. Pérdida Económica Directa:</h3>
+    <p>$$\text{Unidades no producidas} = 4\text{ h} \times 1.200\frac{\text{latas}}{\text{h}} = 4.800\text{ latas}$$</p>
+    <p>$$\text{Pérdida de Margen} = 4.800\text{ latas} \times \$ 0,35/\text{lata} = \mathbf{\$ 1.680,00}\text{ USD}$$</p>
+    <p><em>(Esta cifra ilustra a los estudiantes cómo un fallo de seguridad genera lucro cesante inmediato).</em></p>
+
+    <h2 class="section-title">Solución Tarea C: Remediación SA8000 para E-2</h2>
+    <p>Bajo la norma SA8000, el despido inmediato del menor constituye un agravamiento de la vulneración social:</p>
+    <ol>
+    <li><strong>Reubicación y Salvaguarda Inmediata:</strong> Retirar de forma inmediata a los menores de 16 y 17 años de la zona de autoclave y reubicarlos en áreas libres de riesgos térmicos, mecánicos o químicos, garantizando que su jornada no supere las 8 horas diarias y no interfiera con su horario escolar.</li>
+    <li><strong>Protocolo Formal de Remediación:</strong> Si los jóvenes no han culminado la educación obligatoria, la empresa y la contratista deben financiar su reinserción escolar/técnica sin reducir sus ingresos, cubriendo la brecha salarial hasta que alcancen la mayoría de edad.</li>
+    </ol>
+  </div>
+</div>
+</section>
+<!-- ============== PESTAÑA 4: BANCO DE REACTIVOS ============== -->
+<section id="banco-reactivos" class="tab-content">
+<div class="card card-info">
+<h3 style="font-family:Helvetica,Arial,sans-serif;color:var(--c-primary);margin-bottom:6px">Banco de Reactivos Tipo Taller</h3>
+<p style="margin:0"><strong>Asignatura:</strong> Responsabilidad Social y Corporativa (RSC)<br>
+<strong>Tema:</strong> Fundamentos, Evolución y Normativa de la RSC<br>
+<strong>Carreras:</strong> Ingeniería Industrial / Ingeniería en Seguridad Industrial &mdash; UPSE</p>
+</div>
+
+<h2 class="section-title first">Sección 1: Opción Múltiple con Respuesta Única (Reactivos 1 al 10)</h2>
+<ol>
+<li>¿Qué autor es reconocido formalmente como el padre de la Responsabilidad Social Corporativa moderna tras publicar en 1953 su obra "Social Responsibilities of the Businessman"?
+<ul type="a">
+<li>Milton Friedman</li>
+<li>Archie B. Carroll</li>
+<li>Howard R. Bowen</li>
+<li>R. Edward Freeman</li>
+</ul>
+</li>
+<li>La postura neoclásica de Milton Friedman (1970) establece como premisa directiva central que la única responsabilidad social de la empresa privada consiste en:
+<ul type="a">
+<li>Desarrollar proyectos filantrópicos en beneficio exclusivo de la comunidad circundante.</li>
+<li>Maximizar el retorno económico para los accionistas dentro de la ley y las reglas de libre mercado.</li>
+<li>Garantizar la creación de valor compartido para todos los actores de la cadena de valor.</li>
+<li>Certificar sus líneas operativas bajo estándares auditables de tercera parte como SA8000.</li>
+</ul>
+</li>
+<li>En el modelo de la Pirámide de la Responsabilidad Social Corporativa planteado por Archie Carroll (1991), el estrato base o cimiento estructural corresponde a la:
+<ul type="a">
+<li>Responsabilidad Filantrópica</li>
+<li>Responsabilidad Ética</li>
+<li>Responsabilidad Legal</li>
+<li>Responsabilidad Económica</li>
+</ul>
+</li>
+<li>El concepto de "Creación de Valor Compartido" (Creating Shared Value &mdash; CSV), propuesto por Michael Porter y Mark Kramer en 2011, se diferencia de la RSC reactiva tradicional porque:
+<ul type="a">
+<li>Reemplaza las utilidades financieras por donaciones a organizaciones no gubernamentales.</li>
+<li>Integra las soluciones a problemas sociales y ambientales dentro del modelo de negocio y la productividad del núcleo operativo.</li>
+<li>Elimina el cumplimiento legal como requisito obligatorio para centrarse en iniciativas comunitarias voluntarias.</li>
+<li>Se enfoca únicamente en el marketing con causa y la gestión de reputación de marca.</li>
+</ul>
+</li>
+<li>¿Cuál es la naturaleza jurídica y técnica fundamental de la norma internacional ISO 26000:2010?
+<ul type="a">
+<li>Es un estándar de requerimientos contractuales obligatorio para acceder a licitaciones públicas.</li>
+<li>Es una norma técnica certificable por casas auditoras acreditadas de tercera parte.</li>
+<li>Es una guía de orientación y directrices voluntarias, por lo que no es susceptible de certificación.</li>
+<li>Es un reglamento coercitivo emitido por la Organización Internacional del Trabajo.</li>
+</ul>
+</li>
+<li>De acuerdo con el estándar SA8000:2014, ¿cuál es el límite máximo permitido para las horas extraordinarias de un operario y qué condición técnica debe cumplirse?
+<ul type="a">
+<li>Máximo 20 horas semanales extraordinarias, obligatorias si la jefatura de planta lo requiere.</li>
+<li>Máximo 12 horas semanales extraordinarias, obligatoriamente voluntarias y remuneradas con sobretasa legal.</li>
+<li>Máximo 10 horas semanales extraordinarias, compensadas únicamente con días de descanso diferidos.</li>
+<li>No existe límite semanal mientras la sumatoria total mensual no sobrepase las 200 horas laboradas.</li>
+</ul>
+</li>
+<li>¿Cuál es el mecanismo formal y obligatorio mediante el cual las empresas adheridas al Pacto Global de la ONU reportan anualmente sus avances en sostenibilidad?
+<ul type="a">
+<li>Matriz de Identificación de Peligros y Evaluación de Riesgos (IPERC).</li>
+<li>Comunicación sobre el Progreso (CoP &mdash; Communication on Progress).</li>
+<li>Certificado de Conformidad Social trienal emitido por Social Accountability International.</li>
+<li>Declaración de Impacto Ambiental preliminar.</li>
+</ul>
+</li>
+<li>Según la norma SA8000:2014, ¿cuál es el procedimiento correcto que debe seguir la dirección de planta en caso de detectar a un menor de 15 años trabajando en una línea productiva?
+<ul type="a">
+<li>Despido inmediato del menor sin compensación económica para evitar multas de auditoría.</li>
+<li>Denunciar penalmente a los tutores legales y suspender la línea de ensamble por 30 días.</li>
+<li>Ejecutar un protocolo de remediación que financie su reinserción escolar sin que la familia pierda el ingreso que el menor percibía.</li>
+<li>Reubicar al menor en el turno nocturno para ocultarlo de los auditores externos.</li>
+</ul>
+</li>
+<li>¿Cuál de las siguientes materias fundamentales forma parte del marco analítico central establecido por la norma ISO 26000:2010?
+<ul type="a">
+<li>Prácticas Justas de Operación</li>
+<li>Mantenimiento Productivo Total (TPM)</li>
+<li>Programación de Control Numérico Computarizado (CNC)</li>
+<li>Gestión de Inventarios Justo a Tiempo (JIT)</li>
+</ul>
+</li>
+<li>El Principio 10 del Pacto Global de las Naciones Unidas exige que las organizaciones empresariales actúen de manera explícita contra:
+<ul type="a">
+<li>El uso de combustibles fósiles en hornos industriales.</li>
+<li>La corrupción en todas sus formas, incluidas la extorsión y el soborno.</li>
+<li>El pago de salarios mínimos de ley a trabajadores no calificados.</li>
+<li>La subcontratación de actividades logísticas de transporte.</li>
+</ul>
+</li>
+</ol>
+
+<h2 class="section-title">Sección 2: Verdadero o Falso con Justificación Técnica (Reactivos 11 al 16)</h2>
+<ol start="11">
+<li>[ &nbsp; ] La norma internacional ISO 26000:2010 otorga certificados de conformidad de tercera parte con una vigencia de tres años luego de una auditoría in situ satisfactoria. <em>Justificación técnica:</em></li>
+<li>[ &nbsp; ] Según el estándar SA8000:2014, una empresa certificada no posee responsabilidad alguna sobre las condiciones de seguridad, salud y jornada laboral de los trabajadores contratados mediante agencias de outsourcing o servicios complementarios. <em>Justificación técnica:</em></li>
+<li>[ &nbsp; ] Milton Friedman argumentaba que destinar recursos de la empresa a fines sociales sin retorno económico directo representaba una usurpación de funciones gubernamentales y un gravamen ilegítimo al capital de los accionistas. <em>Justificación técnica:</em></li>
+<li>[ &nbsp; ] El concepto de "Salario Digno" (Living Wage) definido en SA8000 se limita a constatar que el pago recibido por el operario coincida con el salario mínimo legal fijado por el código laboral de cada país. <em>Justificación técnica:</em></li>
+<li>[ &nbsp; ] El Pacto Global de la ONU se estructura formalmente en diez principios universales que abarcan cuatro áreas temáticas: derechos humanos, estándares laborales, medio ambiente y anticorrupción. <em>Justificación técnica:</em></li>
+<li>[ &nbsp; ] En el marco de la Seguridad Industrial, una planta que opera con jornadas continuas de 14 horas diarias en áreas de calderas cumple con el criterio de prevención y gestión de riesgos según la cláusula 3 de SA8000, siempre y cuando se le entregue EPP completo al trabajador. <em>Justificación técnica:</em></li>
+</ol>
+
+<h2 class="section-title">Sección 3: Emparejamiento / Correspondencia de Conceptos (Reactivos 17 al 21)</h2>
+<p><strong>Instrucciones:</strong> Asigne la letra del estándar o autor de la COLUMNA B que corresponde a la característica o postulado de la COLUMNA A.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>COLUMNA A</th><th>Respuesta</th><th>COLUMNA B</th></tr>
+</thead>
+<tbody>
+<tr><td>17. [ &nbsp; ] Modelo que jerarquiza la responsabilidad de la empresa en niveles económico, legal, ético y filantrópico.</td><td></td><td><strong>A)</strong> R. Edward Freeman (Stakeholder Theory)</td></tr>
+<tr><td>18. [ &nbsp; ] Estándar de sistema de gestión laboral enfocado en derechos de los trabajadores y SST, completamente certificable mediante auditorías de tercera parte.</td><td></td><td><strong>B)</strong> Archie B. Carroll</td></tr>
+<tr><td>19. [ &nbsp; ] Iniciativa internacional que promueve diez principios éticos y exige la presentación de un reporte anual denominado CoP.</td><td></td><td><strong>C)</strong> ISO 26000:2010</td></tr>
+<tr><td>20. [ &nbsp; ] Marco de orientación sobre siete materias fundamentales de la responsabilidad social; de naturaleza no certificable.</td><td></td><td><strong>D)</strong> SA8000:2014 (Social Accountability International)</td></tr>
+<tr><td>21. [ &nbsp; ] Teoría que formula que la viabilidad a largo plazo de una corporación depende de atender coordinadamente los intereses de accionistas, trabajadores, clientes, proveedores y comunidad.</td><td></td><td><strong>E)</strong> Pacto Global de las Naciones Unidas (UN Global Compact)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 class="section-title">Sección 4: Completación de Conceptos Técnicos (Reactivos 22 al 25)</h2>
+<ol start="22">
+<li>Bajo el estándar auditable SA8000, la dirección de la planta debe constituir de forma obligatoria el equipo denominado <strong>______________________</strong> (en inglés, Social Performance Team &mdash; SPT), el cual debe estar conformado de manera paritaria por representantes de los trabajadores y de la gerencia.</li>
+<li>En el marco del Pacto Global de la ONU, los Principios 7, 8 y 9 exigen a las organizaciones adoptar un enfoque de carácter <strong>____________</strong> frente a los desafíos ecológicos, fomentar una mayor responsabilidad ambiental y propiciar la difusión de tecnologías ambientalmente racionales.</li>
+<li>Según el estándar SA8000:2014, el trabajo infantil queda estrictamente definido como cualquier labor efectuada por una persona menor de <strong>______</strong> años de edad, salvo que la legislación local fije una edad superior para la culminación de la escolaridad obligatoria.</li>
+<li>En la teoría estratégica de Michael Porter y Mark Kramer, la generación de beneficios corporativos mediante la resolución simultánea de fallas y necesidades sociales en la comunidad de influencia se denomina Creación de <strong>______________________</strong>.</li>
+</ol>
+
+<h2 class="section-title">Sección 5: Desarrollo, Análisis Crítico y Aplicación en Planta (Reactivos 26 al 30)</h2>
+<ol start="26">
+<li>Explique la diferencia metodológica, operativa y legal entre una norma certificable (como SA8000 o ISO 45001) y una guía de directrices voluntarias (como ISO 26000). ¿Qué implicaciones directas tiene esta diferencia para un ingeniero industrial que administra la homologación de contratistas en planta?</li>
+<li>Analice críticamente el impacto que produce la violación sistemática de la Cláusula 7 de SA8000 (jornadas de trabajo y fatiga operativa) sobre el indicador industrial OEE (Overall Equipment Effectiveness / Efectividad Global de los Equipos). Detalle cómo repercute este incumplimiento en los factores de Disponibilidad, Rendimiento y Calidad de la línea de manufactura.</li>
+<li>Exponga los requisitos operacionales exigidos por la Cláusula 3 de SA8000 en materia de Seguridad y Salud en el Trabajo (SST) respecto a: a) Evaluación higiénica y prevención de riesgos. b) Comités paritarios de seguridad. c) Acceso a instalaciones sanitarias y agua potable.</li>
+<li>Una empresa manufacturera nacional suscribe el Pacto Global de las Naciones Unidas y publicita dicho compromiso en sus envases comerciales. No obstante, en sus bodegas de almacenamiento se comprueba la ausencia de extintores vigentes, vías de evacuación obstruidas y el uso de contratos informales sin seguro social obligatorio. Desde la perspectiva de la gestión ética y la gobernanza corporativa, diagnostique qué fenómeno de distorsión comunicacional se está configurando y cuáles son sus sanciones dentro del marco del Pacto Global.</li>
+<li>Diseñe un flujograma conceptual en texto plano estructurado que describa los 5 pasos técnicos indispensables que el Departamento de Seguridad Industrial y Talento Humano debe implementar para corregir una "No Conformidad Mayor" en planta relacionada con el bloqueo de salidas de emergencia y acumulación de gases tóxicos en el área de reactores químicos.</li>
+</ol>
+
+<!-- LOCKED BLOCK: SOLUCIONARIO -->
+<div class="locked-block" data-lock="reactivos">
+  <div class="lock-header">
+    <div class="lock-icon">🔒</div>
+    <h3>Hoja de Respuestas y Guía Técnica de Calificación (Solucionario)</h3>
+  </div>
+  <p class="lock-desc">Esta sección contiene las respuestas y criterios de calificación. Requiere autenticación del docente para visualizar el contenido.</p>
+  <div class="lock-form">
+    <input type="password" id="pwd-reactivos" placeholder="Clave de acceso" autocomplete="off">
+    <button onclick="unlock('reactivos')">Desbloquear</button>
+  </div>
+  <div class="lock-status" id="status-reactivos"></div>
+
+  <div class="locked-content" id="content-reactivos">
+    <h2 class="section-title first">Sección 1: Opción Múltiple &mdash; Respuestas</h2>
+    <ol>
+    <li><strong>c)</strong> Howard R. Bowen</li>
+    <li><strong>b)</strong> Maximizar el retorno económico para los accionistas dentro de la ley y las reglas de libre mercado.</li>
+    <li><strong>d)</strong> Responsabilidad Económica</li>
+    <li><strong>b)</strong> Integra las soluciones a problemas sociales y ambientales dentro del modelo de negocio y la productividad del núcleo operativo.</li>
+    <li><strong>c)</strong> Es una guía de orientación y directrices voluntarias, por lo que no es susceptible de certificación.</li>
+    <li><strong>b)</strong> Máximo 12 horas semanales extraordinarias, obligatoriamente voluntarias y remuneradas con sobretasa legal.</li>
+    <li><strong>b)</strong> Comunicación sobre el Progreso (CoP &mdash; Communication on Progress).</li>
+    <li><strong>c)</strong> Ejecutar un protocolo de remediación que financie su reinserción escolar sin que la familia pierda el ingreso que el menor percibía.</li>
+    <li><strong>a)</strong> Prácticas Justas de Operación</li>
+    <li><strong>b)</strong> La corrupción en todas sus formas, incluidas la extorsión y el soborno.</li>
+    </ol>
+
+    <h2 class="section-title">Sección 2: Verdadero o Falso &mdash; Respuestas</h2>
+    <p><strong>11. FALSO.</strong> <em>Justificación:</em> ISO 26000:2010 es explícitamente una guía de directrices no certificable. Ningún organismo acreditado puede emitir certificados oficiales de conformidad bajo esta norma; su propósito es exclusivamente orientativo.</p>
+    <p><strong>12. FALSO.</strong> <em>Justificación:</em> La Cláusula 9 de SA8000:2014 exige a la empresa certificar y auditar a sus proveedores, subcontratistas y agencias de trabajo temporal en los niveles Tier 1 y Tier 2, asumiendo responsabilidad solidaria sobre las condiciones de trabajo de la mano de obra tercerizada.</p>
+    <p><strong>13. VERDADERO.</strong> <em>Justificación:</em> Friedman defendía que los directivos son empleados de los accionistas y que gastar fondos corporativos en causas sociales discrecionales equivale a imponer impuestos sin representación, mermando la eficiencia del mercado.</p>
+    <p><strong>14. FALSO.</strong> <em>Justificación:</em> El salario mínimo legal es fijado por decreto gubernamental y en muchos países en desarrollo no alcanza a cubrir la canasta básica; SA8000 exige un "salario digno" (living wage), el cual debe cubrir las necesidades alimentarias, de vivienda, salud y educación de una familia promedio, más un remanente discrecional del 10%.</p>
+    <p><strong>15. VERDADERO.</strong> <em>Justificación:</em> El Pacto Global agrupa sus 10 principios en esas cuatro áreas cardinales universales derivadas de declaraciones de la ONU y convenios de la OIT.</p>
+    <p><strong>16. FALSO.</strong> <em>Justificación:</em> La entrega de EPP no anula el riesgo originado por estrés térmico y fatiga física acumulada por jornadas de 14 horas; esto viola la Cláusula 7 de horas de trabajo y el enfoque preventivo y jerárquico de control de riesgos de la Cláusula 3 de SA8000.</p>
+
+    <h2 class="section-title">Sección 3: Emparejamiento &mdash; Respuestas</h2>
+    <ul>
+    <li><strong>17.</strong> B (Archie B. Carroll)</li>
+    <li><strong>18.</strong> D (SA8000:2014)</li>
+    <li><strong>19.</strong> E (Pacto Global de las Naciones Unidas)</li>
+    <li><strong>20.</strong> C (ISO 26000:2010)</li>
+    <li><strong>21.</strong> A (R. Edward Freeman)</li>
+    </ul>
+
+    <h2 class="section-title">Sección 4: Completación &mdash; Respuestas</h2>
+    <ol start="22">
+    <li>Equipo de Desempeño Social</li>
+    <li>Preventivo (o precautorio)</li>
+    <li>15 (según estándar base SAI alineado al Convenio 138 de la OIT)</li>
+    <li>Valor Compartido</li>
+    </ol>
+
+    <h2 class="section-title">Sección 5: Criterios Técnicos para Reactivos de Desarrollo</h2>
+    <p><strong>26.</strong> Se califica la precisión en contrastar la coercitividad de SA8000 (requisitos contractuales pasibles de auditoría de tercera parte, emisión de no conformidades mayores/menores) frente al carácter discursivo/guía de ISO 26000. En homologación de proveedores, SA8000 permite descalificar o suspender contratos mercantiles con base en métricas objetivas.</p>
+    <p><strong>27.</strong> Debe articular las 3 variables del OEE:</p>
+    <ul>
+    <li><em>Disponibilidad:</em> Cae por microparadas, accidentes con baja laboral y ausentismo por fatiga muscular y mental.</li>
+    <li><em>Rendimiento:</em> Disminuye la velocidad operativa al operar trabajadores exhaustos.</li>
+    <li><em>Calidad:</em> Incremento exponencial de piezas defectuosas y reprocesos por pérdida de concentración.</li>
+    </ul>
+    <p><strong>28.</strong> Debe detallar: a) Matrices de riesgos actualizadas y jerarquía de controles; b) Representación paritaria electa sin injerencia patronal para investigar incidentes; c) Servicios higiénicos suficientes, limpios, ventilados y suministro irrestricto de agua apta para consumo humano en puestos de trabajo.</p>
+    <p><strong>29.</strong> Se tipifica la figura de "Greenwashing" o "Social Washing" (blanqueamiento reputacional). En el marco del Pacto Global, la omisión del reporte CoP o la denuncia fundada de vulneración a principios 1 y 3 conduce a la degradación a estatus "No Comunicante" y posterior expulsión pública de la base de datos de la ONU.</p>
+    <p><strong>30.</strong> El flujograma debe contener la secuencia lógica de ingeniería correctiva:</p>
+    <div class="flow-diagram">[Paso 1: Parada técnica preventiva de línea y despeje inmediato de obstáculos en vías de evacuación]
+  │
+  ▼
+[Paso 2: Aislamiento de fuentes de fuga, medición atmosférica de gases y ventilación forzada]
+  │
+  ▼
+[Paso 3: Reunión extraordinaria del Social Performance Team (SPT) y análisis de causa raíz mediante 5 Porqués o Diagrama de Ishikawa]
+  │
+  ▼
+[Paso 4: Implementación de barreras de ingeniería (sensores de gas calibrados, señalética fotoluminiscente y rediseño de zonas de almacenaje)]
+  │
+  ▼
+[Paso 5: Validación documental de la acción correctiva, recertificación de extintores y cierre de la No Conformidad]</div>
+  </div>
+</div>
+</section>
+
+<!-- ============== PESTAÑA 5: TALLER CAPAPSA ============== -->
+<section id="taller-asincrono" class="tab-content">
+<div class="card card-info">
+<h3 style="font-family:Helvetica,Arial,sans-serif;color:var(--c-primary);margin-bottom:6px">Taller Asíncrono: Caso de Estudio Forense Industrial y Gobernanza de Cadena de Suministro (Nivel Avanzado)</h3>
+<p style="margin:0"><strong>Cátedra:</strong> Responsabilidad Social y Corporativa (RSC)<br>
+<strong>Carreras:</strong> Facultad de Ciencias de la Ingeniería &mdash; UPSE</p>
+</div>
+
+<h2 class="section-title first">1. Contexto Operacional y Descripción del Caso</h2>
+<ul>
+<li><strong>Compañía:</strong> Consorcio Atunero y Procesador de Alimentos Peninsular S.A. (CAPAPSA).</li>
+<li><strong>Ubicación:</strong> Zona industrial de la provincia de Santa Elena, Ecuador.</li>
+<li><strong>Capacidad instalada:</strong> $180\text{ t/día}$ de procesamiento en conservas y congelados.</li>
+<li><strong>Fuerza laboral:</strong> 450 operarios en nómina directa y 180 operarios subcontratados mediante la empresa tercerizadora "Servicios Industriales y Estiba del Mar S.A. (SIEMAR)".</li>
+</ul>
+<p>CAPAPSA exporta el 75% de sus líneas a clientes del sector <em>retail</em> en la Unión Europea. La alta dirección firmó en 2023 la adhesión al <strong>Pacto Global de la ONU</strong>, utilizando los distintivos en sus empaques comerciales, y declaró públicamente operar alineada a las directrices de la <strong>ISO 26000:2010</strong>. Para renovar su contrato marco de suministro ($14,2\text{ millones USD}$ anuales), el consorcio europeo exige la precertificación <strong>SA8000:2014</strong> y comisiona una auditoría forense de tercera parte sin previo aviso.</p>
+
+<div class="flow-diagram">[PLANTA INDUSTRIAL CAPAPSA]
+├── Línea 1: Eviscerado y Cocción (Operación mixta: nómina propia + SIEMAR)
+├── Línea 2: Autoclaves y Esterilización (Crítica: cuello de botella del flujo)
+├── Planta de Tratamiento de Aguas Residuales Industriales (PTARI)
+└── Cadena de Suministro: Flota pesquera propia (4 barcos) + Proveedores locales Tier 1</div>
+
+<h2 class="section-title">2. Hallazgos Objetivos Levantados en la Auditoría In Situ</h2>
+<p>Durante la inspección de 48 horas en el pico de producción (zafra atunera), el equipo auditor constató documental y físicamente las siguientes evidencias:</p>
+
+<h3 class="subsection-title">Hallazgo 1: Gestión de Horas de Trabajo y Tercerización (Área de Enlatado y Autoclaves)</h3>
+<p>Los 180 operarios de SIEMAR registran una jornada consecutiva de <strong>14 horas diarias durante 21 días continuos</strong> sin descanso semanal obligatorio, acumulando un promedio de <strong>84 horas semanales</strong>. El control biométrico oficial de CAPAPSA registraba únicamente 8 horas regulares por trabajador; las 6 horas excedentes diarias se liquidaban mediante bonos en efectivo sin reflejo en el rol de pagos del Seguro Social.</p>
+
+<h3 class="subsection-title">Hallazgo 2: Seguridad y Salud en el Trabajo (Línea de Autoclaves y Cuarto de Máquinas)</h3>
+<ul>
+<li>Concentración de vapor de amoníaco ($NH_{3}$) en el área de compresores de <strong>42 ppm</strong> (el límite techo permisible es de 25 ppm según normas de higiene ocupacional). El sistema de extracción forzada se encontraba desconectado para "reducir el consumo eléctrico en horas punta".</li>
+<li>El personal de SIEMAR no disponía de protección respiratoria con filtros para gases amoniacales, sino mascarillas quirúrgicas de polipropileno.</li>
+<li>En los últimos 6 meses se registraron <strong>14 incidentes con pérdida de tiempo (LTI &mdash; Lost Time Injuries)</strong> por quemaduras leves y desmayos por golpe de calor en autoclaves, ninguno de los cuales fue reportado a la autoridad laboral ni al Comité Paritario de SST.</li>
+</ul>
+
+<h3 class="subsection-title">Hallazgo 3: Trabajo de Menores y Vulneración de Derechos (Muelles y Descarga)</h3>
+<p>En las faenas nocturnas de descarga de atún en muelles (operadas bajo contrato de servicios con armadores artesanales clasificados como proveedores Tier 1), se identificó a <strong>8 adolescentes de entre 14 y 15 años</strong> realizando estiba y eviscerado en jornadas de 20:00 a 05:00 horas, bajo condiciones de humedad constante, temperaturas bajo cero en bodegas y manejo de herramientas punzocortantes.</p>
+
+<h3 class="subsection-title">Hallazgo 4: Gestión Ambiental y Responsabilidad Comunitaria (PTARI y Vertimientos)</h3>
+<p>La PTARI opera al <strong>160% de su capacidad hidráulica</strong>. Para evitar el desbordamiento de las piscinas de sedimentación, se habilitó un <em>bypass</em> subterráneo que descarga $450\text{ m}^{3}\text{/día}$ de efluentes líquidos con una Demanda Química de Oxígeno (DQO) de $2.800\text{ mg/L}$ (la norma local fija un límite máximo de $250\text{ mg/L}$) directamente en el manglar limítrofe, del cual subsiste una cooperativa de concheros y pescadores locales.</p>
+
+<h3 class="subsection-title">Hallazgo 5: Transparencia y Prácticas Justas de Operación</h3>
+<p>CAPAPSA ostenta en su memoria de sostenibilidad que sus operaciones son "100% amigables con el medio ambiente y con cero incidentes laborales". La empresa no ha presentado su Comunicación sobre el Progreso (CoP) ante el Pacto Global durante los últimos dos períodos anuales, figurando en la plataforma de la ONU como entidad <em>Non-communicating</em>.</p>
+
+<h2 class="section-title">3. Entregables del Estudiante (Desarrollo Técnico Asíncrono)</h2>
+<p>El estudiante debe emitir un informe de ingeniería con los siguientes entregables cuantitativos y estratégicos:</p>
+
+<h3 class="subsection-title">Entregable 1: Matriz Forense de Calificación de No Conformidades (Ponderación: 30%)</h3>
+<p>Construya una matriz técnica que clasifique los 5 hallazgos analizando:</p>
+<ul>
+<li>Cláusula exacta de incumplimiento de la norma <strong>SA8000:2014</strong>.</li>
+<li>Principio vulnerado del <strong>Pacto Global de las Naciones Unidas</strong>.</li>
+<li>Materia Fundamental y Asunto correspondiente de la <strong>ISO 26000:2010</strong>.</li>
+<li>Clasificación de la severidad del hallazgo: <strong>No Conformidad Mayor (NC Mayor)</strong> o <strong>No Conformidad Menor (NC Menor)</strong>, con su respectiva sustentación basada en el riesgo para la vida, la libertad o el fraude sistémico.</li>
+</ul>
+
+<h3 class="subsection-title">Entregable 2: Modelado del Impacto en Productividad y OEE (Ponderación: 30%)</h3>
+<p>La auditoría determinó la suspensión preventiva inmediata de la línea de autoclaves por <strong>7 días laborables</strong> para permitir la remediación de las fugas de amoníaco, el despeje de vías de emergencia y la normalización de turnos.</p>
+<p>Considere los siguientes datos técnicos de diseño:</p>
+<ul>
+<li><strong>Capacidad teórica de la línea de esterilización:</strong> $2.400\text{ latas/hora}$.</li>
+<li><strong>Régimen de operación nominal:</strong> 2 turnos de 8 horas cada uno ($16\text{ h/día}$ programadas), 26 días al mes.</li>
+<li><strong>Margen de contribución neto:</strong> $\$ 0,45\text{ por lata terminada}$.</li>
+<li><strong>Datos históricos del mes en curso (previo a la suspensión):</strong>
+<ul>
+<li>La línea operó durante 19 días programados.</li>
+<li>Se generaron $650.000\text{ latas}$ totales, de las cuales $32.500$ fueron descartadas por falla en el sellado térmico debido al sobrecalentamiento y la fatiga de los operarios de turno extendido.</li>
+<li>El tiempo real que la máquina operó efectivamente en esos 19 días fue de $240\text{ horas}$ (el resto fueron paradas por microfallas mecánicas y relevo desordenado de cuadrillas).</li>
+</ul>
+</li>
+<li><strong>Impacto del paro auditor (7 días):</strong> La línea quedó completamente parada ($0\text{ h}$ de operación en esos 7 días de carga programada).</li>
+</ul>
+<p><strong>Calcule y presente con desarrollo formal:</strong></p>
+<ol>
+<li>La <strong>Disponibilidad ($A$)</strong>, el <strong>Rendimiento ($P$)</strong>, la <strong>Calidad ($Q$)</strong> y el indicador global <strong>OEE</strong> del mes completo (26 días programados).</li>
+<li>El costo financiero directo derivado de:
+<ul>
+<li>Las unidades defectuosas generadas por fatiga en los primeros 19 días.</li>
+<li>El lucro cesante durante los 7 días de clausura técnica obligada por los incumplimientos de seguridad.</li>
+</ul>
+</li>
+</ol>
+
+<h3 class="subsection-title">Entregable 3: Plan de Acción Correctiva (CAP) y Rediseño de Gobernanza (Ponderación: 40%)</h3>
+<p>Diseñe un Plan de Acción Correctiva (CAP &mdash; <em>Corrective Action Plan</em>) para los hallazgos 1, 3 y 4 bajo el enfoque de <strong>Creación de Valor Compartido (Porter &amp; Kramer)</strong> y los lineamientos de la norma SA8000.</p>
+<p><strong>Debe detallar:</strong></p>
+<ol>
+<li><strong>Acción de contención inmediata</strong> (primeras 48 horas).</li>
+<li><strong>Causa raíz técnica</strong> utilizando la metodología de los <em>5 Porqués</em>.</li>
+<li><strong>Plan de remediación integral y protocolo de salvaguarda</strong> para los menores identificados en el muelle (conforme a los requerimientos de SA8000).</li>
+<li><strong>Mecanismo de ingeniería y rediseño de procesos</strong> para solucionar el colapso de la PTARI sin frenar la productividad de la planta (especificando parámetros de recirculación y control).</li>
+<li><strong>Procedimiento de homologación y control de contratistas</strong> (SIEMAR y armadores artesanales) para blindar la responsabilidad solidaria patronal.</li>
+</ol>
+
+<h2 class="section-title">4. Rúbrica Analítica de Calificación (Escala 0 a 10 Puntos)</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Criterio de Evaluación</th>
+<th>Nivel Excelente (9 - 10)</th>
+<th>Nivel Bueno (7 - 8.9)</th>
+<th>Nivel Regular (4 - 6.9)</th>
+<th>Nivel Insuficiente (0 - 3.9)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Rigor en la Matriz Normativa (30%)</strong></td>
+<td>Tipifica con precisión técnica indiscutible cada hallazgo bajo SA8000, Pacto Global e ISO 26000. Justifica con rigor legal y operativo la severidad de las No Conformidades Mayores y Menores.</td>
+<td>Mapea correctamente las normas, pero omite cláusulas específicas o confunde la severidad de un hallazgo operacional.</td>
+<td>Asocia las normas de manera general sin citar cláusulas específicas ni distinguir claramente entre guías no certificables y estándares auditables.</td>
+<td>Confunde los marcos conceptuales; clasifica erróneamente la gravedad o no aplica los estándares solicitados.</td>
+</tr>
+<tr>
+<td><strong>2. Modelado Matemático y Cálculo de OEE (30%)</strong></td>
+<td>Deduce y calcula con exactitud matemática la Disponibilidad, Rendimiento, Calidad y OEE global. Cuantifica con precisión el lucro cesante y las pérdidas por calidad asociadas a la fatiga laboral.</td>
+<td>Desarrolla las fórmulas de OEE con errores menores en el cómputo del tiempo programado total, obteniendo un valor cercano. Cuantifica el impacto financiero.</td>
+<td>Aplica fórmulas de forma parcial o desordenada; omite el cálculo del lucro cesante o no relaciona la pérdida con las variables operativas.</td>
+<td>Cálculos erróneos en las dimensiones del OEE o ausencia de modelado financiero de la crisis.</td>
+</tr>
+<tr>
+<td><strong>3. Plan de Acción Correctiva (CAP) e Ingeniería (40%)</strong></td>
+<td>Diseña soluciones ingenieriles de causa raíz (5 Porqués), establece el protocolo estricto de remediación de SA8000 para menores y formula una solución de ecoeficiencia / valor compartido para la PTARI.</td>
+<td>Plantea soluciones correctivas viables, pero el tratamiento del trabajo infantil es punitivo (despido simple) o la solución ambiental no aborda el rediseño del proceso.</td>
+<td>Propone acciones genéricas de tipo administrativo sin sustento técnico de ingeniería de planta ni mecanismos de control sobre contratistas.</td>
+<td>No presenta plan de remediación o propone acciones contrarias a los estándares internacionales (ej. ocultar contratistas).</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- LOCKED BLOCK: SOLUCIONARIO -->
+<div class="locked-block" data-lock="capapsa">
+  <div class="lock-header">
+    <div class="lock-icon">🔒</div>
+    <h3>5. Solucionario Técnico para el Docente</h3>
+  </div>
+  <p class="lock-desc">Esta sección contiene el solucionario completo del taller asíncrono avanzado (matriz forense, modelado OEE y plan CAP). Requiere autenticación del docente para visualizar el contenido.</p>
+  <div class="lock-form">
+    <input type="password" id="pwd-capapsa" placeholder="Clave de acceso" autocomplete="off">
+    <button onclick="unlock('capapsa')">Desbloquear</button>
+  </div>
+  <div class="lock-status" id="status-capapsa"></div>
+
+  <div class="locked-content" id="content-capapsa">
+    <h2 class="section-title first">Solución Entregable 1: Matriz Forense de Calificación</h2>
+    <div class="table-wrap">
+    <table>
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>Hallazgo en Planta</th>
+    <th>Requisito SA8000:2014</th>
+    <th>Principio Pacto Global</th>
+    <th>Materia ISO 26000:2010</th>
+    <th>Severidad Técnica</th>
+    <th>Justificación Forense</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><strong>1</strong></td>
+    <td>84 h semanales, 21 días seguidos y pago informal en personal tercerizado (SIEMAR).</td>
+    <td>Cláusula 7 (<em>Horas de trabajo</em>) y Cláusula 9 (<em>Gestión de proveedores</em>).</td>
+    <td>Principio 3 y 6 (<em>Normas laborales</em>).</td>
+    <td>Materia 6.4 (<em>Prácticas laborales: condiciones de trabajo</em>).</td>
+    <td><span class="tag danger">NC Mayor</span></td>
+    <td>Violación del límite legal (48 h + 12 h extra voluntarias). Doble contabilidad salarial para evadir la seguridad social (fraude deliberado del sistema de gestión).</td>
+    </tr>
+    <tr>
+    <td><strong>2</strong></td>
+    <td>Fuga de $NH_{3}$ a 42 ppm, desconexión intencional de extractores y 14 LTI no reportados.</td>
+    <td>Cláusula 3 (<em>Seguridad y Salud en el Trabajo</em>).</td>
+    <td>Principio 1 y 2 (<em>Derechos humanos</em>).</td>
+    <td>Materia 6.4.6 (<em>Salud y seguridad en el trabajo</em>).</td>
+    <td><span class="tag danger">NC Mayor</span></td>
+    <td>Exposición de operarios a atmósfera tóxica superando el TLV-Ceiling; ocultamiento sistemático de accidentes con baja laboral (<em>Lost Time Injuries</em>).</td>
+    </tr>
+    <tr>
+    <td><strong>3</strong></td>
+    <td>Menores de 14 y 15 años en estiba nocturna con exposición a temperaturas bajo cero y cortes.</td>
+    <td>Cláusula 1 (<em>Trabajo infantil</em>) y Cláusula 2 (<em>Convenios OIT 138 y 182</em>).</td>
+    <td>Principio 5 (<em>Abolición del trabajo infantil</em>).</td>
+    <td>Materia 6.3.7 (<em>Trabajo infantil y derechos humanos</em>).</td>
+    <td><span class="tag danger">NC Mayor</span></td>
+    <td>Clasificación legal directa de "Peores formas de trabajo infantil" (trabajo nocturno, faena peligrosa y edad inferior a la mínima legal permitida).</td>
+    </tr>
+    <tr>
+    <td><strong>4</strong></td>
+    <td>Descarga clandestina de $450\text{ m}^{3}\text{/día}$ con DQO de $2.800\text{ mg/L}$ hacia el manglar.</td>
+    <td>Cláusula 9 (<em>Sistema de gestión: impacto ambiental de procesos</em>).</td>
+    <td>Principio 7 y 8 (<em>Medio ambiente y enfoque precautorio</em>).</td>
+    <td>Materia 6.5.3 (<em>Prevención de la contaminación</em>).</td>
+    <td><span class="tag danger">NC Mayor</span></td>
+    <td>Delito ambiental doloso mediante infraestructura paralela (<em>bypass</em>); daño irreversible al ecosistema comunitario circundante.</td>
+    </tr>
+    <tr>
+    <td><strong>5</strong></td>
+    <td>Estatus de <em>Non-communicating</em> en la ONU y publicidad engañosa de sustentabilidad.</td>
+    <td>Cláusula 9.10 (<em>Transparencia y acceso a la información</em>).</td>
+    <td>Principio 10 (<em>Lucha anticorrupción y transparencia</em>).</td>
+    <td>Materia 6.2 (<em>Gobernanza</em>) y 6.7 (<em>Asuntos de consumidores</em>).</td>
+    <td><span class="tag">NC Menor</span></td>
+    <td>Incumplimiento de las directrices de rendición de cuentas del Pacto Global; distorsión informativa (<em>Greenwashing / Social Washing</em>).</td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+
+    <h2 class="section-title">Solución Entregable 2: Modelado Matemático de Eficiencia de Planta (OEE)</h2>
+
+    <h3 class="subsection-title">Paso 1: Determinación de Parámetros Temporales del Mes Completo</h3>
+    <ul>
+    <li>Días de carga programada en el mes: $26\text{ días}$.</li>
+    <li>Jornada diaria programada: $16\text{ h/día}$.</li>
+    <li><strong>Tiempo de Carga Total Programado ($T_{\text{prog}}$):</strong>
+    $$T_{\text{prog}} = 26\text{ días} \times 16\frac{\text{h}}{\text{día}} = 416\text{ horas}$$</li>
+    <li><strong>Tiempo de Operación Real de la Línea ($T_{\text{oper}}$):</strong>
+    <ul>
+    <li>Durante los primeros 19 días, la máquina operó efectivamente $240\text{ horas}$.</li>
+    <li>Durante los 7 días de parada forzosa por auditoría, la máquina operó $0\text{ horas}$.</li>
+    </ul>
+    $$T_{\text{oper}} = 240\text{ h} + 0\text{ h} = 240\text{ horas}$$</li>
+    </ul>
+
+    <h3 class="subsection-title">Paso 2: Cálculo de Factores del OEE</h3>
+
+    <p><strong>1. Factor de Disponibilidad ($A$):</strong></p>
+    <p>$$A = \frac{T_{\text{oper}}}{T_{\text{prog}}} = \frac{240}{416} \approx 0,57692\quad\left( \mathbf{57,69\%} \right)$$</p>
+
+    <p><strong>2. Factor de Rendimiento ($P$):</strong></p>
+    <ul>
+    <li>Capacidad nominal estándar: $C = 2.400\frac{\text{latas}}{\text{h}}$.</li>
+    <li>Producción real total obtenida: $U_{\text{tot}} = 650.000\text{ latas}$.</li>
+    <li>Capacidad teórica alcanzable en el tiempo de operación real:
+    $$\text{Capacidad Teórica} = T_{\text{oper}} \times C = 240\text{ h} \times 2.400\frac{\text{latas}}{\text{h}} = 576.000\text{ latas}$$</li>
+    <li>Dado que la planta produjo $650.000\text{ latas}$ operando a una cadencia forzada sobre acelerada ($2.708\text{ latas/h}$, lo que aceleró la degradación del equipo):
+    $$P = \frac{650.000}{576.000} \approx 1,12847\quad\left( \mathbf{112,85\%} \right)$$</li>
+    </ul>
+    <p><em>(En el estándar industrial, si la tasa de producción excede el nominal degradando la máquina o la calidad, se trunca a $100\%$ o se evalúa su efecto devastador en calidad). Para el cálculo estricto no truncado: $P = 1,1285$; si se normaliza a la capacidad teórica nominal: $P = 1,0000$. Emplearemos el valor estricto de ingeniería de planta: $1,1285$.</em></p>
+
+    <p><strong>3. Factor de Calidad ($Q$):</strong></p>
+    <ul>
+    <li>Unidades conformes: $U_{\text{conf}} = 650.000 - 32.500 = 617.500\text{ latas}$.
+    $$Q = \frac{U_{\text{conf}}}{U_{\text{tot}}} = \frac{617.500}{650.000} = 0,95000\quad\left( \mathbf{95,00\%} \right)$$</li>
+    </ul>
+
+    <p><strong>4. OEE Consolidado del Mes:</strong></p>
+    <p>$$\text{OEE} = A \times P \times Q$$</p>
+    <p>$$\text{OEE} = 0,57692 \times 1,12847 \times 0,95000 \approx 0,6184\quad\left( \mathbf{61,84\%} \right)$$</p>
+    <p><em>(Si el estudiante trunca el rendimiento al límite de diseño $P = 1,0$:</em> $\text{OEE} = 0,5769 \times 1,0 \times 0,95 = 54,81\%$. <em>Ambas interpretaciones son válidas si el alumno explicita el criterio).</em></p>
+
+    <h3 class="subsection-title">Paso 3: Determinación del Costo Financiero Directo</h3>
+
+    <p><strong>1. Pérdida por Calidad (Unidades no conformes por fatiga):</strong></p>
+    <p>$$\text{Pérdida por Calidad} = 32.500\text{ latas} \times \$ 0,45/\text{lata} = \mathbf{\$ 14.625,00}\text{ USD}$$</p>
+
+    <p><strong>2. Lucro Cesante por Clausura Operativa (7 días de paralización forzosa):</strong></p>
+    <ul>
+    <li>Horas programadas perdidas: $7\text{ días} \times 16\frac{\text{h}}{\text{día}} = 112\text{ horas}$.</li>
+    <li>Unidades nominales no fabricadas: $112\text{ h} \times 2.400\frac{\text{latas}}{\text{h}} = 268.800\text{ latas}$.</li>
+    </ul>
+    <p>$$\text{Lucro Cesante} = 268.800\text{ latas} \times \$ 0,45/\text{lata} = \mathbf{\$ 120.960,00}\text{ USD}$$</p>
+
+    <p><strong>3. Pérdida Financiera Operacional Consolidada:</strong></p>
+    <p>$$\text{Costo Total} = \$ 14.625,00 + \$ 120.960,00 = \mathbf{\$ 135.585,00}\text{ USD}$$</p>
+
+    <h2 class="section-title">Solución Entregable 3: Plan de Acción Correctiva (CAP) y Rediseño</h2>
+
+    <h3 class="subsection-title">1. Plan de Remediación para Trabajo Infantil (Hallazgo 3 &mdash; Muelles)</h3>
+    <ul>
+    <li><strong>Contención inmediata (24 h):</strong> Retiro inmediato de los 8 menores de las faenas portuarias y traslado seguro a sus domicilios o centros comunitarios.</li>
+    <li><strong>Causa raíz (5 Porqués):</strong>
+    <ol>
+    <li><em>¿Por qué trabajaban de noche?</em> Porque los armadores artesanales buscaban abaratar costos en muelle.</li>
+    <li><em>¿Por qué contrataron menores?</em> Porque las familias de los pescadores no alcanzan el ingreso de subsistencia.</li>
+    <li><em>¿Por qué operaban en predios de CAPAPSA?</em> Porque no había control de acceso biométrico en los muelles de descarga.</li>
+    <li><em>¿Por qué el personal de compras no fiscalizó?</em> Porque se evaluaba a los proveedores pesqueros solo por precio y tonelaje entregado.</li>
+    <li><em>¿Por qué falló el sistema corporativo?</em> Porque no se implementó un sistema de homologación de proveedores bajo SA8000.</li>
+    </ol>
+    </li>
+    <li><strong>Protocolo de Remediación Obligatorio (SA8000 Cláusula 1.2):</strong>
+    <ul>
+    <li>La empresa y el armador artesanal deben suscribir un fondo de remediación económica.</li>
+    <li>Se asigna una beca escolar y técnica mensual a cada menor que equivalga al 100% del ingreso que aportaban al núcleo familiar, condicionada a la asistencia comprobada al sistema educativo formal.</li>
+    <li>Si la familia depende exclusivamente de dicho sustento, CAPAPSA ofrecerá una vacante laboral formal y en nómina directa a un miembro adulto calificado de la unidad familiar.</li>
+    </ul>
+    </li>
+    </ul>
+
+    <h3 class="subsection-title">2. Rediseño de la PTARI bajo Creación de Valor Compartido (Hallazgo 4)</h3>
+    <ul>
+    <li><strong>Contención inmediata (0 a 48 h):</strong> Sellado con brida ciega del <em>bypass</em> clandestino de descarga. Suspensión de vertimientos y contratación de camiones cisterna para transporte de lodos hacia un gestor ambiental autorizado.</li>
+    <li><strong>Ingeniería de Procesos y Valor Compartido (Porter &amp; Kramer):</strong>
+    <ul>
+    <li>En lugar de ampliar pasivamente piscinas de lodos, se instala una <strong>Unidad de Flotación por Aire Disuelto (DAF)</strong> para separar grasa y proteína de pescado de las aguas de lavado previo a su entrada a la PTARI.</li>
+    <li>El lodo orgánico recuperado en el DAF (rico en aminoácidos y lípidos) se somete a deshidratación centrífuga para su incorporación en la planta de secado como subproducto: <strong>harina de atún de alta proteína</strong>.</li>
+    <li><strong>Retorno económico e impacto:</strong> El subproducto genera ingresos colaterales que financian la amortización del DAF, reduce la carga orgánica (DQO) entrante a la PTARI en un $85\%$, y permite la descarga del efluente dentro de norma ($< 250\text{ mg/L}$), erradicando el conflicto con la cooperativa comunitaria de manglar.</li>
+    </ul>
+    </li>
+    </ul>
+
+    <h3 class="subsection-title">3. Auditoría y Control de Contratistas (SIEMAR &mdash; Hallazgo 1)</h3>
+    <ul>
+    <li><strong>Acción correctiva inmediata:</strong> Liquidación forzosa del esquema de sobresueldos en efectivo. CAPAPSA absorberá bajo nómina directa al personal de SIEMAR que supere las auditorías técnicas, garantizando contratos estables.</li>
+    <li><strong>Política de Compras Responsables:</strong> Imposición contractual de auditorías semestrales de segunda parte a toda empresa tercerizadora. Cualquier discrepancia entre los registros del biométrico y los aportes a la seguridad social facultará la rescisión contractual inmediata sin indemnización.</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p><strong>Universidad Estatal Península de Santa Elena (UPSE)</strong> &middot; Facultad de Ciencias de la Ingeniería</p>
+  <p>Cátedra de Responsabilidad Social y Corporativa (RSC) &middot; Ingeniería Industrial / Ingeniería en Seguridad Industrial</p>
+  <p style="margin-top:6px;font-size:0.75rem;opacity:0.7">Módulo académico &mdash; uso docente. Las respuestas de los talleres están protegidas por control de acceso.</p>
+</footer>
+
+<script>
+// =================================================================
+// HASH VERIFICADOR (SHA-256 de la clave docente)
+// La clave original no aparece en el código fuente.
+// Solo se almacena su huella digital criptográfica.
+// =================================================================
+const _0x7f3a = "4dea5c7cb70f50322ec9d734aa4aa078be9227c05251e18991c596f387552370";
+
+async function _0x8b2c(p) {
+  const enc = new TextEncoder();
+  const buf = await crypto.subtle.digest('SHA-256', enc.encode(p));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function unlock(blockId) {
+  const input = document.getElementById('pwd-' + blockId);
+  const status = document.getElementById('status-' + blockId);
+  const content = document.getElementById('content-' + blockId);
+  const btn = input.nextElementSibling;
+  if (!input || !status || !content) return;
+  const val = input.value.trim();
+  if (!val) { status.textContent = 'Ingrese la clave de acceso.'; status.className='lock-status error'; return; }
+  btn.disabled = true; btn.textContent = 'Verificando...';
+  try {
+    const h = await _0x8b2c(val);
+    if (h === _0x7f3a) {
+      content.classList.add('visible');
+      status.textContent = 'Acceso autorizado. Solucionario desbloqueado.';
+      status.className = 'lock-status success';
+      input.value = '';
+      input.disabled = true;
+      btn.disabled = true;
+      btn.textContent = 'Desbloqueado';
+      setTimeout(()=>{ status.scrollIntoView({behavior:'smooth', block:'start'}); }, 100);
+    } else {
+      status.textContent = 'Clave incorrecta. Verifique e intente nuevamente.';
+      status.className = 'lock-status error';
+      btn.disabled = false; btn.textContent = 'Desbloquear';
+    }
+  } catch(e) {
+    status.textContent = 'Error de verificación (navegador sin soporte crypto).';
+    status.className = 'lock-status error';
+    btn.disabled = false; btn.textContent = 'Desbloquear';
+  }
+}
+
+// Permitir desbloquear con Enter
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Enter' && e.target && e.target.id && e.target.id.startsWith('pwd-')) {
+    const blockId = e.target.id.replace('pwd-','');
+    unlock(blockId);
+  }
+});
+
+// =================================================================
+// SISTEMA DE PESTAÑAS CON DIRECCIONES INDEPENDIENTES (HASH ROUTING)
+// =================================================================
+const tabs = document.querySelectorAll('.tab-content');
+const navLinks = document.querySelectorAll('.tab-nav a');
+const tabIds = Array.from(navLinks).map(a => a.getAttribute('data-tab'));
+
+function showTab(tabId) {
+  if (!tabIds.includes(tabId)) tabId = 'fundamentos';
+  tabs.forEach(t => t.classList.remove('active'));
+  navLinks.forEach(a => a.classList.remove('active'));
+  const target = document.getElementById(tabId);
+  const link = document.querySelector('.tab-nav a[data-tab="'+tabId+'"]');
+  if (target) target.classList.add('active');
+  if (link) link.classList.add('active');
+  window.scrollTo({top:0, behavior:'auto'});
+  if (window.MathJax && window.MathJax.typesetPromise && target) {
+    window.MathJax.typesetPromise([target]).catch(()=>{});
+  }
+}
+
+function syncFromHash() {
+  const h = (location.hash || '#fundamentos').replace('#','');
+  showTab(h);
+}
+
+window.addEventListener('hashchange', syncFromHash);
+window.addEventListener('DOMContentLoaded', syncFromHash);
+</script>
+</body>
+</html>
