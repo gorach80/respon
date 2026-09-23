@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Actividad — Ensayo Académico Aplicativo | UPSE</title>
+<style>
+:root{
+  --c-primary:#3d0a0a;
+  --c-primary-light:#6b1414;
+  --c-accent:#b8860b;
+  --c-bg:#f7f4ef;
+  --c-surface:#ffffff;
+  --c-border:#d8c9b0;
+  --c-text:#1a1a1a;
+  --c-text-muted:#5a5a5a;
+  --c-success:#1b7a3d;
+  --c-danger:#a31818;
+  --c-info:#1e3a8a;
+  --shadow:0 2px 8px rgba(61,10,10,0.10);
+  --shadow-lg:0 6px 24px rgba(61,10,10,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Georgia','Times New Roman',serif;
+  background:var(--c-bg);
+  color:var(--c-text);
+  line-height:1.7;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+.site-header{
+  background:linear-gradient(135deg,#2a0606 0%,#3d0a0a 55%,#6b1414 100%);
+  color:#fff;
+  padding:34px 20px 26px;
+  border-bottom:6px solid var(--c-accent);
+  position:relative;
+}
+.site-header::after{
+  content:"";
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:6px;
+  background:repeating-linear-gradient(90deg,var(--c-accent) 0 20px,transparent 20px 40px);
+  opacity:0.4;
+}
+.site-header .wrap{max-width:1200px;margin:0 auto}
+.site-header .institution{
+  font-size:0.78rem;
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  color:#e8d9b8;
+  font-family:'Helvetica',sans-serif;
+  margin-bottom:10px;
+}
+.site-header .course-tag{
+  display:inline-block;
+  background:rgba(184,134,11,0.18);
+  border:1px solid var(--c-accent);
+  color:#ffd970;
+  padding:4px 12px;
+  border-radius:14px;
+  font-size:0.72rem;
+  font-family:'Helvetica',sans-serif;
+  letter-spacing:0.8px;
+  margin-bottom:14px;
+}
+.site-header h1{
+  font-family:'Helvetica','Arial',sans-serif;
+  font-size:1.95rem;
+  font-weight:700;
+  line-height:1.25;
+  margin-bottom:8px;
+}
+.site-header .subtitle{
+  font-size:0.98rem;
+  color:#f0e2c8;
+  font-family:'Helvetica',sans-serif;
+  font-style:italic;
+}
+.site-header .meta-pills{
+  margin-top:16px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.site-header .pill{
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(184,134,11,0.5);
+  color:#fff;
+  padding:5px 13px;
+  border-radius:14px;
+  font-size:0.76rem;
+  font-family:'Helvetica',sans-serif;
+  letter-spacing:0.4px;
+}
+.site-header .pill strong{color:#ffd970}
+.tab-nav{
+  background:var(--c-surface);
+  border-bottom:2px solid var(--c-border);
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:var(--shadow);
+}
+.tab-nav .wrap{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  overflow-x:auto;
+}
+.tab-nav a{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:14px 18px;
+  text-decoration:none;
+  color:var(--c-text-muted);
+  font-family:'Helvetica',sans-serif;
+  font-size:0.82rem;
+  font-weight:600;
+  border-bottom:3px solid transparent;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+.tab-nav a .num{
+  background:var(--c-primary);
+  color:#fff;
+  width:22px;height:22px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.72rem;
+  font-weight:700;
+}
+.tab-nav a:hover{background:#f5ede0;color:var(--c-primary)}
+.tab-nav a.active{
+  color:var(--c-primary);
+  border-bottom-color:var(--c-accent);
+}
+.tab-nav a.active .num{background:var(--c-accent)}
+main{max-width:1200px;margin:0 auto;padding:30px 20px 80px}
+section{padding:20px 0;border-bottom:1px solid var(--c-border)}
+section:last-child{border-bottom:none}
+.section-anchor{scroll-margin-top:80px}
+.section-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:22px;
+  padding-bottom:14px;
+  border-bottom:2px solid var(--c-primary);
+}
+.section-header .roman{
+  font-family:'Helvetica','Arial',sans-serif;
+  background:var(--c-primary);
+  color:#fff;
+  width:48px;height:48px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;
+  font-weight:700;
+  flex-shrink:0;
+  border:3px solid var(--c-accent);
+}
+.section-header .title-block h2{
+  font-family:'Helvetica','Arial',sans-serif;
+  font-size:1.5rem;
+  color:var(--c-primary);
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:2px;
+}
+.section-header .title-block .subtitle{
+  font-size:0.85rem;
+  color:var(--c-text-muted);
+  font-family:'Helvetica',sans-serif;
+  letter-spacing:0.5px;
+}
+h3{
+  font-family:'Helvetica','Arial',sans-serif;
+  color:var(--c-primary-light);
+  font-size:1.2rem;
+  margin:24px 0 12px;
+  padding-bottom:5px;
+  border-bottom:1px solid var(--c-border);
+}
+h4{
+  font-family:'Helvetica','Arial',sans-serif;
+  color:var(--c-text);
+  font-size:1.05rem;
+  font-weight:700;
+  margin:20px 0 8px;
+}
+p{margin-bottom:14px;text-align:justify}
+ul,ol{margin:0 0 16px 22px}
+ul li,ol li{margin-bottom:8px;text-align:justify}
+ul li::marker{color:var(--c-accent)}
+ol li::marker{color:var(--c-primary);font-weight:700}
+strong{color:var(--c-primary)}
+em{color:var(--c-text)}
+.callout{
+  background:#fff8ec;
+  border:1px solid #e0c98a;
+  border-left:5px solid var(--c-accent);
+  padding:14px 18px;
+  border-radius:6px;
+  font-size:0.95rem;
+  margin:16px 0;
+}
+.callout-docent{
+  background:#f5ede0;
+  border-left:5px solid var(--c-primary);
+  font-style:italic;
+}
+.callout-docent .docent-label{
+  font-style:normal;
+  font-family:'Helvetica',sans-serif;
+  font-size:0.78rem;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  color:var(--c-accent);
+  font-weight:700;
+  margin-bottom:8px;
+  display:block;
+}
+.callout-warn{
+  background:#fdecec;
+  border-left:5px solid var(--c-danger);
+}
+.callout-warn strong{color:var(--c-danger)}
+.callout-info{
+  background:#eef2f9;
+  border-left:5px solid var(--c-info);
+}
+.card{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:8px;
+  padding:18px 22px;
+  margin:18px 0;
+  box-shadow:var(--shadow);
+}
+.card-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--c-border);
+}
+.card-header .icon{
+  width:32px;height:32px;
+  background:var(--c-primary);
+  color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Helvetica',sans-serif;
+  font-weight:700;
+  font-size:0.95rem;
+}
+.card-header h4{
+  margin:0;
+  color:var(--c-primary);
+}
+.card-info{
+  background:linear-gradient(135deg,#fbf5e8 0%,#f7f4ef 100%);
+  border-left:5px solid var(--c-accent);
+}
+.params-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+  margin:18px 0;
+}
+.param-card{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-top:4px solid var(--c-primary);
+  border-radius:6px;
+  padding:14px 16px;
+  box-shadow:var(--shadow);
+}
+.param-card .label{
+  font-family:'Helvetica',sans-serif;
+  font-size:0.72rem;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  color:var(--c-accent);
+  font-weight:700;
+  margin-bottom:6px;
+}
+.param-card .value{
+  font-family:'Helvetica',sans-serif;
+  font-size:0.95rem;
+  color:var(--c-text);
+  font-weight:600;
+  line-height:1.4;
+}
+.param-card .detail{
+  font-size:0.82rem;
+  color:var(--c-text-muted);
+  margin-top:4px;
+  line-height:1.4;
+}
+.table-wrap{
+  overflow-x:auto;
+  margin:18px 0;
+  border:1px solid var(--c-border);
+  border-radius:6px;
+  box-shadow:var(--shadow);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:var(--c-surface);
+  font-size:0.88rem;
+}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--c-border);vertical-align:top}
+th{
+  background:var(--c-primary);
+  color:#fff;
+  font-family:'Helvetica',sans-serif;
+  font-weight:600;
+  font-size:0.82rem;
+  letter-spacing:0.3px;
+}
+tbody tr:nth-child(even){background:#faf6ef}
+tbody tr:hover{background:#f5ede0}
+td strong{color:var(--c-primary-light)}
+.axis-card{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-left:5px solid var(--c-accent);
+  border-radius:8px;
+  padding:18px 22px;
+  margin:18px 0;
+  box-shadow:var(--shadow);
+}
+.axis-card .axis-tag{
+  display:inline-block;
+  background:var(--c-primary);
+  color:#fff;
+  padding:3px 12px;
+  border-radius:14px;
+  font-size:0.72rem;
+  font-family:'Helvetica',sans-serif;
+  font-weight:700;
+  letter-spacing:0.5px;
+  margin-bottom:10px;
+}
+.axis-card h4{
+  font-family:'Helvetica',sans-serif;
+  color:var(--c-primary);
+  margin:6px 0 8px;
+  font-size:1.1rem;
+}
+.axis-card .axis-ref{
+  display:inline-block;
+  background:#eef2f9;
+  border:1px solid var(--c-border);
+  color:var(--c-info);
+  padding:2px 9px;
+  border-radius:10px;
+  font-size:0.74rem;
+  font-family:'Helvetica',sans-serif;
+  margin-left:8px;
+}
+.hierarchy{
+  background:#fbf5e8;
+  border:1px solid var(--c-border);
+  border-radius:6px;
+  padding:18px;
+  margin:18px 0;
+}
+.hierarchy ol{list-style:none;margin:0;padding:0}
+.hierarchy > ol > li{
+  margin-bottom:14px;
+  padding-left:34px;
+  position:relative;
+}
+.hierarchy > ol > li::before{
+  content:counter(roman-counter,upper-roman) ".";
+  counter-increment:roman-counter;
+  position:absolute;
+  left:0;top:0;
+  font-family:'Helvetica',sans-serif;
+  font-weight:700;
+  color:var(--c-primary);
+  font-size:1.05rem;
+}
+.hierarchy ol{counter-reset:roman-counter}
+.hierarchy .level-2{
+  list-style:none;
+  margin:8px 0 0 0;
+  padding:0;
+}
+.hierarchy .level-2 > li{
+  padding-left:24px;
+  position:relative;
+  margin-bottom:6px;
+}
+.hierarchy .level-2 > li::before{
+  content:"▸";
+  position:absolute;
+  left:6px;
+  color:var(--c-accent);
+  font-weight:700;
+}
+.tag{
+  display:inline-block;
+  padding:2px 9px;
+  border-radius:10px;
+  font-size:0.72rem;
+  font-family:'Helvetica',sans-serif;
+  letter-spacing:0.4px;
+  margin-right:5px;
+  font-weight:600;
+}
+.tag-excellent{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+.tag-good{background:#fff3cd;color:#856404;border:1px solid #ffeaa7}
+.tag-regular{background:#ffe6cc;color:#8a4b00;border:1px solid #ffd9a8}
+.tag-insufficient{background:#f8d7da;color:#721c24;border:1px solid #f5b7b8}
+.score-summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
+  margin:18px 0;
+}
+.score-item{
+  background:linear-gradient(135deg,#3d0a0a 0%,#6b1414 100%);
+  color:#fff;
+  padding:14px 16px;
+  border-radius:8px;
+  text-align:center;
+  border:2px solid var(--c-accent);
+}
+.score-item .score-label{
+  font-family:'Helvetica',sans-serif;
+  font-size:0.78rem;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#e8d9b8;
+  margin-bottom:4px;
+}
+.score-item .score-value{
+  font-family:'Helvetica',sans-serif;
+  font-size:1.5rem;
+  font-weight:700;
+  color:#ffd970;
+}
+.score-item .score-detail{
+  font-size:0.75rem;
+  color:#f0e2c8;
+  margin-top:2px;
+}
+.site-footer{
+  background:#2a0606;
+  color:#d8c9b0;
+  padding:24px 20px;
+  text-align:center;
+  font-family:'Helvetica',sans-serif;
+  font-size:0.82rem;
+  border-top:4px solid var(--c-accent);
+}
+.site-footer strong{color:#fff}
+.site-footer .citation{
+  margin-top:8px;
+  font-style:italic;
+  color:#b8a888;
+  font-size:0.78rem;
+}
+@media(max-width:768px){
+  .site-header h1{font-size:1.45rem}
+  .tab-nav a{font-size:0.75rem;padding:11px 14px}
+  .tab-nav a .num{width:20px;height:20px;font-size:0.66rem}
+  .section-header h2{font-size:1.2rem}
+  .section-header .roman{width:40px;height:40px;font-size:1rem}
+  main{padding:20px 12px 50px}
+  th,td{font-size:0.78rem;padding:8px 9px}
+}
+@media print{
+  .tab-nav{display:none;position:static}
+  .site-header{background:#3d0a0a !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid;border-bottom:none}
+  .axis-card,.card,.callout{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="institution">UPSE · Facultad de Ciencias de la Ingeniería</div>
+    <span class="course-tag">UNIDAD TEMÁTICA #2 · RSC, ÉTICA Y GRUPOS DE INTERÉS</span>
+    <h1>Guía de Actividad: Ensayo Académico Aplicativo</h1>
+    <div class="subtitle">Autopsia analítica al caso Theranos — "Bad Blood" de John Carreyrou (2018)</div>
+    <div class="meta-pills">
+      <span class="pill"><strong>Modalidad:</strong> Individual o parejas (máx. 2)</span>
+      <span class="pill"><strong>Extensión:</strong> 1.800–2.500 palabras</span>
+      <span class="pill"><strong>Valoración:</strong> 20,00 pts</span>
+      <span class="pill"><strong>Formato:</strong> PDF · APA 7.ª ed.</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-nav" id="tabNav">
+  <div class="wrap">
+    <a href="#presentacion" class="active"><span class="num">1</span>Presentación</a>
+    <a href="#parametros"><span class="num">2</span>Parámetros de Entrega</a>
+    <a href="#estructura"><span class="num">3</span>Estructura del Ensayo</a>
+    <a href="#evaluacion"><span class="num">4</span>Criterios de Evaluación</a>
+    <a href="#rubrica"><span class="num">5</span>Rúbrica Analítica</a>
+    <a href="#integridad"><span class="num">6</span>Validación de Integridad</a>
+  </div>
+</nav>
+
+<main>
+
+<section id="presentacion" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">I</div>
+    <div class="title-block">
+      <h2>Presentación de la Tarea</h2>
+      <div class="subtitle">Mensaje del Docente · Contextualización académica</div>
+    </div>
+  </div>
+
+  <div class="callout callout-docent">
+    <span class="docent-label">📧 Comunicado del Docente a los Estudiantes</span>
+    <p style="margin:0">Estimados/as estudiantes:</p>
+    <p>En el ejercicio profesional y la gestión operativa contemporánea, la viabilidad técnica y financiera es nula si los procesos carecen de un marco ético riguroso y de un deber de diligencia efectivo frente a la sociedad. La <strong>Responsabilidad Social Corporativa (RSC)</strong> y la relación con los grupos de interés (partes interesadas) no constituyen estrategias accesorias de relaciones públicas; representan controles estructurales de gobernanza y mitigación de riesgos críticos.</p>
+    <p>A través de esta actividad, contrastaremos los fundamentos teóricos de la <strong>Unidad Temática #2: RSC, Ética y Relación con los Grupos de Interés</strong> con la realidad empírica descrita en el libro de investigación corporativa:</p>
+    <p style="font-style:normal;text-align:center;margin:14px 0">
+      <strong>Carreyrou, J. (2018).</strong> <em>Bad blood: Secrets and lies in a Silicon Valley startup.</em> Alfred A. Knopf.<br>
+      <span style="font-size:0.88rem;color:var(--c-text-muted)">(Disponible en español como: <em>Mala sangre: Secretos y mentiras en una startup de Silicon Valley</em>)</span>
+    </p>
+    <p>Su objetivo consiste en realizar una <strong>autopsia analítica al caso Theranos</strong>, examinando de qué manera la desintegración de los códigos de conducta, la subordinación de la salud pública al beneficio económico y la opacidad comunicativa condujeron al colapso total de la organización.</p>
+  </div>
+
+  <div class="card card-info">
+    <div class="card-header">
+      <div class="icon">🎯</div>
+      <h4>Propósito Pedagógico de la Actividad</h4>
+    </div>
+    <p style="margin:0">El ensayo exige al estudiante aplicar el marco teórico de la Unidad #2 (cultura ética, stakeholders, derechos humanos y transparencia) a un caso real de fracaso corporativo. No se trata de resumir el libro, sino de <strong>realizar una autopsia analítica</strong> que articule conceptos teóricos con pasajes concretos del texto, emitiendo juicio crítico fundamentado sobre cómo la ausencia de ética y diligencia destruye la viabilidad operativa.</p>
+  </div>
+</section>
+
+<section id="parametros" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">II</div>
+    <div class="title-block">
+      <h2>Parámetros Generales y Especificaciones de Entrega</h2>
+      <div class="subtitle">Condiciones formales obligatorias · No negociables</div>
+    </div>
+  </div>
+
+  <div class="params-grid">
+    <div class="param-card">
+      <div class="label">Modalidad</div>
+      <div class="value">Individual o en parejas</div>
+      <div class="detail">Máximo 2 integrantes por entrega</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Extensión</div>
+      <div class="value">1.800 – 2.500 palabras</div>
+      <div class="detail">Sin incluir portada, resumen ni referencias</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Formato</div>
+      <div class="value">PDF</div>
+      <div class="detail">Generado a partir de procesador de texto</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Tipografía</div>
+      <div class="value">Times New Roman o Arial · 12 pt</div>
+      <div class="detail">Aplicado a cuerpo del texto</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Interlineado</div>
+      <div class="value">1,5 líneas</div>
+      <div class="detail">En todo el cuerpo del ensayo</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Márgenes</div>
+      <div class="value">2,54 cm en todos los bordes</div>
+      <div class="detail">Estándar académico</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Paginación</div>
+      <div class="value">Esquina sup. o inf. derecha</div>
+      <div class="detail">Numeración visible en cada página</div>
+    </div>
+    <div class="param-card">
+      <div class="label">Citación</div>
+      <div class="value">Normas APA · 7.ª edición</div>
+      <div class="detail">En cuerpo del texto y listado bibliográfico</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <strong>⚠ Atención:</strong> El incumplimiento de cualquiera de los parámetros formales (extensión, formato, tipografía, márgenes, citación) <strong>penalizará directamente la dimensión de "Normalización Formal y Citación APA"</strong> dentro de la rúbrica (3,0 pts sobre 20). La entrega fuera del formato PDF no será aceptada.
+  </div>
+</section>
+
+<section id="estructura" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">III</div>
+    <div class="title-block">
+      <h2>Estructura Obligatoria del Ensayo</h2>
+      <div class="subtitle">Jerarquía formal I–V · Distribución porcentual de la extensión</div>
+    </div>
+  </div>
+
+  <p>El manuscrito debe articularse bajo la siguiente jerarquía formal. Las proporciones indicadas son orientativas pero deben respetarse en términos generales para garantizar el equilibrio argumentativo.</p>
+
+  <div class="hierarchy">
+  <ol>
+    <li>
+      <h4 style="margin:0 0 6px 0">Preliminares</h4>
+      <ul class="level-2">
+        <li><strong>Portada:</strong> Institución, asignatura, título formal del ensayo, nombres completos de los autores, fecha de entrega.</li>
+        <li><strong>Resumen / Abstract:</strong> Síntesis técnica de <em>máximo 150 palabras</em> que condense la tesis, la metodología analítica empleada y las conclusiones principales. Incluir de <strong>3 a 5 palabras clave</strong>.</li>
+      </ul>
+    </li>
+    <li>
+      <h4 style="margin:0 0 6px 0">Introducción <span class="axis-ref">≈ 15% de la extensión</span></h4>
+      <ul class="level-2">
+        <li>Planteamiento del problema contextualizando el auge y la caída de la empresa en estudio.</li>
+        <li>Declaración explícita de la <strong>tesis central</strong>: postura crítica del autor/es sobre cómo la carencia de ética y debida diligencia destruye la viabilidad técnica y operativa.</li>
+        <li>Justificación del análisis y delimitación de los alcances del ensayo.</li>
+      </ul>
+    </li>
+    <li>
+      <h4 style="margin:0 0 6px 0">Cuerpo Argumentativo y Desarrollo Crítico <span class="axis-ref">≈ 70% de la extensión</span></h4>
+      <p style="margin:6px 0 10px 0">El desarrollo debe desglosarse en <strong>cuatro ejes analíticos</strong> que aborden directamente los resultados de aprendizaje de la unidad:</p>
+
+      <div class="axis-card">
+        <span class="axis-tag">EJE 1</span>
+        <h4>Ética y Cultura Organizacional <span class="axis-ref">Subtema 2.1</span></h4>
+        <ul class="level-2">
+          <li>Diferenciación conceptual y práctica entre <strong>valores proclamados</strong>, <strong>principios éticos</strong> y <strong>códigos de conducta</strong> en la organización estudiada.</li>
+          <li>Análisis del clima interno: cómo el liderazgo manipulativo instauró una <strong>cultura de silenciamiento, represalias internas y desprecio por los estándares de calidad</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="axis-card">
+        <span class="axis-tag">EJE 2</span>
+        <h4>Teoría de Stakeholders y Jerarquización de Intereses <span class="axis-ref">Subtema 2.2</span></h4>
+        <ul class="level-2">
+          <li>Mapeo de grupos de interés afectados: <strong>clientes/pacientes, empleados, inversionistas, reguladores y comunidad médica</strong>.</li>
+          <li>Evaluación de las decisiones directivas frente al dilema de maximizar el interés de los accionistas a expensas de la integridad de los grupos más vulnerables.</li>
+        </ul>
+      </div>
+
+      <div class="axis-card">
+        <span class="axis-tag">EJE 3</span>
+        <h4>Derechos Humanos y Deber de Diligencia Empresarial <span class="axis-ref">Subtema 2.3</span></h4>
+        <ul class="level-2">
+          <li>Identificación de los derechos humanos vulnerados (especialmente el <strong>derecho a la salud</strong> y a la <strong>información veraz</strong>).</li>
+          <li>Examen de la omisión culpable del deber de diligencia: <strong>encubrimiento de fallas en pruebas clínicas</strong> y <strong>elusión de auditorías externas</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="axis-card">
+        <span class="axis-tag">EJE 4</span>
+        <h4>Transparencia, Rendición de Cuentas y Gestión Reputacional <span class="axis-ref">Subtema 2.4</span></h4>
+        <ul class="level-2">
+          <li>Contraste entre la <strong>transparencia operativa</strong> (<em>accountability</em>) y la <strong>instrumentalización de la narrativa mediática</strong> (<em>hype</em> / <em>social washing</em>).</li>
+          <li>Análisis del impacto destructivo en la <strong>imagen y reputación corporativa</strong> tras la exposición pública de la verdad.</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <h4 style="margin:0 0 6px 0">Conclusiones <span class="axis-ref">≈ 15% de la extensión</span></h4>
+      <ul class="level-2">
+        <li>Síntesis de los hallazgos críticos <strong>sin introducir conceptos nuevos</strong>.</li>
+        <li>Validación o refutación de la tesis central planteada en la introducción.</li>
+        <li><strong>Lecciones aplicadas</strong> para el ejercicio profesional en ingeniería/gestión: la <strong>integridad operativa como control de calidad ineludible</strong>.</li>
+      </ul>
+    </li>
+    <li>
+      <h4 style="margin:0 0 6px 0">Referencias Bibliográficas</h4>
+      <ul class="level-2">
+        <li>Listado ordenado <strong>alfabéticamente</strong> bajo formato <strong>APA 7.ª ed.</strong></li>
+        <li>Incluir: la obra de análisis (<em>Bad Blood</em>), fuentes bibliográficas de la unidad y normativas de derechos humanos/RSC consultadas.</li>
+      </ul>
+    </li>
+  </ol>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>📌 Distribución recomendada de la extensión:</strong> Para un ensayo de 2.000 palabras (punto medio), considerar ~300 palabras para Introducción, ~1.400 para el Cuerpo Argumentativo (350 por eje) y ~300 para Conclusiones. Las Preliminares y Referencias no cuentan para el cómputo total.
+  </div>
+</section>
+
+<section id="evaluacion" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">IV</div>
+    <div class="title-block">
+      <h2>Criterios de Evaluación y Calificación</h2>
+      <div class="subtitle">Escala vigesimal (20,00 puntos) · Cinco dimensiones técnicas</div>
+    </div>
+  </div>
+
+  <p>La evaluación se realizará sobre una <strong>escala vigesimal (20,00 puntos)</strong> mediante una rúbrica analítica estructurada en cinco dimensiones técnicas. Cada dimensión pondera de forma diferenciada sobre el puntaje total, conforme a la siguiente distribución:</p>
+
+  <div class="score-summary">
+    <div class="score-item">
+      <div class="score-label">Dimensión 1</div>
+      <div class="score-value">5,0</div>
+      <div class="score-detail">Rigor Conceptual · 25%</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Dimensión 2</div>
+      <div class="score-value">5,0</div>
+      <div class="score-detail">Argumentación Crítica · 25%</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Dimensión 3</div>
+      <div class="score-value">4,0</div>
+      <div class="score-detail">Estructura Lógica · 20%</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Dimensión 4</div>
+      <div class="score-value">3,0</div>
+      <div class="score-detail">Gobernanza y Diligencia · 15%</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Dimensión 5</div>
+      <div class="score-value">3,0</div>
+      <div class="score-detail">Normalización APA · 15%</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Dimensión Técnica</th>
+          <th>Eje Evaluado</th>
+          <th>Ponderación</th>
+          <th>Puntaje Máx.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Rigor Conceptual y Dominio Temático</strong></td>
+          <td>Unidad 2 · Subtemas 2.1 a 2.4</td>
+          <td>25%</td>
+          <td><strong>5,0 pts</strong></td>
+        </tr>
+        <tr>
+          <td><strong>2. Profundidad de la Argumentación Crítica y Aplicación</strong></td>
+          <td>Tesis, evidencia del texto, juicio crítico</td>
+          <td>25%</td>
+          <td><strong>5,0 pts</strong></td>
+        </tr>
+        <tr>
+          <td><strong>3. Estructura Lógica y Articulación del Ensayo</strong></td>
+          <td>Jerarquía I–V, transiciones, léxico</td>
+          <td>20%</td>
+          <td><strong>4,0 pts</strong></td>
+        </tr>
+        <tr>
+          <td><strong>4. Enfoque en Gobernanza, Diligencia y Operaciones</strong></td>
+          <td>Control de calidad, auditorías, riesgos</td>
+          <td>15%</td>
+          <td><strong>3,0 pts</strong></td>
+        </tr>
+        <tr>
+          <td><strong>5. Normalización Formal y Citación APA (7.ª ed.)</strong></td>
+          <td>Formato, citas, referencias, plagio</td>
+          <td>15%</td>
+          <td><strong>3,0 pts</strong></td>
+        </tr>
+        <tr style="background:var(--c-primary);color:#fff">
+          <td colspan="3" style="text-align:right;color:#fff"><strong>TOTAL</strong></td>
+          <td style="color:#ffd970"><strong>20,00 pts</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="rubrica" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">V</div>
+    <div class="title-block">
+      <h2>Rúbrica Analítica de Evaluación</h2>
+      <div class="subtitle">Cuatro niveles de desempeño por criterio · Aplicación rigurosa</div>
+    </div>
+  </div>
+
+  <p>Para cada criterio, el evaluador asigna el nivel de desempeño observado. El puntaje final se obtiene multiplicando el porcentaje del nivel por el puntaje máximo del criterio y sumando los aportes de las cinco dimensiones.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Nivel Excelente<br><small>(100% – 90%)</small></th>
+          <th>Nivel Bueno<br><small>(89% – 75%)</small></th>
+          <th>Nivel Regular<br><small>(74% – 60%)</small></th>
+          <th>Nivel Insuficiente<br><small>(&lt; 60%)</small></th>
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Dominio Temático</strong><br><small style="color:var(--c-text-muted)">Subtemas 2.1 a 2.4</small></td>
+          <td>Integra con solvencia y precisión los <strong>cuatro ejes</strong> de la unidad temática (cultura ética, partes interesadas, derechos humanos y transparencia).</td>
+          <td>Aborda los cuatro subtemas pero presenta <em>ligeras imprecisiones teóricas</em> o desarrollo desigual entre ellos.</td>
+          <td>Omite uno o dos de los subtemas requeridos o los describe superficialmente sin articulación teórica.</td>
+          <td>No evidencia apropiación de los marcos teóricos de la unidad curricular.</td>
+          <td><strong>5,0</strong></td>
+        </tr>
+        <tr>
+          <td><strong>2. Argumentación Crítica y Evidencia Aplicada</strong></td>
+          <td>Articula una tesis sólida fundamentada con <strong>casos, datos y pasajes concretos</strong> del texto narrativo de referencia (<em>Bad Blood</em>).</td>
+          <td>Desarrolla una postura crítica clara, aunque con <em>tendencia descriptiva</em> en ciertos pasajes sin profundizar en la causa raíz.</td>
+          <td>Predomina el resumen del libro sobre el juicio crítico; desconexión entre la evidencia y las afirmaciones del estudiante.</td>
+          <td>Resumen puramente narrativo sin contraste reflexivo ni sustentación argumental.</td>
+          <td><strong>5,0</strong></td>
+        </tr>
+        <tr>
+          <td><strong>3. Coherencia Estructural y Redacción</strong></td>
+          <td>Cumple estrictamente la jerarquía requerida (I–V). Transiciones lógicas impecables, léxico académico avanzado y síntesis precisa.</td>
+          <td>Estructura comprensible y ordenada; <em>pequeñas deficiencias</em> en conectores discursivos o fluidez entre párrafos.</td>
+          <td>Estructura fragmentada o incompleta (faltan secciones); problemas reiterados de coherencia o sintaxis.</td>
+          <td>Desorganización estructural severa; redacción deficiente que impide la comprensión del texto.</td>
+          <td><strong>4,0</strong></td>
+        </tr>
+        <tr>
+          <td><strong>4. Gobernanza y Deber de Diligencia</strong></td>
+          <td>Evalúa con rigor técnico cómo las fallas en el <strong>control de calidad, auditorías y debida diligencia</strong> impactan la estabilidad sistémica.</td>
+          <td>Analiza el impacto operativo y ético, pero con un enfoque <em>más legalista que orientado a procesos y gobernanza</em>.</td>
+          <td>Mención marginal de los conceptos de debida diligencia y control de riesgos operativos.</td>
+          <td>Omite el análisis de los procesos de control, calidad, auditoría y gobernanza corporativa.</td>
+          <td><strong>3,0</strong></td>
+        </tr>
+        <tr>
+          <td><strong>5. Normas APA y Calidad Formal</strong></td>
+          <td>Citas directas e indirectas correctamente formuladas bajo <strong>APA 7.ª edición</strong>. Cero indicios de plagio. Parámetros de formato cumplidos al 100%.</td>
+          <td>Errores menores de puntuación o sangría en la lista de referencias; <em>citación en texto adecuada en su mayoría</em>.</td>
+          <td>Fallas recurrentes en el estilo de citación; omisión de páginas en citas directas o fuentes incompletas.</td>
+          <td>Incumplimiento sistemático de APA; ausencia de referencias obligatorias o <strong>plagio no atribuido</strong>.</td>
+          <td><strong>3,0</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>📊 Interpretación de niveles:</strong>
+    <span class="tag tag-excellent">Excelente: 90–100% del puntaje del criterio</span>
+    <span class="tag tag-good">Bueno: 75–89%</span>
+    <span class="tag tag-regular">Regular: 60–74%</span>
+    <span class="tag tag-insufficient">Insuficiente: &lt; 60%</span>
+    <br>
+    <small>Ejemplo: Si en el Criterio 1 (5,0 pts) el estudiante alcanza nivel "Bueno" (80%), obtiene 5,0 × 0,80 = <strong>4,0 pts</strong>.</small>
+  </div>
+</section>
+
+<section id="integridad" class="section-anchor">
+  <div class="section-header">
+    <div class="roman">VI</div>
+    <div class="title-block">
+      <h2>Validación de Integridad Académica</h2>
+      <div class="subtitle">Controles de trazabilidad y correlación con resultados de aprendizaje</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">🔍</div>
+      <h4>Conformidad de Trazabilidad</h4>
+    </div>
+    <p>Los entregables deben someterse a <strong>análisis de similitud académica</strong>. Cualquier índice de coincidencia <strong>no citada superior al 10%</strong> invalidará la sección evaluada.</p>
+    <p style="margin:0">Esto implica que:</p>
+    <ul>
+      <li>Toda frase, dato o idea tomada de una fuente externa (libro, artículo, web) <strong>debe ir citada</strong> en APA 7.ª ed.</li>
+      <li>El sistema anti-plagio detectará coincidencias textuales contra repositorios académicos y la web.</li>
+      <li>La <strong>paráfrasis sin cita</strong> también se considera plagio académico.</li>
+      <li>Las citas largas (más de 40 palabras) deben bloquearse con sangría y sin comillas.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">🔗</div>
+      <h4>Control de Procesos</h4>
+    </div>
+    <p>La argumentación debe reflejar una <strong>correlación biunívoca</strong> entre los hechos del caso analizado (Theranos / <em>Bad Blood</em>) y los <strong>resultados de aprendizaje</strong> definidos en la matriz de la Unidad Temática #2.</p>
+    <p>Esto significa que cada afirmación crítica debe estar anclada en:</p>
+    <ul>
+      <li><strong>Un pasaje o evidencia concreta del libro</strong> (con cita de página cuando sea directa).</li>
+      <li><strong>Un concepto teórico de la Unidad #2</strong> (cultura ética, stakeholders, derechos humanos, transparencia).</li>
+      <li>Una <strong>inferencia analítica</strong> que conecte ambos elementos y produzca juicio crítico.</li>
+    </ul>
+    <p style="margin:0">El estudiante que se limite a narrar hechos del libro sin conectarlos con el marco teórico de la unidad <strong>no aprobará</strong> los Criterios 1 y 2 de la rúbrica (10,0 pts sobre 20).</p>
+  </div>
+
+  <div class="callout callout-warn">
+    <strong>🚫 Sanciones académicas:</strong> La detección de plagio deliberado, fabricación de citas o entrega de trabajos idénticos entre parejas distintas conduce a la <strong>anulación total de la actividad (0,00/20,00)</strong> y activación del proceso disciplinario previsto en el reglamento interno de la universidad.
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p><strong>Universidad Estatal Península de Santa Elena (UPSE)</strong> · Facultad de Ciencias de la Ingeniería</p>
+  <p>Unidad Temática #2: RSC, Ética y Relación con los Grupos de Interés</p>
+  <p class="citation">Carreyrou, J. (2018). <em>Bad blood: Secrets and lies in a Silicon Valley startup</em>. Alfred A. Knopf.</p>
+  <p style="margin-top:10px;font-size:0.72rem;opacity:0.7">Guía de actividad académica · Documento oficial de cátedra · Vigencia: ciclo lectivo en curso</p>
+</footer>
+
+<script>
+const navLinks = document.querySelectorAll('.tab-nav a');
+const sections = document.querySelectorAll('section.section-anchor');
+
+function highlightActive() {
+  let current = 'presentacion';
+  const scrollPos = window.scrollY + 120;
+  sections.forEach(s => {
+    if (s.offsetTop <= scrollPos) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', highlightActive, {passive:true});
+window.addEventListener('load', highlightActive);
+
+navLinks.forEach(a => {
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    const targetId = this.getAttribute('href').replace('#','');
+    const target = document.getElementById(targetId);
+    if (target) {
+      const offset = 80;
+      const top = target.offsetTop - offset;
+      window.scrollTo({top, behavior:'smooth'});
+      history.replaceState(null, null, '#' + targetId);
+    }
+  });
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (location.hash) {
+    const target = document.getElementById(location.hash.replace('#',''));
+    if (target) {
+      setTimeout(()=> window.scrollTo({top: target.offsetTop - 80, behavior:'auto'}), 100);
+    }
+  }
+  highlightActive();
+});
+</script>
+</body>
+</html>
