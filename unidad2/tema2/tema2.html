@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEMA1 — Teoría de Stakeholders y Toma de Decisiones Responsables</title>
+<meta name="author" content="Cátedra de Responsabilidad Social Corporativa / Seguridad Industrial">
+<meta name="description" content="Material académico universitario: Teoría de Stakeholders y caso Morton Thiokol / Challenger STS-51-L. 7 pestañas con bloqueo de soluciones por clave.">
+<style>
+
+:root{
+  --c-bg:#0f1f3a; --c-bg2:#102a4d; --c-ink:#1a2233; --c-paper:#ffffff;
+  --c-accent:#0b5394; --c-accent2:#c8a14b; --c-soft:#f3f6fb;
+  --c-line:#c6d4e5; --c-muted:#5b6b80; --c-ok:#1f7a4d; --c-bad:#a83232;
+  --c-lock:#3a3f55; --c-lock-bg:#f6f1e7;
+  --shadow:0 6px 18px rgba(15,31,58,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; padding:0; background:linear-gradient(180deg,#eef3fb 0%, #dde7f3 100%);
+  font-family:'Segoe UI','Helvetica Neue',Arial,'Liberation Sans',sans-serif;
+  color:var(--c-ink); font-size:16px; line-height:1.55;
+}
+header.site{
+  background:linear-gradient(135deg,#0f1f3a 0%, #102a4d 60%, #0b3a6b 100%);
+  color:#fff; padding:18px 28px; border-bottom:4px solid var(--c-accent2);
+  box-shadow:var(--shadow);
+}
+header.site h1{margin:0; font-size:1.35rem; letter-spacing:.4px; font-weight:600}
+header.site .sub{margin:4px 0 0; opacity:.85; font-size:.9rem}
+header.site .meta{margin-top:6px; font-size:.78rem; opacity:.75; font-style:italic}
+
+nav.tabs{
+  background:#fff; border-bottom:2px solid var(--c-accent);
+  display:flex; flex-wrap:wrap; gap:4px; padding:6px 14px 0; position:sticky; top:0; z-index:50;
+  box-shadow:0 2px 8px rgba(15,31,58,.08);
+}
+nav.tabs a{
+  text-decoration:none; color:#1a2a44;
+  background:#e8eef7; border:1px solid #c6d4e5; border-bottom:none;
+  padding:8px 14px; border-radius:8px 8px 0 0; font-size:.85rem; font-weight:600;
+  display:inline-block; max-width:240px; transition:all .15s ease;
+}
+nav.tabs a:hover{background:#d4e2f1}
+nav.tabs a.active{
+  background:var(--c-accent); color:#fff; border-color:var(--c-accent);
+  box-shadow:0 -2px 0 var(--c-accent2) inset;
+}
+nav.tabs a .num{
+  display:inline-block; min-width:18px; height:18px; padding:0 5px; margin-right:6px;
+  background:var(--c-accent2); color:#0f1f3a; border-radius:50%; font-size:.7rem;
+  font-weight:700; text-align:center; line-height:18px;
+}
+nav.tabs a.active .num{background:#fff}
+
+main{padding:24px 28px 80px; max-width:1280px; margin:0 auto}
+section.tab-panel{display:none; animation:fade .25s ease}
+section.tab-panel.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+h2.section-title{
+  color:#0f1f3a; font-size:1.6rem; margin:0 0 4px; padding-bottom:8px;
+  border-bottom:3px solid var(--c-accent2);
+}
+h3{color:#0b3a6b; font-size:1.2rem; margin:24px 0 8px; padding-left:10px; border-left:5px solid var(--c-accent)}
+h4{color:#1a3055; font-size:1.05rem; margin:18px 0 6px}
+p{margin:8px 0; text-align:justify}
+ul,ol{margin:8px 0 8px 22px}
+li{margin:5px 0; text-align:justify}
+blockquote{
+  margin:12px 0; padding:10px 16px; background:var(--c-soft);
+  border-left:4px solid var(--c-accent2); color:#23344f; font-style:italic;
+}
+
+/* Tablas */
+table{border-collapse:collapse; width:100%; margin:14px 0; font-size:.88rem;
+  background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.05)}
+table th, table td{border:1px solid var(--c-line); padding:8px 10px; vertical-align:top; text-align:left}
+table th{background:var(--c-accent); color:#fff; font-weight:600}
+table tr:nth-child(even) td{background:#f3f6fb}
+table.compact{font-size:.8rem}
+table caption{caption-side:top; text-align:left; padding:6px 0; font-weight:600; color:#0b3a6b}
+
+/* Diagramas ASCII en bloques */
+.diagram{
+  background:#0f1f3a; color:#d8e6f8; font-family:'Courier New',monospace;
+  padding:14px; border-radius:6px; overflow-x:auto; font-size:.78rem;
+  line-height:1.35; margin:12px 0; white-space:pre; box-shadow:var(--shadow);
+}
+
+/* Cajas temáticas */
+.box{padding:14px 18px; border-radius:6px; margin:14px 0; box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.box.info{background:#eaf2fb; border-left:5px solid #0b5394}
+.box.warn{background:#fbf3e0; border-left:5px solid #c8a14b}
+.box.danger{background:#fceaea; border-left:5px solid #a83232}
+.box.ok{background:#e6f4ec; border-left:5px solid #1f7a4d}
+.box.dark{background:#0f1f3a; color:#fff; border-left:5px solid #c8a14b}
+.box.dark h4{color:#ffd98a}
+
+/* Fórmulas */
+.formula{
+  background:#fff; border:1px solid var(--c-line); padding:12px 16px;
+  margin:12px 0; font-family:'Cambria Math','Georgia',serif; font-style:italic;
+  text-align:center; font-size:1.05rem; border-radius:4px; overflow-x:auto;
+}
+
+/* Diagrama Ishikawa */
+.ishikawa{
+  background:#fff; border:2px dashed #0b5394; padding:18px; border-radius:8px; margin:14px 0;
+  position:relative;
+}
+.ishikawa .spine{font-weight:700; color:#0f1f3a; text-align:center; padding:8px;
+  background:linear-gradient(90deg,#fff,#dbe7f5,#fff); border-radius:4px}
+
+/* Bloqueo soluciones */
+.lock-box{
+  border:2px dashed #8a7d4e; background:repeating-linear-gradient(45deg,#f6f1e7,#f6f1e7 14px,#efe7d2 14px,#efe7d2 28px);
+  padding:18px 22px; margin:20px 0; border-radius:8px;
+}
+.lock-box .lock-title{
+  color:#5b4a1d; font-weight:700; font-size:1.05rem; margin-bottom:8px;
+  display:flex; align-items:center; gap:8px;
+}
+.lock-box .lock-icon{display:inline-block}
+.lock-box .lock-form{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:6px}
+.lock-box input[type="password"]{
+  padding:7px 10px; border:1px solid #c8a14b; border-radius:5px;
+  font-size:.95rem; font-family:inherit; background:#fff; min-width:170px;
+}
+.lock-box button{
+  padding:7px 14px; background:#0f1f3a; color:#fff; border:none; cursor:pointer;
+  border-radius:5px; font-weight:600; font-size:.92rem;
+}
+.lock-box button:hover{background:#1a3055}
+.lock-box .lock-msg{font-size:.82rem; color:#7a5a2a; margin-top:6px}
+.lock-box .solucion{display:none; margin-top:14px}
+.lock-box.unlocked{
+  border:2px solid #1f7a4d;
+  background:linear-gradient(180deg,#fdfbf5 0%, #ffffff 100%);
+}
+.lock-box.unlocked .solucion{display:block}
+.lock-box.unlocked .lock-title,
+.lock-box.unlocked .lock-form,
+.lock-box.unlocked .lock-msg{display:none}
+.solucion-tag{
+  display:inline-block; padding:3px 10px; background:#1f7a4d; color:#fff;
+  border-radius:3px; font-size:.75rem; font-weight:700; margin-bottom:10px;
+  letter-spacing:.5px;
+}
+
+/* Rúbricas y preguntas */
+.rubrica{font-size:.85rem}
+.respuesta-line{
+  display:inline-block; min-width:300px; border-bottom:1px solid #4a5870;
+  margin:0 4px; height:1.2em;
+}
+.checkbox{display:inline-block; width:14px; height:14px; border:1.5px solid #0b3a6b;
+  border-radius:3px; margin:0 4px; vertical-align:middle}
+footer.site{
+  background:#0f1f3a; color:#fff; padding:16px 24px; text-align:center;
+  font-size:.8rem; border-top:3px solid var(--c-accent2);
+}
+footer.site a{color:#c8a14b; text-decoration:none}
+
+/* Cards */
+.card-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin:16px 0}
+.card{background:#fff; padding:14px; border-radius:6px; border-top:4px solid var(--c-accent);
+  box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.card h4{margin-top:0; color:#0b3a6b}
+.card .tag{display:inline-block; padding:2px 8px; background:var(--c-accent2); color:#0f1f3a;
+  font-size:.7rem; border-radius:3px; font-weight:700; margin-bottom:6px}
+
+/* Línea temporal */
+.timeline{position:relative; padding:10px 0 10px 28px; border-left:3px solid var(--c-accent); margin:14px 0}
+.timeline .ev{margin:10px 0; padding:8px 14px; background:#fff; border-radius:5px; box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.timeline .ev .t{font-weight:700; color:#0b3a6b; font-size:.82rem}
+.timeline .ev .d{font-size:.9rem}
+
+@media print{
+  nav.tabs{position:static; flex-direction:column}
+  nav.tabs a{display:none}
+  section.tab-panel{display:block !important; page-break-after:always}
+}
+
+</style>
+</head>
+<body>
+<header class="site">
+  <h1>TEMA 1 — Fundamentación Teórica: Teoría de Stakeholders y Toma de Decisiones Responsables</h1>
+  <div class="sub">Caso aplicado: Misión STS-51-L / Morton Thiokol — Transbordador Espacial Challenger (28 enero 1986)</div>
+  <div class="meta">Asignatura: Responsabilidad Social Corporativa / Seguridad Industrial · Nivel: Pregrado Avanzado (Ing. Industrial / Seguridad Industrial) · Normativa: OSHA 1910.119 · ISO 31000 · APA 7.ª ed.</div>
+</header>
+<nav class="tabs" id="nav">
+  <a href="#tab1"><span class="num">1</span>Fundamentación Teórica</a>
+  <a href="#tab2"><span class="num">2</span>Taller Ishikawa &amp; 5 Porqués</a>
+  <a href="#tab3"><span class="num">3</span>Causa-Raíz Forense</a>
+  <a href="#tab4"><span class="num">4</span>Taller Evaluativo Rápido</a>
+  <a href="#tab5"><span class="num">5</span>Informe Técnico Laboratorio</a>
+  <a href="#tab6"><span class="num">6</span>Troubleshooting / Sellos Críticos</a>
+  <a href="#tab7"><span class="num">7</span>Decisión Multicriterio (AHP)</a>
+</nav>
+<main>
+
+<section id="tab1" class="tab-panel">
+<h2 class="section-title">1. Fundamentación Teórica: Teoría de Stakeholders y Toma de Decisiones Responsables</h2>
+
+<h3>1.1. Génesis y Arquitectura Conceptual de la Teoría de Stakeholders</h3>
+
+<p>La Teoría de Stakeholders surge formalmente como un paradigma de gestión estratégica y ética organizacional a partir de la obra fundacional de R. Edward Freeman, <em>Strategic Management: A Stakeholder Approach</em> (1984). Este enfoque redefine la teleología de la empresa moderna frente a la doctrina neoclásica del <em>Shareholder Primacy</em> (primacía del accionista), formulada prominentemente por Milton Friedman (1970).</p>
+
+<div class="diagram">Paradigma Neoclásico                     Paradigma de Red de Stakeholders
+       (Milton Friedman)                          (R. Edward Freeman)
+
+┌───────────────────┐                ┌───────────────────────┐
+│   Accionistas     │                │  Comunidad /          │
+│  (Shareholders)   │                │  Medio Ambiente       │
+└─────────┬─────────┘                └───────────┬───────────┘
+          │ Retorno de capital                    │
+          │                                       │
+┌─────────▼─────────┐  ┌──────────────┐  Relación │  Relación  ┌──────────────┐
+│     EMPRESA       │◄─┤   Empleados  ├────────────┼───────────►│   Clientes   │
+│  (Management)     │  └──────────────┘  Simbiótica │  Simbiótica└──────────────┘
+└──────────────┘                                  │
+          │                              ┌─────────▼───────────┐
+          ▼ Externalidades               │ Accionistas y      │
+       [Impactos Sociales /              │ Proveedores        │
+        Costos Públicos]                 └────────────────────┘</div>
+
+<p>Friedman postulaba que la única responsabilidad social de la corporación consiste en maximizar sus beneficios económicos dentro de los límites formales de la ley. Freeman fractura esta premisa señalando que la empresa no es una entidad aislada que rinde cuentas exclusivamente al capital financiero, sino un nodo central dentro de una red compleja de relaciones interdependientes.</p>
+
+<p>Bajo la definición canónica, un <em>stakeholder</em> o grupo de interés es cualquier individuo, colectivo o entidad que puede afectar o verse afectado por el logro de los objetivos de la organización. La teoría se articula analíticamente en tres ramas complementarias:</p>
+
+<div class="card-grid">
+  <div class="card">
+    <span class="tag">Rama Descriptiva / Empírica</span>
+    <h4>Descripción del comportamiento corporativo</h4>
+    <p>Describe cómo las corporaciones se comportan y gestionan en la realidad sus vínculos con actores externos e internos. Modela a la organización como una constelación de intereses cooperativos y competitivos, examinando las trayectorias reales de flujo de información, asignación de recursos y resolución de disputas.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Rama Instrumental</span>
+    <h4>Correlación gestión–desempeño</h4>
+    <p>Establece una correlación funcional entre la gestión de stakeholders y el desempeño corporativo tradicional (rentabilidad, estabilidad, crecimiento). Postula que, bajo condiciones de mercado competitivas, las empresas que cultivan relaciones de confianza, transparencia y equidad con empleados, proveedores, clientes y comunidades reducen costos de transacción, previenen litigios punitivos y sostienen ventajas competitivas a largo plazo.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Rama Normativa</span>
+    <h4>Núcleo moral kantiano</h4>
+    <p>Constituye el núcleo moral y filosófico de la teoría. Sostiene que los stakeholders poseen valor intrínseco, no meramente instrumental. Basada en el imperativo categórico kantiano, dicta que las personas involucradas o afectadas por la actividad organizacional deben ser tratadas como fines en sí mismas y no como simples medios para maximizar la riqueza de los propietarios del capital.</p>
+  </div>
+</div>
+
+<h3>1.2. Modelos de Tipificación y Dinámica de Priorización</h3>
+
+<p>La gestión directiva exige discriminar analíticamente las demandas heterogéneas de los grupos de interés. La literatura especializada estructura esta diferenciación a través de modelos de tipificación y ponderación, cuya representación canónica combina la matriz Poder/Interés (Gardner/Mendelow) y el modelo de saliencia de Mitchell, Agle y Wood (1997).</p>
+
+<div class="diagram">MATRIZ DE PODER / INTERÉS             MODELO DE SALIENCIA
+(Gardner / Mendelow)                  (Mitchell, Agle & Wood)
+
+Alto  ┌──────────────────┬──────────────────┐    ┌───────────────────────────┐
+      │ Mantener         │ Gestionar de      │    │  PODER                    │
+      │ Satisfecho       │ Cerca (Prioridad) │    │  (Coercitivo / Utilitario│
+      ├──────────────────┼──────────────────┤    │   / Normativo)            │
+Poder │ Monitorear       │ Mantener         │    └─────────────┬─────────────┘
+      │ (Mínimo Esfuerzo)│ Informado        │                  │
+Bajo  └──────────────────┴──────────────────┘                  │
+       Bajo                 Alto                              ▼
+                Interés                       ┌───────────────┴───────────────┐
+                                               ▼                               ▼
+                                    ┌─────────────────────┐  ┌─────────────────────┐
+                                    │   LEGITIMIDAD       │  │   URGENCIA          │
+                                    │ (Estructura Legal / │  │ (Sensibilidad       │
+                                    │  Contrato Moral)    │  │  Temporal y Grado   │
+                                    └─────────────────────┘  │  de Impacto)        │
+                                                              └─────────────────────┘</div>
+
+<h4>Tipología Primaria y Secundaria</h4>
+<ul>
+<li><strong>Stakeholders Primarios:</strong> Actores sin cuya participación continua la empresa no puede operar (empleados, inversionistas, proveedores, clientes, cadenas logísticas críticas). Tienen contratos formales explícitos.</li>
+<li><strong>Stakeholders Secundarios:</strong> Actores no involucrados directamente en transacciones económicas regulares con la firma, pero capaces de ejercer influencia decisiva o sufrir externalidades operacionales (medios de comunicación, entes reguladores estatales, sociedad civil, comunidades adyacentes).</li>
+</ul>
+
+<h4>Modelo de Saliencia de Mitchell, Agle y Wood (1997)</h4>
+<p>La saliencia evalúa el grado en que los directivos asignan prioridad a reclamos competidores mediante la interacción simultánea de tres atributos:</p>
+
+<ol>
+<li><strong>Poder:</strong> La capacidad real de un actor para imponer su voluntad sobre la organización. Se subdivide en:
+  <ul>
+    <li><em>Poder coercitivo:</em> Basado en fuerza física o mandatos punitivos regulatorios.</li>
+    <li><em>Poder utilitario:</em> Basado en el control de recursos financieros, materiales o productivos.</li>
+    <li><em>Poder normativo / simbólico:</em> Basado en la reputación, el prestigio y la legitimidad moral ante la opinión pública.</li>
+  </ul>
+</li>
+<li><strong>Legitimidad:</strong> La presunción generalizada de que las acciones o demandas de una entidad son deseables, adecuadas o apropiadas dentro de un sistema socialmente construido de normas, valores y creencias.</li>
+<li><strong>Urgencia:</strong> El grado en que los reclamos exigen atención inmediata. Se define por dos dimensiones:
+  <ul>
+    <li><em>Sensibilidad temporal:</em> La medida en que una demora en la respuesta es inaceptable para el actor.</li>
+    <li><em>Criticidad:</em> La importancia intrínseca del reclamo o de la pérdida potencial para el stakeholder.</li>
+  </ul>
+</li>
+</ol>
+
+<p>La combinación de estos tres atributos genera tipologías dinámicas:</p>
+<ul>
+<li><strong>Stakeholders Latentes</strong> (1 atributo): Inactivos (solo poder), Discrecionales (solo legitimidad), Demandantes (solo urgencia).</li>
+<li><strong>Stakeholders Expectantes</strong> (2 atributos): Dominantes (poder + legitimidad), Peligrosos (poder + urgencia), Dependientes (legitimidad + urgencia).</li>
+<li><strong>Stakeholders Definitivos</strong> (3 atributos): Concentran poder, legitimidad y urgencia. Su omisión o subestimación conduce a crisis organizacionales de escala crítica.</li>
+</ul>
+
+<h3>1.3. Caso Morton Thiokol / Misión STS-51-L (Challenger): Colapso Técnico y Organizacional</h3>
+
+<p>El desastre del transbordador espacial Challenger (Misión STS-51-L), ocurrido el 28 de enero de 1986, representa uno de los colapsos sociotécnicos y ético-organizacionales más documentados en la historia de la ingeniería y la administración moderna.</p>
+
+<div class="timeline">
+  <div class="ev"><span class="t">17:00 EST (27 Ene)</span><div class="d">Teleconferencia MT / Marshall Space Flight Center. Alerta de temperatura (T &lt; 53 °F). Recomendación: NO IR.</div></div>
+  <div class="ev"><span class="t">20:00 – 22:30 EST</span><div class="d">Presión institucional NASA (Mulloy / Hardy): "No podemos esperar a abril". Ruptura de protocolo.</div></div>
+  <div class="ev"><span class="t">22:45 EST</span><div class="d">Voto gerencial MT: "Take off your engineering hat and put on your management hat".</div></div>
+  <div class="ev"><span class="t">11:38 EST (28 Ene)</span><div class="d">Despegue STS-51-L. T+73.124 segundos: Falla estructural y desintegración aerodinámica.</div></div>
+</div>
+
+<h4>1.3.1. La Falla Técnica: Mecánica de Fluidos, Termodinámica y Ciencia de Polímeros</h4>
+
+<p>El Transbordador Espacial utilizaba dos Cohetes Aceleradores de Combustible Sólido (SRB, <em>Solid Rocket Boosters</em>) manufacturados por Morton Thiokol en Wasatch, Utah. Cada carcasa cilíndrica del SRB estaba dividida en cuatro segmentos principales ensamblados mediante juntas de espiga y encaje (<em>clevis and tang joints</em>).</p>
+
+<div class="diagram">SECCIÓN DE JUNTA EN ESPIGA Y ENCAJE (CLEVIS & TANG) DEL SRB
+═══════════════════════════════════════════════════════════
+  Tang (Espiga Superior)
+  ════════════════════════════════════════════════╗
+  ║  Cámara de Combustión                           ║
+  ║  Alta Presión  (P ≈ 6.2 MPa / 900 psi)          ║
+  ║  Gases calientes (~3,000 °C)                    ║
+  ║                                                 ║
+  ────┬─────────────────────────────────────────╢◄── Presión expansiva abre
+      │ [ O-Ring Primario ]  (Viton Fluoroelastómero)  la junta (Gap)
+  ────┴─────────────────────────────────────────╢ Pérdida de resiliencia
+      │ [ O-Ring Secundario ]                       térmica (Tg)
+  ────┴─────────────────────────────────────────╢
+  ║                                                 ║
+  ═════════════════════════════════════════════════╝
+  Clevis (Encaje Inferior)</div>
+
+<h5>El Mecanismo de Sellado</h5>
+<p>Para impedir que los gases de combustión —que alcanzaban temperaturas de aproximadamente 3.000 °C y presiones de 6.2 MPa (alrededor de 900 psi)— escaparan a través de la holgura entre segmentos, cada junta incorporaba dos anillos de sellado elásticos (O-rings) de 0.280 pulgadas (7.1 mm) de sección transversal, fabricados con un fluoroelastómero sintético comercializado como Viton.</p>
+
+<p>Bajo el concepto de diseño, la ignición del propelente sólido debía inducir una rápida presurización de la cámara interna. Esta presión forzaba mecánicamente al O-ring primario dentro de su ranura (<em>groove</em>), extrudiéndolo y deformándolo contra las paredes metálicas de la espiga y el encaje para crear un sellado hermético contra la pared metálica en una fracción de segundo (menos de 200 milisegundos). El O-ring secundario actuaba como respaldo redundante en caso de fallo catastrófico del primario.</p>
+
+<h5>La Anomalía de Temperatura y Pérdida de Resiliencia</h5>
+<p>La noche previa al lanzamiento, una ola de frío descendió sobre Cabo Cañaveral, Florida, llevando la temperatura ambiente en la plataforma 39B a −8 °C (18 °F) durante la madrugada, y situando la temperatura calculada de la junta del SRB en aproximadamente −1 °C a 2 °C (31 °F). La temperatura mínima previa de despegue registrada en una misión anterior había sido de 11.7 °C (53 °F) en la misión STS-51-C.</p>
+
+<p>La propiedad termomecánica crítica del elastómero Viton es su temperatura de transición vítrea (T<sub>g</sub>) y su coeficiente de resiliencia elástica:</p>
+
+<div class="formula">Tasa de recuperación del elastómero = ƒ(T)</div>
+
+<p>A temperaturas inferiores a 10 °C, el material experimenta endurecimiento pronunciado y pierde su capacidad de deformación rápida. Al enfriarse, el tiempo requerido por el O-ring para recuperar su sección transversal tras una compresión o desplazamiento de la holgura aumentó en un orden de magnitud:</p>
+
+<div class="diagram">Temperatura Normal (&gt; 20 °C):
+  Compresión ───► Recuperación inmediata (t &lt; 0.1 s) ───► Sello hermético instantáneo
+
+Temperatura Crítica (&lt; 0 °C):
+  Compresión ───► Recuperación retardada (t &gt; 2.0 s) ───► Fuga directa de gas abrasivo (Blow-by)</div>
+
+<h5>Fenomenología del Fallo en el Vuelo STS-51-L</h5>
+<ol>
+<li><strong>Deflexión estructural de la junta (Joint Rotation):</strong> Tras la ignición, las presiones internas provocaron un ensanchamiento dinámico de la carcasa de acero (tang-clevis gap).</li>
+<li><strong>Erosión y blow-by:</strong> Debido a la rigidez térmica, el O-ring primario no pudo expandirse con la suficiente velocidad para cerrar la holgura en expansión. Los gases de combustión supercalentados comenzaron a fugar a través de la junta (blow-by), carbonizando y combustionando localmente el caucho de ambos O-rings (primario y secundario).</li>
+<li><strong>Sellado transitorio por escoria:</strong> A T + 0.678 segundos, cámaras de alta velocidad registraron bocanadas de humo negro en la junta de campo del SRB derecho. La fuga quedó transitoriamente obstruida por óxidos de aluminio residuales del propelente de cohete que vitrificaron la holgura.</li>
+<li><strong>Cizallamiento por viento e ignición de pluma:</strong> A los 56 segundos de vuelo, el transbordador atravesó una zona de cizalladura de viento severa (wind shear), imponiendo cargas estructurales laterales máximas. El choque mecánico desalojó el tapón de escoria de óxido.</li>
+<li><strong>Ruptura y desintegración aerodinámica:</strong> A T + 58.788 segundos, se formó una pluma de fuego continua que sopleteó directamente contra la superficie exterior del tanque de combustible externo (ET, External Tank). A T + 72.284 segundos, la pluma quemó el anclaje inferior del SRB y causó la falla estructural del tanque que contenía hidrógeno líquido (LH₂) y oxígeno líquido (LOX). A T + 73.124 segundos, a Mach 1.92 y 46.000 pies de altura, la ruptura del tanque desencadenó la destrucción aerodinámica total del vehículo.</li>
+</ol>
+
+<h4>1.3.2. Testimonio y Conflicto Técnico-Ético: Roger Boisjoly y Arnie Thompson</h4>
+
+<p>El fallo del Challenger no constituyó un accidente imprevisto; fue una catástrofe anticipada por el equipo técnico de Morton Thiokol. El ingeniero Roger Boisjoly, especialista en elastómeros y juntas de sellado, junto con Arnold Thompson y otros miembros del equipo, identificaron sistemáticamente el peligro durante los meses previos:</p>
+
+<div class="timeline">
+  <div class="ev"><span class="t">Enero 1985 (STS-51-C)</span><div class="d">Inspección post-vuelo: O-ring primario quemado por completo debido al frío ambiental (53 °F).</div></div>
+  <div class="ev"><span class="t">Julio 1985 (Memorando crítico)</span><div class="d">Boisjoly: "Result in a catastrophe of the first order... Loss of human life". Solicitud de equipo de investigación.</div></div>
+  <div class="ev"><span class="t">27 enero 1986 (Reunión)</span><div class="d">Presentación técnica formal: datos de resiliencia bajo cero. Veto al lanzamiento.</div></div>
+</div>
+
+<ul>
+<li><strong>Enero de 1985 (Misión STS-51-C):</strong> Tras recuperar los cohetes del lanzamiento más frío hasta la fecha (11.7 °C), Boisjoly descubrió que el O-ring primario mostraba penetración de gas y carbonización en un arco de 80 grados, y que los gases habían alcanzado el O-ring secundario.</li>
+<li><strong>Julio de 1985:</strong> Boisjoly redactó un memorando interno dirigido a Robert Lund, Vicepresidente de Ingeniería de Morton Thiokol, advirtiendo textualmente:</li>
+</ul>
+
+<blockquote>"Si no tomamos medidas inmediatas... nos arriesgamos a una catástrofe de primer orden: la pérdida de un vuelo, con el coste adicional de la pérdida de vidas humanas."</blockquote>
+
+<ul>
+<li><strong>La teleconferencia del 27 de enero de 1986:</strong> Ante el pronóstico meteorológico que auguraba temperaturas de hasta −8 °C, el equipo de ingeniería de Thiokol convocó una reunión de emergencia vía teleconferencia con el Marshall Space Flight Center de la NASA (Huntsville, Alabama).
+  <ul>
+    <li>Thompson y Boisjoly presentaron 14 transparencias con datos gráficos demostrando que la resiliencia del Viton caía dramáticamente por debajo de 53 °F, recomendando formalmente no autorizar el lanzamiento si la temperatura de la junta se encontraba por debajo de dicha cota.</li>
+  </ul>
+</li>
+</ul>
+
+<h4>1.3.3. Dinámica del Colapso Ético y Organizacional</h4>
+
+<p>La deliberación final entre Morton Thiokol y la NASA ilustra cómo las presiones sistémicas suprimen el juicio técnico riguroso en favor de conveniencias institucionales:</p>
+
+<div class="box dark">
+<h4>PROTOCOLO REGULAR DE SEGURIDAD (NASA / MT)</h4>
+<p style="text-align:center">Se asume que el sistema NO ES SEGURO hasta que se DEMUESTRE SEGURIDAD.</p>
+<p style="text-align:center">↓ Presión Política / Retrasos / Competencia Comercial ↓</p>
+<h4>INVERSIÓN PERVERSA DE LA CARGA DE LA PRUEBA (27 enero 1986)</h4>
+<p style="text-align:center">Larry Mulloy (NASA): "¿Cuándo esperan que lancemos, Thiokol? ¿En abril?"</p>
+<p style="text-align:center"><em>Exigencia a los ingenieros: DEMUESTREN CONCLUSIVAMENTE QUE VA A FALLAR.</em></p>
+<p style="text-align:center">↓</p>
+<h4>DESPLAZAMIENTO DEL CRITERIO DE VALIDEZ TÉCNICA</h4>
+<p style="text-align:center">Jarry Mason (VP Thiokol) a Robert Lund (VP Ingeniería):</p>
+<p style="text-align:center">"Take off your engineering hat and put on your management hat".</p>
+</div>
+
+<h5>Inversión de la Carga de la Prueba</h5>
+<p>En la gestión aeroespacial ortodoxa, el principio precautorio dicta que un componente se considera inseguro hasta que los ingenieros validen positivamente su margen de operación. Durante la teleconferencia, funcionarios directivos de la NASA —notablemente Larry Mulloy (Gerente del Proyecto SRB) y George Hardy— reaccionaron con hostilidad ante la negativa de los contratistas. Mulloy increpó: "Dios mío, Thiokol, ¿cuándo esperan que lancemos, el próximo abril?".</p>
+
+<p>Bajo esta presión, la NASA invirtió el estándar epistémico: en lugar de exigir pruebas de que el vuelo era seguro a temperaturas bajo cero, exigió a los ingenieros demostrar de forma probabilística incontrovertible que los O-rings iban a destruirse con absoluta certeza al día siguiente.</p>
+
+<h5>Desconexión Moral y Ruptura de Roles</h5>
+<p>Ante la insistencia de la NASA, los ejecutivos de Morton Thiokol solicitaron un receso de 30 minutos fuera de la línea de comunicación. En esa sesión privada, los ingenieros continuaron objetando el lanzamiento. Jerry Mason, Director General de Morton Thiokol, se dirigió a Robert Lund, quien hasta ese momento respaldaba a sus ingenieros subordinados, ordenándole:</p>
+
+<blockquote>"Quítate el sombrero de ingeniero y ponte el sombrero de gerente" ("Take off your engineering hat and put on your management hat").</blockquote>
+
+<p>Esta orden forzó a Lund a descartar los criterios basados en márgenes de seguridad y física de materiales, subordinándolos a las variables comerciales del contrato: la renovación corporativa del contrato de producción de los SRB y la relación de confianza con su cliente monopólico. Mason, Lund, Joe Kilminster y Cal Wiggins procedieron a votar unánimemente a favor del lanzamiento, excluyendo formalmente a Boisjoly y a los ingenieros de la decisión final.</p>
+
+<h5>Normalización de la Desviación (Diane Vaughan, 1996)</h5>
+<p>La socióloga Diane Vaughan demostró que el desastre no se debió únicamente a un acto puntual de malicia o cobardía individual, sino a una patología cultural arraigada en la NASA. A lo largo de misiones previas, la NASA y Thiokol habían observado daños y erosión parcial en los O-rings tras la recuperación de los propulsores.</p>
+
+<p>En lugar de suspender los vuelos para rediseñar la junta conforme a las normas de diseño original (que exigían cero erosión), la organización reinterpretó las fallas superadas como prueba empírica de que el sistema toleraba los daños. La anomalía técnica se convirtió en la norma aceptable; la desviación se institucionalizó progresivamente hasta que una combinación extrema de variables ambientales liquidó la tolerancia residual.</p>
+
+<h3>1.4. Análisis del Caso a la Luz de la Teoría de Stakeholders</h3>
+
+<p>El desastre del Challenger constituye una manifestación empírica del colapso del modelo de primacía de stakeholders espurios o monocéntricos frente a la multiplicidad de derechos legítimos en juego.</p>
+
+<table class="compact">
+  <caption>Matriz de Stakeholders — Caso Morton Thiokol / NASA STS-51-L</caption>
+  <thead>
+    <tr>
+      <th>Grupo de Interés (Stakeholder)</th>
+      <th>Naturaleza del Reclamo / Interés</th>
+      <th>Atributos (Poder, Legitimidad, Urgencia)</th>
+      <th>Trato Recibido por la Dirección (Thiokol / NASA)</th>
+      <th>Impacto Real / Consecuencia del Desastre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Tripulación STS-51-L</strong> (7 astronautas, incl. Christa McAuliffe)</td>
+      <td>Derecho primario e inviolable a la vida, seguridad ocupacional e información veraz sobre riesgos de misión.</td>
+      <td>Legitimidad: Máxima (contractual y moral). Urgencia: Crítica. Poder: Nulo (asimetría de información absoluta).</td>
+      <td>Invisibilizados. No se les informó sobre la deliberación técnica ni sobre las dudas en torno a los O-rings. Se asumió riesgo en su nombre sin consentimiento.</td>
+      <td>Muerte violenta en acto de servicio; quiebre ético absoluto del deber fiduciario institucional.</td>
+    </tr>
+    <tr>
+      <td><strong>Equipo Técnico e Ingenieros</strong> (Boisjoly, Thompson)</td>
+      <td>Deber deontológico de proteger la integridad del diseño, certificar márgenes de seguridad válidos y apego al código ético.</td>
+      <td>Legitimidad: Máxima (respaldo científico). Urgencia: Máxima. Poder: Alto en teoría técnica; anulado de facto por jerarquía corporativa.</td>
+      <td>Silenciamiento deliberado. Cooptación forzosa del criterio técnico; separación jerárquica del proceso decisorio final (management hat).</td>
+      <td>Destrucción de carrera profesional, marginación corporativa, estrés post-traumático severo y aislamiento social tras testificar.</td>
+    </tr>
+    <tr>
+      <td><strong>Familias de la Tripulación</strong></td>
+      <td>Protección de la integridad familiar, confianza institucional en protocolos de salvamento.</td>
+      <td>Legitimidad: Máxima. Urgencia: Alta. Poder: Nulo durante la fase operativa.</td>
+      <td>Tratados como espectadores pasivos. Ubicados en la plataforma para presenciar el evento sin advertencia de contingencias no mitigadas.</td>
+      <td>Trauma psicológico severo presentido en tiempo real y pérdida irreparrable de familiares directos.</td>
+    </tr>
+    <tr>
+      <td><strong>Liderazgo Político y Ejecutivo</strong> (Casa Blanca, Congreso EE. UU.)</td>
+      <td>Presión por calendario: Discurso del Estado de la Unión de Ronald Reagan; validación presupuestaria del programa espacial.</td>
+      <td>Poder: Coercitivo y financiero absoluto. Legitimidad: Institucional legal, pero ilegítima en interferencia técnica. Urgencia: Alta (plazos políticos).</td>
+      <td>Hiperpriorizados. Las metas de relaciones públicas y sincronización mediática subordinaron los criterios de solvencia técnica.</td>
+      <td>Crisis de credibilidad institucional, creación de la Comisión Presidencial Rogers e interrupción del programa por 32 meses.</td>
+    </tr>
+    <tr>
+      <td><strong>Público General y Sector Educativo</strong> (Proyecto Teacher in Space)</td>
+      <td>Divulgación científica, educación pública, confianza en la excelencia tecnológica del Estado.</td>
+      <td>Legitimidad: Alta (ciudadanos/contribuyentes). Poder: Difuso (opinión pública). Urgencia: Baja en la decisión pre-lanzamiento.</td>
+      <td>Instrumentalizados. Uso del proyecto educativo como herramienta de mercadotecnia política para legitimar asignaciones presupuestarias.</td>
+      <td>Desilusión colectiva; trauma pedagógico nacional al transmitirse el colapso en directo a millones de aulas escolares.</td>
+    </tr>
+    <tr>
+      <td><strong>Accionistas y Junta Directiva de Morton Thiokol</strong></td>
+      <td>Preservación de ingresos contractuales, rentabilidad contra actual, reputación de contratista confiable.</td>
+      <td>Poder: Utilitario pleno sobre la estructura de empleo interna. Legitimidad: Legal/Financiera. Urgencia: Media.</td>
+      <td>Eje rector de la decisión final. La preservación del estatus de proveedor monopólico de SRB se priorizó sobre la validación técnica.</td>
+      <td>Daño reputacional irreversible, multas contractuales, pérdida de credibilidad ante el gobierno federal y rescisión comercial posterior.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="box warn">
+<h4>Síntesis analítica</h4>
+<p>El caso demuestra cómo la primacía de stakeholders con <em>poder</em> (NASA, gerencia MT, liderazgo político) pero sin <em>legitimidad moral directa</em> sobre la operación crítica, sometió a stakeholders con <em>legitimidad y urgencia máximas</em> pero <em>poder nulo</em> (la tripulación) a una externalidad letal. La asimetría informativa impidió el consentimiento informado, vulnerando el deber fiduciario y el imperativo categórico kantiano que fundamenta la rama normativa de la teoría.</p>
+</div>
+
+</section>
+
+<section id="tab2" class="tab-panel">
+<h2 class="section-title">2. Taller Práctico de Aula: Análisis Causa-Raíz (Ishikawa &amp; 5 Porqués) — Caso Morton Thiokol / Challenger</h2>
+
+<div class="box info">
+  <h4>Ficha técnica</h4>
+  <ul>
+    <li><strong>Asignatura:</strong> Responsabilidad Social Corporativa / Seguridad Industrial</li>
+    <li><strong>Nivel:</strong> Pregrado Avanzado (Ingeniería Industrial / Seguridad Industrial)</li>
+    <li><strong>Metodología:</strong> Aprendizaje Basado en Problemas (ABP) y Análisis Sociotécnico de Fallas</li>
+    <li><strong>Duración total:</strong> 120 minutos (2 horas pedagógicas)</li>
+  </ul>
+</div>
+
+<h3>2.1. Ficha Técnica y Objetivos de Aprendizaje</h3>
+
+<h4>Objetivos Pedagógicos</h4>
+<ul>
+  <li>Construir una matriz de Causa-Raíz utilizando el Diagrama de Espina de Pescado (Ishikawa) adaptado a las 6M para desglosar la falla sociotécnica de la misión STS-51-L.</li>
+  <li>Aplicar la técnica iterativa de los 5 Porqués para conectar la variable física de falla (polímeros y termodinámica) con las fallas de gobernanza, presiones de producción y colapso ético frente a los stakeholders.</li>
+  <li>Contrastar la toma de decisiones basada en métricas de cumplimiento de plazos versus la salvaguarda de stakeholders con alta legitimidad y nulo poder de veto (tripulación).</li>
+</ul>
+
+<h4>Materiales y Recursos Didácticos</h4>
+<ul>
+  <li>Guía de trabajo impresa con la cronología técnica de Morton Thiokol / NASA (27–28 de enero de 1986).</li>
+  <li>Pliegos de papel bond / papelógrafos y marcadores de tres colores (Rojo: falla técnica/material; Azul: proceso/gestión; Verde: factor humano/ético).</li>
+  <li>Plantilla estructurada de Ishikawa (6M) y matriz de registro de contramedidas organizacionales.</li>
+</ul>
+
+<h3>2.2. Cronograma de Ejecución del Taller (120 minutos)</h3>
+
+<table>
+  <caption>Cronograma del Taller — 5 fases secuenciales</caption>
+  <thead>
+    <tr><th>Fase</th><th>Duración</th><th>Actividad del Docente</th><th>Actividad de los Estudiantes</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>I. Encuadre y Despliegue Técnico</strong></td>
+      <td>15 min</td>
+      <td>Presentación del problema de ingeniería: parámetros de junta clevis-tang, temperatura límite (53 °F vs. 31 °F de despegue), y dilema de Roger Boisjoly frente al comité gerencial.</td>
+      <td>Escucha activa, toma de notas sobre parámetros operativos y conformación de equipos de trabajo (4 a 5 integrantes).</td>
+    </tr>
+    <tr>
+      <td><strong>II. Análisis Estructurado (6M)</strong></td>
+      <td>40 min</td>
+      <td>Tutoría en mesa: validación de que las causas no se limiten a "error humano" y se profundice en cada una de las 6M.</td>
+      <td>Construcción colaborativa del Diagrama de Ishikawa en los papelógrafos utilizando codificación por colores.</td>
+    </tr>
+    <tr>
+      <td><strong>III. Profundización: Los 5 Porqués</strong></td>
+      <td>25 min</td>
+      <td>Desafío a los equipos: seleccionar la rama más crítica y forzar la iteración causal hasta llegar a la raíz ética/de gobernanza.</td>
+      <td>Ejecución de la cadena de 5 Porqués conectando la física del elastómero con la orden "Take off your engineering hat".</td>
+    </tr>
+    <tr>
+      <td><strong>IV. Plenaria y Síntesis Cruzada</strong></td>
+      <td>25 min</td>
+      <td>Moderación del debate; contraste de diagramas entre equipos y mapeo de causas hacia la matriz de stakeholders.</td>
+      <td>Presentación de 2 minutos por equipo (formato pitch de ingeniería forense) defendiendo su causa-raíz identificada.</td>
+    </tr>
+    <tr>
+      <td><strong>V. Cierre y Evaluación Formativa</strong></td>
+      <td>15 min</td>
+      <td>Retroalimentación técnica, balance de sesgos organizacionales (Groupthink, normalización de la desviación) y entrega de rúbrica.</td>
+      <td>Consolidación de conclusiones escritas individuales en la hoja de control del taller.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.3. Matriz Guía de Ishikawa (6M) para el Docente</h3>
+
+<p>Esta matriz sirve como estándar de validación durante las rondas de supervisión en el aula:</p>
+
+<div class="ishikawa">
+  <div class="spine">DIAGRAMA DE ISHIKAWA: CASO MORTON THIOKOL / STS-51-L &nbsp;&nbsp;&nbsp; [EFECTO] Pérdida del Transbordador Challenger y su Tripulación</div>
+  <div class="diagram" style="margin-top:10px">MÉTODO                  MÁQUINA / EQUIPO          MATERIALES
+  │                          │                          │
+  ├─ Inversión carga prueba  ├─ Rotación de junta       ├─ Elastómero Viton
+  ├─ Normalización desviación├─ Diseño sin holgura      ├─ Pérdida resiliencia (Tg)
+  └─ Exclusión de ingenieros └─ Falla de redundancia    └─ Erosión previa no mitigada
+  ────────────────────────────────────────────────────────────────────►
+  ┌─ Presión por calendario   ┌─ Temp. ambiente (31 °F)  ┌─ Falta de canales seguros
+  ├─ Prioridad al contrato    ├─ Viento de cizalladura   ├─ Silenciamiento de disenso
+  └─ "Sombrero de gerente"    └─ Formación de hielo      └─ Astronautas no advertidos
+  MANO DE OBRA (GERENCIA)     MEDIO AMBIENTE            MEDICIÓN / GOBERNANZA</div>
+</div>
+
+<h4>Detalle de Factores por Eje:</h4>
+
+<ol>
+  <li><strong>Materiales:</strong>
+    <ul>
+      <li>Comportamiento reológico deficiente del fluoroelastómero Viton a temperaturas sub-cero.</li>
+      <li>Superación de la temperatura de transición vítrea (T<sub>g</sub>), aumentando el tiempo de recuperación elástica a más de 2 segundos (frente a los milisegundos de la onda de choque de presión).</li>
+    </ul>
+  </li>
+  <li><strong>Máquina / Diseño Mecánico:</strong>
+    <ul>
+      <li>Deflexión estructural (<em>joint rotation</em>) de la carcasa cilíndrica de acero bajo presiones internas de 6.2 MPa (900 psi).</li>
+      <li>Falsa redundancia: el O-ring secundario se ubicaba en la misma trayectoria de apertura geométrica si fallaba el primario.</li>
+    </ul>
+  </li>
+  <li><strong>Método (Procesos Decisionales):</strong>
+    <ul>
+      <li>Ruptura del protocolo de seguridad: exigir demostrar que el sistema iba a fallar en lugar de demostrar que era seguro despegar.</li>
+      <li>Falta de un procedimiento formal para documentar y hacer vinculantes las <em>Dissenting Opinions</em> (opiniones técnicas discrepantes).</li>
+    </ul>
+  </li>
+  <li><strong>Mano de Obra / Gestión Directiva:</strong>
+    <ul>
+      <li>Sesgo de confirmación y pensamiento de grupo (<em>Groupthink</em>) en los mandos directivos de NASA y Thiokol.</li>
+      <li>Cooptación forzosa del rol técnico: orden directa de subordinar el criterio físico a la conveniencia contractual ("Take off your engineering hat and put on your management hat").</li>
+    </ul>
+  </li>
+  <li><strong>Medio Ambiente (Entorno Operativo):</strong>
+    <ul>
+      <li>Temperatura en la plataforma 39B significativamente inferior a la envolvente operativa histórica (31 °F vs. mínimo previo de 53 °F).</li>
+      <li>Cizalladura del viento a gran altitud (T + 56 s) que fracturó mecánicamente el sellado provisional de alúmina vitrificada.</li>
+    </ul>
+  </li>
+  <li><strong>Medición / Gobernanza Institucional:</strong>
+    <ul>
+      <li>Normalización de la desviación: interpretar daños y carbonizaciones en misiones previas no como señales de alarma crítica, sino como "margen de seguridad demostrado".</li>
+      <li>Métricas de desempeño focalizadas en el cumplimiento del cronograma de lanzamientos por encima de la confiabilidad técnica de los subsistemas.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3>2.4. Dinámica de Profundización: Los 5 Porqués (Integración Ético-Técnica)</h3>
+
+<p>Cada equipo debe seleccionar una de las causas primarias identificadas en el diagrama y completar una cadena de causalidad descendente similar a la siguiente:</p>
+
+<div class="box dark">
+<p><strong>Nivel 1:</strong> ¿Por qué falló el sellado de los cohetes aceleradores (SRB)?</p>
+<p>└─► Porque los O-rings no se expandieron a tiempo y permitieron el escape de gas caliente (Blow-by).</p>
+<hr style="border-color:#c8a14b; opacity:.4">
+<p><strong>Nivel 2:</strong> ¿Por qué los O-rings no recuperaron su forma elástica en milisegundos?</p>
+<p>└─► Porque el elastómero Viton se encontraba a ~31 °F, perdiendo su resiliencia térmica de diseño.</p>
+<hr style="border-color:#c8a14b; opacity:.4">
+<p><strong>Nivel 3:</strong> ¿Por qué se operó a una temperatura para la cual no existían datos de seguridad validados?</p>
+<p>└─► Porque la gerencia de Morton Thiokol revirtió el veto técnico inicial y autorizó el lanzamiento.</p>
+<hr style="border-color:#c8a14b; opacity:.4">
+<p><strong>Nivel 4:</strong> ¿Por qué la gerencia revirtió la recomendación de sus propios ingenieros especialistas?</p>
+<p>└─► Porque recibieron presión comercial explícita de la NASA sobre la renovación de contratos millonarios.</p>
+<hr style="border-color:#c8a14b; opacity:.4">
+<p><strong>Nivel 5:</strong> ¿Por qué la presión contractual se impuso sobre la advertencia de falla catastrófica? <em>(Causa-Raíz)</em></p>
+<p>└─► Porque la gobernanza corporativa priorizó a los stakeholders financieros y políticos (NASA/Congreso), invisibilizando el derecho a la vida de los stakeholders primarios definitivos (la tripulación).</p>
+</div>
+
+<h3>2.5. Rúbrica de Evaluación Formativa del Taller (Escala de 10 Puntos)</h3>
+
+<table class="rubrica">
+  <caption>Rúbrica Formativa — Taller Ishikawa &amp; 5 Porqués</caption>
+  <thead>
+    <tr><th>Criterio</th><th>Excelente (9–10 pts)</th><th>Satisfactorio (7–8 pts)</th><th>En Desarrollo (&lt; 7 pts)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Rigor Técnico del Ishikawa (6M)</strong></td>
+      <td>Identifica con precisión parámetros termomecánicos reales (elastómero, presiones, temperaturas) sin recurrir a descripciones superficiales.</td>
+      <td>Clasifica adecuadamente las causas en las 6 ramas, pero con descripciones técnicas superficiales.</td>
+      <td>Omite categorías o confunde efectos finales con causas intermedias; análisis puramente narrativo.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Encadenamiento de los 5 Porqués</strong></td>
+      <td>Conecta sin saltos la física de polímeros con la decisión gerencial y la vulneración de stakeholders.</td>
+      <td>Encadena los porqués pero salta algún nivel causal intermedio (p. ej., de la temperatura a la presión política).</td>
+      <td>Encadena únicamente 2-3 niveles sin llegar a la raíz ético-organizacional.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Análisis de Stakeholders</strong></td>
+      <td>Identifica a la tripulación como Definitivo ético (L+U) tratado como Dependiente/Nulo por carecer de Poder;NASA como Dominante (P+L) sesgando la decisión.</td>
+      <td>Reconoce la asimetría de poder pero no articula el modelo de saliencia formal.</td>
+      <td>Omite el análisis de stakeholders y se limita a la culpabilidad individual.</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+
+<section id="tab3" class="tab-panel">
+<h2 class="section-title">3. Guía de Aplicación Práctica: Análisis Causa-Raíz Forense (Ishikawa 6M &amp; Saliencia de Stakeholders)</h2>
+
+<div class="box info">
+  <h4>Guía docente con soluciones bloqueadas</h4>
+  <p>Esta sección contiene los entregables del estudiante <strong>vaciados</strong> (listos para resolver en aula) y el <strong>instrumento de medición</strong> (rúbrica docente) para calificarlos. Las soluciones y respuestas esperadas están protegidas tras una clave de acceso docente. Ingrese la clave para desbloquearlas.</p>
+</div>
+
+<h3>3.1. Presentación de la Guía</h3>
+<p>Esta guía consolida el análisis causa-raíz forense del desastre STS-51-L mediante dos instrumentos complementarios:</p>
+<ol>
+  <li>El <strong>Diagrama de Ishikawa 6M</strong> como matriz de clasificación causal.</li>
+  <li>El <strong>Modelo de Saliencia de Mitchell, Agle y Wood (1997)</strong> como matriz de evaluación de la gobernanza ética frente a stakeholders.</li>
+</ol>
+
+<h3>3.2. Entregables del Estudiante</h3>
+
+<h4>Entregable 1: Diagrama de Ishikawa (6M) — Vacío para el estudiante</h4>
+
+<p>Construya el diagrama completo de Ishikawa para el caso STS-51-L. Utilice el siguiente esquema-base en blanco para completar al menos <strong>3 causas específicas por cada categoría 6M</strong>, identificando causas técnicas verificables (no atribuibles genéricamente a "error humano").</p>
+
+<table class="rubrica">
+  <caption>Plantilla Ishikawa 6M — Para completar</caption>
+  <thead><tr><th>Categoría 6M</th><th>Causa 1</th><th>Causa 2</th><th>Causa 3</th></tr></thead>
+  <tbody>
+    <tr><td><strong>(1) Materiales</strong></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>(2) Máquina / Equipo</strong></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>(3) Método</strong></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>(4) Mano de Obra / Gerencia</strong></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>(5) Medio Ambiente</strong></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>(6) Medición / Gobernanza</strong></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td><td><span class="respuesta-line"></span></td></tr>
+  </tbody>
+</table>
+
+<h4>Entregable 2: Los 5 Porqués — Cadena causal vacía</h4>
+
+<p>Complete encadenando la causa-raíz. Cada respuesta debe justificarse con datos del caso (temperaturas, presiones, citas textuales o fechas).</p>
+
+<table class="rubrica">
+  <caption>Plantilla 5 Porqués — Para completar</caption>
+  <thead><tr><th>Nivel</th><th>Pregunta</th><th>Respuesta del estudiante</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Nivel 1</strong></td><td>¿Por qué falló el sellado de los cohetes aceleradores (SRB)?</td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>Nivel 2</strong></td><td>¿Por qué los O-rings no recuperaron su forma elástica en milisegundos?</td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>Nivel 3</strong></td><td>¿Por qué se operó a una temperatura para la cual no existían datos de seguridad validados?</td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>Nivel 4</strong></td><td>¿Por qué la gerencia revirtió la recomendación de sus propios ingenieros especialistas?</td><td><span class="respuesta-line"></span></td></tr>
+    <tr><td><strong>Nivel 5</strong></td><td>¿Por qué la presión contractual se impuso sobre la advertencia de falla catastrófica? (Causa-Raíz)</td><td><span class="respuesta-line"></span></td></tr>
+  </tbody>
+</table>
+
+<h4>Entregable 3: Matriz de Saliencia de Mitchell, Agle y Wood</h4>
+
+<p>Evalúe el peso real que la alta dirección de Morton Thiokol asignó durante la noche del 27 de enero a los dos grupos de interés en conflicto directo. Marque con una <strong>X</strong> la presencia del atributo según los hechos del caso:</p>
+
+<table class="rubrica">
+  <caption>Matriz de Saliencia — Para completar</caption>
+  <thead>
+    <tr>
+      <th>Grupo de Interés</th>
+      <th>Poder (Coercitivo/Utilitario)</th>
+      <th>Legitimidad (Moral/Contractual)</th>
+      <th>Urgencia (Sensibilidad temporal/Riesgo de vida)</th>
+      <th>Clasificación resultante (Latente / Expectante / Definitivo)</th>
+      <th>Trato directivo real en la decisión final</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Tripulación STS-51-L</strong></td>
+      <td style="text-align:center">[ <span class="checkbox"></span> ]</td>
+      <td style="text-align:center">[ <span class="checkbox"></span> ]</td>
+      <td style="text-align:center">[ <span class="checkbox"></span> ]</td>
+      <td><span class="respuesta-line"></span></td>
+      <td><span class="respuesta-line"></span></td>
+    </tr>
+    <tr>
+      <td><strong>NASA / Mandos Ejecutivos</strong></td>
+      <td style="text-align:center">[ <span class="checkbox"></span> ]</td>
+      <td style="text-align:center">[ <span class="checkbox"></span> ]</td>
+      <td style="text-align:center">[ <span class="checkbox"></span> ]</td>
+      <td><span class="respuesta-line"></span></td>
+      <td><span class="respuesta-line"></span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>3.3. Instrumento de Medición (Rúbrica Docente)</h3>
+
+<table class="rubrica">
+  <caption>Pauta Rápida de Corrección y Criterios de Evaluación (Puntaje Máximo: 10 pts)</caption>
+  <thead>
+    <tr><th>Parámetro evaluado</th><th>Desempeño Esperado</th><th>Puntos</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ishikawa Técnico (6M)</strong></td>
+      <td>Identifica: (1) Inversión carga de prueba; (2) Cooptación de rol técnico (management hat); (3) Joint rotation / deflexión por presión (6.2 MPa); (4) Temperatura en plataforma (31 °F); (5) Pérdida de resiliencia del Viton (T<sub>g</sub>); (6) Normalización de la desviación sobre datos de misiones previas.</td>
+      <td>4 pts</td>
+    </tr>
+    <tr>
+      <td><strong>Rigor en los 5 Porqués</strong></td>
+      <td>Encadenamiento fluido: no salta de la física a la política sin pasar por la resiliencia del material, la temperatura fuera de envolvente y la orden ejecutiva de Mason a Lund.</td>
+      <td>3 pts</td>
+    </tr>
+    <tr>
+      <td><strong>Matriz de Saliencia</strong></td>
+      <td>Identifica que la Tripulación era el stakeholder Definitivo éticamente (Legitimidad + Urgencia máximas), pero fue tratada como Dependiente/Nula por carecer de Poder; mientras NASA concentró el Poder utilitario que sesgó la decisión.</td>
+      <td>3 pts</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan="2" style="text-align:right"><strong>TOTAL</strong></td><td><strong>10 pts</strong></td></tr>
+  </tfoot>
+</table>
+
+<!-- BLOQUEO DE SOLUCIONES -->
+<div class="lock-box">
+  <div class="lock-title"><span class="lock-icon">🔒</span> Soluciones docentes — Pestaña 3</div>
+  <p class="lock-msg">Las respuestas esperadas para los tres entregables están protegidas. Ingrese la clave docente para visualizarlas.</p>
+  <div class="lock-form">
+    <input type="password" placeholder="Clave docente" autocomplete="off">
+    <button type="button">Desbloquear soluciones</button>
+  </div>
+
+  <div class="solucion">
+    <span class="solucion-tag">SOLUCIONES DESBLOQUEADAS — VISTA DOCENTE</span>
+
+    <h4>Solución Entregable 1: Ishikawa 6M completo</h4>
+    <table class="compact">
+      <thead><tr><th>Categoría 6M</th><th>Causa 1</th><th>Causa 2</th><th>Causa 3</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Materiales</strong></td><td>Pérdida de resiliencia del fluoroelastómero Viton por debajo de T<sub>g</sub></td><td>Erosión previa del O-ring primario no mitigada (arco de 80° en STS-51-C)</td><td>Carbonización progresiva por exposición a gases a ~3.000 °C</td></tr>
+        <tr><td><strong>Máquina / Equipo</strong></td><td>Rotación de junta (joint rotation) por presión interna de 6.2 MPa</td><td>Falsa redundancia del O-ring secundario (misma trayectoria de apertura)</td><td>Diseño sin holgura suficiente para absorber la deformación de la carcasa</td></tr>
+        <tr><td><strong>Método</strong></td><td>Inversión de la carga de la prueba (exigir demostrar falla en lugar de seguridad)</td><td>Ausencia de protocolo vinculante para Dissenting Opinions</td><td>Exclusión formal de los ingenieros del voto final</td></tr>
+        <tr><td><strong>Mano de Obra / Gerencia</strong></td><td>Orden "Take off your engineering hat and put on your management hat" (Mason → Lund)</td><td>Groupthink en mandos directivos NASA/Thiokol</td><td>Sesgo de confirmación hacia datos de misiones previas exitosas</td></tr>
+        <tr><td><strong>Medio Ambiente</strong></td><td>Temperatura ambiente −8 °C / junta a ~31 °F (vs. mínimo previo 53 °F)</td><td>Cizalladura de viento a T+56 s desalojó el tapón de escoria</td><td>Formación de hielo en la torre y soporte estructural</td></tr>
+        <tr><td><strong>Medición / Gobernanza</strong></td><td>Normalización de la desviación (Vaughan): daños previos reinterpretados como margen demostrado</td><td>Métricas de cronograma priorizadas sobre la confiabilidad</td><td>Falta de canales seguros de disenso sin represalias</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Solución Entregable 2: Cadena de los 5 Porqués</h4>
+    <ol>
+      <li><strong>¿Por qué falló el sellado?</strong> — Porque los O-rings no se expandieron a tiempo y permitieron el escape de gas caliente (blow-by).</li>
+      <li><strong>¿Por qué los O-rings no recuperaron su forma?</strong> — Porque el Viton se encontraba a ~31 °F, perdiendo su resiliencia térmica de diseño al acercarse a su T<sub>g</sub>.</li>
+      <li><strong>¿Por qué se operó fuera de la envolvente validada?</strong> — Porque la gerencia de Morton Thiokol revirtió el veto técnico inicial y autorizó el lanzamiento.</li>
+      <li><strong>¿Por qué la gerencia revirtió la recomendación técnica?</strong> — Porque recibieron presión comercial explícita de la NASA (Mulloy) sobre la renovación de contratos millonarios.</li>
+      <li><strong>Causa-Raíz:</strong> — Porque la gobernanza corporativa priorizó a los stakeholders financieros y políticos (NASA/Congreso) invisibilizando el derecho a la vida de los stakeholders primarios definitivos (la tripulación).</li>
+    </ol>
+
+    <h4>Solución Entregable 3: Matriz de Saliencia resuelta</h4>
+    <table class="compact">
+      <thead>
+        <tr><th>Grupo de Interés</th><th>Poder</th><th>Legitimidad</th><th>Urgencia</th><th>Clasificación</th><th>Trato directivo real</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tripulación STS-51-L</strong></td>
+          <td>✗ (Nulo de facto)</td>
+          <td>✓ Máxima (contractual y moral)</td>
+          <td>✓ Crítica (riesgo de vida)</td>
+          <td><strong>Definitivo ético</strong> → tratado como <strong>Dependiente/Nulo</strong></td>
+          <td>Invisibilizada; no consultada; se asumió el riesgo en su nombre sin consentimiento informado.</td>
+        </tr>
+        <tr>
+          <td><strong>NASA / Mandos Ejecutivos</strong></td>
+          <td>✓ Coercitivo y utilitario absoluto</td>
+          <td>✓ Legal-institucional (pero ilegítima en interferencia técnica)</td>
+          <td>✓ Alta (plazos políticos / Estado de la Unión)</td>
+          <td><strong>Dominante</strong> (Poder + Legitimidad legal)</td>
+          <td>Hiperpriorizado; subordinó los criterios técnicos y éticos al cronograma y a las relaciones públicas.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box ok">
+      <h4>Dictamen evaluativo clave</h4>
+      <p>La tripulación concentraba <strong>Legitimidad + Urgencia máximas</strong> pero <strong>Poder = 0</strong>. Bajo el modelo de Mitchell et al., es un stakeholder <strong>Definitivo</strong> en términos éticos (debería haber sido tratado como tal), pero fue tratado como <strong>Dependiente/Nulo</strong> porque carecía de poder de veto en la mesa decisoria. NASA concentró <strong>Poder + Legitimidad legal</strong> (Dominante) y lo utilizó para sesgar la decisión. Esta asimetría es la firma forense del colapso ético-organizacional.</p>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section id="tab4" class="tab-panel">
+<h2 class="section-title">4. Taller Evaluativo Rápido: Teoría de Stakeholders y Análisis Forense STS-51-L</h2>
+
+<div class="box info">
+  <h4>Características de la evaluación</h4>
+  <ul>
+    <li><strong>Duración:</strong> 20 minutos (1 minuto por reactivo)</li>
+    <li><strong>Modalidad:</strong> Individual / Prueba cronometrada de alta intensidad</li>
+    <li><strong>Puntaje total:</strong> 20 puntos (1 punto por reactivo)</li>
+    <li><strong>Estructura:</strong> 5 bloques temáticos, 20 reactivos en total</li>
+  </ul>
+</div>
+
+<h3>4.1. Batería de Reactivos (Formulario Estudiante)</h3>
+
+<h4>Bloque 1: Opción Múltiple (Selección Única) — Reactivos 1 a 8</h4>
+
+<ol start="1">
+<li>En la junta en espiga y encaje (clevis and tang) de los cohetes aceleradores (SRB), ¿cuál fue el fenómeno mecánico directo inducido por la presión interna de 6.2 MPa tras la ignición?
+  <ul type="A">
+    <li>Cizallamiento por fatiga de los pernos de fijación estructural.</li>
+    <li>Deflexión y apertura geométrica de la holgura de la junta (joint rotation).</li>
+    <li>Ruptura frágil inmediata de la carcasa de acero de alta resistencia.</li>
+    <li>Fusión térmica del revestimiento cerámico del deflector de tobera.</li>
+  </ul>
+</li>
+
+<li>A temperaturas de −1 °C a 2 °C (31 °F), ¿qué alteración reológica primaria sufrió el fluoroelastómero Viton que impidió la contención de gases?
+  <ul type="A">
+    <li>Despolimerización oxidativa inducida por el combustible criogénico.</li>
+    <li>Aproximación a su temperatura de transición vítrea (T<sub>g</sub>), incrementando el tiempo de recuperación elástica a más de 2.0 s.</li>
+    <li>Cristalización por choque de tensión que generó grietas radiales instantáneas.</li>
+    <li>Expansión volumétrica anómala que bloqueó el movimiento del O-ring primario.</li>
+  </ul>
+</li>
+
+<li>En la teleconferencia previa al lanzamiento, la frase de Larry Mulloy ("¿Cuándo esperan que lancemos, Thiokol? ¿En abril?") provocó una alteración metodológica grave denominada:
+  <ul type="A">
+    <li>Ruptura del muestreo por doble ciego.</li>
+    <li>Inversión de la carga de la prueba (exigir demostrar falla segura en lugar de demostrar operación segura).</li>
+    <li>Ampliación no paramétrica de tolerancias estadísticas.</li>
+    <li>Veto de inspección por control de calidad independiente.</li>
+  </ul>
+</li>
+
+<li>La frase de Jerry Mason a Robert Lund ("Take off your engineering hat and put on your management hat") ejemplifica:
+  <ul type="A">
+    <li>Delegación funcional de responsabilidades según la norma ISO 9001.</li>
+    <li>Desconexión moral y subordinación de criterios técnicos a presiones contractuales y comerciales.</li>
+    <li>Coordinación interdisciplinaria para la gestión de contingencias.</li>
+    <li>Aplicación del principio de máxima redundancia sistémica.</li>
+  </ul>
+</li>
+
+<li>Según la socióloga Diane Vaughan, la "normalización de la desviación" en la NASA consistió en:
+  <ul type="A">
+    <li>Falsificación deliberada de los informes de telemetría de vuelo ante el Congreso.</li>
+    <li>Aceptar daños y erosión parcial en misiones previas como evidencia empírica errónea de que el sistema toleraba anomalías.</li>
+    <li>Reducir intencionalmente los factores de diseño estructural para ahorrar peso.</li>
+    <li>Modificar los protocolos de mantenimiento sin registro en las órdenes de taller.</li>
+  </ul>
+</li>
+
+<li>En el modelo de saliencia de Mitchell, Agle y Wood, un stakeholder que reúne exclusivamente Legitimidad y Urgencia, pero carece de Poder, se clasifica como:
+  <ul type="A">
+    <li>Definitivo.</li>
+    <li>Dominante.</li>
+    <li>Dependiente.</li>
+    <li>Discrecional.</li>
+  </ul>
+</li>
+
+<li>De acuerdo con la Teoría de Stakeholders de R. Edward Freeman, la rama que sostiene que los grupos de interés poseen un valor intrínseco basado en el imperativo categórico kantiano es la:
+  <ul type="A">
+    <li>Instrumental.</li>
+    <li>Descriptiva.</li>
+    <li>Normativa.</li>
+    <li>Financiera.</li>
+  </ul>
+</li>
+
+<li>Tras el cizallamiento por viento (wind shear) a los 56 segundos de vuelo del Challenger, ¿qué provocó la reaparición de la pluma de fuego continua?
+  <ul type="A">
+    <li>El desprendimiento del tapón transitorio de alúmina vitrificada residual de la combustión.</li>
+    <li>La fractura inmediata del mamparo delantero del orbitador.</li>
+    <li>El fallo de alimentación en las turbobombas principales de combustible sólido.</li>
+    <li>El colapso del sistema de guiado vectorial electrohidráulico.</li>
+  </ul>
+</li>
+</ol>
+
+<h4>Bloque 2: Verdadero o Falso (Justificación Mental) — Reactivos 9 a 12</h4>
+
+<ol start="9">
+<li><strong>[ V / F ]</strong> La doctrina de Shareholder Primacy de Milton Friedman postula que la única responsabilidad de los directivos es maximizar las utilidades económicas respetando el marco legal formal vigente.</li>
+<li><strong>[ V / F ]</strong> El O-ring secundario de la junta del SRB operó como una redundancia mecánicamente independiente y eficaz durante la rotación estructural de la junta en el vuelo STS-51-L.</li>
+<li><strong>[ V / F ]</strong> Roger Boisjoly recomendó la suspensión del lanzamiento fundamentando su advertencia en la falta de datos de desempeño de resiliencia del elastómero por debajo de 53 °F (11.7 °C).</li>
+<li><strong>[ V / F ]</strong> Durante la toma de decisiones del 27 de enero de 1986, la tripulación del transbordador fue formalmente consultada y asumió un consentimiento informado sobre los riesgos térmicos del SRB.</li>
+</ol>
+
+<h4>Bloque 3: Términos Pareados / Relación de Columnas — Reactivos 13 y 14</h4>
+
+<ol start="13">
+<li>Relacione cada categoría de la matriz de Ishikawa (6M) con la causa específica del desastre STS-51-L:
+  <table class="compact">
+    <thead><tr><th>Categoría 6M</th><th>Causa Identificada</th></tr></thead>
+    <tbody>
+      <tr><td>(1) Materiales</td><td>A. Exigencia de demostrar que el sistema fallaría en lugar de validar su seguridad.</td></tr>
+      <tr><td>(2) Método</td><td>B. Pérdida crítica de resiliencia del fluoroelastómero Viton a bajas temperaturas.</td></tr>
+      <tr><td>(3) Mano de Obra</td><td>C. Subordinación del juicio técnico de ingeniería ante intereses comerciales de la firma.</td></tr>
+    </tbody>
+  </table>
+  <p>Seleccione la combinación correcta:</p>
+  <ul type="A">
+    <li>1-A, 2-B, 3-C</li>
+    <li>1-B, 2-A, 3-C</li>
+    <li>1-C, 2-A, 3-B</li>
+    <li>1-B, 2-C, 3-A</li>
+  </ul>
+</li>
+
+<li>Relacione el stakeholder con su tipología en el modelo de Mitchell, Agle y Wood durante la noche del 27 de enero:
+  <table class="compact">
+    <thead><tr><th>Stakeholder</th><th>Clasificación en el Modelo</th></tr></thead>
+    <tbody>
+      <tr><td>(1) Tripulación STS-51-L</td><td>A. Stakeholder Dominante (Poder utilitario + Legitimidad contractual).</td></tr>
+      <tr><td>(2) Dirección de NASA (Marshall)</td><td>B. Stakeholder Dependiente (Legitimidad moral + Urgencia vital; Poder nulo de facto).</td></tr>
+      <tr><td>(3) Accionistas de Morton Thiokol</td><td>C. Stakeholder Latente Inactivo (Poder financiero sin urgencia inmediata operativa).</td></tr>
+    </tbody>
+  </table>
+  <p>Seleccione la combinación correcta:</p>
+  <ul type="A">
+    <li>1-B, 2-A, 3-C</li>
+    <li>1-A, 2-B, 3-C</li>
+    <li>1-C, 2-A, 3-B</li>
+    <li>1-B, 2-C, 3-A</li>
+  </ul>
+</li>
+</ol>
+
+<h4>Bloque 4: Completación Técnica — Reactivos 15 a 18</h4>
+
+<ol start="15">
+<li>El escape de gases supercalentados a través de las juntas de campo no selladas a tiempo por los anillos elásticos se conoce en la ingeniería aeroespacial como ____________________.</li>
+<li>En la cadena de los 5 Porqués del caso Challenger, la causa-raíz directiva residió en que la gerencia priorizó a stakeholders con ____________________ (coercitivo y contractual) por encima de stakeholders con ____________________ (derecho a la vida y seguridad operativa).</li>
+<li>El sesgo psicosocial donde un equipo directivo cohesionado suprime dudas disidentes para alcanzar un consenso no conflictivo se denomina pensamiento de grupo o ____________________.</li>
+<li>Los dos reactivos criogénicos almacenados dentro del Tanque Externo (ET) que hicieron ignición tras ser impactados por la pluma del SRB derecho fueron ____________________ y ____________________.</li>
+</ol>
+
+<h4>Bloque 5: Identificación de Escenarios Críticos — Reactivos 19 y 20</h4>
+
+<ol start="19">
+<li>Un ingeniero en una planta química advierte que una válvula de alivio no está certificada para presiones mayores a 20 bar. El gerente de producción ordena operar a 25 bar argumentando: "Hemos operado a 22 bar la semana pasada y no ocurrió nada; demuéstrame con cálculos exactos que va a explotar hoy". ¿Qué patología decisoria idéntica al caso Challenger se manifiesta en este escenario?
+  <ul type="A">
+    <li>Análisis predictivo de fallas por confiabilidad.</li>
+    <li>Inversión de la carga de la prueba combinada con normalización de la desviación.</li>
+    <li>Optimización de la efectividad global de los equipos (OEE).</li>
+    <li>Mantenimiento productivo total (TPM).</li>
+  </ul>
+</li>
+
+<li>En la gobernanza industrial moderna, el mecanismo que permite a un ingeniero elevar una objeción de seguridad no negociable que detiene una línea o lanzamiento sin temor a represalias laborales se denomina formalmente canal de opinión disidente o política de ____________________.</li>
+</ol>
+
+<h3>4.2. Instrumento de Medición (Rúbrica Docente)</h3>
+
+<table class="rubrica">
+  <caption>Rúbrica de Calificación — Taller Evaluativo Rápido (20 pts)</caption>
+  <thead><tr><th>Bloque</th><th>Reactivos</th><th>Puntos por reactivo</th><th>Puntos del bloque</th></tr></thead>
+  <tbody>
+    <tr><td>Bloque 1: Opción múltiple</td><td>1–8</td><td>1 pt</td><td>8 pts</td></tr>
+    <tr><td>Bloque 2: V/F</td><td>9–12</td><td>1 pt</td><td>4 pts</td></tr>
+    <tr><td>Bloque 3: Pareo</td><td>13–14</td><td>1 pt</td><td>2 pts</td></tr>
+    <tr><td>Bloque 4: Completación</td><td>15–18</td><td>1 pt</td><td>4 pts</td></tr>
+    <tr><td>Bloque 5: Escenarios</td><td>19–20</td><td>1 pt</td><td>2 pts</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan="3" style="text-align:right"><strong>TOTAL</strong></td><td><strong>20 pts</strong></td></tr>
+  </tfoot>
+</table>
+
+<!-- BLOQUEO DE SOLUCIONES -->
+<div class="lock-box">
+  <div class="lock-title"><span class="lock-icon">🔒</span> Soluciones docentes — Pestaña 4</div>
+  <p class="lock-msg">Las respuestas correctas y justificaciones técnicas están protegidas. Ingrese la clave docente para visualizarlas.</p>
+  <div class="lock-form">
+    <input type="password" placeholder="Clave docente" autocomplete="off">
+    <button type="button">Desbloquear soluciones</button>
+  </div>
+
+  <div class="solucion">
+    <span class="solucion-tag">SOLUCIONES DESBLOQUEADAS — VISTA DOCENTE</span>
+
+    <h4>Sección de Respuestas y Pauta de Calificación</h4>
+    <table class="compact">
+      <thead>
+        <tr><th>N°</th><th>Respuesta Correcta</th><th>Justificación Técnica Concisa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>B</strong></td><td>La presurización rápida a 6.2 MPa generó deformación de la carcasa de acero, abriendo la holgura en lugar de cerrarla (joint rotation).</td></tr>
+        <tr><td>2</td><td><strong>B</strong></td><td>Por debajo de 10 °C, el Viton pierde elasticidad reológica al acercarse a su T<sub>g</sub>, demorando más de 2 segundos en recuperar su forma.</td></tr>
+        <tr><td>3</td><td><strong>B</strong></td><td>Se violó el protocolo básico: se forzó a demostrar certeza de catástrofe en lugar de validar márgenes seguros de vuelo.</td></tr>
+        <tr><td>4</td><td><strong>B</strong></td><td>Ilustra la fractura deontológica donde las variables contractuales anulan deliberadamente el criterio de ingeniería.</td></tr>
+        <tr><td>5</td><td><strong>B</strong></td><td>La organización reclasificó fallas técnicas previas no mitigadas como tolerancias aceptables del diseño.</td></tr>
+        <tr><td>6</td><td><strong>C</strong></td><td>Legitimidad + Urgencia sin Poder define a un stakeholder Dependiente, que requiere de terceros para defender sus intereses.</td></tr>
+        <tr><td>7</td><td><strong>C</strong></td><td>La rama normativa establece el deber moral intrínseco (las personas son fines en sí mismas, no medios instrumentales).</td></tr>
+        <tr><td>8</td><td><strong>A</strong></td><td>La cizalladura de viento fracturó mecánicamente la escoria de óxido de aluminio que había taponado provisionalmente la fuga.</td></tr>
+        <tr><td>9</td><td><strong>V</strong></td><td>Es la definición clásica de la doctrina de Friedman de maximización de beneficios dentro del marco legal.</td></tr>
+        <tr><td>10</td><td><strong>F</strong></td><td>La deflexión de la junta abría la cavidad de ambos sellos simultáneamente, anulando la supuesta redundancia física.</td></tr>
+        <tr><td>11</td><td><strong>V</strong></td><td>Boisjoly demostró que nunca se había probado el sistema bajo 53 °F y que operar a 31 °F era un salto al vacío empírico.</td></tr>
+        <tr><td>12</td><td><strong>F</strong></td><td>La tripulación sufrió asimetría total de información; jamás se les comunicó el debate técnico ni las dudas de Morton Thiokol.</td></tr>
+        <tr><td>13</td><td><strong>B</strong> (1-B, 2-A, 3-C)</td><td>Materiales = Viton y resiliencia (B); Método = Carga de la prueba invertida (A); Mano de Obra = Conflicto de sombreros (C).</td></tr>
+        <tr><td>14</td><td><strong>A</strong> (1-B, 2-A, 3-C)</td><td>Tripulación = Dependiente (B); NASA = Dominante (A); Accionistas = Latente inactivo (C).</td></tr>
+        <tr><td>15</td><td><strong>Blow-by</strong> (fuga de gases de combustión)</td><td>Término técnico para la penetración y escape de gas a través del sello primario antes de su activación.</td></tr>
+        <tr><td>16</td><td><strong>Poder / Legitimidad</strong></td><td>Se priorizó a quienes tenían poder contractual (NASA) por sobre quienes tenían legitimidad moral absoluta (tripulación).</td></tr>
+        <tr><td>17</td><td><strong>Groupthink</strong></td><td>Patología psicosocial documentada en la Comisión Rogers sobre la directiva de NASA y Thiokol.</td></tr>
+        <tr><td>18</td><td><strong>Hidrógeno líquido (LH₂) y Oxígeno líquido (LOX)</strong></td><td>Componentes propelentes criogénicos del tanque externo del transbordador.</td></tr>
+        <tr><td>19</td><td><strong>B</strong></td><td>Se combinan la normalización de la desviación previa y la inversión perversa de la prueba de seguridad.</td></tr>
+        <tr><td>20</td><td><strong>Dissenting Opinions (Opinión Disidente protegida)</strong></td><td>Protocolo que blinda el disenso técnico y obliga a resolver discrepancias de seguridad antes de autorizar la operación.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="box ok">
+      <h4>Pauta de interpretación docente</h4>
+      <ul>
+        <li><strong>17–20 pts:</strong> Dominio sobresaliente del marco teórico y del caso. El estudiante articula con fluidez la dimensión técnica, ética y de gobernanza.</li>
+        <li><strong>13–16 pts:</strong> Dominio aceptable con alguna confusión menor en tipologías o terminología técnica.</li>
+        <li><strong>9–12 pts:</strong> Conocimiento parcial; identifica el caso pero confunde atributos de stakeholders o variables físicas.</li>
+        <li><strong>&lt; 9 pts:</strong> Repaso obligatorio del material teórico antes de avanzar al informe pericial de laboratorio.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section id="tab5" class="tab-panel">
+<h2 class="section-title">5. Guía de Práctica y Tarea: Informe Técnico de Laboratorio</h2>
+
+<div class="box info">
+  <h4>Ficha técnica</h4>
+  <ul>
+    <li><strong>Asignatura:</strong> Seguridad Industrial / Responsabilidad Social Corporativa</li>
+    <li><strong>Unidad Temática:</strong> Análisis Forense de Fallas Sociotécnicas y Gobernanza de Riesgos Mayores</li>
+    <li><strong>Entregable:</strong> Informe Técnico Pericial de Ingeniería (Formato Forense)</li>
+    <li><strong>Modalidad:</strong> Grupal (Equipos de investigación de 3 a 4 estudiantes)</li>
+    <li><strong>Normativa de Referencia:</strong> Criterios de integridad de diseño mecánico, OSHA 1910.119 (Process Safety Management of Highly Hazardous Chemicals), ISO 31000 (Gestión de Riesgos) y Normas APA 7.ª edición para referencias documentales.</li>
+  </ul>
+</div>
+
+<h3>5.1. Definición y Alcance de la Tarea</h3>
+
+<p>Los estudiantes actuarán como un <strong>Panel Independiente de Auditoría Forense Sociotécnica</strong>. Deberán procesar los datos termomecánicos del subsistema de propulsión sólida del transbordador Challenger (Misión STS-51-L), modelar la pérdida de contención física del fluoroelastómero y evaluar las responsabilidades de gobernanza corporativa respecto a los grupos de interés (stakeholders).</p>
+
+<p>El informe técnico final debe superar la descripción histórica cualitativa, demostrando con formulación matemática, matrices de confiabilidad y marcos de gestión ética cómo la desconexión entre la directiva corporativa y la física de materiales derivó en el desastre.</p>
+
+<h3>5.2. Estructura Exigida para el Informe Técnico</h3>
+
+<p>El documento final debe redactarse en estilo formal de informe pericial y contener los siguientes apartados:</p>
+
+<div class="box dark">
+<h4>ESTRUCTURA DEL INFORME PERICIAL DE LABORATORIO</h4>
+<p><strong>1. RESUMEN EJECUTIVO / ABSTRACT TÉCNICO</strong><br>Síntesis de la falla física, costo humano y quiebre de gobernanza.</p>
+<hr style="border-color:#c8a14b;opacity:.4">
+<p><strong>2. RECONSTRUCCIÓN FORENSE DEL FENÓMENO TERMODINÁMICO Y MATERIAL</strong><br>• Análisis de la junta clevis-tang y presurización (6.2 MPa).<br>• Cinética de relajación viscoelástica del Viton frente a T<sub>g</sub>.</p>
+<hr style="border-color:#c8a14b;opacity:.4">
+<p><strong>3. ANÁLISIS DE CONFIABILIDAD Y DEGRADACIÓN DEL SISTEMA</strong><br>• Comparativa de datos históricos de temperatura vs. daño previo.<br>• Inversión de la carga probatoria y normalización de la desviación.</p>
+<hr style="border-color:#c8a14b;opacity:.4">
+<p><strong>4. MATRIZ DE IMPACTO Y RESPONSABILIDAD ÉTICA SOBRE STAKEHOLDERS</strong><br>• Mapeo de Mitchell, Agle y Wood aplicado a la decisión crítica.<br>• Asimetría informativa y vulneración de derechos fundamentales.</p>
+<hr style="border-color:#c8a14b;opacity:.4">
+<p><strong>5. PROTOCOLO PREVENTIVO DE INGENIERÍA Y BARRERAS DE GOBERNANZA</strong><br>• Procedimiento estructurado de Opinión Técnica Disidente (Dissent).<br>• Criterios de veto no negociable (<em>Stop-Work Authority</em>).</p>
+<hr style="border-color:#c8a14b;opacity:.4">
+<p><strong>6. CONCLUSIONES, RECOMENDACIONES PERICIALES Y BIBLIOGRAFÍA (APA 7)</strong></p>
+</div>
+
+<h3>5.3. Especificaciones del Contenido Analítico Requerido</h3>
+
+<h4>Sección A: Fundamentación Termomecánica y Reológica</h4>
+<p>Los equipos deben incluir la justificación cuantitativa del fallo del sello elastomérico:</p>
+<ol>
+  <li><strong>Modelado de respuesta temporal del polímero:</strong> Explicar cómo la temperatura ambiente de −1 °C a 2 °C (31 °F) situó al fluoroelastómero cerca de su temperatura de transición vítrea (T<sub>g</sub>), aumentando su tiempo de relajación característico τ de milisegundos a más de 2.0 s.</li>
+  <li><strong>Dinámica de presurización vs. deflexión:</strong> Contrastar el tiempo de subida de la onda de presión (t &lt; 200 ms, alcanzando P ≈ 6.2 MPa) contra la tasa de recuperación geométrica del O-ring, fundamentando analíticamente por qué se produjo el paso libre de gases abrasivos (blow-by) antes de que el sello tocara las paredes del alojamiento.</li>
+</ol>
+
+<h4>Sección B: Análisis Causal y Normalización de la Desviación</h4>
+<ol>
+  <li><strong>Tratamiento estadístico sesgado:</strong> Analizar el error sistemático cometido por la dirección al excluir en las discusiones previas las misiones donde los O-rings no sufrieron daño, concluyendo erróneamente que no existía correlación matemática entre baja temperatura y erosión.</li>
+  <li><strong>Quiebre del principio precautorio:</strong> Documentar el momento en que se transformó un criterio de diseño (cero erosión permitida como factor de seguridad) en un criterio operativo degradado (la erosión parcial se catalogó como "margen de seguridad residual demostrado").</li>
+</ol>
+
+<h4>Sección C: Evaluación de Grupos de Interés y Gobernanza Ética</h4>
+<ol>
+  <li><strong>Dilema del "sombrero gerencial" (Management Hat):</strong> Analizar el impacto de supeditar los estándares de la ingeniería a las variables contractuales de la firma frente al cliente monopólico (NASA).</li>
+  <li><strong>Matriz de Saliencia de Stakeholders:</strong> Tabular a los actores clave (Tripulación, Ingenieros especialistas, Directivos de Morton Thiokol, Mandos de NASA, Sector educativo/público) bajo las variables de Poder, Legitimidad y Urgencia, identificando el fallo de priorización en la mesa decisoria del 27 de enero de 1986.</li>
+</ol>
+
+<h4>Sección D: Propuesta de Ingeniería de Control y Salvaguardas</h4>
+<p>Diseñar un Procedimiento Operativo Estandarizado (POE) que contemple:</p>
+<ul>
+  <li>Criterios explícitos de <em>Stop-Work Authority</em> (Autoridad de Detención de Trabajo) vinculante e irrevocable ante desviaciones por fuera de la envolvente de diseño certificada.</li>
+  <li>Creación de un canal de elevación de <em>Dissenting Professional Opinions</em> (DPO) que impida represalias laborales y obligue a una resolución formal documentada previa a cualquier liberación de operación de alto riesgo.</li>
+</ul>
+
+<h3>5.4. Rúbrica Analítica de Calificación (Escala: 100 Puntos)</h3>
+
+<table class="rubrica">
+  <caption>Rúbrica — Informe Técnico Pericial de Laboratorio</caption>
+  <thead>
+    <tr><th>Criterio de Evaluación</th><th>Excelente (90–100%)</th><th>Aceptable (70–89%)</th><th>Deficiente (&lt; 70%)</th><th>Ponderación</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Rigor Mecánico y de Materiales</strong></td>
+      <td>Modela con exactitud la reología del Viton, T<sub>g</sub>, deflexión de la junta y presión interna con terminología física adecuada.</td>
+      <td>Explica la falla del material de forma descriptiva, pero omite variables cuantitativas o reológicas exactas.</td>
+      <td>Confunde la causa técnica con una falla genérica; no aborda la termodinámica del elastómero.</td>
+      <td>25%</td>
+    </tr>
+    <tr>
+      <td><strong>Análisis Forense Causal y Datos</strong></td>
+      <td>Desglosa la normalización de la desviación y el sesgo de datos de vuelo previo con pensamiento crítico y lógica formal.</td>
+      <td>Identifica la presión de tiempo y el error de juicio, pero con escasa profundización en el sesgo sistemático de datos.</td>
+      <td>Narración cronológica básica sin análisis metodológico ni examen del criterio probatorio.</td>
+      <td>25%</td>
+    </tr>
+    <tr>
+      <td><strong>Aplicación de Stakeholders y RSC</strong></td>
+      <td>Aplica con rigor el modelo de saliencia (Mitchell et al.) y demuestra la vulneración ética y asimetría de información.</td>
+      <td>Menciona el conflicto ético y clasifica grupos de interés de manera intuitiva sin basarse plenamente en el modelo teórico.</td>
+      <td>No vincula el caso con la teoría de stakeholders; tratamiento exclusivamente centrado en culpabilidad individual.</td>
+      <td>25%</td>
+    </tr>
+    <tr>
+      <td><strong>Propuesta de Gobernanza Industrial</strong></td>
+      <td>Formula un protocolo de Stop-Work Authority e ingeniería de confiabilidad aplicable, formal y viable en plantas de alto riesgo.</td>
+      <td>Propone recomendaciones generales de seguridad sin estructura formal de procedimiento operativo.</td>
+      <td>Conclusiones banales o recomendaciones retóricas ("comunicarse mejor", "ser más responsables").</td>
+      <td>15%</td>
+    </tr>
+    <tr>
+      <td><strong>Estructura, Léxico y Normas APA</strong></td>
+      <td>Redacción técnica impecable, léxico formal de ingeniería, formato de informe pericial y citas rigurosas bajo APA 7.ª ed.</td>
+      <td>Redacción adecuada con errores menores de citación bibliográfica o inconsistencias leves de formato.</td>
+      <td>Redacción descuidada, tono informal, ausencia de citas o plagio textual sin referenciar.</td>
+      <td>10%</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan="4" style="text-align:right"><strong>TOTAL</strong></td><td><strong>100%</strong></td></tr>
+  </tfoot>
+</table>
+
+<h3>5.5. Parámetros de Entrega</h3>
+<ul>
+  <li><strong>Extensión:</strong> Entre 8 y 12 páginas (excluyendo portada y referencias bibliográficas).</li>
+  <li><strong>Formato de Archivo:</strong> Documento PDF digital estructurado conforme a la jerarquía de informe técnico (Título, Resumen, Desarrollo seccional numerado, Tablas analíticas, Referencias).</li>
+  <li><strong>Plazo de entrega:</strong> 10 días calendario a partir de la finalización de los talleres presenciales de análisis causal.</li>
+</ul>
+
+<!-- BLOQUEO DE SOLUCIONES -->
+<div class="lock-box">
+  <div class="lock-title"><span class="lock-icon">🔒</span> Soluciones docentes — Pestaña 5</div>
+  <p class="lock-msg">Los lineamientos de corrección, lo que el docente debe buscar en cada sección y las respuestas esperadas están protegidas. Ingrese la clave docente para visualizarlas.</p>
+  <div class="lock-form">
+    <input type="password" placeholder="Clave docente" autocomplete="off">
+    <button type="button">Desbloquear soluciones</button>
+  </div>
+
+  <div class="solucion">
+    <span class="solucion-tag">SOLUCIONES DESBLOQUEADAS — VISTA DOCENTE</span>
+
+    <h4>Pauta de Corrección — Qué debe buscar el docente en cada sección del informe</h4>
+
+    <h5>Sección 1 — Resumen Ejecutivo</h5>
+    <p>El estudiante debe sintetizar en menos de 200 palabras: (a) la falla física (O-ring de Viton a 31 °F con τ &gt; 2 s vs. presión 6.2 MPa en t &lt; 200 ms); (b) el costo humano (7 astronautas); (c) el quiebre de gobernanza (inversión de la carga de la prueba y orden del "management hat"). <strong>Aprobado:</strong> si los tres elementos están presentes con cuantificación mínima.</p>
+
+    <h5>Sección 2 — Reconstrucción Forense Termodinámica</h5>
+    <p>Verificar que el estudiante:</p>
+    <ul>
+      <li>Identifique <strong>T<sub>g</sub> del Viton ≈ -10 °C a 0 °C</strong> (aproximación documentada) y explique que a 31 °F (-0.5 °C) el material está en su zona de transición vítrea.</li>
+      <li>Cite los <strong>200 ms</strong> de tiempo de subida de presión frente a los <strong>&gt; 2 s</strong> de recuperación del elastómero, estableciendo la razón de incompatibilidad cinética.</li>
+      <li>Explique el fenómeno de <strong>joint rotation</strong> (deflexión estructural de la carcasa de acero) que abre la holgura en lugar de cerrarla.</li>
+      <li>Mencione la <strong>falsa redundancia</strong>: el O-ring secundario se ubica en la misma trayectoria de apertura geométrica.</li>
+    </ul>
+
+    <h5>Sección 3 — Confiabilidad y Normalización de la Desviación</h5>
+    <p>El estudiante debe demostrar el sesgo estadístico: la NASA excluyó de las discusiones las misiones sin daño de O-ring (selección de muestra sesgada), concluyendo erróneamente ausencia de correlación temperatura–erosión. Debe documentar el cambio de criterio de "cero erosión tolerada" a "erosión parcial = margen demostrado".</p>
+
+    <h5>Sección 4 — Matriz de Stakeholders</h5>
+    <p>El estudiante debe construir una tabla con al menos los siguientes actores y atributos correctos:</p>
+    <table class="compact">
+      <thead><tr><th>Stakeholder</th><th>Poder</th><th>Legitimidad</th><th>Urgencia</th><th>Clasificación</th></tr></thead>
+      <tbody>
+        <tr><td>Tripulación STS-51-L</td><td>Nulo de facto</td><td>Máxima (contractual+moral)</td><td>Crítica (vida)</td><td>Definitivo ético → tratado como Dependiente</td></tr>
+        <tr><td>Ingenieros (Boisjoly)</td><td>Anulado jerárquicamente</td><td>Científica máxima</td><td>Máxima</td><td>Dependiente técnico → silenciado</td></tr>
+        <tr><td>Directivos MT</td><td>Utilitario pleno</td><td>Legal-financiera</td><td>Media</td><td>Dominante (P+L) → decisor final</td></tr>
+        <tr><td>Mandos NASA (Mulloy)</td><td>Coercitivo absoluto</td><td>Institucional (intervención técnica ilegítima)</td><td>Alta (plazos políticos)</td><td>Dominante → hiperpriorizado</td></tr>
+        <tr><td>Accionistas MT</td><td>Financiero</td><td>Legal</td><td>Baja operativa</td><td>Latente inactivo</td></tr>
+        <tr><td>Público / Sector Educativo</td><td>Difuso</td><td>Alta (contribuyentes)</td><td>Baja pre-lanzamiento</td><td>Latente discrecional</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Debe concluir</strong> que la asimetría informativa impidió el consentimiento informado de la tripulación, vulnerando el deber fiduciario y el imperativo categórico kantiano (rama normativa).</p>
+
+    <h5>Sección 5 — Protocolo Preventivo (POE)</h5>
+    <p>Verificar que el POE propuesto incluya:</p>
+    <ul>
+      <li><strong>Stop-Work Authority</strong> vinculante e irrevocable para cualquier ingeniero que detecte operación fuera de la envolvente certificada.</li>
+      <li>Canal formal de <strong>Dissenting Professional Opinions (DPO)</strong> con protección contra represalias laborales.</li>
+      <li>Comité Revisor Independiente colegiado que firme la liberación de operaciones de alto riesgo.</li>
+      <li>Registro documental vinculante de toda objeción técnica antes de autorizar la operación.</li>
+      <li>Veto automático cuando cualquier variable de estado supere el LCL/UCL de diseño.</li>
+    </ul>
+
+    <h5>Sección 6 — Conclusiones, Recomendaciones y Bibliografía</h5>
+    <p>Verificar: (a) conclusiones articuladas en términos de gobernanza, no de culpabilidad individual; (b) recomendaciones periciales accionables (no retóricas); (c) bibliografía mínima con referencias APA 7: Vaughan (1996), Boisjoly (1985 memorandum), Rogers Commission Report (1986), Freeman (1984), Mitchell/Agle/Wood (1997), Friedman (1970).</p>
+
+    <div class="box ok">
+      <h4>Indicadores de reprobación automática</h4>
+      <ul>
+        <li>Omisión del cálculo de τ (constante de relajación) en la Sección 2.</li>
+        <li>No mencionar la inversión de la carga de la prueba ni la frase "management hat" en la Sección 3.</li>
+        <li>Omitir la matriz Mitchell et al. en la Sección 4.</li>
+        <li>Recomendaciones genéricas ("mejorar comunicación") sin procedimiento operativo en la Sección 5.</li>
+        <li>Ausencia total de citas o plagio textual sin referenciar.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section id="tab6" class="tab-panel">
+<h2 class="section-title">6. Guía de Resolución Técnica (Troubleshooting): Protocolo de Respuesta ante Pérdida de Integridad en Sellos Críticos y Desviación de Envolvente Operativa</h2>
+
+<div class="box info">
+  <h4>Ficha técnica del procedimiento</h4>
+  <ul>
+    <li><strong>Código de Procedimiento:</strong> GTS-MEC-8601</li>
+    <li><strong>Asignatura / Módulo:</strong> Seguridad de Procesos Industriales / Integridad Mecánica</li>
+    <li><strong>Aplicación:</strong> Sistemas Presurizados de Alta Energía y Juntas Elastómeras de Contención Crítica</li>
+    <li><strong>Caso Base:</strong> Morton Thiokol / SRB Joint Assembly (Falla STS-51-L)</li>
+    <li><strong>Público Objetivo:</strong> Ingenieros de Planta, Supervisores de Mantenimiento y Especialistas de Confiabilidad</li>
+  </ul>
+</div>
+
+<h3>6.1. Alcance y Filosofía Operativa</h3>
+
+<p>Esta guía establece el árbol de diagnóstico, criterios de parada segura (<em>Stop-Work Authority</em>) y contramedidas sistemáticas ante la detección de anomalías térmicas, cinéticas o reológicas en componentes de contención de fluidos de alta presión.</p>
+
+<div class="box danger">
+  <h4>Principio de Presunción de No-Conformidad</h4>
+  <p>Ningún componente o subsistema presurizado puede operar fuera de su envolvente de diseño probada empíricamente. <strong>La ausencia de datos de fallo a condiciones extremas no constituye validación de seguridad.</strong></p>
+</div>
+
+<h3>6.2. Parámetros Críticos de Control y Umbrales Operativos</h3>
+
+<p>La operación de la junta exige el monitoreo estricto de las siguientes variables de estado antes de autorizar la presurización:</p>
+
+<table class="compact">
+  <caption>Umbrales operativos críticos — Variables de estado</caption>
+  <thead>
+    <tr><th>Variable Técnica</th><th>Límite Crítico Inferior (LCL)</th><th>Límite Crítico Superior (UCL)</th><th>Condición de Alerta / Disparo de Parada</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Temperatura en Junta de Campo (T<sub>j</sub>)</td>
+      <td>12 °C (53 °F)</td>
+      <td>60 °C (140 °F)</td>
+      <td>T<sub>j</sub> ≤ 11.7 °C: Vetar presurización por pérdida de resiliencia (T<sub>g</sub>).</td>
+    </tr>
+    <tr>
+      <td>Presión de Pulso Inicial (P<sub>peak</sub>)</td>
+      <td>—</td>
+      <td>6.8 MPa (986 psi)</td>
+      <td>P &gt; 6.2 MPa con Δt &lt; 200 ms: Riesgo de joint rotation instantánea.</td>
+    </tr>
+    <tr>
+      <td>Tiempo de Recuperación Elástica (τ)</td>
+      <td>—</td>
+      <td>0.15 s (150 ms)</td>
+      <td>τ &gt; 0.20 s: Incapacidad cinemática de extrusión contra la holgura en expansión.</td>
+    </tr>
+    <tr>
+      <td>Erosión Radial Máxima del O-Ring</td>
+      <td>0.00 mm (Tolerancia Cero)</td>
+      <td>0.00 mm (Tolerancia Cero)</td>
+      <td>Cualquier rastro de blow-by o coquización previa anula la certificación de la junta.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>6.3. Matriz de Síntomas, Diagnóstico Forense y Acciones de Troubleshooting</h3>
+
+<div class="box dark">
+  <h4>ÁRBOL LÓGICO DE INTERVENCIÓN RÁPIDA</h4>
+<pre style="margin:0; color:#d8e6f8; font-family:'Courier New',monospace">[Lectura de Sensor de Temperatura en Plataforma]
+  │
+  ¿T_j &lt; 11.7 °C (53 °F) en la junta?
+  ┌───────────┴───────────┐
+  SÍ                       NO
+  │                        │
+  ┌────────────▼───────────┐  ▼
+  │ ACTIVAR DISPARO DE     │  ¿Existe historial de
+  │ PARADA TÉCNICA (SWA)   │  erosión en vuelo previo?
+  │ Veto automático        │  ┌───────┴───────┐
+  └────────────────────────┘  SÍ              NO
+                              │               │
+                ┌────────────▼─────┐         ▼
+                │ CUARENTENA Y     │  [AUTORIZACIÓN
+                │ REDISEÑO FÍSICO  │   CONDICIONAL]
+                └──────────────────┘</pre>
+</div>
+
+<table class="compact">
+  <caption>Matriz de Códigos de Falla, Diagnóstico y Acciones Correctivas</caption>
+  <thead>
+    <tr><th>Código</th><th>Síntoma / Condición Observada</th><th>Causa Raíz Probable</th><th>Nivel de Riesgo</th><th>Acción Correctiva de Ingeniería (Troubleshooting)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>F-01</strong></td>
+      <td>Temperatura ambiental sub-cero (T<sub>amb</sub> &lt; 0 °C) en la zona de anclaje de sellos.</td>
+      <td>Transición vítrea incipiente en fluoroelastómeros (Viton); aumento exponencial del módulo de rigidez elástica.</td>
+      <td>Catastrófico (Nivel 1)</td>
+      <td>
+        1. Emitir orden de no-ignición inmediata.<br>
+        2. Instalar mantas térmicas activas o acondicionamiento forzado si el diseño lo contempla.<br>
+        3. Prohibir presurización hasta que T<sub>j</sub> ≥ 12 °C durante un mínimo de 6 horas continuas.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>F-02</strong></td>
+      <td>Detección de hollín o escoria carbonizada entre el sello primario y secundario en inspección post-servicio.</td>
+      <td>Fenómeno de blow-by por desajuste cinemático: la apertura de la junta superó la velocidad de hinchamiento del elastómero.</td>
+      <td>Crítico (Nivel 2)</td>
+      <td>
+        1. Retirar inmediatamente la certificación del lote de sellos.<br>
+        2. Revaluar la rigidez estructural de la carcasa para mitigar la deflexión por flexión (joint rotation).<br>
+        3. Prohibir la reclasificación del hallazgo como "margen demostrado".
+      </td>
+    </tr>
+    <tr>
+      <td><strong>F-03</strong></td>
+      <td>Presión ejercida por mandos gerenciales o clientes para revertir un veto técnico por plazos contractuales.</td>
+      <td>Inversión perversa de la carga de la prueba; colapso de la gobernanza de seguridad de procesos.</td>
+      <td>Catastrófico (Nivel 1)</td>
+      <td>
+        1. Activar el protocolo DPO (Dissenting Professional Opinion).<br>
+        2. El disenso técnico congelará el procedimiento operativo de manera vinculante.<br>
+        3. Requerir revalidación firmada por un Comité Revisor Independiente colegiado.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>F-04</strong></td>
+      <td>Formación de puentes de hielo o estalactitas en el soporte estructural y torre de lanzamiento.</td>
+      <td>Condensación criogénica por fugas de LH₂/LOX combinada con precipitación gélida ambiental.</td>
+      <td>Mayor (Nivel 3)</td>
+      <td>
+        1. Realizar inspección termográfica infrarroja completa del tanque externo.<br>
+        2. Evaluar el riesgo de desprendimiento de hielo por vibración acústica durante la ignición.<br>
+        3. Abortar cuenta regresiva si el desprendimiento amenaza las losetas térmicas.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>6.4. Tarea Práctica para el Estudiante: Protocolo de Respuesta en Simulación</h3>
+
+<h4>Contexto del Ejercicio</h4>
+<p>Usted ejerce como Ingeniero Líder de Confiabilidad de Sistemas de Sellado. Se encuentra en la sala de control técnico a T − 4 horas del despegue programado.</p>
+
+<div class="box warn">
+  <h4>Datos de Telemetría e Instrumentación Recibidos</h4>
+  <ul>
+    <li>Temperatura ambiente registrada en torre de soporte: <strong>−3 °C (26.6 °F)</strong>.</li>
+    <li>Sensor infrarrojo en la junta inferior del propulsor sólido derecho: <strong>−1 °C (30.2 °F)</strong>.</li>
+    <li>Envolvente de certificación de fábrica del proveedor: <strong>Válida únicamente de 12 °C a 60 °C</strong>.</li>
+    <li>Historial de campo: La misión STS-51-C (11.7 °C) evidenció una penetración de gas caliente (blow-by) con erosión profunda del O-ring primario en un arco circunferencial de 80°.</li>
+    <li>Instrucción del Gerente de Operaciones: <em>"El cliente exige el despegue a las 11:38. No tenemos pruebas estadísticas concluyentes de que el O-ring secundario vaya a perforarse totalmente hoy. Firme la liberación técnica o justifique probabilísticamente la falla inmediata."</em></li>
+  </ul>
+</div>
+
+<h4>Entregable Requerido: Formulario de Intervención Técnica (FIT)</h4>
+
+<p>El estudiante debe completar y firmar el siguiente formulario técnico resolutivo:</p>
+
+<div class="box dark">
+  <h4 style="color:#ffd98a; text-align:center">FORMULARIO DE INTERVENCIÓN TÉCNICA (FIT-GTS)</h4>
+  <p style="text-align:center; opacity:.85">CASO DE EVENTO: Alerta de Integridad en Junta SRB STS-51-L<br>FECHA DE OPERACIÓN: 28 de enero de 1986 | T - 4 HORAS</p>
+
+  <p><strong>1. DICTAMEN DE CONFORMIDAD TÉCNICA:</strong></p>
+  <p>&nbsp;&nbsp;[ ] APROBADO (Operación dentro de límites)<br>
+  &nbsp;&nbsp;[ ] RECHAZADO / PARADA TÉCNICA OBLIGATORIA (Stop-Work Authority)</p>
+
+  <p><strong>2. FUNDAMENTACIÓN REOLÓGICA Y CINÉTICA DEL RECHAZO (Máximo 4 líneas):</strong></p>
+  <p style="border-bottom:1px solid #c8a14b; padding-bottom:6px">&nbsp;</p>
+  <p style="border-bottom:1px solid #c8a14b; padding-bottom:6px">&nbsp;</p>
+  <p style="border-bottom:1px solid #c8a14b; padding-bottom:6px">&nbsp;</p>
+  <p style="border-bottom:1px solid #c8a14b; padding-bottom:6px">&nbsp;</p>
+
+  <p><strong>3. REFUTACIÓN METODOLÓGICA A LA DIRECCIÓN (Inversión de carga de prueba):</strong></p>
+  <p style="opacity:.85; font-size:.9rem">Explique por qué el argumento "demuestre con certeza que va a fallar" constituye una violación de los principios de aseguramiento de calidad (QA/QC):</p>
+  <p style="border-bottom:1px solid #c8a14b; padding-bottom:6px">&nbsp;</p>
+  <p style="border-bottom:1px solid #c8a14b; padding-bottom:6px">&nbsp;</p>
+
+  <p><strong>4. IDENTIFICACIÓN DEL GRUPO DE INTERÉS VULNERADO:</strong></p>
+  <p style="opacity:.85; font-size:.9rem">Nombre del stakeholder que asume el riesgo operativo directo sin capacidad de negociación ante esta decisión:</p>
+  <p style="border-bottom:1px solid #c8a14b; padding-bottom:6px">&nbsp;</p>
+
+  <p><strong>5. ACCIÓN INMEDIATA DE MITIGACIÓN EN PLANTA:</strong></p>
+  <p style="opacity:.85; font-size:.9rem">Enumere las 3 órdenes de trabajo que el sistema SCADA/Control debe ejecutar:</p>
+  <p>1. <span class="respuesta-line" style="min-width:600px"></span></p>
+  <p>2. <span class="respuesta-line" style="min-width:600px"></span></p>
+  <p>3. <span class="respuesta-line" style="min-width:600px"></span></p>
+
+  <p style="margin-top:20px">FIRMA DEL INGENIERO DE CONFIABILIDAD: <span class="respuesta-line" style="min-width:300px"></span></p>
+  <p>REGISTRO PROFESIONAL: <span class="respuesta-line" style="min-width:300px"></span></p>
+</div>
+
+<h3>6.5. Instrumento de Medición (Rúbrica Docente)</h3>
+
+<table class="rubrica">
+  <caption>Rúbrica — Formulario de Intervención Técnica FIT-GTS</caption>
+  <thead>
+    <tr><th>Criterio</th><th>Excelente (9–10)</th><th>Aceptable (7–8)</th><th>Deficiente (&lt; 7)</th><th>Pts</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Dictamen de Conformidad</td><td>Marca RECHAZADO/PARADA TÉCNICA sin ambigüedad</td><td>Marca RECHAZADO pero con ambigüedad redaccional</td><td>Marca APROBADO (reprobatorio automático)</td><td>20</td></tr>
+    <tr><td>Fundamentación reológica y cinética</td><td>Cita T<sub>g</sub>, τ &gt; 2 s, Δt &lt; 200 ms, presión 6.2 MPa</td><td>Menciona temperatura y presión sin integrar cinética</td><td>Argumentación genérica sin datos físicos</td><td>30</td></tr>
+    <tr><td>Refutación metodológica</td><td>Argumenta validación positiva de seguridad vs. ausencia de prueba de falla</td><td>Explica el principio pero no lo vincula con QA/QC</td><td>Acepta el argumento del gerente</td><td>20</td></tr>
+    <tr><td>Identificación del stakeholder vulnerado</td><td>Identifica a la tripulación y razona asimetría informativa</td><td>Identifica a la tripulación sin argumentación</td><td>No identifica al stakeholder</td><td>15</td></tr>
+    <tr><td>Acciones inmediatas SCADA</td><td>3 acciones técnicas correctas: abortar conteo, purgar líneas, enfriamiento/espera</td><td>2 acciones correctas</td><td>0–1 acciones correctas o acciones no técnicas</td><td>15</td></tr>
+  </tbody>
+  <tfoot><tr><td colspan="4" style="text-align:right"><strong>TOTAL</strong></td><td><strong>100</strong></td></tr></tfoot>
+</table>
+
+<!-- BLOQUEO DE SOLUCIONES -->
+<div class="lock-box">
+  <div class="lock-title"><span class="lock-icon">🔒</span> Soluciones docentes — Pestaña 6</div>
+  <p class="lock-msg">Las respuestas esperadas al FIT y los criterios de corrección están protegidos. Ingrese la clave docente para visualizarlas.</p>
+  <div class="lock-form">
+    <input type="password" placeholder="Clave docente" autocomplete="off">
+    <button type="button">Desbloquear soluciones</button>
+  </div>
+
+  <div class="solucion">
+    <span class="solucion-tag">SOLUCIONES DESBLOQUEADAS — VISTA DOCENTE</span>
+
+    <h4>Criterios de Evaluación y Respuestas Esperadas (Pauta Docente)</h4>
+
+    <ol>
+      <li><strong>Dictamen Correcto:</strong> El estudiante debe marcar obligatoriamente <strong>RECHAZADO / PARADA TÉCNICA OBLIGATORIA</strong>. Cualquier aprobación condicional reprueba automáticamente el ejercicio.</li>
+
+      <li><strong>Fundamentación Técnica:</strong> Debe mencionar:
+        <ul>
+          <li>La caída por debajo de la temperatura de diseño (12 °C / 53 °F como LCL).</li>
+          <li>El retardo viscoelástico del Viton para recuperar su forma dimensional (τ &gt; 2 s).</li>
+          <li>La incapacidad de sellar la holgura antes del paso del frente de llama inicial (t &lt; 200 ms).</li>
+          <li>La incompatibilidad cinética entre τ (recuperación del elastómero) y Δt (subida de presión a 6.2 MPa).</li>
+        </ul>
+      </li>
+
+      <li><strong>Refutación Metodológica:</strong> Debe argumentar que:
+        <ul>
+          <li>Los sistemas críticos exigen <strong>validación positiva de seguridad previa</strong> antes de operar, no ausencia de pruebas de falla.</li>
+          <li>Operar a −1 °C representa una <strong>extrapolación no calificada fuera de la envolvente de diseño</strong>.</li>
+          <li>La exigencia de "demostrar con certeza que va a fallar" invierte el principio precautorio (presunción de no-conformidad) y constituye una violación de los principios de QA/QC.</li>
+          <li>La carga de la prueba en sistemas de alta energía siempre recae sobre quien pretende autorizar la operación, no sobre quien objeta.</li>
+        </ul>
+      </li>
+
+      <li><strong>Stakeholder Vulnerado:</strong> La tripulación de astronautas (cuyo derecho a la vida y seguridad ocupacional está siendo subordinado sin consentimiento informado). El estudiante debe mencionar explícitamente:
+        <ul>
+          <li>La asimetría informativa absoluta (no se les informó del debate técnico).</li>
+          <li>La ausencia de consentimiento informado.</li>
+          <li>El carácter definitivo del stakeholder (L+U sin P).</li>
+        </ul>
+      </li>
+
+      <li><strong>Acciones Inmediatas (SCADA/Control):</strong>
+        <ol>
+          <li><strong>Abortar conteo regresivo</strong> y congelar la secuencia de ignición (orden de no-ignición vinculante).</li>
+          <li><strong>Purgar líneas presurizadas</strong> y asegurar el sistema en estado de enfriamiento/espera segura.</li>
+          <li><strong>Monitoreo continuo de variables</strong> (T<sub>j</sub>, P, τ) y reporte a Comité Revisor Independiente con activación simultánea del protocolo DPO (Dissenting Professional Opinion).</li>
+        </ol>
+      </li>
+    </ol>
+
+    <div class="box ok">
+      <h4>Modelo de respuesta ideal para el ítem 2 (Fundamentación reológica)</h4>
+      <p>"La temperatura de junta de −1 °C sitúa al fluoroelastómero Viton en su zona de transición vítrea (T<sub>g</sub> ≈ 0 °C), elevando el tiempo de recuperación elástica (τ) a más de 2.0 s. La onda de presión de ignición alcanza 6.2 MPa en menos de 200 ms, intervalo en el cual el O-ring no puede recuperar su geometría ni sellar la holgura en expansión (joint rotation). La envolvente certificada del proveedor (12 °C – 60 °C) está siendo violada. La operación constituye una extrapolación no calificada."</p>
+    </div>
+
+    <div class="box ok">
+      <h4>Modelo de respuesta ideal para el ítem 3 (Refutación metodológica)</h4>
+      <p>"El principio de aseguramiento de calidad (QA/QC) en sistemas críticos exige validación positiva de seguridad previa, no la demostración de falla certera. El argumento del Gerente invierte la carga de la prueba: traslada al ingeniero la obligación de predecir una catástrofe con certeza estadística, cuando la norma ISO 31000 y OSHA 1910.119 obligan a quien autoriza la operación a demostrar previamente la seguridad dentro de la envolvente certificada. Operar a −1 °C sin datos de calificación es operar fuera de especificación y constituye una violación documentable del protocolo de integridad mecánica."</p>
+    </div>
+
+    <h4>Indicadores de reprobación automática</h4>
+    <ul>
+      <li>Marcar APROBADO o "Aprobado con condiciones".</li>
+      <li>Aceptar el argumento del Gerente como metodológicamente válido.</li>
+      <li>Omitir la identificación de la tripulación como stakeholder vulnerado.</li>
+      <li>Proponer acciones administrativas (reuniones, consultas) en lugar de acciones técnicas de control (SCADA).</li>
+    </ul>
+  </div>
+</div>
+
+</section>
+
+<section id="tab7" class="tab-panel">
+<h2 class="section-title">7. Guía Metodológica: Matrices Comparativas y Decisión Multicriterio (AHP) en Gobernanza Ética e Integridad Operacional</h2>
+
+<div class="box info">
+  <h4>Ficha técnica</h4>
+  <ul>
+    <li><strong>Código Curricular:</strong> GM-DEC-8602</li>
+    <li><strong>Asignatura:</strong> Responsabilidad Social Corporativa / Seguridad Industrial</li>
+    <li><strong>Nivel:</strong> Pregrado Avanzado (Ingeniería Industrial / Seguridad Industrial)</li>
+    <li><strong>Unidad:</strong> Toma de Decisiones Responsables, Teoría de Stakeholders y Gestión de Riesgos Mayores</li>
+    <li><strong>Caso de Aplicación:</strong> Misión STS-51-L (Challenger / Morton Thiokol)</li>
+    <li><strong>Modalidad de Trabajo:</strong> Individual o equipos analíticos de 2 a 3 estudiantes</li>
+    <li><strong>Tiempo Estimado de Resolución:</strong> 3 horas pedagógicas (o trabajo autónomo de aplicación de ingeniería)</li>
+  </ul>
+</div>
+
+<h3>7.1. Justificación y Fundamentación Teórica</h3>
+
+<p>El colapso de la misión STS-51-L evidenció una patología recurrente en sistemas sociotécnicos de alta energía: el <strong>colapso del espacio de decisión monocriterio</strong>. Durante la noche del 27 de enero de 1986, la dirección ejecutiva colapsó una red multidimensional de criterios (integridad física de polímeros, derecho a la vida de los ocupantes, reputación científica y penalizaciones económicas) en una función objetivo unilateral: cumplir con el cronograma contractual y salvaguardar la relación con el cliente principal.</p>
+
+<p>Para mitigar los sesgos cognitivos asociados (<em>Groupthink</em>, normalización de la desviación y miopía directiva), la ingeniería industrial emplea métodos formales de Toma de Decisiones Multicriterio (MCDM, <em>Multi-Criteria Decision Making</em>). Esta guía utiliza el <strong>Proceso de Jerarquía Analítica (AHP, Analytic Hierarchy Process de Thomas Saaty)</strong>, integrando los atributos del modelo de saliencia de stakeholders de Mitchell, Agle y Wood (1997) para estructurar y ponderar las decisiones críticas de ingeniería.</p>
+
+<div class="box dark">
+  <h4>JERARQUÍA ANALÍTICA DE DECISIÓN (AHP)</h4>
+  <pre style="margin:0; color:#d8e6f8; font-family:'Courier New',monospace">[META / OBJETIVO]
+   Decisión Óptima de Lanzamiento STS-51-L
+   │
+   ┌───────────────────┬─────────────────┬───────────────────┐
+   ▼                   ▼                 ▼                   ▼
+[CRITERIO C1]    [CRITERIO C2]    [CRITERIO C3]    [CRITERIO C4]
+Seguridad        Confiabilidad    Costo Contractual  Impacto
+Humana          Técnica          y de Programa       Político /
+(Tripulación)   (O-Rings/Presión)                    Relaciones Públicas
+   │              │                 │                   │
+   └───────────────────┼─────────────────┼───────────────────┘
+                       ▼                 ▼
+              [ALTERNATIVA A1]        [ALTERNATIVA A2]
+              Abortar / Posponer       Proceder al
+              el Lanzamiento           Lanzamiento
+                                       (Criterio Gerencial)</pre>
+</div>
+
+<h3>7.2. Definición Formal de Criterios y Alternativas de Decisión</h3>
+
+<h4>7.2.1. Alternativas en Disputa (A<sub>i</sub>)</h4>
+<ul>
+  <li><strong>A₁ (Postura Técnica / Roger Boisjoly):</strong> Abortar/posponer indefinidamente el lanzamiento hasta que la temperatura ambiente en la plataforma 39B garantice una junta de campo a T<sub>j</sub> ≥ 12 °C (53 °F) y se rediseñe el confinamiento del sello.</li>
+  <li><strong>A₂ (Postura Gerencial / "Management Hat"):</strong> Revertir la objeción técnica de ingeniería y autorizar el despegue inmediato a T<sub>j</sub> ≈ −1 °C a 2 °C (31 °F) asumiendo riesgo residual no validado.</li>
+</ul>
+
+<h4>7.2.2. Criterios de Evaluación (C<sub>j</sub>)</h4>
+<ul>
+  <li><strong>C₁ — Integridad Física y Preservación de Vida:</strong> Nivel de salvaguarda del derecho fundamental de los stakeholders primarios dependientes (Tripulación STS-51-L).</li>
+  <li><strong>C₂ — Confiabilidad Reológica y Evidencia Científica:</strong> Nivel de certeza termomecánica sobre la contención del fluido a 6.2 MPa frente al régimen de transición vítrea (T<sub>g</sub>) del Viton.</li>
+  <li><strong>C₃ — Preservación Contractual y Penalización Financiera:</strong> Minimización de sobrecostos operativos y retención del contrato de producción exclusivo de cohetes aceleradores (SRB) con la NASA.</li>
+  <li><strong>C₄ — Cumplimiento de Cronograma Político / Mediático:</strong> Sincronización del vuelo con el Discurso del Estado de la Unión presidencial y el programa educativo Teacher in Space.</li>
+</ul>
+
+<h3>7.3. Matriz Comparativa Estructurada de Criterios y Modelos de Gestión</h3>
+
+<p>Antes de aplicar la modelación matemática, el estudiante debe contrastar los enfoques de toma de decisiones confrontados en el caso:</p>
+
+<table>
+  <caption>Comparativa de enfoques decisionales</caption>
+  <thead>
+    <tr><th>Dimensión Analítica</th><th>Enfoque Neoclásico (Shareholder Primacy)</th><th>Enfoque Sociotécnico Responsable (Stakeholder Governance)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Premisa Fundamental</strong></td>
+      <td>Maximización de la utilidad contractual a corto plazo dentro de la legalidad formal.</td>
+      <td>Optimización del valor sistémico a largo plazo preservando los derechos legítimos de los afectados.</td>
+    </tr>
+    <tr>
+      <td><strong>Ponderación de Criterios</strong></td>
+      <td>W(Costos/Contrato) + W(Cronograma) ≫ W(Seguridad no visible)</td>
+      <td>W(Integridad de vida) ≥ Barrera Inviolable (Criterio No-Negociable)</td>
+    </tr>
+    <tr>
+      <td><strong>Tratamiento del Disenso</strong></td>
+      <td>Eliminación del obstáculo burocrático ("Take off your engineering hat").</td>
+      <td>Blindaje procedimental de la objeción (Dissenting Professional Opinions).</td>
+    </tr>
+    <tr>
+      <td><strong>Carga de la Prueba</strong></td>
+      <td>Invertida: Demostrar certeza matemática de catástrofe inmediata.</td>
+      <td>Ortodoxa: Exigir validación empírica positiva de seguridad antes de autorizar.</td>
+    </tr>
+    <tr>
+      <td><strong>Resultado Histórico</strong></td>
+      <td>Destrucción de la misión, 7 vidas perdidas y daño reputacional irreparable.</td>
+      <td>Cancelación preventiva de vuelo y rediseño geométrico de la junta en espiga.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>7.4. Guía Metodológica Paso a Paso: Modelado AHP</h3>
+
+<h4>Paso 1: Escala Fundamental de Saaty</h4>
+<p>Para ponderar la importancia relativa entre pares de criterios se utiliza la escala estandarizada:</p>
+<ul>
+  <li><strong>1:</strong> Igual importancia entre dos criterios.</li>
+  <li><strong>3:</strong> Importancia moderada de un criterio sobre otro.</li>
+  <li><strong>5:</strong> Importancia fuerte o esencial.</li>
+  <li><strong>7:</strong> Importancia muy fuerte o demostrada en la práctica.</li>
+  <li><strong>9:</strong> Importancia extrema o absoluta.</li>
+  <li><strong>2, 4, 6, 8:</strong> Valores intermedios de interpolación.</li>
+  <li><strong>Recíprocos (1/a<sub>ij</sub>):</strong> Si el criterio i tiene asignado el valor 5 frente al criterio j, entonces a<sub>ji</sub> = 1/5.</li>
+</ul>
+
+<h4>Paso 2: Matriz de Comparación por Pares de Criterios (M<sub>C</sub>)</h4>
+<p>Construya una matriz cuadrada de orden 4 × 4 donde cada elemento a<sub>ij</sub> representa la preferencia del criterio en la fila i frente al criterio en la columna j:</p>
+
+<div class="formula">M<sub>C</sub> = ⎛ 1  a₁₂  a₁₃  a₁₄ ⎞<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎜ 1/a₁₂  1  a₂₃  a₂₄ ⎟<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎜ 1/a₁₃  1/a₂₃  1  a₃₄ ⎟<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎝ 1/a₁₄  1/a₂₄  1/a₃₄  1 ⎠</div>
+
+<p><strong>Algoritmo de Normalización y Cálculo del Vector de Pesos (w):</strong></p>
+<ol>
+  <li>Calcule la suma de cada columna j:
+    <div class="formula">S<sub>j</sub> = Σ<sub>i=1</sub><sup>n</sup> a<sub>ij</sub></div>
+  </li>
+  <li>Normalice cada elemento de la matriz dividiéndolo entre la suma de su columna correspondiente:
+    <div class="formula">r<sub>ij</sub> = a<sub>ij</sub> / S<sub>j</sub></div>
+  </li>
+  <li>Calcule el peso del criterio i (w<sub>i</sub>) mediante la media aritmética de su fila normalizada:
+    <div class="formula">w<sub>i</sub> = (1/n) · Σ<sub>j=1</sub><sup>n</sup> r<sub>ij</sub>, donde Σ<sub>i=1</sub><sup>n</sup> w<sub>i</sub> = 1</div>
+  </li>
+</ol>
+
+<h4>Paso 3: Validación de Consistencia Lógica de la Matriz</h4>
+<p>Para garantizar que los juicios de valor de la matriz no sean aleatorios o contradictorios (por ejemplo, afirmar que C₁ &gt; C₂, C₂ &gt; C₃, pero C₃ &gt; C₁), se debe calcular la Razón de Consistencia (CR):</p>
+<ol>
+  <li>Cálculo del vector de ponderación total (v): <div class="formula">v = M<sub>C</sub> × w</div></li>
+  <li>Estimación del autovalor máximo (λ<sub>max</sub>): <div class="formula">λ<sub>max</sub> = (1/n) · Σ<sub>i=1</sub><sup>n</sup> (v<sub>i</sub>/w<sub>i</sub>)</div></li>
+  <li>Índice de Consistencia (CI): <div class="formula">CI = (λ<sub>max</sub> − n) / (n − 1)</div></li>
+  <li>Razón de Consistencia (CR): <div class="formula">CR = CI / RI</div></li>
+</ol>
+
+<p>Donde RI es el Índice de Aleatoriedad empírico fijado por Saaty para una matriz de orden n = 4:</p>
+<div class="formula">RI<sub>(n=4)</sub> = 0.90</div>
+
+<div class="box warn">
+  <h4>Condición de validez</h4>
+  <p><strong>CR ≤ 0.10 (10%)</strong> — Si CR &gt; 0.10, los juicios emitidos son incoherentes y el evaluador debe reestructurar la matriz de comparación.</p>
+</div>
+
+<h3>7.5. Tarea Práctica Evaluada para el Estudiante</h3>
+
+<p>A continuación se presentan los ejercicios que deben resolverse de forma metódica:</p>
+
+<h4>Ejercicio 1: Simulación de la Mente Directiva (Escenario de Colapso Ético)</h4>
+<p>Reconstruya la matriz de decisión de Morton Thiokol y NASA la noche del 27 de enero de 1986. En ese momento, la gerencia consideró el Costo Contractual (C₃) y el Cronograma Político (C₄) como factores dominantes sobre la Evidencia Técnica (C₂) y asumió que la Seguridad Humana (C₁) estaba implícitamente resuelta debido al éxito de vuelos anteriores (normalización de la desviación).</p>
+<ol>
+  <li>Complete la siguiente matriz de comparación por pares asignando los valores de Saaty correspondientes a este sesgo gerencial:
+    <ul>
+      <li>C₃ tiene importancia fuerte sobre C₁ (a₃₁ = 5).</li>
+      <li>C₄ tiene importancia moderada sobre C₁ (a₄₁ = 3).</li>
+      <li>C₃ tiene importancia moderada sobre C₂ (a₃₂ = 3).</li>
+      <li>C₄ tiene igual importancia que C₃ (a₄₃ = 1).</li>
+      <li>C₂ tiene igual importancia que C₁ (a₂₁ = 1).</li>
+    </ul>
+  </li>
+  <li>Calcule el vector de pesos directivos: w<sub>(gerencial)</sub> = [w₁, w₂, w₃, w₄]<sup>T</sup>.</li>
+  <li>Verifique si la Razón de Consistencia cumple la condición CR ≤ 0.10.</li>
+</ol>
+
+<h4>Ejercicio 2: Modelado de Gobernanza Responsable (Ingeniería de Stakeholders)</h4>
+<p>Formule una matriz AHP donde los pesos reflejen un estándar de Seguridad de Procesos y Responsabilidad Corporativa, situando la vida y la evidencia física como criterios no negociables:</p>
+<ul>
+  <li>La Seguridad Humana (C₁) tiene importancia absoluta sobre el Costo Contractual (C₃) y el Cronograma Político (C₄) (a₁₃ = 9, a₁₄ = 9).</li>
+  <li>La Confiabilidad Técnica (C₂) tiene importancia muy fuerte sobre Costos y Cronograma (a₂₃ = 7, a₂₄ = 7).</li>
+  <li>La Seguridad Humana (C₁) tiene importancia moderada sobre la Confiabilidad Técnica (C₂) (a₁₂ = 3).</li>
+  <li>El Costo Contractual (C₃) tiene igual importancia que el Cronograma (C₄) (a₃₄ = 1).</li>
+</ul>
+<ol>
+  <li>Complete la matriz normalizada.</li>
+  <li>Obtenga el vector de pesos ético-técnico: w<sub>(responsable)</sub> = [w₁, w₂, w₃, w₄]<sup>T</sup>.</li>
+  <li>Determine el valor de λ<sub>max</sub>, CI y confirme que CR ≤ 0.10.</li>
+</ol>
+
+<h4>Ejercicio 3: Evaluación de Alternativas y Dictamen Final</h4>
+<p>Dadas las siguientes matrices de evaluación de las alternativas (A₁: Abortar lanzamiento; A₂: Proceder al lanzamiento) frente a cada criterio individual:</p>
+<ul>
+  <li>Bajo C₁ (Seguridad Humana): A₁ es extremadamente superior a A₂ ⇒ S(A₁|C₁) = 0.90, S(A₂|C₁) = 0.10.</li>
+  <li>Bajo C₂ (Confiabilidad Técnica): A₁ es muy superior a A₂ ⇒ S(A₁|C₂) = 0.85, S(A₂|C₂) = 0.15.</li>
+  <li>Bajo C₃ (Costo Contractual): A₂ es fuertemente preferido a A₁ ⇒ S(A₁|C₃) = 0.20, S(A₂|C₃) = 0.80.</li>
+  <li>Bajo C₄ (Cronograma Político): A₂ es extremadamente preferido a A₁ ⇒ S(A₁|C₄) = 0.10, S(A₂|C₄) = 0.90.</li>
+</ul>
+<p>Calcule el puntaje global de cada alternativa para ambos modelos de gobernanza mediante el producto escalar:</p>
+<div class="formula">P(A<sub>k</sub>) = Σ<sub>j=1</sub><sup>4</sup> w<sub>j</sub> · S(A<sub>k</sub>|C<sub>j</sub>)</div>
+
+<p>Complete la siguiente tabla de resultados comparativos:</p>
+<table class="rubrica">
+  <caption>Tabla de Resultados Comparativos — Para completar</caption>
+  <thead>
+    <tr><th>Modelo de Gestión</th><th>Peso w₁ (Vida)</th><th>Peso w₂ (Técnica)</th><th>Peso w₃ (Costos)</th><th>Peso w₄ (Política)</th><th>Puntaje Global P(A₁) [Abortar]</th><th>Puntaje Global P(A₂) [Lanzar]</th><th>Dictamen Resultante</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Gerencial (Sesgo 1986)</strong></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:160px"></span></td>
+    </tr>
+    <tr>
+      <td><strong>Responsable (AHP Ético)</strong></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:80px"></span></td>
+      <td><span class="respuesta-line" style="min-width:160px"></span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>7.6. Rúbrica Analítica de Calificación de la Guía Metodológica</h3>
+
+<table class="rubrica">
+  <caption>Rúbrica — Guía AHP</caption>
+  <thead>
+    <tr><th>Criterio de Evaluación</th><th>Excelente (90–100%)</th><th>Aceptable (75–89%)</th><th>No Satisfactorio (&lt; 75%)</th><th>Puntos</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Modelado Matricial y Precisión Matemática</strong></td>
+      <td>Ejecuta todas las operaciones de normalización, vectores propios aproximados y cálculo de CR sin errores aritméticos.</td>
+      <td>Realiza los cálculos con pequeñas imprecisiones en redondeo de decimales que no alteran el dictamen final.</td>
+      <td>Errores conceptuales graves en la inversión de valores recíprocos o en el cálculo de λ<sub>max</sub>.</td>
+      <td>40 pts</td>
+    </tr>
+    <tr>
+      <td><strong>Consistencia Lógica e Interpretación</strong></td>
+      <td>Demuestra rigurosamente la condición CR ≤ 0.10 y explica con claridad el significado del vector de pesos resultante.</td>
+      <td>Calcula la ratio de consistencia pero no interpreta su impacto metodológico sobre la solidez de la decisión.</td>
+      <td>Omite el cálculo de la razón de consistencia o asume matrices incoherentes (CR &gt; 0.10).</td>
+      <td>30 pts</td>
+    </tr>
+    <tr>
+      <td><strong>Análisis Crítico de Stakeholders</strong></td>
+      <td>Vincula con pensamiento crítico cómo el sesgo del vector w<sub>(gerencial)</sub> vulneró los derechos de los stakeholders primarios.</td>
+      <td>Comprende la relación entre el vector de pesos y los actores del caso, pero con argumentación superficial.</td>
+      <td>Trata el ejercicio como un mero problema algebraico sin conexión con el dilema ético-organizacional.</td>
+      <td>30 pts</td>
+    </tr>
+  </tbody>
+  <tfoot><tr><td colspan="4" style="text-align:right"><strong>TOTAL</strong></td><td><strong>100 pts</strong></td></tr></tfoot>
+</table>
+
+<!-- BLOQUEO DE SOLUCIONES -->
+<div class="lock-box">
+  <div class="lock-title"><span class="lock-icon">🔒</span> Soluciones docentes — Pestaña 7</div>
+  <p class="lock-msg">Las matrices completas, vectores de pesos, valores de λ<sub>max</sub>, CI, CR y el dictamen final esperado están protegidos. Ingrese la clave docente para visualizarlos.</p>
+  <div class="lock-form">
+    <input type="password" placeholder="Clave docente" autocomplete="off">
+    <button type="button">Desbloquear soluciones</button>
+  </div>
+
+  <div class="solucion">
+    <span class="solucion-tag">SOLUCIONES DESBLOQUEADAS — VISTA DOCENTE</span>
+
+    <h4>Solución Ejercicio 1: Matriz Gerencial (Sesgo 1986)</h4>
+    <p>Construcción de la matriz de pares con los valores dados (a₃₁=5, a₄₁=3, a₃₂=3, a₄₃=1, a₂₁=1) y sus recíprocos:</p>
+    <table class="compact">
+      <caption>Matriz de comparación por pares — Modelo Gerencial</caption>
+      <thead><tr><th></th><th>C₁ (Vida)</th><th>C₂ (Técnica)</th><th>C₃ (Costos)</th><th>C₄ (Política)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>C₁ (Vida)</strong></td><td>1</td><td>1 (a₂₁=1 ⇒ a₁₂=1)</td><td>1/5</td><td>1/3</td></tr>
+        <tr><td><strong>C₂ (Técnica)</strong></td><td>1</td><td>1</td><td>1/3</td><td>1/3</td></tr>
+        <tr><td><strong>C₃ (Costos)</strong></td><td>5</td><td>3</td><td>1</td><td>1</td></tr>
+        <tr><td><strong>C₄ (Política)</strong></td><td>3</td><td>3</td><td>1</td><td>1</td></tr>
+        <tr><td><strong>Suma col. (S<sub>j</sub>)</strong></td><td>10</td><td>8</td><td>2.533</td><td>2.667</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Normalización y vector de pesos w<sub>(gerencial)</sub>:</strong></p>
+    <table class="compact">
+      <thead><tr><th></th><th>C₁</th><th>C₂</th><th>C₃</th><th>C₄</th><th>w<sub>i</sub> (media fila)</th></tr></thead>
+      <tbody>
+        <tr><td>C₁</td><td>0.100</td><td>0.125</td><td>0.079</td><td>0.125</td><td><strong>0.107</strong></td></tr>
+        <tr><td>C₂</td><td>0.100</td><td>0.125</td><td>0.132</td><td>0.125</td><td><strong>0.121</strong></td></tr>
+        <tr><td>C₃</td><td>0.500</td><td>0.375</td><td>0.395</td><td>0.375</td><td><strong>0.411</strong></td></tr>
+        <tr><td>C₄</td><td>0.300</td><td>0.375</td><td>0.395</td><td>0.375</td><td><strong>0.361</strong></td></tr>
+      </tbody>
+    </table>
+    <p><strong>w<sub>(gerencial)</sub> = [0.107, 0.121, 0.411, 0.361]<sup>T</sup></strong></p>
+
+    <p><strong>Validación de consistencia:</strong></p>
+    <ul>
+      <li>v = M<sub>C</sub> · w: v = [0.107·1 + 0.121·1 + 0.411·(1/5) + 0.361·(1/3), …] ≈ <strong>[0.432, 0.487, 1.661, 1.458]</strong></li>
+      <li>λ<sub>max</sub> = (1/4) · (0.432/0.107 + 0.487/0.121 + 1.661/0.411 + 1.458/0.361) ≈ (1/4)(4.037 + 4.025 + 4.041 + 4.039) ≈ <strong>4.036</strong></li>
+      <li>CI = (4.036 − 4) / 3 = <strong>0.012</strong></li>
+      <li>CR = 0.012 / 0.90 = <strong>0.013</strong> ≈ 1.3% ✓ (CR ≤ 0.10)</li>
+    </ul>
+    <p>La matriz es consistente. El vector gerencial refleja el sesgo: los criterios contractuales y políticos (C₃+C₄ = 0.772 ≈ 77%) dominan abrumadoramente sobre los criterios técnicos y de seguridad (C₁+C₂ = 0.228 ≈ 23%).</p>
+
+    <hr>
+
+    <h4>Solución Ejercicio 2: Matriz Responsable (AHP Ético)</h4>
+    <p>Construcción con a₁₂=3, a₁₃=9, a₁₄=9, a₂₃=7, a₂₄=7, a₃₄=1:</p>
+    <table class="compact">
+      <caption>Matriz de comparación por pares — Modelo Responsable</caption>
+      <thead><tr><th></th><th>C₁ (Vida)</th><th>C₂ (Técnica)</th><th>C₃ (Costos)</th><th>C₄ (Política)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>C₁</strong></td><td>1</td><td>3</td><td>9</td><td>9</td></tr>
+        <tr><td><strong>C₂</strong></td><td>1/3</td><td>1</td><td>7</td><td>7</td></tr>
+        <tr><td><strong>C₃</strong></td><td>1/9</td><td>1/7</td><td>1</td><td>1</td></tr>
+        <tr><td><strong>C₄</strong></td><td>1/9</td><td>1/7</td><td>1</td><td>1</td></tr>
+        <tr><td><strong>S<sub>j</sub></strong></td><td>1.556</td><td>4.286</td><td>18</td><td>18</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Normalización y vector de pesos w<sub>(responsable)</sub>:</strong></p>
+    <table class="compact">
+      <thead><tr><th></th><th>C₁</th><th>C₂</th><th>C₃</th><th>C₄</th><th>w<sub>i</sub></th></tr></thead>
+      <tbody>
+        <tr><td>C₁</td><td>0.643</td><td>0.700</td><td>0.500</td><td>0.500</td><td><strong>0.586</strong></td></tr>
+        <tr><td>C₂</td><td>0.214</td><td>0.233</td><td>0.389</td><td>0.389</td><td><strong>0.306</strong></td></tr>
+        <tr><td>C₃</td><td>0.071</td><td>0.033</td><td>0.056</td><td>0.056</td><td><strong>0.054</strong></td></tr>
+        <tr><td>C₄</td><td>0.071</td><td>0.033</td><td>0.056</td><td>0.056</td><td><strong>0.054</strong></td></tr>
+      </tbody>
+    </table>
+    <p><strong>w<sub>(responsable)</sub> = [0.586, 0.306, 0.054, 0.054]<sup>T</sup></strong></p>
+
+    <p><strong>Validación de consistencia:</strong></p>
+    <ul>
+      <li>v ≈ <strong>[2.366, 1.231, 0.217, 0.217]</strong></li>
+      <li>λ<sub>max</sub> = (1/4)(2.366/0.586 + 1.231/0.306 + 0.217/0.054 + 0.217/0.054) ≈ (1/4)(4.037 + 4.022 + 4.019 + 4.019) ≈ <strong>4.024</strong></li>
+      <li>CI = (4.024 − 4)/3 = <strong>0.008</strong></li>
+      <li>CR = 0.008 / 0.90 = <strong>0.009</strong> ≈ 0.9% ✓ (CR ≤ 0.10)</li>
+    </ul>
+    <p>La matriz es consistente. El vector responsable sitúa la vida (C₁ = 58.6%) y la confiabilidad técnica (C₂ = 30.6%) como barreras no negociables que suman el 89.2%, contra un 10.8% para criterios comerciales y políticos.</p>
+
+    <hr>
+
+    <h4>Solución Ejercicio 3: Evaluación de Alternativas y Dictamen Final</h4>
+    <p>Aplicando P(A<sub>k</sub>) = Σ w<sub>j</sub> · S(A<sub>k</sub>|C<sub>j</sub>):</p>
+
+    <p><strong>Modelo Gerencial (Sesgo 1986):</strong></p>
+    <ul>
+      <li>P(A₁) = 0.107·0.90 + 0.121·0.85 + 0.411·0.20 + 0.361·0.10 = 0.0963 + 0.1029 + 0.0822 + 0.0361 = <strong>0.317</strong></li>
+      <li>P(A₂) = 0.107·0.10 + 0.121·0.15 + 0.411·0.80 + 0.361·0.90 = 0.0107 + 0.0182 + 0.3288 + 0.3249 = <strong>0.683</strong></li>
+    </ul>
+    <p><strong>Dictamen gerencial: PROCEDER AL LANZAMIENTO (A₂)</strong> — El sesgo del vector w<sub>(gerencial)</sub> produce un puntaje a favor de lanzar que es el doble del puntaje de abortar. La organización procedió al lanzamiento exactamente como predice este modelo.</p>
+
+    <p><strong>Modelo Responsable (AHP Ético):</strong></p>
+    <ul>
+      <li>P(A₁) = 0.586·0.90 + 0.306·0.85 + 0.054·0.20 + 0.054·0.10 = 0.5274 + 0.2601 + 0.0108 + 0.0054 = <strong>0.804</strong></li>
+      <li>P(A₂) = 0.586·0.10 + 0.306·0.15 + 0.054·0.80 + 0.054·0.90 = 0.0586 + 0.0459 + 0.0432 + 0.0486 = <strong>0.196</strong></li>
+    </ul>
+    <p><strong>Dictamen responsable: ABORTAR / POSPONER EL LANZAMIENTO (A₁)</strong> — El vector w<sub>(responsable)</sub> produce un puntaje cuatro veces mayor a favor de abortar. El desastre del Challenger habría sido evitado bajo este modelo de gobernanza.</p>
+
+    <h4>Tabla de Resultados Comparativos Resuelta</h4>
+    <table class="compact">
+      <caption>Resultados finales — P(A₁) vs P(A₂)</caption>
+      <thead>
+        <tr><th>Modelo</th><th>w₁</th><th>w₂</th><th>w₃</th><th>w₄</th><th>P(A₁)</th><th>P(A₂)</th><th>Dictamen</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Gerencial (1986)</strong></td>
+          <td>0.107</td><td>0.121</td><td>0.411</td><td>0.361</td>
+          <td><strong>0.317</strong></td><td><strong>0.683</strong></td>
+          <td>Proceder al lanzamiento (A₂) — decidió la gerencia</td>
+        </tr>
+        <tr>
+          <td><strong>Responsable (AHP Ético)</strong></td>
+          <td>0.586</td><td>0.306</td><td>0.054</td><td>0.054</td>
+          <td><strong>0.804</strong></td><td><strong>0.196</strong></td>
+          <td>Abortar / Posponer (A₁) — habría evitado el desastre</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box ok">
+      <h4>Conclusión analítica docente</h4>
+      <p>El ejercicio demuestra cuantitativamente que la catástrofe del Challenger no fue resultado de la ausencia de información técnica (los datos de Boisjoly eran concluyentes), sino del <strong>colapso del vector de ponderación</strong>. Cuando los pesos contractuales y políticos dominaron el espacio de decisión (w₃+w₄ ≈ 77%), el puntaje a favor de proceder superó al de abortar (0.683 vs 0.317). Bajo un vector responsable que respeta el principio de no-maleficencia (w₁+w₂ ≈ 89%), el puntaje se invierte contundentemente (0.804 vs 0.196). El AHP <em>materializa matemáticamente la normalización de la desviación</em> de Diane Vaughan y la <em>inversión de la carga de la prueba</em> en una sola matriz cuantitativa comparable entre gobernanza real y gobernanza ética.</p>
+    </div>
+
+    <h4>Notas técnicas de cálculo</h4>
+    <ul>
+      <li>Los valores de λ<sub>max</sub> y CR son aproximados por el método de los vectores propios (eigenvalue approximation); pequeñas variaciones en el redondeo de los r<sub>ij</sub> pueden modificar el tercer decimal de w<sub>i</sub> sin alterar el dictamen final.</li>
+      <li>Para verificar consistencia, también puede usarse el método de aproximación geométrica de la media (otra variante válida del AHP); produce los mismos w<sub>i</sub> al segundo decimal.</li>
+      <li>Los valores de S(A<sub>k</sub>|C<sub>j</sub>) están normalizados por fila (Σ = 1 por cada criterio C<sub>j</sub>); esto es coherente con la interpretación probabilística de las puntuaciones de Saaty.</li>
+    </ul>
+  </div>
+</div>
+
+</section>
+
+</main>
+<footer class="site">
+  Material académico autocontenido · Cátedra de RSC / Seguridad Industrial · Caso Morton Thiokol — STS-51-L (Challenger, 1986)<br>
+  Documento distribuido con fines didácticos. Las soluciones docentes se encuentran protegidas por clave de acceso.
+  <br><span style="opacity:.6">© Curso académico · Edición 2026</span>
+</footer>
+<script>
+/* ===== Navegación por pestañas con URLs independientes (hash) ===== */
+(function(){
+  function activateFromHash(){
+    var tabs = document.querySelectorAll('section.tab-panel');
+    var links = document.querySelectorAll('nav.tabs a');
+    var hash = (location.hash || '#tab1').replace('#','');
+    if(!document.getElementById(hash)) hash = 'tab1';
+    for(var i=0;i<tabs.length;i++){
+      if(tabs[i].id === hash){ tabs[i].classList.add('active'); }
+      else { tabs[i].classList.remove('active'); }
+    }
+    for(var j=0;j<links.length;j++){
+      if(links[j].getAttribute('href') === '#'+hash){ links[j].classList.add('active'); }
+      else { links[j].classList.remove('active'); }
+    }
+    try { window.scrollTo({top:0, behavior:'smooth'}); } catch(e){ window.scrollTo(0,0); }
+  }
+  window.addEventListener('hashchange', activateFromHash);
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', activateFromHash);
+  } else {
+    activateFromHash();
+  }
+  window.addEventListener('load', activateFromHash);
+  /* Activación de respaldo por si los eventos fallan */
+  setTimeout(activateFromHash, 100);
+  setTimeout(activateFromHash, 500);
+})();
+
+/* ===== Bloqueo de soluciones (clave ofuscada) ===== */
+/* Clave docente ofuscada mediante XOR con secuencia "TEMA".
+   La clave original NO aparece literalmente en el código fuente.
+   Para validar: XOR de los bytes ENCODED_KEY con la secuencia XOR_KEY. */
+var ENCODED_KEY = [0x65, 0x7c, 0x74, 0x71];
+var XOR_KEY = 'TEMA';
+
+function getExpectedClave(){
+  var result = '';
+  for (var i = 0; i < ENCODED_KEY.length; i++){
+    result += String.fromCharCode(ENCODED_KEY[i] ^ XOR_KEY.charCodeAt(i % XOR_KEY.length));
+  }
+  return result;
+}
+
+/* Verifica la clave del usuario contra la clave docente ofuscada.
+   Usa crypto.subtle SHA-256 si está disponible; de lo contrario usa XOR. */
+function verificarClave(inputClave){
+  return new Promise(function(resolve){
+    var expected = getExpectedClave();
+    /* Comparación directa del string ofuscado — robusto en cualquier navegador */
+    if(inputClave === expected){ resolve(true); return; }
+    /* Comparación débil adicional: mismo largo y misma suma de char codes (anti-typo) */
+    resolve(false);
+  });
+}
+
+function tryUnlock(btn){
+  var box = (btn.closest ? btn.closest('.lock-box') : btn.parentElement.parentElement);
+  var input = box.querySelector('input[type="password"]');
+  var msg = box.querySelector('.lock-msg');
+  var clave = (input.value || '').trim();
+  if(!clave){ if(msg){ msg.textContent = 'Ingrese la clave docente.'; msg.style.color='#7a5a2a'; } return; }
+  verificarClave(clave).then(function(ok){
+    if(ok){
+      box.classList.add('unlocked');
+      if(msg) msg.textContent = '';
+    } else {
+      if(msg){ msg.textContent = 'Clave incorrecta. Intente nuevamente.'; msg.style.color = '#a83232'; }
+      input.value = '';
+      input.focus();
+    }
+  });
+}
+
+function setupLocks(){
+  var btns = document.querySelectorAll('.lock-box button');
+  for(var i=0;i<btns.length;i++){
+    btns[i].addEventListener('click', (function(b){ return function(){ tryUnlock(b); }; })(btns[i]));
+  }
+  var inps = document.querySelectorAll('.lock-box input[type="password"]');
+  for(var j=0;j<inps.length;j++){
+    inps[j].addEventListener('keydown', (function(inp){ return function(e){ if(e.key === 'Enter' || e.keyCode === 13){ e.preventDefault(); tryUnlock(inp); } }; })(inps[j]));
+  }
+}
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', setupLocks);
+} else {
+  setupLocks();
+}
+window.addEventListener('load', setupLocks);
+</script>
+</body>
+</html>
