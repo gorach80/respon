@@ -1,0 +1,383 @@
+<!-- ESTILOS GLOBALES Y CONFIGURACIÓN DE IMPRESIÓN (PDF) -->
+<style>
+  @media print {
+    .no-print, button, .audio-controls {
+      display: none !important;
+    }
+    body {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+      font-size: 11pt !important;
+    }
+    .print-container {
+      border: none !important;
+      box-shadow: none !important;
+      max-width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    input[type="text"], select {
+      border: none !important;
+      border-bottom: 1px solid #000000 !important;
+      background: transparent !important;
+      font-weight: bold !important;
+      color: #000000 !important;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    table {
+      page-break-inside: avoid;
+    }
+    .print-header-badge {
+      border: 1px solid #000000 !important;
+      color: #000000 !important;
+    }
+  }
+</style>
+
+<div class="print-container" style="font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 950px; margin: 20px auto; padding: 24px; border: 1px solid #cbd5e1; border-radius: 8px; background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+
+  <!-- 1. ENCABEZADO INSTITUCIONAL Y REGISTRO DEL ESTUDIANTE -->
+  <div style="border-bottom: 2px solid #0b3c5d; padding-bottom: 14px; margin-bottom: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h2 style="margin: 0; color: #0b3c5d; font-size: 20px; font-weight: 800; text-transform: uppercase;">
+          Informe Pericial de Ingeniería Forense y Derechos Humanos
+        </h2>
+        <p style="margin: 4px 0 0 0; font-size: 13px; color: #475569;">
+          Fase 1: Inmersión Técnica y Recuperación de Evidencias (Caso Bhopal, 1984)
+        </p>
+      </div>
+      <div class="print-header-badge" style="background-color: #0b3c5d; color: #ffffff; padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;">
+        APE — UNIDAD 2.3
+      </div>
+    </div>
+
+    <!-- Campos de Identificación del Estudiante -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; background-color: #f8fafc; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 6px;">
+      <div>
+        <label style="display: block; font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase;">Estudiante / Perito:</label>
+        <input type="text" id="estudiante_nombre" placeholder="Nombres y Apellidos completos" style="width: 100%; border: none; border-bottom: 1px solid #94a3b8; background: transparent; padding: 4px 0; font-size: 13px; font-weight: 600; outline: none;">
+      </div>
+      <div>
+        <label style="display: block; font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase;">Carrera / Facultad:</label>
+        <input type="text" id="estudiante_carrera" placeholder="Ingeniería Industrial / Integral" style="width: 100%; border: none; border-bottom: 1px solid #94a3b8; background: transparent; padding: 4px 0; font-size: 13px; font-weight: 600; outline: none;">
+      </div>
+      <div>
+        <label style="display: block; font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase;">Paralelo / Turno:</label>
+        <input type="text" id="estudiante_paralelo" placeholder="Ej. A-101 / Vespertino" style="width: 100%; border: none; border-bottom: 1px solid #94a3b8; background: transparent; padding: 4px 0; font-size: 13px; font-weight: 600; outline: none;">
+      </div>
+      <div>
+        <label style="display: block; font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase;">Fecha de Evaluación:</label>
+        <input type="text" id="estudiante_fecha" placeholder="AAAA-MM-DD" style="width: 100%; border: none; border-bottom: 1px solid #94a3b8; background: transparent; padding: 4px 0; font-size: 13px; font-weight: 600; outline: none;">
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. REPRODUCTOR DE AUDIO NARRATIVO: BHOPAL UCC (1970-1984) -->
+  <div class="no-print" style="margin-bottom: 25px; border: 1px solid #cbd5e1; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.04); overflow: hidden;">
+    <div style="background-color: #0f172a; color: #ffffff; padding: 16px 20px;">
+      <div style="display: inline-block; background-color: #2563eb; color: #ffffff; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; border-radius: 9999px; margin-bottom: 6px;">
+        Documento Auditivo Histórico
+      </div>
+      <h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: 700; color: #ffffff;">
+        Audio: Promesas de Seguridad y Progreso de UCC (1970–1984)
+      </h3>
+      <p style="margin: 0; font-size: 12px; color: #94a3b8;">
+        Transición discursiva: Campaña institucional publicitaria y respuesta técnica a Eduardo Muñoz (Lapierre &amp; Moro, 2001)
+      </p>
+    </div>
+
+    <!-- Guion Narrativo -->
+    <div id="guion-narrativo-ucc" style="padding: 16px 20px; font-size: 13px; line-height: 1.6; color: #334155; max-height: 170px; overflow-y: auto; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+      <p style="margin-top: 0;"><strong>La promesa del progreso:</strong><br>
+      «Bueyes que trabajan en los campos... El Ganges eterno... los elefantes enjaezados de joyas... Hoy, estos símbolos de la India antigua conviven con una visión nueva: la de la industria moderna. La India ha construido fábricas para reforzar su economía y anunciar a sus cuatrocientos cincuenta millones de habitantes la promesa de un porvenir deslumbrante. Pero la India necesita el saber tecnológico del mundo occidental. Es así como Union Carbide, trabajando con ingenieros y técnicos indios, ha ofrecido sus amplios recursos científicos para contribuir a construir una gran fábrica de productos químicos y plásticos cerca de Bombay. Los colaboradores de Union Carbide se felicitan de poder compartir sus conocimientos y sus aptitudes con los ciudadanos de este gran país».</p>
+
+      <p style="margin-bottom: 0;"><strong>La seguridad garantizada ante la dirección técnica:</strong><br>
+      Cuando el agrónomo Eduardo Muñoz manifestó su preocupación por los riesgos de construir y almacenar grandes volúmenes de isocianato de metilo (MIC) cerca de asentamientos urbanos en Bhopal, los directivos e ingenieros de diseño de South Charleston le respondieron de manera categórica:<br>
+      —«Eduardo, si construimos la fábrica como es debido, no habrá ningún peligro. Toma el ejemplo de Nueva York: tres aeropuertos en medio de los rascacielos: La Guardia, el J.F.K. y Newark. Con tantos aviones despegando cada minuto, parecería lógico que chocaran contra los edificios o entre sí. Y, sin embargo, son los más seguros del mundo. Los numerosos sistemas de seguridad de este tipo de instalación permiten controlar todas las reacciones potencialmente peligrosas del MIC. No tiene nada que temer, querido señor Muñoz. Su factoría de Bhopal será tan inofensiva como una fábrica de chocolatinas».</p>
+    </div>
+
+    <!-- Controles de Audio -->
+    <div class="audio-controls" style="padding: 12px 20px; background-color: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+      <div style="display: flex; gap: 6px;">
+        <button type="button" onclick="reproducirAudioUCC()" style="background-color: #2563eb; color: #ffffff; border: none; padding: 7px 14px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">
+          ▶ Reproducir
+        </button>
+        <button type="button" onclick="pausarAudioUCC()" style="background-color: #64748b; color: #ffffff; border: none; padding: 7px 14px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">
+          ⏸ Pausar
+        </button>
+        <button type="button" onclick="detenerAudioUCC()" style="background-color: #ef4444; color: #ffffff; border: none; padding: 7px 14px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">
+          ⏹ Detener
+        </button>
+      </div>
+      <span id="estado-audio-ucc" style="font-size: 12px; color: #64748b; font-weight: 500;">
+        Listo para reproducir
+      </span>
+    </div>
+  </div>
+
+  <!-- 3. MATRIZ TÉCNICA FORENSE DE CONTRASTACIÓN -->
+  <div style="margin-bottom: 20px;">
+    <h3 style="color: #0b3c5d; font-size: 16px; margin: 0 0 8px 0; text-transform: uppercase;">
+      Matriz de Contrastación: Salvaguardas Operacionales vs. Vulneraciones Reales
+    </h3>
+    <p style="font-size: 12px; color: #475569; margin: 0 0 12px 0;">
+      <strong>Instrucciones:</strong> Complete los campos de ingeniería de procesos y seleccione la omisión real documentada junto al instrumento de derechos humanos vulnerado.
+    </p>
+
+    <form id="forensicForm">
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+        <thead>
+          <tr style="background-color: #0b3c5d; color: #ffffff; text-align: left;">
+            <th style="padding: 10px; border: 1px solid #0b3c5d; width: 22%;">Barrera de Seguridad</th>
+            <th style="padding: 10px; border: 1px solid #0b3c5d; width: 28%;">Condición de Diseño Nominal</th>
+            <th style="padding: 10px; border: 1px solid #0b3c5d; width: 26%;">Condición Real (Bhopal, 1984)</th>
+            <th style="padding: 10px; border: 1px solid #0b3c5d; width: 24%;">Derecho Humano Vulnerado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Fila 1: Refrigeración -->
+          <tr style="background-color: #ffffff;">
+            <td style="padding: 8px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e293b;">
+              Sistema de refrigeración de tanques de MIC
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              Almacenamiento continuo a 
+              <input type="text" id="p1_temp" placeholder="¿Temp. en °C?" style="width: 95px; padding: 2px 4px; border: 1px solid #94a3b8; border-radius: 3px;"> 
+              con freón para inhibir polimerización térmica.
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              <select id="p1_real" style="width: 100%; padding: 4px; border: 1px solid #94a3b8; border-radius: 3px;">
+                <option value="">-- Condición Real --</option>
+                <option value="opt_a">Operando al 50% por fuga mecánica no detectada.</option>
+                <option value="opt_b">Desactivado de forma prolongada para ahorrar costes operativos de electricidad.</option>
+                <option value="opt_c">Reemplazado por circuito de refrigeración con agua de pozo.</option>
+              </select>
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              <select id="p1_ddhh" style="width: 100%; padding: 4px; border: 1px solid #94a3b8; border-radius: 3px;">
+                <option value="">-- Marco DDHH --</option>
+                <option value="dh_vida">Derecho a la vida y salud física (PIDCP, PIDESC)</option>
+                <option value="dh_prop">Derecho a la propiedad privada</option>
+                <option value="dh_circ">Libertad de circulación</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- Fila 2: Scrubber -->
+          <tr style="background-color: #f8fafc;">
+            <td style="padding: 8px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e293b;">
+              Torre de neutralización (Vent Gas Scrubber)
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              Neutralización química continua con flujo presurizado de 
+              <input type="text" id="p2_quim" placeholder="Reactivo químico" style="width: 110px; padding: 2px 4px; border: 1px solid #94a3b8; border-radius: 3px;">.
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              <select id="p2_real" style="width: 100%; padding: 4px; border: 1px solid #94a3b8; border-radius: 3px;">
+                <option value="">-- Condición Real --</option>
+                <option value="opt_a">Válvulas atascadas por carbonato cálcico residual.</option>
+                <option value="opt_b">Fuera de servicio; bomba desactivada y circuito sin flujo activo de sosa.</option>
+                <option value="opt_c">Operación manual continua por ausencia de instrumentación.</option>
+              </select>
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              <select id="p2_ddhh" style="width: 100%; padding: 4px; border: 1px solid #94a3b8; border-radius: 3px;">
+                <option value="">-- Marco DDHH --</option>
+                <option value="dh_integ">Integridad física y seguridad (Comunidad y trabajadores)</option>
+                <option value="dh_info">Derecho a la información pública ambiental</option>
+                <option value="dh_asoc">Libertad de asociación sindical</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- Fila 3: Flare Tower -->
+          <tr style="background-color: #ffffff;">
+            <td style="padding: 8px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e293b;">
+              Antorcha de combustión (Flare Tower)
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              Incineración total de gases de alivio ante venteos de sobrepresión súbita.
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              <select id="p3_real" style="width: 100%; padding: 4px; border: 1px solid #94a3b8; border-radius: 3px;">
+                <option value="">-- Condición Real --</option>
+                <option value="opt_a">Tubería desmontada por corrosión; sistema desarticulado sin línea de bypass.</option>
+                <option value="opt_b">Quemador piloto apagado por escasez temporal de gas propano.</option>
+                <option value="opt_c">Presión insuficiente para alcanzar la cima de la chimenea.</option>
+              </select>
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              <select id="p3_ddhh" style="width: 100%; padding: 4px; border: 1px solid #94a3b8; border-radius: 3px;">
+                <option value="">-- Marco DDHH --</option>
+                <option value="dh_amb">Medio ambiente seguro y saludable (Resolución ONU 76/300)</option>
+                <option value="dh_cult">Derecho a la identidad cultural</option>
+                <option value="dh_paz">Derecho a la paz y desarrollo</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- Fila 4: Capacitación -->
+          <tr style="background-color: #f8fafc;">
+            <td style="padding: 8px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e293b;">
+              Formación y capacitación operativa
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              Capacitación exhaustiva de 
+              <input type="text" id="p4_tiempo" placeholder="Período nominal" style="width: 95px; padding: 2px 4px; border: 1px solid #94a3b8; border-radius: 3px;"> 
+              con manuales técnicos certificados.
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              <select id="p4_real" style="width: 100%; padding: 4px; border: 1px solid #94a3b8; border-radius: 3px;">
+                <option value="">-- Condición Real --</option>
+                <option value="opt_a">Prácticas realizadas exclusivamente en talleres mecánicos externos.</option>
+                <option value="opt_b">Reducción a 15 días; eliminación de manuales traducidos al hindi y urdu.</option>
+                <option value="opt_c">Instrucción verbal no documentada por rotación de supervisores.</option>
+              </select>
+            </td>
+            <td style="padding: 8px; border: 1px solid #cbd5e1;">
+              <select id="p4_ddhh" style="width: 100%; padding: 4px; border: 1px solid #94a3b8; border-radius: 3px;">
+                <option value="">-- Marco DDHH --</option>
+                <option value="dh_oit">Seguridad y salud laboral (Convenios OIT 155 y 187)</option>
+                <option value="dh_huelga">Derecho de negociación colectiva</option>
+                <option value="dh_descanso">Derecho a vacaciones retribuidas</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 4. BARRA DE ACCIÓN: VALIDACIÓN Y EXPORTACIÓN A PDF -->
+      <div class="no-print" style="margin-top: 20px; display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <button type="button" onclick="imprimirOExportarPDF()" style="background-color: #475569; color: #ffffff; border: none; padding: 10px 18px; font-size: 13px; font-weight: 700; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+          🖨 Imprimir / Guardar en PDF
+        </button>
+        <button type="button" onclick="evaluarMatrizFase1()" style="background-color: #0b3c5d; color: #ffffff; border: none; padding: 10px 22px; font-size: 13px; font-weight: 700; border-radius: 4px; cursor: pointer;">
+          Validar Análisis Forense
+        </button>
+      </div>
+    </form>
+
+    <!-- Caja de Retroalimentación de Validación -->
+    <div id="resultadoEvaluacion" style="display: none; margin-top: 18px; padding: 14px 18px; border-radius: 6px; font-size: 13px; line-height: 1.5;"></div>
+  </div>
+</div>
+
+<!-- LÓGICA DE AUDIO (TTS), VALIDACIÓN PEDAGÓGICA E IMPRESIÓN PDF -->
+<script>
+  // Control de Síntesis de Voz
+  let locucionUCC = null;
+  const indicadorEstado = document.getElementById('estado-audio-ucc');
+
+  function prepararLocucion() {
+    if (!('speechSynthesis' in window)) {
+      indicadorEstado.textContent = 'API de voz no disponible en este navegador.';
+      return null;
+    }
+    const texto = document.getElementById('guion-narrativo-ucc').innerText;
+    locucionUCC = new SpeechSynthesisUtterance(texto);
+    locucionUCC.lang = 'es-ES';
+    locucionUCC.rate = 0.93;
+    locucionUCC.pitch = 1.0;
+
+    locucionUCC.onstart = () => { indicadorEstado.textContent = '🔊 Reproduciendo audio institucional...'; };
+    locucionUCC.onend = () => { indicadorEstado.textContent = '✔ Reproducción completada.'; };
+    locucionUCC.onpause = () => { indicadorEstado.textContent = '⏸ En pausa.'; };
+    locucionUCC.onresume = () => { indicadorEstado.textContent = '🔊 Reproduciendo...'; };
+  }
+
+  function reproducirAudioUCC() {
+    if (!locucionUCC) prepararLocucion();
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    } else {
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(locucionUCC);
+    }
+  }
+
+  function pausarAudioUCC() {
+    if (window.speechSynthesis.speaking) window.speechSynthesis.pause();
+  }
+
+  function detenerAudioUCC() {
+    if (window.speechSynthesis.speaking || window.speechSynthesis.paused) {
+      window.speechSynthesis.cancel();
+      indicadorEstado.textContent = '⏹ Detenido.';
+    }
+  }
+
+  // Validación Técnica de la Matriz
+  function evaluarMatrizFase1() {
+    var score = 0;
+    var total = 8;
+    var feedback = [];
+
+    // Fila 1: Refrigeración
+    var t1 = document.getElementById("p1_temp").value.trim().toLowerCase();
+    if (t1 === "0" || t1 === "0°c" || t1 === "0 °c" || t1 === "cero") {
+      score++;
+    } else {
+      feedback.push("• Refrigeración (Diseño): El valor nominal de almacenamiento continuo era estrictamente 0 °C.");
+    }
+    if (document.getElementById("p1_real").value === "opt_b") score++;
+    else feedback.push("• Refrigeración (Real): Desactivado de forma prolongada para ahorrar costes de electricidad.");
+    if (document.getElementById("p1_ddhh").value === "dh_vida") score++;
+
+    // Fila 2: Scrubber
+    var q2 = document.getElementById("p2_quim").value.trim().toLowerCase();
+    if (q2.includes("sosa") || q2.includes("soda") || q2.includes("naoh") || q2.includes("hidroxido de sodio")) {
+      score++;
+    } else {
+      feedback.push("• Scrubber (Diseño): El reactivo presurizado en contracorriente era soda cáustica (NaOH).");
+    }
+    if (document.getElementById("p2_real").value === "opt_b") score++;
+    else feedback.push("• Scrubber (Real): Fuera de servicio con bomba desactivada y sin flujo activo.");
+    if (document.getElementById("p2_ddhh").value === "dh_integ") score++;
+
+    // Fila 3: Flare Tower
+    if (document.getElementById("p3_real").value === "opt_a") score++;
+    else feedback.push("• Flare Tower (Real): Tubería desmontada por corrosión sin línea de bypass.");
+    if (document.getElementById("p3_ddhh").value === "dh_amb") score++;
+
+    // Fila 4: Formación
+    var t4 = document.getElementById("p4_tiempo").value.trim().toLowerCase();
+    if (t4.includes("6 meses") || t4 === "6" || t4 === "seis meses") {
+      score++;
+    } else {
+      feedback.push("• Formación (Diseño): La inducción nominal técnica certificada requería un período de 6 meses.");
+    }
+    if (document.getElementById("p4_real").value === "opt_b") score++;
+    else feedback.push("• Formación (Real): Reducción a 15 días suprimiendo manuales en hindi y urdu.");
+    if (document.getElementById("p4_ddhh").value === "dh_oit") score++;
+
+    var resDiv = document.getElementById("resultadoEvaluacion");
+    resDiv.style.display = "block";
+
+    if (score >= 7) {
+      resDiv.style.backgroundColor = "#ecfdf5";
+      resDiv.style.border = "1px solid #10b981";
+      resDiv.style.color = "#065f46";
+      resDiv.innerHTML = "<strong>VALIDACIÓN FORENSE EXITOSA (Puntaje: " + score + "/" + total + ")</strong><br>Ha demostrado la degradación sistemática de salvaguardas y su impacto directo en los derechos humanos fundamentales. La clave de desbloqueo para la Fase 2 es: <strong>DEFENSA_PROFUNDA_1984</strong>";
+    } else {
+      resDiv.style.backgroundColor = "#fef2f2";
+      resDiv.style.border = "1px solid #ef4444";
+      resDiv.style.color = "#991b1b";
+      resDiv.innerHTML = "<strong>DISCREPANCIAS EN EL PERITAJE (Puntaje: " + score + "/" + total + ")</strong><br>Corrija las siguientes observaciones técnicas e intente de nuevo:<br>" + feedback.join("<br>");
+    }
+  }
+
+  // Función para Imprimir o Generar PDF
+  function imprimirOExportarPDF() {
+    // Validar que el estudiante haya ingresado su nombre
+    const nombre = document.getElementById('estudiante_nombre').value.trim();
+    if (!nombre) {
+      alert('Por favor, ingrese el nombre del perito/estudiante en el encabezado antes de exportar a PDF.');
+      document.getElementById('estudiante_nombre').focus();
+      return;
+    }
+    window.print();
+  }
+</script>
