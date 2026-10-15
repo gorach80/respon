@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Fase 2: Taller Interactivo de Análisis Causal Forense</title>
+  <!-- Soporte para renderizado matemático formal en LaTeX -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --primary-color: #0b3c5d;
+      --secondary-color: #1d2731;
+      --accent-color: #328cc1;
+      --bg-light: #f8fafc;
+      --border-color: #cbd5e1;
+      --text-main: #334155;
+      --text-dark: #0f172a;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      color: var(--text-main);
+      background-color: #f1f5f9;
+      margin: 0;
+      padding: 16px;
+    }
+
+    .interactive-wrapper {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 24px;
+    }
+
+    h1.inst-title {
+      font-size: 1.45rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 8px;
+      margin-top: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    h2.section-header {
+      font-size: 1.15rem;
+      color: var(--secondary-color);
+      margin-top: 24px;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--accent-color);
+      padding-left: 8px;
+    }
+
+    /* Encabezado de datos de estudiantes */
+    .student-data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    .student-data-grid label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .student-data-grid input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      background-color: #ffffff;
+      outline: none;
+    }
+
+    .student-data-grid input:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* Tablas de alta densidad */
+    .table-container {
+      overflow-x: auto;
+      margin: 14px 0 20px 0;
+    }
+
+    table.dense-interactive-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+
+    table.dense-interactive-table th, 
+    table.dense-interactive-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      vertical-align: top;
+    }
+
+    table.dense-interactive-table th {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    table.dense-interactive-table tr:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+
+    select.table-select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 5px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background-color: #ffffff;
+      font-size: 0.8rem;
+      color: var(--text-dark);
+      outline: none;
+    }
+
+    textarea.table-input {
+      width: 100%;
+      box-sizing: border-box;
+      height: 48px;
+      padding: 5px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+    }
+
+    select.table-select:focus,
+    textarea.table-input:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* Ishikawa interactivo */
+    .ishikawa-board {
+      background-color: #0f172a;
+      border-radius: 8px;
+      padding: 16px;
+      color: #ffffff;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+
+    .ishikawa-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr) 180px;
+      gap: 12px;
+      align-items: center;
+      min-width: 860px;
+    }
+
+    .fish-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .fish-branch-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #38bdf8;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 2px;
+    }
+
+    .fish-spine-center {
+      grid-column: span 3;
+      height: 4px;
+      background: #38bdf8;
+      margin: 8px 0;
+      position: relative;
+    }
+
+    .fish-head-box {
+      background-color: #1e293b;
+      border: 2px solid #38bdf8;
+      border-radius: 6px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #f8fafc;
+    }
+
+    .ishikawa-select {
+      width: 100%;
+      padding: 4px 6px;
+      font-size: 0.75rem;
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .ishikawa-select:focus {
+      border-color: #38bdf8;
+    }
+
+    /* 5 Porqués interactivos */
+    .why-step-card {
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .why-step-title {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--primary-color);
+      margin-bottom: 4px;
+    }
+
+    .why-question {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .why-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .arrow-down-divider {
+      text-align: center;
+      font-weight: bold;
+      color: var(--accent-color);
+      margin: -6px 0 6px 0;
+    }
+
+    /* Botonera de validación e impresión */
+    .action-panel {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+
+    .btn-action {
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: #08283e;
+    }
+
+    .btn-secondary {
+      background-color: #475569;
+      color: #ffffff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #334155;
+    }
+
+    #eval-feedback-panel {
+      display: none;
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .media-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      margin: 24px 0;
+    }
+
+    .media-card h4 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1rem;
+    }
+
+    .media-desc {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .tag-chip {
+      display: inline-block;
+      background: #e2e8f0;
+      color: #1e293b;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    /* Reglas para imprimir o exportar a PDF */
+    @media print {
+      .no-print, button, .audio-container {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        font-size: 10pt !important;
+      }
+      .interactive-wrapper {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      select, textarea, input {
+        border: none !important;
+        border-bottom: 1px solid #000 !important;
+        background: transparent !important;
+        color: #000 !important;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .ishikawa-board {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #000 !important;
+      }
+      .ishikawa-select {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border-bottom: 1px solid #000 !important;
+      }
+      .fish-head-box {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #000 !important;
+      }
+      .fish-branch-title {
+        color: #000000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="interactive-wrapper">
+
+  <!-- ENCABEZADO INSTITUCIONAL -->
+  <h1 class="inst-title">
+    Unidad 2.3: Fase 2 · Cuaderno de Trabajo e Ingeniería Forense<br>
+    <span style="font-size: 0.95rem; color: #64748b; font-weight: 600;">Plantilla Interactiva de Análisis Causal Sistémico (Caso Bhopal, 1984)</span>
+  </h1>
+
+  <!-- FORMULARIO DE DATOS DEL EQUIPO EVALUADOR -->
+  <div class="student-data-grid">
+    <div>
+      <label>Integrantes del Equipo (3 a 4 estudiantes):</label>
+      <input type="text" id="eq_estudiantes" placeholder="Apellidos y Nombres completos">
+    </div>
+    <div>
+      <label>Carrera / Especialidad:</label>
+      <input type="text" id="eq_carrera" placeholder="Ej. Ingeniería Industrial">
+    </div>
+    <div>
+      <label>Paralelo / Turno / Grupo:</label>
+      <input type="text" id="eq_grupo" placeholder="Ej. Paralelo A - Grupo 4">
+    </div>
+    <div>
+      <label>Fecha de Aplicación Forense:</label>
+      <input type="text" id="eq_fecha" placeholder="AAAA-MM-DD">
+    </div>
+  </div>
+
+  <!-- REPRODUCTOR DE AUDIO NARRATIVO: BHOPAL UCC (1970-1984) -->
+  <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 760px; margin: 20px auto; border: 1px solid #cbd5e1; border-radius: 12px; background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.06); overflow: hidden;">
+    <!-- Encabezado del Módulo Sonoro -->
+    <div style="background-color: #0f172a; color: #ffffff; padding: 20px 24px;">
+      <div style="display: inline-block; background-color: #2563eb; color: #ffffff; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 9999px; margin-bottom: 8px;">
+        Documento Auditivo Histórico
+      </div>
+      <h3 style="margin: 0 0 6px 0; font-size: 18px; font-weight: 700; color: #ffffff;">
+        Audio: Promesas de Seguridad y Progreso de UCC (1970–1984)
+      </h3>
+      <p style="margin: 0; font-size: 12px; color: #94a3b8;">
+        Transición discursiva: Campaña institucional publicitaria y respuesta técnica a Eduardo Muñoz (Lapierre &amp; Moro, 2001)[cite: 52, 53, 72, 73]
+      </p>
+    </div>
+
+    <!-- Contenedor del Guion Textual -->
+    <div id="guion-narrativo-ucc" style="padding: 20px 24px; font-size: 13.5px; line-height: 1.6; color: #334155; max-height: 220px; overflow-y: auto; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+      <p style="margin-top: 0;"><strong>La promesa del progreso:</strong><br>
+      «Bueyes que trabajan en los campos... El Ganges eterno... los elefantes enjaezados de joyas... Hoy, estos símbolos de la India antigua conviven con una visión nueva: la de la industria moderna. La India ha construido fábricas para reforzar su economía y anunciar a sus cuatrocientos cincuenta millones de habitantes la promesa de un porvenir deslumbrante. Pero la India necesita el saber tecnológico del mundo occidental. Es así como Union Carbide, trabajando con ingenieros y técnicos indios, ha ofrecido sus amplios recursos científicos para contribuir a construir una gran fábrica de productos químicos y plásticos cerca de Bombay. Los colaboradores de Union Carbide se felicitan de poder compartir sus conocimientos y sus aptitudes con los ciudadanos de este gran país»[cite: 53].</p>
+
+      <p style="margin-bottom: 0;"><strong>La seguridad garantizada ante la dirección técnica:</strong><br>
+      Cuando el agrónomo Eduardo Muñoz manifestó su preocupación por los riesgos de construir y almacenar grandes volúmenes de isocianato de metilo (MIC) cerca de asentamientos urbanos en Bhopal, los directivos e ingenieros de diseño de South Charleston le respondieron de manera categórica[cite: 71, 72]:<br>
+      —«Eduardo, si construimos la fábrica como es debido, no habrá ningún peligro. Toma el ejemplo de Nueva York: tres aeropuertos en medio de los rascacielos: La Guardia, el J.F.K. y Newark. Con tantos aviones despegando cada minuto, parecería lógico que chocaran contra los edificios o entre sí[cite: 73, 74]. Y, sin embargo, son los más seguros del mundo[cite: 74]. Los numerosos sistemas de seguridad de este tipo de instalación permiten controlar todas las reacciones potencialmente peligrosas del MIC[cite: 72]. No tiene nada que temer, querido señor Muñoz. Su factoría de Bhopal será tan inofensiva como una fábrica de chocolatinas»[cite: 72].</p>
+    </div>
+
+    <!-- Barra de Control de Reproducción -->
+    <div style="padding: 16px 24px; background-color: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; gap: 8px;">
+        <button type="button" onclick="reproducirAudioUCC()" style="background-color: #2563eb; color: #ffffff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
+          ▶ Reproducir
+        </button>
+        <button type="button" onclick="pausarAudioUCC()" style="background-color: #64748b; color: #ffffff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
+          ⏸ Pausar
+        </button>
+        <button type="button" onclick="detenerAudioUCC()" style="background-color: #ef4444; color: #ffffff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
+          ⏹ Detener
+        </button>
+      </div>
+      <span id="estado-audio-ucc" style="font-size: 12px; color: #64748b; font-weight: 500;">
+        Listo para reproducir
+      </span>
+    </div>
+  </div>
+
+  <script>
+    let locucionUCC = null;
+    const indicadorEstado = document.getElementById('estado-audio-ucc');
+
+    function prepararLocucion() {
+      if (!('speechSynthesis' in window)) {
+        indicadorEstado.textContent = 'API de voz no disponible en este navegador.';
+        return null;
+      }
+      const texto = document.getElementById('guion-narrativo-ucc').innerText;
+      locucionUCC = new SpeechSynthesisUtterance(texto);
+      locucionUCC.lang = 'es-ES';
+      locucionUCC.rate = 0.93; // Cadencia pausada para audición analítica
+      locucionUCC.pitch = 1.0;
+
+      locucionUCC.onstart = () => { indicadorEstado.textContent = '🔊 Reproduciendo audio institucional...'; };
+      locucionUCC.onend = () => { indicadorEstado.textContent = '✔ Reproducción completada.'; };
+      locucionUCC.onpause = () => { indicadorEstado.textContent = '⏸ En pausa.'; };
+      locucionUCC.onresume = () => { indicadorEstado.textContent = '🔊 Reproduciendo...'; };
+    }
+
+    function reproducirAudioUCC() {
+      if (!locucionUCC) prepararLocucion();
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      } else {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(locucionUCC);
+      }
+    }
+
+    function pausarAudioUCC() {
+      if (window.speechSynthesis.speaking) window.speechSynthesis.pause();
+    }
+
+    function detenerAudioUCC() {
+      if (window.speechSynthesis.speaking || window.speechSynthesis.paused) {
+        window.speechSynthesis.cancel();
+        indicadorEstado.textContent = '⏹ Detenido.';
+      }
+    }
+  </script>
+
+  <form id="causalForensicForm">
+
+    <!-- ======================================================= -->
+    <!-- TALLER 1: MATRIZ DE LEVANTAMIENTO 6M EN BLANCO          -->
+    <!-- ======================================================= -->
+    <h2 class="section-header">Taller de Trabajo 1: Matriz de Levantamiento de Factores Causales (Modelo 6M)</h2>
+    <p style="font-size: 0.85rem; color: #475569; margin-top: 0;">
+      <strong>Instrucciones:</strong> Para cada rama de las 6M, seleccione la omisión operativa real documentada e ingrese por escrito la evidencia testimonial o técnica y el estándar nominal de diseño en los campos habilitados.
+    </p>
+
+    <div class="table-container">
+      <table class="dense-interactive-table">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Eje Metodológico (6M)</th>
+            <th style="width: 25%;">Condición de Diseño / Procedimiento Teórico</th>
+            <th style="width: 30%;">Falla Latente / Omisión Operativa (Selección)</th>
+            <th style="width: 27%;">Evidencia de Respaldo (Ingreso Escrito)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Método -->
+          <tr>
+            <td><strong>Método</strong><br><span style="font-size: 0.72rem; color: #64748b;">(Procedimientos)</span></td>
+            <td>
+              <textarea class="table-input" id="t1_diseno_metodo" placeholder="Escriba estándar LOTO y colocación de discos ciegos..."></textarea>
+            </td>
+            <td>
+              <select class="table-select" id="t1_sel_metodo">
+                <option value="">-- Seleccione Falla Latente --</option>
+                <option value="met_1">Uso de agua con pH alcalino fuera de norma en el purgado de tuberías.</option>
+                <option value="met_ok">Ausencia de LOTO y omisión de discos ciegos durante la purga con agua de tuberías.</option>
+                <option value="met_2">Venteo manual programado sin autorización del superintendente general.</option>
+              </select>
+            </td>
+            <td>
+              <textarea class="table-input" id="t1_evid_metodo" placeholder="Cite reporte u orden de trabajo de mantenimiento..."></textarea>
+            </td>
+          </tr>
+
+          <!-- Mano de Obra -->
+          <tr>
+            <td><strong>Mano de Obra</strong><br><span style="font-size: 0.72rem; color: #64748b;">(Personal)</span></td>
+            <td>
+              <textarea class="table-input" id="t1_diseno_personal" placeholder="Escriba dotación y período nominal de capacitación..."></textarea>
+            </td>
+            <td>
+              <select class="table-select" id="t1_sel_personal">
+                <option value="">-- Seleccione Falla Latente --</option>
+                <option value="per_1">Huelga no autorizada de operarios del sindicato mayoritario.</option>
+                <option value="per_ok">Plantilla reducida, sobrecarga de turnos, falta de manuales locales y sin ingeniero en turno nocturno.</option>
+                <option value="per_2">Falta de afiliación a colegios de profesionales técnicos de la región.</option>
+              </select>
+            </td>
+            <td>
+              <textarea class="table-input" id="t1_evid_personal" placeholder="Registre testimonio de operadores o actas sindicales..."></textarea>
+            </td>
+          </tr>
+
+          <!-- Maquinaria -->
+          <tr>
+            <td><strong>Maquinaria</strong><br><span style="font-size: 0.72rem; color: #64748b;">(Equipos)</span></td>
+            <td>
+              <textarea class="table-input" id="t1_diseno_maq" placeholder="Escriba condición nominal de instrumentos y freón..."></textarea>
+            </td>
+            <td>
+              <select class="table-select" id="t1_sel_maq">
+                <option value="">-- Seleccione Falla Latente --</option>
+                <option value="maq_ok">Instrumentación descalibrada, alarmas silenciadas y refrigeración por freón deliberadamente apagada.</option>
+                <option value="maq_1">Falla estocástica y simultánea de tres bombas neumáticas de repuesto.</option>
+                <option value="maq_2">Fisura estructural en el fondo del tanque por asentamiento de terreno.</option>
+              </select>
+            </td>
+            <td>
+              <textarea class="table-input" id="t1_evid_maq" placeholder="Reporte de auditoría de seguridad de 1982..."></textarea>
+            </td>
+          </tr>
+
+          <!-- Materiales -->
+          <tr>
+            <td><strong>Materiales</strong><br><span style="font-size: 0.72rem; color: #64748b;">(Reactivos)</span></td>
+            <td>
+              <textarea class="table-input" id="t1_diseno_mat" placeholder="Escriba inventario seguro y alternativa Just-in-Time..."></textarea>
+            </td>
+            <td>
+              <select class="table-select" id="t1_sel_mat">
+                <option value="">-- Seleccione Falla Latente --</option>
+                <option value="mat_1">Uso de alfa-naftol adulterado con trazas de fenol comercial.</option>
+                <option value="mat_ok">Almacenamiento masivo de 60 toneladas de MIC líquido reactivo en lugar de síntesis continua a demanda.</option>
+                <option value="mat_2">Concentración deficiente en la salmuera refrigerante del condensador.</option>
+              </select>
+            </td>
+            <td>
+              <textarea class="table-input" id="t1_evid_mat" placeholder="Contraste con modelo de plantas europeas (Béziers)..."></textarea>
+            </td>
+          </tr>
+
+          <!-- Medio Ambiente -->
+          <tr>
+            <td><strong>Medio Ambiente</strong><br><span style="font-size: 0.72rem; color: #64748b;">(Entorno)</span></td>
+            <td>
+              <textarea class="table-input" id="t1_diseno_amb" placeholder="Escriba requerimiento de buffer zone y exclusión urbana..."></textarea>
+            </td>
+            <td>
+              <select class="table-select" id="t1_sel_amb">
+                <option value="">-- Seleccione Falla Latente --</option>
+                <option value="amb_ok">Inexistencia de buffer zone industrial y asentamientos densamente poblados colindantes a la planta.</option>
+                <option value="amb_1">Inversión térmica estacional no prevista por el servicio meteorológico.</option>
+                <option value="amb_2">Filtración de aguas ácidas subterráneas hacia los cimientos del área de MIC.</option>
+              </select>
+            </td>
+            <td>
+              <textarea class="table-input" id="t1_evid_amb" placeholder="Crónicas y censo poblacional en Orya bastí y Chola..."></textarea>
+            </td>
+          </tr>
+
+          <!-- Gestión -->
+          <tr>
+            <td><strong>Gestión</strong><br><span style="font-size: 0.72rem; color: #64748b;">(Management)</span></td>
+            <td>
+              <textarea class="table-input" id="t1_diseno_ges" placeholder="Escriba directrices de gobernanza de seguridad y HRDD..."></textarea>
+            </td>
+            <td>
+              <select class="table-select" id="t1_sel_ges">
+                <option value="">-- Seleccione Falla Latente --</option>
+                <option value="ges_1">Retraso en la obtención de licencias de exportación agrícola.</option>
+                <option value="ges_2">Falta de comunicación entre jefes de turno y delegados sindicales.</option>
+                <option value="ges_ok">Políticas severas de recorte de OPEX/CAPEX y omisión sistemática de las 61 fallas de la auditoría de 1982.</option>
+              </select>
+            </td>
+            <td>
+              <textarea class="table-input" id="t1_evid_ges" placeholder="Memorandos ejecutivos de Danbury y auditoría UCC 1982..."></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- TALLER 2: PLANTILLA ISHIKAWA (6M) EN BLANCO            -->
+    <!-- ======================================================= -->
+    <h2 class="section-header">Taller de Trabajo 2: Plantilla de Estructuración Gráfica de Ishikawa (Esqueleto Interactivo en Blanco)</h2>
+    <p style="font-size: 0.85rem; color: #475569; margin-top: 0;">
+      <strong>Instrucciones:</strong> Complete las causas secundarias asociadas a cada espina primaria del diagrama seleccionando la desviación operacional correspondiente:
+    </p>
+
+    <div class="ishikawa-board">
+      <div class="ishikawa-grid">
+        <!-- Espinas Superiores -->
+        <div class="fish-column">
+          <div class="fish-branch-title">MÉTODO</div>
+          <select class="ishikawa-select" id="ish_met_1">
+            <option value="">-- Subcausa Método 1 --</option>
+            <option value="ok1">Omisión de discos ciegos en purga de tuberías</option>
+            <option value="er1">Sobredosificación de vapor en reactores</option>
+          </select>
+          <select class="ishikawa-select" id="ish_met_2">
+            <option value="">-- Subcausa Método 2 --</option>
+            <option value="er2">Falta de control de inventario de repuestos</option>
+            <option value="ok2">Inexistencia de procedimiento estricto LOTO</option>
+          </select>
+        </div>
+
+        <div class="fish-column">
+          <div class="fish-branch-title">MAQUINARIA</div>
+          <select class="ishikawa-select" id="ish_maq_1">
+            <option value="">-- Subcausa Maquinaria 1 --</option>
+            <option value="ok1">Refrigeración freón (0 °C) desconectada</option>
+            <option value="er1">Filtro de aire de compresor colmatado</option>
+          </select>
+          <select class="ishikawa-select" id="ish_maq_2">
+            <option value="">-- Subcausa Maquinaria 2 --</option>
+            <option value="er2">Pintura anticorrosiva degradada en vigas</option>
+            <option value="ok2">Manómetros e indicadores descalibrados/rotos</option>
+          </select>
+        </div>
+
+        <div class="fish-column">
+          <div class="fish-branch-title">MEDIO AMBIENTE</div>
+          <select class="ishikawa-select" id="ish_amb_1">
+            <option value="">-- Subcausa Entorno 1 --</option>
+            <option value="ok1">Ausencia de buffer zone de seguridad perimetral</option>
+            <option value="er1">Exceso de polvo de carbón ferroviario</option>
+          </select>
+          <select class="ishikawa-select" id="ish_amb_2">
+            <option value="">-- Subcausa Entorno 2 --</option>
+            <option value="er2">Régimen monzónico con alta humedad relativa</option>
+            <option value="ok2">Asentamientos precarios densamente poblados colindantes</option>
+          </select>
+        </div>
+
+        <!-- Cabeza del Pez (Efecto) -->
+        <div class="fish-head-box">
+          <div style="font-size: 0.7rem; color: #38bdf8; text-transform: uppercase;">Efecto Crítico:</div>
+          Pérdida de Contención Primaria (LOPC) - Tanque E610 (MIC)[cite: 154]
+        </div>
+
+        <!-- Columna vertebral -->
+        <div class="fish-spine-center"></div>
+        <div class="fish-spine-center" style="grid-column: span 1; width: 100%; margin: 8px 0;"></div>
+
+        <!-- Espinas Inferiores -->
+        <div class="fish-column">
+          <div class="fish-branch-title">MANO DE OBRA</div>
+          <select class="ishikawa-select" id="ish_mo_1">
+            <option value="">-- Subcausa Personal 1 --</option>
+            <option value="ok1">Reducción de personal operativo al 50%</option>
+            <option value="er1">Falta de indumentaria ignífuga de gala</option>
+          </select>
+          <select class="ishikawa-select" id="ish_mo_2">
+            <option value="">-- Subcausa Personal 2 --</option>
+            <option value="er2">Ausencia de incentivos por productividad</option>
+            <option value="ok2">Capacitación reducida a 15 días sin manuales nativos</option>
+          </select>
+        </div>
+
+        <div class="fish-column">
+          <div class="fish-branch-title">MATERIALES</div>
+          <select class="ishikawa-select" id="ish_mat_1">
+            <option value="">-- Subcausa Materiales 1 --</option>
+            <option value="ok1">Almacenamiento masivo de MIC (60 toneladas)</option>
+            <option value="er1">Uso de nitrógeno con trazas de helio</option>
+          </select>
+          <select class="ishikawa-select" id="ish_mat_2">
+            <option value="">-- Subcausa Materiales 2 --</option>
+            <option value="er2">Empaquetaduras de asbesto no lubricadas</option>
+            <option value="ok2">Tuberías de acero al carbono corroídas sin aleaciones especiales</option>
+          </select>
+        </div>
+
+        <div class="fish-column">
+          <div class="fish-branch-title">GESTIÓN (MANAGEMENT)</div>
+          <select class="ishikawa-select" id="ish_ges_1">
+            <option value="">-- Subcausa Gestión 1 --</option>
+            <option value="ok1">Políticas corporativas de recorte OPEX/CAPEX</option>
+            <option value="er1">Falta de presupuesto para eventos deportivos</option>
+          </select>
+          <select class="ishikawa-select" id="ish_ges_2">
+            <option value="">-- Subcausa Gestión 2 --</option>
+            <option value="er2">Demora en la aprobación de horas extras</option>
+            <option value="ok2">Omisión deliberada de 61 hallazgos críticos de auditoría (1982)</option>
+          </select>
+        </div>
+
+        <!-- Espacio en blanco para alineación con cabeza -->
+        <div></div>
+      </div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- TALLER 3: FORMATO 5 PORQUÉS EN BLANCO                  -->
+    <!-- ======================================================= -->
+    <h2 class="section-header">Taller de Trabajo 3: Formato Secuencial de los "Cinco Porqués" (Plantilla de Despliegue en Blanco)</h2>
+    <p style="font-size: 0.85rem; color: #475569; margin-top: 0;">
+      <strong>Instrucciones:</strong> Conecte cada nivel causal seleccionando la deducción lógica correcta y redacte la justificación técnica de ingeniería de procesos correspondiente:
+    </p>
+
+    <!-- Nivel 1 -->
+    <div class="why-step-card">
+      <div class="why-step-title">NIVEL 1: Causa Inmediata / Fenómeno Físico</div>
+      <div class="why-question">¿Por qué ocurrió la pérdida de contención masiva de gas tóxico en el tanque E610?[cite: 154, 158]</div>
+      <div class="why-controls">
+        <select class="table-select" id="why_sel_1">
+          <option value="">-- Seleccione Deducción Causal N1 --</option>
+          <option value="w1_er">Por la ruptura mecánica violenta del fondo del tanque por sobrecarga estática.</option>
+          <option value="w1_ok">Por una reacción exotérmica desbocada (runaway) que elevó presión y temperatura abriendo la válvula de alivio.</option>
+          <option value="w1_er2">Por un cortocircuito eléctrico que encendió los vapores en la sala de control.</option>
+        </select>
+        <textarea class="table-input" id="why_txt_1" placeholder="Justifique el fenómeno termodinámico del MIC (entalpía, presión y runaway)..."></textarea>
+      </div>
+    </div>
+
+    <div class="arrow-down-divider">▼</div>
+
+    <!-- Nivel 2 -->
+    <div class="why-step-card">
+      <div class="why-step-title">NIVEL 2: Falla de Salvaguardas y Mitigación</div>
+      <div class="why-question">¿Por qué ingresó agua y por qué las salvaguardas de mitigación no contuvieron la fuga?[cite: 154, 158]</div>
+      <div class="why-controls">
+        <select class="table-select" id="why_sel_2">
+          <option value="">-- Seleccione Deducción Causal N2 --</option>
+          <option value="w2_ok">Porque no había discos ciegos instalados y los sistemas Scrubber y Flare estaban inoperativos.</option>
+          <option value="w2_er">Porque las cortinas de agua contra incendios alcanzaron la altura de la chimenea.</option>
+          <option value="w2_er2">Porque la válvula de alivio estaba calibrada por debajo de la presión nominal.</option>
+        </select>
+        <textarea class="table-input" id="why_txt_2" placeholder="Describa el estado mecánico de la torre de lavado y la antorcha..."></textarea>
+      </div>
+    </div>
+
+    <div class="arrow-down-divider">▼</div>
+
+    <!-- Nivel 3 -->
+    <div class="why-step-card">
+      <div class="why-step-title">NIVEL 3: Racionalidad Operativa y Mantenimiento</div>
+      <div class="why-question">¿Por qué estaban inoperativas las salvaguardas críticas de mitigación y la refrigeración?[cite: 154, 158]</div>
+      <div class="why-controls">
+        <select class="table-select" id="why_sel_3">
+          <option value="">-- Seleccione Deducción Causal N3 --</option>
+          <option value="w3_er">Porque se esperaba una inspección ambiental para renovar los permisos de descarga.</option>
+          <option value="w3_er2">Porque sufrieron fallas por corrosión simultáneas causadas por el agua de la lluvia.</option>
+          <option value="w3_ok">Para suprimir costes de energía eléctrica, insumos (soda cáustica) y mantenimiento en una filial deficitaria.</option>
+        </select>
+        <textarea class="table-input" id="why_txt_3" placeholder="Explique las decisiones de recorte en gastos corrientes (OPEX) de planta..."></textarea>
+      </div>
+    </div>
+
+    <div class="arrow-down-divider">▼</div>
+
+    <!-- Nivel 4 -->
+    <div class="why-step-card">
+      <div class="why-step-title">NIVEL 4: Gobierno Corporativo y Toma de Decisiones</div>
+      <div class="why-question">¿Por qué la dirección administrativa priorizó el ahorro presupuestario sobre la seguridad de proceso?[cite: 154, 158]</div>
+      <div class="why-controls">
+        <select class="table-select" id="why_sel_4">
+          <option value="">-- Seleccione Deducción Causal N4 --</option>
+          <option value="w4_ok">Porque la alta dirección desestimó la debida diligencia y subordinó la integridad del proceso a márgenes financieros.</option>
+          <option value="w4_er">Porque existía una orden judicial india que prohibía importar repuestos extranjeros.</option>
+          <option value="w4_er2">Porque la directiva desconocía la presencia de reactivos químicos en el tanque.</option>
+        </select>
+        <textarea class="table-input" id="why_txt_4" placeholder="Analice la gestión corporativa frente a los 61 hallazgos de la auditoría de 1982..."></textarea>
+      </div>
+    </div>
+
+    <div class="arrow-down-divider">▼</div>
+
+    <!-- Nivel 5 -->
+    <div class="why-step-card">
+      <div class="why-step-title">NIVEL 5: Causa Raíz Sistémica / Política Institucional</div>
+      <div class="why-question">¿Por qué ocurrió esta tolerancia sistemática a la degradación de barreras críticas?[cite: 154, 158]</div>
+      <div class="why-controls">
+        <select class="table-select" id="why_sel_5">
+          <option value="">-- Seleccione Deducción Causal N5 --</option>
+          <option value="w5_er">Por la incompatibilidad cultural entre los ingenieros de diseño y las autoridades regionales.</option>
+          <option value="w5_ok">Por la aplicación de un doble estándar corporativo y ético entre plantas en países desarrollados vs. en desarrollo.</option>
+          <option value="w5_er2">Por un error no detectado en las tablas de termodinámica del manual de operaciones.</option>
+        </select>
+        <textarea class="table-input" id="why_txt_5" placeholder="Contraste el estándar de diseño de Institute (EE. UU.) frente a Bhopal (India)..."></textarea>
+      </div>
+    </div>
+
+    <!-- BOTONERA DE CONTROL Y EXPORTACIÓN -->
+    <div class="action-panel no-print">
+      <button type="button" class="btn-action btn-secondary" onclick="imprimirPlantillaFase2()">
+        🖨 Imprimir / Guardar en PDF
+      </button>
+      <button type="button" class="btn-action btn-primary" onclick="validarPlantillaFase2()">
+        Validar Análisis Forense Completo
+      </button>
+    </div>
+
+    <!-- Retroalimentación dinámica de validación -->
+    <div id="eval-feedback-panel"></div>
+
+  </form>
+
+  <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 32px 0;">
+
+  <!-- ================================================================= -->
+  <!-- RECURSOS EMBEBIDOS AL FINAL DE LA PÁGINA: 1° VIDEO Y 2° PDF       -->
+  <!-- ================================================================= -->
+
+  <!-- 1. VIDEO DOCUMENTAL (PRIMERO) -->
+  <div class="media-card">
+    <span class="tag-chip">Recurso Audiovisual</span>
+    <h4>Video: Desastre de Bhopal</h4>
+    <p class="media-desc">
+      <strong>Archivo:</strong> Desastre_de_Bhopal.mp4<br>
+      <strong>Descripción:</strong> Recurso audiovisual en formato MP4 que presenta el contexto, la cronología y los aspectos clave del desastre industrial de Bhopal, utilizado como material de apoyo técnico y documental para el estudio del caso.
+    </p>
+    <iframe src="https://drive.google.com/file/d/1K3PKqnVHc-YcZFtyD4On6H615E8L-Xt1/preview" width="100%" height="480" allow="autoplay"></iframe>
+  </div>
+
+  <!-- 2. DOCUMENTO TÉCNICO PDF (SEGUNDO) -->
+  <div class="media-card">
+    <span class="tag-chip">Documento de Peritaje</span>
+    <h4>Documento PDF: Análisis Causal Forense</h4>
+    <p class="media-desc">
+      <strong>Archivo:</strong> UNIDAD_2.3_FASE2_Analisis_Causal_Forense (1).pdf<br>
+      <strong>Descripción:</strong> Guía metodológica e instruccional de ingeniería forense enfocada en el análisis causal en equipos sobre el Caso Bhopal (UCIL). Incluye el desarrollo del Diagrama de Ishikawa bajo el modelo de las 6M, la técnica recursiva de los 5 Porqués, guías prácticas para talleres y especificaciones de configuración para paquetes SCORM en eXeLearning y Moodle.
+    </p>
+    <iframe src="https://drive.google.com/file/d/1Bvg8QAPrMUxB58WncF3Q5aEVh6fPT-gU/preview" width="100%" height="600" allow="autoplay"></iframe>
+  </div>
+
+</div>
+
+<script>
+  function validarPlantillaFase2() {
+    var puntos = 0;
+    var errores = [];
+
+    // 1. Validación de Datos de Estudiantes
+    var est = document.getElementById("eq_estudiantes").value.trim();
+    if (est === "") {
+      alert("Por favor, ingrese los nombres de los integrantes del equipo evaluador.");
+      document.getElementById("eq_estudiantes").focus();
+      return;
+    }
+
+    // 2. Validación Taller 1 (Matriz 6M)
+    if (document.getElementById("t1_sel_metodo").value === "met_ok") puntos++;
+    else errores.push("• Taller 1 (Método): La falla latente real corresponde a la omisión de LOTO y discos ciegos[cite: 129, 158].");
+
+    if (document.getElementById("t1_sel_personal").value === "per_ok") puntos++;
+    else errores.push("• Taller 1 (Mano de Obra): Se omitió la dotación reducida, sobrecarga de turnos y falta de manuales locales[cite: 155, 156, 158].");
+
+    if (document.getElementById("t1_sel_maq").value === "maq_ok") puntos++;
+    else errores.push("• Taller 1 (Maquinaria): Desconexión prolongada de freón e instrumentación descalibrada o silenciada[cite: 141, 154, 158].");
+
+    if (document.getElementById("t1_sel_mat").value === "mat_ok") puntos++;
+    else errores.push("• Taller 1 (Materiales): Decisión de almacenamiento masivo de 60 t de MIC vs. síntesis Just-in-Time[cite: 71, 72, 158].");
+
+    if (document.getElementById("t1_sel_amb").value === "amb_ok") puntos++;
+    else errores.push("• Taller 1 (Medio Ambiente): Carencia de buffer zone industrial ante asentamientos precarios colindantes[cite: 26, 158].");
+
+    if (document.getElementById("t1_sel_ges").value === "ges_ok") puntos++;
+    else errores.push("• Taller 1 (Gestión): Recortes severos de OPEX/CAPEX y omisión deliberada de la auditoría de 1982[cite: 128, 129, 154, 156, 158].");
+
+    // 3. Validación Taller 2 (Ishikawa)
+    var subPuntosIsh = (document.getElementById("ish_met_1").value === "ok1"?1:0) +
+                       (document.getElementById("ish_met_2").value === "ok2"?1:0) +
+                       (document.getElementById("ish_maq_1").value === "ok1"?1:0) +
+                       (document.getElementById("ish_maq_2").value === "ok2"?1:0) +
+                       (document.getElementById("ish_amb_1").value === "ok1"?1:0) +
+                       (document.getElementById("ish_amb_2").value === "ok2"?1:0) +
+                       (document.getElementById("ish_mo_1").value === "ok1"?1:0) +
+                       (document.getElementById("ish_mo_2").value === "ok2"?1:0) +
+                       (document.getElementById("ish_mat_1").value === "ok1"?1:0) +
+                       (document.getElementById("ish_mat_2").value === "ok2"?1:0) +
+                       (document.getElementById("ish_ges_1").value === "ok1"?1:0) +
+                       (document.getElementById("ish_ges_2").value === "ok2"?1:0);
+
+    puntos += subPuntosIsh;
+    if (subPuntosIsh < 12) {
+      errores.push("• Taller 2 (Ishikawa): Existen " + (12 - subPuntosIsh) + " causas secundarias mal clasificadas en las ramas del diagrama de espina.");
+    }
+
+    // 4. Validación Taller 3 (5 Porqués)
+    if (document.getElementById("why_sel_1").value === "w1_ok") puntos++;
+    else errores.push("• Nivel 1 (5 Porqués): Corresponde a la reacción exotérmica desbocada (runaway) en el tanque E610[cite: 154, 155, 158].");
+
+    if (document.getElementById("why_sel_2").value === "w2_ok") puntos++;
+    else errores.push("• Nivel 2 (5 Porqués): Corresponde a la omisión de discos ciegos e inoperatividad de Scrubber y Flare[cite: 154, 155, 158].");
+
+    if (document.getElementById("why_sel_3").value === "w3_ok") puntos++;
+    else errores.push("• Nivel 3 (5 Porqués): Corresponde a la política de recortes de costos de mantenimiento e insumos[cite: 78, 154, 158].");
+
+    if (document.getElementById("why_sel_4").value === "w4_ok") puntos++;
+    else errores.push("• Nivel 4 (5 Porqués): Corresponde a la desestimación de debida diligencia por la alta dirección[cite: 154, 158].");
+
+    if (document.getElementById("why_sel_5").value === "w5_ok") puntos++;
+    else errores.push("• Nivel 5 (5 Porqués): Corresponde a la aplicación de un doble estándar corporativo y ético transnacional[cite: 46, 47, 78, 156, 158].");
+
+    // Comprobación de que no haya campos de texto en blanco
+    var txtIds = ["t1_diseno_metodo", "t1_evid_metodo", "t1_diseno_personal", "t1_evid_personal",
+                  "t1_diseno_maq", "t1_evid_maq", "t1_diseno_mat", "t1_evid_mat",
+                  "t1_diseno_amb", "t1_evid_amb", "t1_diseno_ges", "t1_evid_ges",
+                  "why_txt_1", "why_txt_2", "why_txt_3", "why_txt_4", "why_txt_5"];
+    var txtVacios = 0;
+    for (var i = 0; i < txtIds.length; i++) {
+      if (document.getElementById(txtIds[i]).value.trim() === "") txtVacios++;
+    }
+    if (txtVacios > 0) {
+      errores.push("• Campos de Justificación Escrita: Existen " + txtVacios + " justificaciones técnicas sin completar en los talleres.");
+    }
+
+    var panel = document.getElementById("eval-feedback-panel");
+    panel.style.display = "block";
+
+    if (puntos >= 21 && txtVacios === 0) { // 6 + 12 + 5 = 23 selecciones totales
+      panel.style.backgroundColor = "#ecfdf5";
+      panel.style.border = "1px solid #10b981";
+      panel.style.color = "#065f46";
+      panel.innerHTML = "<strong>DICTAMEN DE PERITAJE FORENSE VÁLIDO (Puntaje Técnico: " + puntos + "/23)</strong><br>" +
+                        "El equipo ha desmontado rigurosamente la hipótesis de sabotaje y estructurado la causalidad sistémica del desastre[cite: 140, 158]. " +
+                        "La contraseña para desbloquear la Fase 3 es: <strong>CAUSA_SISTEMICA_6M</strong>";
+    } else {
+      panel.style.backgroundColor = "#fef2f2";
+      panel.style.border = "1px solid #ef4444";
+      panel.style.color = "#991b1b";
+      panel.innerHTML = "<strong>ANÁLISIS INCOMPLETO O CON DISCREPANCIAS FORENSES</strong><br>" +
+                        "Revise y subsane las siguientes observaciones antes de emitir el dictamen final:<br>" +
+                        errores.join("<br>");
+    }
+  }
+
+  function imprimirPlantillaFase2() {
+    var est = document.getElementById("eq_estudiantes").value.trim();
+    if (!est) {
+      alert("Por favor, ingrese los integrantes del equipo evaluador antes de generar el documento para impresión o PDF.");
+      document.getElementById("eq_estudiantes").focus();
+      return;
+    }
+    window.print();
+  }
+</script>
+
+</body>
+</html>
