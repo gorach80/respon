@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Unidad 2.3: Fase 2 · Análisis Causal en Equipos</title>
+  <!-- Soporte para renderizado matemático riguroso LaTeX -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --primary-color: #0b3c5d;
+      --secondary-color: #1d2731;
+      --accent-color: #328cc1;
+      --bg-light: #f8fafc;
+      --border-color: #cbd5e1;
+      --text-main: #334155;
+      --text-dark: #0f172a;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-main);
+      background-color: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .fase2-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 32px;
+    }
+
+    h1.fase2-title {
+      font-size: 1.65rem;
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+      padding-bottom: 12px;
+      margin-top: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    h2.fase2-subtitle {
+      font-size: 1.25rem;
+      color: var(--secondary-color);
+      margin-top: 24px;
+      border-left: 4px solid var(--accent-color);
+      padding-left: 10px;
+    }
+
+    h3.fase2-heading {
+      font-size: 1.05rem;
+      color: var(--primary-color);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    p, li {
+      font-size: 0.95rem;
+      text-align: justify;
+    }
+
+    .formula-box {
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+
+    /* Tablas de alta densidad para validación rápida */
+    .table-responsive {
+      overflow-x: auto;
+      margin: 18px 0;
+    }
+
+    table.dense-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    table.dense-table th, table.dense-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+
+    table.dense-table th {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    table.dense-table tr:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+
+    /* Diagrama de Ishikawa y estructuras ASCII */
+    pre.diagram-box {
+      background-color: #0f172a;
+      color: #38bdf8;
+      padding: 16px;
+      border-radius: 6px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.82rem;
+      line-height: 1.35;
+      overflow-x: auto;
+    }
+
+    /* Contenedores multimedia e incrustaciones */
+    .media-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      margin: 24px 0;
+    }
+
+    .media-card h4 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1rem;
+    }
+
+    .media-desc {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background-color: #000;
+    }
+
+    .tag-chip {
+      display: inline-block;
+      background: #e2e8f0;
+      color: #1e293b;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="fase2-wrapper">
+
+  <!-- H1: TÍTULO PRINCIPAL DE LA UNIDAD -->
+  <h1 class="fase2-title">
+    Unidad 2.3: Fase 2 · Análisis Causal en Equipos (35 min)<br>
+    <span style="font-size: 1.1rem; color: #475569; font-weight: 600;">Ingeniería Forense: Diagrama de Ishikawa (6M) y los "5 Porqués"</span>
+  </h1>
+
+  <!-- INTRODUCCIÓN MOTIVADORA -->
+  <div style="background-color: #f8fafc; border-left: 4px solid #0b3c5d; padding: 12px 18px; margin: 18px 0; border-radius: 0 6px 6px 0;">
+    <p style="margin: 0; font-weight: 600; color: #0b3c5d;">Introducción Motivadora</p>
+    <p style="margin: 6px 0 0 0;">
+      Tras la pérdida masiva de contención primaria (LOPC, <em>Loss of Primary Containment</em>) de más de 40 toneladas de isocianato de metilo (MIC) en la planta de Union Carbide India Limited (UCIL), la respuesta corporativa inicial intentó posicionar la teoría del "sabotaje individual" o el "error humano fortuito de un operario". No obstante, desde la perspectiva de la ingeniería forense de procesos y la gestión de la seguridad de procesos (PSM, <em>Process Safety Management</em>), atribuir un desastre de esta magnitud a una falla humana de primera línea constituye una falacia analítica que encubre la degradación estructural de los sistemas de contención.
+    </p>
+    <p style="margin: 8px 0 0 0;">
+      En este módulo, el equipo de ingeniería asume el rol de peritaje forense internacional para deconstruir la narrativa del error aislado. Mediante la articulación analítica del Diagrama de Causa y Efecto (Modelo de las 6M) y la progresión recursiva de los Cinco Porqués, se documentará cómo la concurrencia de omisiones de diseño, precarización operacional y directrices de reducción presupuestaria impuestas desde la casa matriz desarticularon de forma sistémica las barreras de defensa en profundidad.
+    </p>
+  </div>
+
+  <!-- REPRODUCTOR DE AUDIO HISTÓRICO REQUERIDO -->
+  <div class="audio-container" style="border: 1px solid #d9d9d9; border-radius: 6px; padding: 16px; background-color: #fafafa; max-width: 600px; margin: 20px auto;">
+    <p style="font-weight: 600; margin-top: 0; color: #333;">Audio: Promesas de seguridad y progreso de UCC (1970–1984)</p>
+    <audio controls preload="metadata" style="width: 100%;">
+      <source src="discurso_bhopal_ucc.mp3" type="audio/mpeg">
+      <source src="discurso_bhopal_ucc.ogg" type="audio/ogg">
+      Su navegador no soporta el elemento de audio HTML5.
+    </audio>
+    <p style="font-size: 0.8rem; color: #666; margin-bottom: 0; margin-top: 8px;">
+      Transición discursiva: Campaña institucional publicitaria y respuesta técnica a Eduardo Muñoz.
+    </p>
+  </div>
+
+  <!-- IDEVICE DE LECTURA -->
+  <h2 class="fase2-subtitle">iDevice de Lectura: Marco Teórico-Doctrinal de Causalidad Forense</h2>
+
+  <h3 class="fase2-heading">1. El Mito del Factor Humano y la Causalidad Sistémica</h3>
+  <p>
+    El análisis de accidentes industriales mayores demuestra que los errores en la interfaz operacional rara vez son causas raíz; representan, por el contrario, los síntomas finales de fallas latentes incrustadas en la arquitectura organizativa, las políticas de mantenimiento y el diseño de planta. La hipótesis de sabotaje de Union Carbide Corporation (UCC) centrada en Mohan Lal Verma pretendió desviar la responsabilidad civil y penal hacia el eslabón más débil de la cadena productiva. Sin embargo, bajo un marco riguroso de ingeniería forense, un sistema de alto riesgo no puede depender exclusivamente de la conducta infalible de un operador: debe disponer de salvaguardas de ingeniería intrínsecamente seguras y a prueba de errores (<em>poka-yoke</em> industrial).
+  </p>
+
+  <h3 class="fase2-heading">2. Fundamentación Termodinámica de la Pérdida de Contención</h3>
+  <p>
+    El isocianato de metilo (\(\text{CH}_3\text{NCO}\)) es una molécula de alta inestabilidad termodinámica. En presencia de trazas de agua y catalizada por óxidos metálicos presentes en conducciones de acero corroídas, la reacción de hidrólisis y posterior trimetrización genera una cinética desbocada (<em>thermal runaway reaction</em>):
+  </p>
+
+  <div class="formula-box">
+    $$\text{CH}_3\text{NCO} + \text{H}_2\text{O} \longrightarrow \text{CH}_3\text{NH}_2 + \text{CO}_2 \uparrow + \Delta H_{\text{reacc}} \quad (\Delta H < 0)$$
+    $$\text{CH}_3\text{NCO} + \text{CH}_3\text{NH}_2 \longrightarrow \text{Dimetilurea} + \Delta H_{\text{reacc}} \quad (\Delta H < 0)$$
+    $$\frac{dT}{dt} = \frac{\dot{Q}_{\text{generado}} - \dot{Q}_{\text{removido}}}{m \cdot C_p} > 0 \implies \frac{dP}{dt} \gg 0$$
+  </div>
+
+  <p>
+    Al haberse desactivado de forma prolongada el sistema de refrigeración por gas freón (que debía mantener el volumen de reactivo a \(0\text{ }^\circ\text{C}\)), el sistema carecía de capacidad de remoción de calor (\(\dot{Q}_{\text{removido}} \approx 0\)). La acumulación de dióxido de carbono (\(\text{CO}_2\)) y la gasificación del MIC líquido elevaron la presión de diseño por encima de los límites de tolerancia mecánica, forzando la apertura cataclísmica de los discos de ruptura y válvulas de sobrepresión.
+  </p>
+
+  <h3 class="fase2-heading">3. Modelo Estructural de las 6M Aplicado a la Seguridad de Procesos</h3>
+  <p>
+    El diagrama de Ishikawa clasifica la degradación del proceso en seis ramas independientes que convergen en el efecto crítico (Pérdida de Contención Primaria - Tanque E610):
+  </p>
+  <ul>
+    <li><strong>Método (Procedimientos):</strong> Ausencia de protocolos formales de Bloqueo y Etiquetado (LOTO, <em>Lockout/Tagout</em>) y no colocación obligatoria de discos ciegos (<em>slip blinds</em>) durante operaciones de lavado y purga de tuberías de proceso con agua.</li>
+    <li><strong>Mano de Obra (Personal):</strong> Reducción no planificada de la plantilla de operadores experimentados, imposición de jornadas con turnos dobles extenuantes, eliminación de manuales en lenguas locales (hindi y urdu) y ausencia de personal de ingeniería de proceso en turnos nocturnos.</li>
+    <li><strong>Maquinaria y Equipos:</strong> Instrumentación de campo y sala de control degradada, indicadores de presión y termometría descalibrados o fuera de escala, alarmas silenciadas de manera crónica y desconexión deliberada de la planta de freón de 30 toneladas.</li>
+    <li><strong>Materiales y Reactivos:</strong> Decisión de diseño de concentrar almacenamiento a gran escala (tanques de hasta 60 toneladas métricas de MIC ultra-reactivo) en proximidad urbana, descartando procesos de síntesis y consumo continuo a demanda (<em>Just-in-Time</em>).</li>
+    <li><strong>Medio Ambiente y Entorno:</strong> Inexistencia de un perímetro de amortiguamiento o zona de exclusión industrial (<em>buffer zone</em>) entre la planta y asentamientos urbanos de alta densidad demográfica (Orya bastí, Chola y Jai Prakash).</li>
+    <li><strong>Medición y Gestión (Management):</strong> Imposición de políticas severas de reducción de costos operativos (OPEX) y desinversión de capital (CAPEX) desde la sede de Danbury/Charleston, ignorando conscientemente las 61 no conformidades graves reportadas por la auditoría corporativa de 1982.</li>
+  </ul>
+
+  <h3 class="fase2-heading">4. Metodología de los 5 Porqués: Encadenamiento hacia la Causa Raíz</h3>
+  <ol>
+    <li><strong>¿Por qué ocurrió la fuga descontrolada?</strong> Debido a una violenta reacción exotérmica desbocada en el tanque de almacenamiento E610 provocada por el ingreso de agua y sedimentos corrosivos.</li>
+    <li><strong>¿Por qué ingresó agua y el gas tóxico no fue mitigado?</strong> Porque se omitió el aislamiento con discos ciegos en las tuberías durante el mantenimiento y las barreras activas de abatimiento (torre de neutralización con soda cáustica y antorcha de combustión) estaban inoperativas.</li>
+    <li><strong>¿Por qué estaban desarticuladas las salvaguardas críticas?</strong> Porque la administración de la planta las apagó o desarmó para reducir gastos de energía eléctrica, insumos químicos (hidróxido de sodio) y mantenimiento preventivo ante la caída de rentabilidad de la filial.</li>
+    <li><strong>¿Por qué se priorizó la reducción presupuestaria sobre la integridad de proceso?</strong> Porque la alta dirección de Union Carbide Corporation subordinó la debida diligencia en derechos humanos y la seguridad técnica a los márgenes financieros a corto plazo.</li>
+    <li><strong>¿Por qué se toleró esta degradación institucional?</strong> Por la aplicación de un doble estándar corporativo y ético sistemático, el cual permitía a la transnacional operar en una economía en desarrollo con niveles de salvaguarda, redundancia y mantenimiento sustancialmente inferiores a los exigidos en sus plantas matrices de Estados Unidos (e.g., Institute, Virginia Occidental).</li>
+  </ol>
+
+  <!-- ACTIVIDAD PRÁCTICA (SIN RESOLUCIÓN) -->
+  <h2 class="fase2-subtitle">Actividad Práctica: Guía de Análisis Causal y Construcción Forense (Sin Resolución)</h2>
+
+  <h3 class="fase2-heading">Indicaciones Metodológicas para el Trabajo en Equipos</h3>
+  <ul>
+    <li><strong>Modalidad:</strong> Equipos de peritaje forense (3 a 4 integrantes).</li>
+    <li><strong>Tiempo Asignado:</strong> 35 minutos.</li>
+    <li><strong>Objetivo Operativo:</strong> Construir el diagrama de espina de pescado (6M) y formular la derivación técnica de los Cinco Porqués, identificando la evidencia testimonial y técnica documentada en el caso sin asentar dictámenes conclusivos previos.</li>
+  </ul>
+
+  <h3 class="fase2-heading">Taller de Trabajo 1: Matriz de Levantamiento de Factores Causales (Modelo 6M)</h3>
+  <p>Los equipos deben registrar y categorizar las evidencias documentadas en el peritaje técnico y la crónica testimonial dentro de los campos en blanco de la siguiente matriz:</p>
+
+  <div class="table-responsive">
+    <table class="dense-table">
+      <thead>
+        <tr>
+          <th>Eje Metodológico (6M)</th>
+          <th>Condición de Diseño / Procedimiento Teórico</th>
+          <th>Falla Latente / Omisión Operativa Evidenciada</th>
+          <th>Evidencia Documental o Testimonial de Respaldo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Método (Procedimientos)</strong></td>
+          <td><em>Completar estándar teórico de aislamiento LOTO.</em></td>
+          <td><em>Identificar omisiones en purga de líneas con agua.</em></td>
+          <td><em>Registrar testimonio técnico / reporte operacional.</em></td>
+        </tr>
+        <tr>
+          <td><strong>Mano de Obra (Personal)</strong></td>
+          <td><em>Definir nivel de formación y dotación nominal.</em></td>
+          <td><em>Describir condiciones de trabajo y brechas de cualificación.</em></td>
+          <td><em>Registrar registros de planta / rotación de personal.</em></td>
+        </tr>
+        <tr>
+          <td><strong>Maquinaria (Equipos e Instrumentación)</strong></td>
+          <td><em>Especificar estado nominal de sistemas e indicadores.</em></td>
+          <td><em>Listar instrumentos fuera de servicio o descalibrados.</em></td>
+          <td><em>Reporte de auditoría interna de 1982.</em></td>
+        </tr>
+        <tr>
+          <td><strong>Materiales (Reactivos y Sustancias)</strong></td>
+          <td><em>Analizar política óptima de inventarios reactivos.</em></td>
+          <td><em>Cuantificar el volumen acumulado de MIC en tanque E610.</em></td>
+          <td><em>Contraste con modelo Just-in-Time (e.g., Béziers).</em></td>
+        </tr>
+        <tr>
+          <td><strong>Medio Ambiente (Entorno Físico y Urbano)</strong></td>
+          <td><em>Describir requerimientos de buffer zone industrial.</em></td>
+          <td><em>Documentar localización y densidad de asentamientos precarios.</em></td>
+          <td><em>Registros topográficos y crónicas de los bastís.</em></td>
+        </tr>
+        <tr>
+          <td><strong>Medición y Gestión (Management)</strong></td>
+          <td><em>Establecer deber corporativo de gobernanza y HRDD.</em></td>
+          <td><em>Identificar destino de recomendaciones de seguridad de 1982.</em></td>
+          <td><em>Directivas financieras de reducción de costos OPEX.</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="fase2-heading">Taller de Trabajo 2: Plantilla de Estructuración Gráfica de Ishikawa (Esqueleto de Causa-Efecto)</h3>
+  <p>Los peritos deben transferir los hallazgos de la matriz anterior para conformar la geometría analítica del diagrama de espina de pescado:</p>
+
+  <pre class="diagram-box">
+ MÉTODO                   MAQUINARIA                MEDIO AMBIENTE
+   │                          │                           │
+   ├─[Falla LOTO / Blinds]    ├─[Refrigeración 0 °C OFF]  ├─[Sin buffer zone]
+   │                          │                           │
+   └─[Falta Proc. Escrito]    └─[Manómetros erróneos]     └─[Bastís colindantes]
+   ───────────────────────────┬───────────────────────────┬────────────────────► [ EFECTO CRÍTICO:
+                              │                           │                        Pérdida de Contención
+   ┌─[Recorte de plantilla]   ├─[Stock 60 t MIC masivo]   ├─[Recorte OPEX/CAPEX]   Primaria (LOPC)
+   │                          │                           │                        Tanque E610 (MIC) ]
+   └─[Jornadas extenuantes]   └─[Rechazo modelo JIT]      └─[Omisión Auditoría]
+   │                          │                           │
+ MANO DE OBRA              MATERIALES                 GESTIÓN (MANAGEMENT)
+  </pre>
+
+  <h3 class="fase2-heading">Taller de Trabajo 3: Formato Secuencial de los "Cinco Porqués" (Despliegue Causal)</h3>
+  <p>El equipo debe desarrollar la concatenación lógica de los 5 niveles causales sin emitir resoluciones de imputación directas, justificando cada nivel con los hechos técnicos documentados:</p>
+
+  <div style="background-color: var(--bg-light); border: 1px dashed var(--border-color); border-radius: 6px; padding: 16px; font-size: 0.9rem;">
+    <p><strong>NIVEL 1: Causa Inmediata / Fenómeno Físico</strong><br>
+    ¿Por qué ocurrió la pérdida de contención masiva de gas tóxico en el tanque E610?<br>
+    <em>[ Formular respuesta técnica basada en fenómenos termodinámicos y reactividad exotérmica ]</em></p>
+
+    <p style="text-align: center; margin: 4px 0; color: var(--accent-color);">▼</p>
+
+    <p><strong>NIVEL 2: Falla de Salvaguardas y Mitigación</strong><br>
+    ¿Por qué ingresó el elemento contaminante y por qué los sistemas de mitigación no contuvieron la fuga?<br>
+    <em>[ Formular respuesta analizando la condición mecánica de aislamientos y barreras secundarias ]</em></p>
+
+    <p style="text-align: center; margin: 4px 0; color: var(--accent-color);">▼</p>
+
+    <p><strong>NIVEL 3: Racionalidad Operativa y Mantenimiento</strong><br>
+    ¿Por qué las salvaguardas críticas de seguridad de procesos estaban inoperativas o desmanteladas?<br>
+    <em>[ Formular respuesta analizando las decisiones operativas locales de reducción de gastos corrientes ]</em></p>
+
+    <p style="text-align: center; margin: 4px 0; color: var(--accent-color);">▼</p>
+
+    <p><strong>NIVEL 4: Gobierno Corporativo y Toma de Decisiones</strong><br>
+    ¿Por qué la dirección administrativa y operativa priorizó la reducción de costos sobre la seguridad técnica?<br>
+    <em>[ Formular respuesta analizando el marco de toma de decisiones entre matriz y filial ]</em></p>
+
+    <p style="text-align: center; margin: 4px 0; color: var(--accent-color);">▼</p>
+
+    <p style="margin-bottom: 0;"><strong>NIVEL 5: Causa Raíz Sistémica / Política Institucional</strong><br>
+    ¿Por qué existió una tolerancia prolongada a la degradación de barreras y un tratamiento asimétrico de riesgos?<br>
+    <em>[ Formular respuesta contrastando estándares internacionales y marcos de gobernanza corporativa ]</em></p>
+  </div>
+
+  <!-- RETROALIMENTACIÓN FORMATIVA -->
+  <h2 class="fase2-subtitle">Retroalimentación Formativa</h2>
+  <p>El diseño del árbol de causalidad debe permitir verificar la solidez del argumento técnico:</p>
+  <ul>
+    <li>Si el análisis se detiene en el <strong>Nivel 1 o Nivel 2</strong>, el equipo incurre en el reduccionismo técnico de culpar al operador o al fallo de una válvula, validando indirectamente la defensa corporativa de "sabotaje o error humano aislado".</li>
+    <li>Si el análisis transita coherentemente hasta los <strong>Niveles 4 y 5</strong>, se demuestra que el desastre de Bhopal fue la consecuencia inevitable de la degradación sistemática de barreras impulsada por decisiones organizacionales.</li>
+  </ul>
+
+  <!-- CONFIGURACIÓN EXELARNING -->
+  <h2 class="fase2-subtitle">Matriz Analítica: Configuración del iDevice en eXeLearning</h2>
+  <div class="table-responsive">
+    <table class="dense-table">
+      <thead>
+        <tr>
+          <th>Dimensión Técnica</th>
+          <th>Parámetro de Configuración en eXeLearning</th>
+          <th>Justificación Operativa / Eficiencia (OEE)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Ajustes Generales del iDevice</strong></td>
+          <td>
+            • Componente: Actividad de Lectura complementada con Caso Práctico / Tarea en Grupo.<br>
+            • Identificador: Fase 2: Análisis Causal en Equipos (Ishikawa &amp; 5 Porqués).<br>
+            • Inserción de diagramación mediante bloques de texto monoespaciado (<code>&lt;pre&gt;&lt;code&gt;</code>) o diagramas vectoriales SVG embebidos.
+          </td>
+          <td>Asegura la correcta visualización de la estructura matricial de las 6M sin dependencias externas ni scripts pesados que reduzcan la velocidad de carga.</td>
+        </tr>
+        <tr>
+          <td><strong>Trazabilidad SCORM (1.2 / 2004)</strong></td>
+          <td>
+            • Modo de puntuación: Formativa cualitativa (evaluación de informe de equipo).<br>
+            • Estado de lección (<code>cmi.core.lesson_status</code>): completed al registrar y subir el documento de trabajo en equipo.<br>
+            • Campo de interacción: Registro del tiempo de permanencia mínima de la sesión colaborativa (35 min).
+          </td>
+          <td>Permite al LMS (Moodle) monitorear el progreso del trabajo colaborativo sin generar bloqueos prematuros en el libro de calificaciones.</td>
+        </tr>
+        <tr>
+          <td><strong>Gamificación y Condicionalidad</strong></td>
+          <td>
+            • Desbloqueo inicial: Supeditado al ingreso de la contraseña de Fase 1 (<code>DEFENSA_PROFUNDA_1984</code>).<br>
+            • Emisión de clave para Fase 3: Al concluir la subida del borrador de Ishikawa, el iDevice libera el código <code>CAUSA_SISTEMICA_6M</code>.
+          </td>
+          <td>Garantiza la secuencialidad metodológica (poka-yoke instruccional) entre la recuperación de evidencias y el dictamen de simulación de roles.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- VALIDACIÓN DE INTEGRIDAD -->
+  <h2 class="fase2-subtitle">Validación de Integridad</h2>
+  <ul>
+    <li><strong>Alineación Curricular:</strong> Cumple con la estructura de la Fase 2 de la Guía Metodológica APE, enfocada exclusivamente en el levantamiento de información y estructuración analítica de causas sin presentar dictámenes resueltos.</li>
+    <li><strong>Rigor de Ingeniería de Procesos:</strong> Integra las variables fisicoquímicas reales del MIC (\(\text{CH}_3\text{NCO}\), \(\text{NaOH}\), freón, presión y cinética térmica) junto a los principios universales de PSM y normativas OSHA 1910.119.</li>
+    <li><strong>Arquitectura Instruccional eXeLearning:</strong> Respeta la jerarquía funcional H1-H3, iDevice de lectura, actividades prácticas guiadas, retroalimentación formativa y matriz de configuración SCORM con OEE óptimo.</li>
+  </ul>
+
+  <!-- REFERENCIAS BIBLIOGRÁFICAS (APA 7.ª ed.) -->
+  <h2 class="fase2-subtitle">Referencias Bibliográficas</h2>
+  <ul style="font-size: 0.88rem;">
+    <li>Lapierre, D., &amp; Moro, J. (2001). <em>Era medianoche en Bhopal</em>. Planeta.</li>
+    <li>Naciones Unidas. (2011). <em>Principios Rectores sobre las empresas y los derechos humanos: Puesta en práctica del marco de las Naciones Unidas para «proteger, respetar y remediar»</em> (HR/PUB/11/04). Oficina del Alto Comisionado de las Naciones Unidas para los Derechos Humanos (OACDH).</li>
+    <li>Occupational Safety and Health Administration. (1992). <em>Process Safety Management of Highly Hazardous Chemicals</em> (Standard 29 CFR 1910.119). U.S. Department of Labor.</li>
+    <li>Organización Internacional del Trabajo. (1981). <em>Convenio sobre seguridad y salud de los trabajadores (Convenio núm. 155)</em>. OIT.</li>
+    <li>Organización Internacional del Trabajo. (2006). <em>Convenio sobre el marco promocional para la seguridad y salud en el trabajo (Convenio núm. 187)</em>. OIT.</li>
+  </ul>
+
+  <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 32px 0;">
+
+  <!-- ========================================== -->
+  <!-- RECURSOS EMBEBIDOS AL FINAL: VIDEO Y PDF   -->
+  <!-- ========================================== -->
+
+  <!-- 1. VIDEO DOCUMENTAL (PRIMERO) -->
+  <div class="media-card">
+    <span class="tag-chip">Recurso Audiovisual</span>
+    <h4>Video: Desastre de Bhopal</h4>
+    <p class="media-desc">
+      <strong>Archivo:</strong> Desastre_de_Bhopal.mp4<br>
+      <strong>Descripción:</strong> Recurso audiovisual en formato MP4 que presenta el contexto, la cronología y los aspectos clave del desastre industrial de Bhopal, utilizado como material de apoyo técnico y documental para el estudio del caso.
+    </p>
+    <div class="iframe-container" style="height: 480px;">
+      <iframe src="https://drive.google.com/file/d/1K3PKqnVHc-YcZFtyD4On6H615E8L-Xt1/preview" width="100%" height="100%" allow="autoplay" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <!-- 2. DOCUMENTO PDF (LUEGO) -->
+  <div class="media-card">
+    <span class="tag-chip">Documento de Peritaje</span>
+    <h4>Documento PDF: Análisis Causal Forense</h4>
+    <p class="media-desc">
+      <strong>Archivo:</strong> UNIDAD_2.3_FASE2_Analisis_Causal_Forense (1).pdf<br>
+      <strong>Descripción:</strong> Guía metodológica e instruccional de ingeniería forense enfocada en el análisis causal en equipos sobre el Caso Bhopal (UCIL). Incluye el desarrollo del Diagrama de Ishikawa bajo el modelo de las 6M, la técnica recursiva de los 5 Porqués, guías prácticas para talleres y especificaciones de configuración para paquetes SCORM en eXeLearning y Moodle.
+    </p>
+    <div class="iframe-container" style="height: 600px;">
+      <iframe src="https://drive.google.com/file/d/1Bvg8QAPrMUxB58WncF3Q5aEVh6fPT-gU/preview" width="100%" height="100%" allow="autoplay" frameborder="0"></iframe>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
