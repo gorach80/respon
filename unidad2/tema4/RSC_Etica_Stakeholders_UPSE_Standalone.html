@@ -1,0 +1,2699 @@
+<!DOCTYPE html>
+<html lang="es-EC">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RSC, Ética y Grupos de Interés - 10 simuladores didácticos interactivos para Ingeniería en Seguridad Industrial. UPSE." />
+  <meta name="author" content="Universidad Estatal de la Península de Santa Elena - UPSE" />
+  <title>RSC, Ética y Grupos de Interés - UPSE</title>
+  <style>
+    /* =========================================================================
+       PALETA CORPORATIVA UPSE (consistente con PDF y página Next.js)
+       ========================================================================= */
+    :root {
+      --color-primary: #1F3A5F;    /* azul corporativo oscuro */
+      --color-secondary: #3D6EA5;  /* azul medio */
+      --color-accent: #2A9D8F;     /* verde-teal */
+      --color-warn: #E76F51;        /* naranja alertas */
+      --color-gold: #F4A261;        /* dorado */
+      --color-light: #F1F5F9;       /* gris muy claro */
+      --color-dark: #0F172A;        /* casi negro */
+      --color-gray: #64748B;        /* gris medio */
+      --color-gray-light: #CBD5E1;
+      --color-bg: #FFFFFF;
+      --color-border: #CBD5E1;
+
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    }
+
+    /* =========================================================================
+       RESET Y BASE
+       ========================================================================= */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--color-dark);
+      background-color: var(--color-bg);
+      line-height: 1.5;
+      font-size: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main { flex: 1 0 auto; }
+    h1, h2, h3, h4, h5 { margin: 0; font-weight: 700; line-height: 1.2; }
+    p { margin: 0 0 0.5rem 0; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    a { color: inherit; text-decoration: none; }
+    code, .mono { font-family: var(--font-mono); }
+    ul { margin: 0; padding: 0; list-style: none; }
+
+    /* Scrollbar estilizada */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--color-light); }
+    ::-webkit-scrollbar-thumb { background: var(--color-secondary); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+    /* =========================================================================
+       UTILIDADES
+       ========================================================================= */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+    .section { scroll-margin-top: 90px; padding: 3rem 1rem; }
+    @media (min-width: 640px) { .section { padding: 3rem 1.5rem; } }
+    @media (min-width: 1024px) { .section { padding: 4rem 2rem; } }
+    .grid-1 { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media (min-width: 1024px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-6 { gap: 1.5rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .text-center { text-align: center; }
+    .hidden { display: none; }
+    @media (min-width: 768px) { .md\\:flex { display: flex; } .md\\:block { display: block; } .md\\:hidden { display: none; } }
+
+    /* Animación fade-in */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.6s ease-out both; }
+
+    /* =========================================================================
+       HERO
+       ========================================================================= */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-secondary) 100%);
+      color: white;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(244,162,97,0.6) 0, transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(42,157,143,0.7) 0, transparent 40%);
+      pointer-events: none;
+    }
+    .hero-band-teal { position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: var(--color-accent); }
+    .hero-band-gold { position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: var(--color-gold); }
+    .hero-inner { position: relative; padding: 3rem 1rem 3.5rem; }
+    @media (min-width: 640px) { .hero-inner { padding: 4rem 1.5rem 5rem; } }
+    @media (min-width: 1024px) { .hero-inner { padding: 6rem 2rem 7rem; } }
+    .hero-brand { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+    @media (min-width: 640px) { .hero-brand { flex-direction: row; align-items: center; justify-content: space-between; } }
+    .hero-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .hero-logo-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 8px;
+      background: rgba(255,255,255,0.15);
+      ring: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    @media (min-width: 640px) { .hero-logo-icon { width: 56px; height: 56px; } }
+    .hero-uni { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-gold); }
+    @media (min-width: 640px) { .hero-uni { font-size: 12px; } }
+    .hero-uni-sub { font-size: 16px; font-weight: 700; }
+    @media (min-width: 640px) { .hero-uni-sub { font-size: 18px; } }
+    .hero-badge-year {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 4px 12px; border-radius: 9999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      font-size: 12px;
+    }
+    .hero-title {
+      font-size: 2.25rem; font-weight: 800; line-height: 1.1;
+    }
+    @media (min-width: 640px) { .hero-title { font-size: 3rem; } }
+    @media (min-width: 768px) { .hero-title { font-size: 3.75rem; } }
+    @media (min-width: 1024px) { .hero-title { font-size: 4.5rem; } }
+    .hero-title-accent { color: var(--color-gold); }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 4px 12px; border-radius: 9999px;
+      background: rgba(42,157,143,0.25);
+      border: 1px solid rgba(42,157,143,0.5);
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      color: #A7E2D9;
+      margin-bottom: 0.75rem;
+    }
+    @media (min-width: 640px) { .hero-tag { font-size: 12px; } }
+    .hero-subtitle { margin-top: 1rem; max-width: 42rem; font-size: 1rem; color: rgba(255,255,255,0.9); }
+    @media (min-width: 640px) { .hero-subtitle { font-size: 1.125rem; } }
+    @media (min-width: 768px) { .hero-subtitle { font-size: 1.25rem; } }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.625rem 1.25rem; border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .btn-primary { background: var(--color-gold); color: var(--color-primary); box-shadow: 0 4px 12px -2px rgba(244,162,97,0.4); }
+    .btn-primary:hover { background: rgba(244,162,97,0.85); }
+    .btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.4); }
+    .btn-outline:hover { background: rgba(255,255,255,0.2); }
+    .btn-lg { padding: 0.75rem 1.5rem; font-size: 16px; }
+
+    .hero-stats { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 2.5rem; }
+    @media (min-width: 640px) { .hero-stats { grid-template-columns: repeat(3, 1fr); margin-top: 3rem; } }
+    .hero-stat {
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 1rem 1.25rem;
+      transition: transform 0.2s;
+    }
+    .hero-stat:hover { transform: scale(1.02); }
+    .hero-stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .hero-stat-value { font-family: var(--font-mono); font-size: 1.875rem; font-weight: 800; color: white; }
+    @media (min-width: 640px) { .hero-stat-value { font-size: 2.25rem; } }
+    .hero-stat-desc { font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 0.25rem; }
+
+    /* =========================================================================
+       NAVEGACIÓN STICKY
+       ========================================================================= */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--color-primary);
+      color: white;
+      box-shadow: 0 2px 8px -2px rgba(0,0,0,0.2);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 1rem; max-width: 1280px; margin: 0 auto;
+      gap: 1rem;
+    }
+    .nav-brand { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 0.5rem; }
+    @media (min-width: 768px) { .nav-brand { font-size: 15px; } }
+    .nav-links { display: none; flex-wrap: wrap; gap: 0.25rem; }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+    .nav-link {
+      padding: 0.375rem 0.625rem; border-radius: 6px;
+      font-size: 11px; font-weight: 500;
+      transition: background 0.2s;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.15); }
+    @media (min-width: 1024px) { .nav-link { font-size: 12px; } }
+    .nav-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 6px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
+    }
+    @media (min-width: 768px) { .nav-toggle { display: none; } }
+    .nav-mobile {
+      display: none;
+      flex-direction: column; gap: 0.5rem;
+      padding: 0.5rem 1rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile .nav-link { font-size: 13px; padding: 0.5rem 0.75rem; }
+
+    /* =========================================================================
+       SECCIÓN / SIM CARD
+       ========================================================================= */
+    .section-header { border-left: 4px solid var(--color-accent); padding-left: 1rem; margin-bottom: 2rem; }
+    @media (min-width: 640px) { .section-header { margin-bottom: 2.5rem; } }
+    .section-num { font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-secondary); display: block; margin-bottom: 0.25rem; }
+    .section-title-row { display: flex; align-items: center; gap: 0.75rem; }
+    .section-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 8px;
+      background: var(--color-primary); color: white;
+      box-shadow: 0 2px 8px -2px rgba(0,0,0,0.2);
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) { .section-icon { width: 48px; height: 48px; } }
+    .section-title { font-size: 1.5rem; color: var(--color-dark); }
+    @media (min-width: 640px) { .section-title { font-size: 1.875rem; } }
+    @media (min-width: 768px) { .section-title { font-size: 2.25rem; } }
+    .section-subtitle { margin-top: 0.5rem; max-width: 48rem; font-size: 0.875rem; color: #475569; }
+    @media (min-width: 640px) { .section-subtitle { font-size: 1rem; } }
+
+    .sim-card {
+      overflow: hidden; border-radius: 12px;
+      border: 1px solid var(--color-border);
+      background: white;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s;
+    }
+    .sim-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); }
+    .sim-card-header {
+      border-bottom: 1px solid var(--color-border);
+      background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+      padding: 1rem 1.25rem;
+    }
+    .sim-card-title { color: white; font-size: 1.125rem; font-weight: 700; }
+    @media (min-width: 640px) { .sim-card-title { font-size: 1.25rem; } }
+    .sim-card-desc { margin-top: 0.25rem; font-size: 12px; color: rgba(255,255,255,0.85); }
+    @media (min-width: 640px) { .sim-card-desc { font-size: 14px; } }
+    .sim-card-body { padding: 1.25rem; }
+    @media (min-width: 640px) { .sim-card-body { padding: 1.5rem; } }
+
+    /* Subheader dentro de SimCard */
+    .subh { margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--color-primary); }
+    @media (min-width: 640px) { .subh { font-size: 1rem; } }
+    .subh::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 9999px; background: var(--color-accent); }
+
+    /* Pedagógico callout */
+    .pedagogico { margin-top: 1rem; border-left: 4px solid; border-radius: 0 8px 8px 0; padding: 0.75rem 1rem; font-size: 0.875rem; line-height: 1.5; }
+    .pedagogico-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; margin-bottom: 0.25rem; }
+    .pedagogico.info { border-color: var(--color-secondary); background: rgba(61,110,165,0.08); color: var(--color-primary); }
+    .pedagogico.alerta { border-color: var(--color-warn); background: rgba(231,111,81,0.08); color: #7A2A14; }
+    .pedagogico.exito { border-color: var(--color-accent); background: rgba(42,157,143,0.08); color: #1F6F62; }
+    .pedagogico.tip { border-color: var(--color-gold); background: rgba(244,162,97,0.10); color: #7A4118; }
+    .pedagogico.info .pedagogico-label { color: var(--color-secondary); }
+    .pedagogico.alerta .pedagogico-label { color: var(--color-warn); }
+    .pedagogico.exito .pedagogico-label { color: var(--color-accent); }
+    .pedagogico.tip .pedagogico-label { color: var(--color-gold); }
+
+    /* FormulaBox */
+    .formula-box { border: 1px solid rgba(61,110,165,0.4); background: rgba(31,58,95,0.05); border-radius: 8px; padding: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .formula-box-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-primary); margin-bottom: 0.25rem; }
+    .formula-box-code { font-family: var(--font-mono); font-size: 1rem; font-weight: 600; color: var(--color-primary); white-space: pre-wrap; word-break: break-word; }
+    @media (min-width: 640px) { .formula-box-code { font-size: 1.125rem; } }
+    .formula-box-desc { margin-top: 0.5rem; font-size: 0.75rem; color: #475569; }
+    @media (min-width: 640px) { .formula-box-desc { font-size: 0.875rem; } }
+    .formula-box-ej { margin-top: 0.25rem; border-top: 1px dashed rgba(61,110,165,0.3); padding-top: 0.5rem; font-size: 0.75rem; font-style: italic; color: var(--color-accent); }
+    @media (min-width: 640px) { .formula-box-ej { font-size: 0.875rem; } }
+
+    /* Badge semafórico */
+    .semaph-badge {
+      display: inline-flex; align-items: baseline; gap: 0.25rem;
+      border-radius: 6px; border: 1px solid;
+      padding: 2px 8px;
+      font-family: var(--font-mono); font-size: 0.875rem; font-weight: 700;
+    }
+    .semaph-badge.verde { background: rgba(42,157,143,0.15); color: #1F6F62; border-color: rgba(42,157,143,0.4); }
+    .semaph-badge.amarillo { background: rgba(244,162,97,0.15); color: #B5701F; border-color: rgba(244,162,97,0.5); }
+    .semaph-badge.rojo { background: rgba(231,111,81,0.15); color: #A33A1F; border-color: rgba(231,111,81,0.5); }
+    .semaph-badge .unit { font-size: 0.75rem; font-weight: 500; }
+
+    /* =========================================================================
+       COMPONENTES ESPECÍFICOS
+       ========================================================================= */
+
+    /* Sliders */
+    .slider-row { border: 1px solid var(--color-border); background: rgba(241,245,249,0.5); border-radius: 8px; padding: 0.75rem; margin-bottom: 0.75rem; }
+    .slider-row-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.375rem; gap: 0.5rem; }
+    .slider-row-label { display: flex; align-items: center; gap: 0.375rem; }
+    .slider-symbol { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--color-primary); }
+    .slider-label-text { font-size: 12px; color: var(--color-dark); }
+    @media (min-width: 640px) { .slider-label-text { font-size: 14px; } }
+    .slider-value { display: inline-flex; align-items: baseline; gap: 4px; background: var(--color-primary); color: white; padding: 2px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
+    .slider-help { margin-top: 4px; font-size: 10px; color: var(--color-gray); }
+    input[type=range] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 6px;
+      background: var(--color-light);
+      border-radius: 3px;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--color-secondary);
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--color-secondary);
+      border: 2px solid white;
+      cursor: pointer;
+    }
+    .slider-upse input[type=range]::-webkit-slider-thumb { background: var(--color-accent); }
+
+    /* Pirámide Carroll */
+    .pyramid-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--color-light); border-radius: 12px; padding: 1rem; }
+    @media (min-width: 640px) { .pyramid-wrap { padding: 2rem; } }
+    .pyramid-level {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      color: white; border-radius: 6px;
+      padding: 0.75rem 1rem;
+      transition: all 0.2s;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .pyramid-level:hover { filter: brightness(1.1); }
+    .pyramid-level.active { box-shadow: 0 0 0 2px var(--color-gold), 0 6px 16px -4px rgba(0,0,0,0.35); }
+    .pyramid-caption { margin-top: 1rem; text-align: center; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #475569; }
+
+    .detail-card { border: 1px solid var(--color-border); background: white; border-radius: 8px; overflow: hidden; }
+    .detail-card-header { padding: 0.75rem 1rem; color: white; display: flex; align-items: center; gap: 0.5rem; }
+    .detail-card-title { font-size: 1rem; font-weight: 700; }
+    @media (min-width: 640px) { .detail-card-title { font-size: 1.125rem; } }
+    .detail-card-badge { margin-left: auto; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 9999px; font-size: 10px; font-family: var(--font-mono); }
+    .detail-card-body { border: 1px solid var(--color-border); border-top: none; background: white; padding: 1rem; flex: 1; }
+    .detail-section { margin-bottom: 0.75rem; }
+    .detail-section:last-child { margin-bottom: 0; }
+    .detail-section p { font-size: 12px; line-height: 1.5; color: var(--color-dark); }
+    @media (min-width: 640px) { .detail-section p { font-size: 14px; } }
+
+    /* Indicadores de resultado (Sim2, Sim5) */
+    .indicator-card { border: 1px solid var(--color-border); background: white; border-radius: 8px; padding: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin-bottom: 0.75rem; }
+    .indicator-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .indicator-name { font-size: 12px; font-weight: 700; color: var(--color-primary); }
+    @media (min-width: 640px) { .indicator-name { font-size: 14px; } }
+    .indicator-formula { font-family: var(--font-mono); font-size: 10px; color: var(--color-gray); }
+    .indicator-help { margin-top: 0.375rem; font-size: 10px; color: #475569; }
+    .indicator-comparison { margin-top: 0.25rem; font-size: 10px; font-style: italic; color: var(--color-accent); }
+
+    /* Matriz de riesgo */
+    .matrix-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 1rem; background: var(--color-light); padding: 4px; border-radius: 8px; }
+    .matrix-tab { padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--color-primary); background: white; transition: all 0.2s; text-align: center; }
+    @media (min-width: 640px) { .matrix-tab { font-size: 13px; } }
+    .matrix-tab.active { background: var(--color-primary); color: white; }
+    .matrix-wrap { display: grid; grid-template-columns: auto 1fr; gap: 4px; }
+    .matrix-axis-y {
+      display: flex; align-items: center; justify-content: center;
+      background: var(--color-primary); color: white; padding: 4px;
+      font-size: 10px; font-weight: 700;
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      border-radius: 4px;
+    }
+    .matrix-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+    .matrix-cell {
+      aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border-radius: 6px; border: 2px solid;
+      padding: 4px; color: white; text-align: center;
+      transition: transform 0.15s;
+      cursor: pointer;
+    }
+    .matrix-cell:hover { transform: scale(1.04); }
+    .matrix-cell.active { box-shadow: 0 0 0 2px var(--color-dark); }
+    .matrix-cell-value { font-family: var(--font-mono); font-size: 14px; font-weight: 700; }
+    @media (min-width: 640px) { .matrix-cell-value { font-size: 18px; } }
+    .matrix-cell-estado { font-size: 8px; text-transform: uppercase; line-height: 1; margin-top: 2px; }
+    .matrix-header { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 4px; }
+    .matrix-header-cell { background: var(--color-primary); color: white; padding: 6px 4px; border-radius: 4px; text-align: center; font-size: 11px; font-weight: 700; }
+    .matrix-detail { border: 1px solid var(--color-secondary); background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin-top: 1rem; }
+    .matrix-detail-empty { text-align: center; font-size: 12px; color: var(--color-gray); margin-top: 1rem; }
+    .exp-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.5rem; }
+    .exp-preset { padding: 2px 10px; border-radius: 9999px; font-size: 10px; font-weight: 500; background: var(--color-light); color: #475569; transition: background 0.2s; }
+    .exp-preset:hover { background: var(--color-gray-light); }
+    .exp-preset.active { background: var(--color-accent); color: white; }
+
+    /* Stakeholders mapa */
+    .stakeholder-map { position: relative; aspect-ratio: 1; width: 100%; max-width: 28rem; margin: 0 auto; }
+    .stakeholder-ring { position: absolute; border-radius: 9999px; border: 2px dashed rgba(61,110,165,0.3); }
+    .stakeholder-ring.inner { inset: 15%; border-color: rgba(61,110,165,0.4); border-width: 1px; }
+    .stakeholder-center {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 20;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .stakeholder-center-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 80px; height: 80px; border-radius: 9999px;
+      background: var(--color-primary); color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    @media (min-width: 640px) { .stakeholder-center-icon { width: 96px; height: 96px; } }
+    .stakeholder-center-label { font-size: 10px; font-weight: 700; color: var(--color-primary); }
+    .stakeholder-node {
+      position: absolute; z-index: 10; transform: translate(-50%, -50%);
+      width: 48px; height: 48px; border-radius: 9999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: white; cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    @media (min-width: 640px) { .stakeholder-node { width: 56px; height: 56px; } }
+    .stakeholder-node:hover { transform: translate(-50%, -50%) scale(1.1); }
+    .stakeholder-node.active { box-shadow: 0 0 0 2px var(--color-gold), 0 0 0 4px white; }
+    .stakeholder-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; }
+    .stakeholder-chip { padding: 2px 10px; border-radius: 9999px; font-size: 10px; font-weight: 500; background: var(--color-light); color: #475569; transition: background 0.2s; cursor: pointer; }
+    .stakeholder-chip:hover { background: var(--color-gray-light); }
+    .stakeholder-chip.active { background: var(--color-primary); color: white; }
+    .stakeholder-ficha { border: 1px solid var(--color-border); background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .stakeholder-ficha-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .stakeholder-ficha-icon { width: 40px; height: 40px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: white; }
+    .stakeholder-ficha-name { font-size: 1rem; font-weight: 700; color: var(--color-primary); }
+    .stakeholder-ficha-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .stakeholder-ficha-tag { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+    .stakeholder-ficha-tag.tipo { background: rgba(61,110,165,0.15); color: var(--color-primary); }
+    .stakeholder-ficha-tag.cat { background: rgba(42,157,143,0.15); color: #1F6F62; }
+    .stakeholder-bar-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-gray); margin-bottom: 4px; }
+    .stakeholder-bar { display: flex; gap: 2px; height: 8px; }
+    .stakeholder-bar-seg { flex: 1; border-radius: 2px; background: var(--color-light); }
+    .stakeholder-bar-seg.on.poder { background: var(--color-warn); }
+    .stakeholder-bar-seg.on.influencia { background: var(--color-accent); }
+    .stakeholder-text { font-size: 12px; line-height: 1.4; color: var(--color-dark); margin-top: 4px; }
+    @media (min-width: 640px) { .stakeholder-text { font-size: 14px; } }
+    .mendelow-matrix { border: 1px solid var(--color-border); border-radius: 8px; overflow: hidden; }
+    .mendelow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-border); }
+    .mendelow-cell { background: white; padding: 0.5rem 0.75rem; min-height: 112px; }
+    .mendelow-cell-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-secondary); margin-bottom: 4px; }
+    .mendelow-cell-desc { font-size: 9px; color: var(--color-gray); margin-bottom: 6px; }
+    .mendelow-cell-list { display: flex; flex-wrap: wrap; gap: 4px; }
+    .mendelow-cell-item { font-size: 9px; font-weight: 500; padding: 2px 6px; border-radius: 9999px; cursor: pointer; }
+    .mendelow-assign { border-top: 1px solid var(--color-border); background: var(--color-light); padding: 0.5rem; }
+    .mendelow-assign-label { text-align: center; font-size: 10px; color: #475569; margin-bottom: 4px; }
+    .mendelow-assign-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    @media (min-width: 640px) { .mendelow-assign-buttons { grid-template-columns: repeat(4, 1fr); } }
+    .mendelow-assign-btn { padding: 6px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; background: white; color: var(--color-primary); border: 1px solid var(--color-border); transition: background 0.2s; }
+    .mendelow-assign-btn:hover { background: rgba(61,110,165,0.1); }
+    .mendelow-assign-btn.active { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+
+    /* ROI */
+    .roi-display {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: linear-gradient(to bottom right, var(--color-primary), var(--color-secondary));
+      color: white; padding: 1rem; border-radius: 12px;
+      text-align: center;
+    }
+    @media (min-width: 640px) { .roi-display { padding: 1.5rem; } }
+    .roi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-gold); }
+    .roi-value { font-family: var(--font-mono); font-size: 3rem; font-weight: 800; margin-top: 4px; }
+    @media (min-width: 640px) { .roi-value { font-size: 3.75rem; } }
+    .roi-message { margin-top: 0.75rem; max-width: 20rem; font-size: 12px; color: rgba(255,255,255,0.9); }
+    .roi-calc { border: 1px solid rgba(61,110,165,0.3); background: rgba(61,110,165,0.08); border-radius: 8px; padding: 0.75rem; margin-top: 0.5rem; font-family: var(--font-mono); font-size: 12px; color: var(--color-primary); }
+    .roi-calc p { margin-bottom: 4px; }
+    .chart-box { border: 1px solid var(--color-border); background: white; border-radius: 8px; padding: 0.75rem; }
+    .chart-label { margin-bottom: 0.5rem; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #475569; }
+
+    /* Heinrich/Bird */
+    .iceberg-calc { border: 1px solid rgba(61,110,165,0.3); background: rgba(61,110,165,0.08); border-radius: 8px; padding: 0.75rem; font-family: var(--font-mono); font-size: 12px; color: var(--color-primary); }
+    .iceberg-calc p { margin-bottom: 4px; }
+    .pyramid-inverted { display: flex; flex-direction: column; align-items: center; gap: 4px; background: var(--color-light); border-radius: 12px; padding: 1rem; }
+    .pyramid-inverted-level {
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      color: white; padding: 0.5rem 0.75rem; border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .iceberg-wrap { border: 1px solid var(--color-border); background: white; border-radius: 12px; padding: 1rem; }
+    .iceberg-canvas-wrap { position: relative; height: 176px; width: 100%; overflow: hidden; border-radius: 8px; background: linear-gradient(to bottom, rgba(61,110,165,0.3), rgba(61,110,165,0.1)); }
+
+    /* Poisson results */
+    .poisson-result { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--color-border); background: white; border-radius: 8px; padding: 0.625rem; margin-bottom: 0.5rem; }
+    .poisson-result.destacado { border-width: 2px; }
+    .poisson-result-label { font-size: 12px; font-weight: 600; color: var(--color-primary); }
+    .poisson-result-formula { font-family: var(--font-mono); font-size: 10px; color: var(--color-gray); }
+    .poisson-result-value { padding: 2px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 1rem; font-weight: 700; color: white; }
+    .poisson-msg { text-align: center; font-size: 11px; color: #475569; margin-top: 0.5rem; }
+    .poisson-msg-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+    .poisson-msg-badge.verde { background: rgba(42,157,143,0.15); color: #1F6F62; }
+    .poisson-msg-badge.amarillo { background: rgba(244,162,97,0.15); color: #7A4118; }
+    .poisson-msg-badge.rojo { background: rgba(231,111,81,0.15); color: #7A2A14; }
+
+    /* NIOSH */
+    .nihos-level {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+      color: white; padding: 0.625rem 0.75rem; border-radius: 6px;
+      transition: all 0.2s;
+      margin-bottom: 6px;
+    }
+    .nihos-level:hover { filter: brightness(1.1); }
+    .nihos-level.active { box-shadow: 0 0 0 2px var(--color-gold), 0 6px 16px -4px rgba(0,0,0,0.35); }
+    .nihos-efficacy-bar { height: 12px; flex: 1; overflow: hidden; border-radius: 9999px; background: var(--color-light); }
+    .nihos-efficacy-fill { height: 100%; border-radius: 9999px; transition: all 0.3s; }
+
+    /* Quiz */
+    .quiz-progress-wrap { border: 1px solid var(--color-border); background: var(--color-light); border-radius: 8px; padding: 0.75rem; margin-bottom: 1.5rem; }
+    .quiz-progress-head { display: flex; align-items: center; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+    .quiz-progress-head .left { font-weight: 600; color: var(--color-primary); }
+    .quiz-progress-head .right { font-family: var(--font-mono); color: var(--color-secondary); }
+    .quiz-progress-track { height: 8px; background: var(--color-gray-light); border-radius: 9999px; overflow: hidden; }
+    .quiz-progress-fill { height: 100%; background: var(--color-accent); transition: width 0.3s; }
+    .quiz-question { border: 1px solid var(--color-border); background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin-bottom: 1rem; }
+    .quiz-question-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .quiz-question-num { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--color-secondary); margin-right: 0.5rem; }
+    .quiz-question-tag { display: inline-block; background: rgba(42,157,143,0.15); color: #1F6F62; padding: 2px 8px; border-radius: 9999px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+    .quiz-question-text { font-size: 14px; font-weight: 500; color: var(--color-dark); margin-bottom: 0.75rem; }
+    @media (min-width: 640px) { .quiz-question-text { font-size: 16px; } }
+    .quiz-option { display: flex; align-items: center; gap: 0.5rem; border: 2px solid var(--color-border); background: white; padding: 0.625rem; border-radius: 8px; font-size: 12px; text-align: left; transition: all 0.2s; margin-bottom: 0.5rem; width: 100%; }
+    @media (min-width: 640px) { .quiz-option { font-size: 14px; } }
+    .quiz-option:hover:not(:disabled) { background: rgba(61,110,165,0.08); }
+    .quiz-option:disabled { cursor: default; }
+    .quiz-option.correct { border-color: var(--color-accent); background: rgba(42,157,143,0.12); }
+    .quiz-option.incorrect { border-color: var(--color-warn); background: rgba(231,111,81,0.12); }
+    .quiz-option.dimmed { border-color: var(--color-light); background: #F8FAFC; opacity: 0.7; }
+    .quiz-option-letter {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 6px;
+      font-size: 10px; font-weight: 700;
+      background: rgba(31,58,95,0.1); color: var(--color-primary);
+      flex-shrink: 0;
+    }
+    .quiz-option.correct .quiz-option-letter { background: var(--color-accent); color: white; }
+    .quiz-option.incorrect .quiz-option-letter { background: var(--color-warn); color: white; }
+    .quiz-feedback { margin-top: 0.75rem; border-left: 4px solid var(--color-secondary); background: rgba(61,110,165,0.08); padding: 0.75rem; border-radius: 0 8px 8px 0; font-size: 12px; color: var(--color-primary); }
+    @media (min-width: 640px) { .quiz-feedback { font-size: 14px; } }
+    .quiz-feedback-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-secondary); margin-bottom: 4px; }
+    .quiz-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 9999px; font-size: 10px; font-weight: 700; color: white; }
+    .quiz-badge.correct { background: var(--color-accent); }
+    .quiz-badge.incorrect { background: var(--color-warn); }
+    .quiz-final { text-align: center; padding: 2rem 0; }
+    .quiz-final-trophy { display: inline-flex; align-items: center; justify-content: center; width: 96px; height: 96px; border-radius: 9999px; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .quiz-final-score { font-family: var(--font-mono); font-size: 3rem; font-weight: 800; color: var(--color-primary); margin-top: 1rem; }
+    .quiz-final-score span { font-size: 1.25rem; color: var(--color-gray); }
+    .quiz-final-msg { margin-top: 0.5rem; font-size: 14px; font-weight: 600; color: #475569; }
+    .quiz-final-progress { max-width: 28rem; margin: 1.5rem auto 0; }
+    .quiz-final-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 28rem; margin: 1.5rem auto 0; }
+    .quiz-final-cell { border-radius: 6px; padding: 6px 4px; text-align: center; font-size: 10px; font-weight: 700; color: white; }
+    .quiz-final-cell.correct { background: var(--color-accent); }
+    .quiz-final-cell.incorrect { background: var(--color-warn); }
+
+    /* Timeline */
+    .timeline { position: relative; display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    @media (min-width: 768px) { .timeline { grid-template-columns: repeat(5, 1fr); gap: 0.5rem; } }
+    .timeline-line { position: absolute; left: 0; right: 0; top: 24px; height: 2px; background: linear-gradient(to right, var(--color-primary), var(--color-accent), var(--color-warn)); display: none; }
+    @media (min-width: 768px) { .timeline-line { display: block; } }
+    .timeline-item { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .timeline-node {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 9999px;
+      color: white; border: 4px solid var(--color-light);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+      cursor: pointer;
+      margin-bottom: 0.75rem;
+    }
+    @media (min-width: 640px) { .timeline-node { width: 56px; height: 56px; } }
+    @media (min-width: 768px) { .timeline-node { width: 48px; height: 48px; } }
+    .timeline-node:hover { transform: scale(1.1); }
+    .timeline-period { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--color-secondary); }
+    @media (min-width: 640px) { .timeline-period { font-size: 12px; } }
+    .timeline-name { margin-top: 2px; font-size: 11px; font-weight: 600; color: #475569; }
+    @media (min-width: 640px) { .timeline-name { font-size: 12px; } }
+    .timeline-ficha { overflow: hidden; border: 1px solid var(--color-border); background: white; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .timeline-ficha-head { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; color: white; }
+    @media (min-width: 640px) { .timeline-ficha-head { padding: 1rem 1.5rem; } }
+    .timeline-ficha-period { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.8); }
+    .timeline-ficha-name { font-size: 1.125rem; font-weight: 700; }
+    @media (min-width: 640px) { .timeline-ficha-name { font-size: 1.25rem; } }
+    .timeline-ficha-body { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 1rem; }
+    @media (min-width: 768px) { .timeline-ficha-body { grid-template-columns: 1fr 1fr; padding: 1.5rem; } }
+    .timeline-ficha-body p { font-size: 12px; line-height: 1.5; color: var(--color-dark); }
+    @media (min-width: 640px) { .timeline-ficha-body p { font-size: 14px; } }
+    .timeline-mini-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1.5rem; }
+    @media (min-width: 640px) { .timeline-mini-grid { grid-template-columns: repeat(5, 1fr); } }
+    .timeline-mini-btn { display: flex; flex-direction: column; align-items: center; padding: 0.5rem; border-radius: 8px; border: 1px solid var(--color-border); background: white; transition: all 0.2s; text-align: center; cursor: pointer; }
+    .timeline-mini-btn:hover { background: var(--color-light); }
+    .timeline-mini-btn.active { border-width: 2px; }
+    .timeline-mini-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; }
+    @media (min-width: 640px) { .timeline-mini-label { font-size: 12px; } }
+    .timeline-mini-period { margin-top: 2px; font-size: 10px; color: #475569; }
+    @media (min-width: 640px) { .timeline-mini-period { font-size: 12px; } }
+
+    /* Footer */
+    .footer { background: var(--color-primary); color: white; margin-top: auto; }
+    .footer-band { height: 6px; background: linear-gradient(to right, var(--color-accent), var(--color-gold), var(--color-warn)); }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 2rem 1rem; display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    @media (min-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr 1fr; } }
+    .footer h3 { font-size: 14px; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-gold); text-transform: uppercase; letter-spacing: 0.1em; }
+    .footer p { font-size: 12px; color: rgba(255,255,255,0.8); margin-bottom: 0.25rem; }
+    .footer a { color: rgba(255,255,255,0.8); font-size: 12px; transition: color 0.2s; }
+    .footer a:hover { color: var(--color-gold); }
+    .footer-bottom { text-align: center; padding: 1rem; font-size: 11px; color: rgba(255,255,255,0.6); border-top: 1px solid rgba(255,255,255,0.1); }
+
+    /* Referencias */
+    .ref-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+    @media (min-width: 640px) { .ref-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .ref-grid { grid-template-columns: repeat(3, 1fr); } }
+    .ref-card { border: 1px solid var(--color-border); background: white; border-radius: 8px; padding: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: all 0.2s; }
+    .ref-card:hover { box-shadow: 0 4px 6px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .ref-card-tag { display: inline-block; background: rgba(31,58,95,0.1); color: var(--color-primary); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-bottom: 6px; }
+    .ref-card-title { font-size: 13px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px; }
+    .ref-card-desc { font-size: 11px; color: #475569; line-height: 1.4; }
+    .ref-card-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; font-size: 11px; font-weight: 600; color: var(--color-accent); }
+
+    /* Utilities */
+    .text-xs { font-size: 12px; }
+    .text-sm { font-size: 14px; }
+    .text-lg { font-size: 18px; }
+    .text-xl { font-size: 20px; }
+    .text-2xl { font-size: 24px; }
+    .font-bold { font-weight: 700; }
+    .font-extrabold { font-weight: 800; }
+    .text-primary { color: var(--color-primary); }
+    .text-accent { color: var(--color-accent); }
+    .text-gold { color: var(--color-gold); }
+    .text-warn { color: var(--color-warn); }
+    .text-gray { color: var(--color-gray); }
+    .bg-light { background: var(--color-light); }
+    .rounded { border-radius: 8px; }
+    .rounded-full { border-radius: 9999px; }
+    .shadow { box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .text-white { color: white; }
+
+    @media print {
+      .nav, .nav-toggle, .hero-cta, .footer-band { display: none !important; }
+      body { font-size: 11pt; }
+      .sim-card { box-shadow: none; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       HERO
+       ========================================================================= -->
+  <header id="inicio" class="hero">
+    <div class="hero-band-teal"></div>
+    <div class="hero-band-gold"></div>
+
+    <div class="hero-inner">
+      <div class="container">
+        <div class="hero-brand">
+          <div class="hero-logo">
+            <span class="hero-logo-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </span>
+            <div>
+              <p class="hero-uni">Universidad Estatal de la Península de Santa Elena</p>
+              <p class="hero-uni-sub">UPSE · Ingeniería en Seguridad Industrial</p>
+            </div>
+          </div>
+          <div class="hero-badge-year" aria-label="Año académico">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <span>Año académico 2025 - 2026</span>
+          </div>
+        </div>
+
+        <div style="max-width: 48rem;">
+          <p class="hero-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 20a6 6 0 0 0 12 0c0-3.314-2.686-6-6-6a6 6 0 0 0-6 6Z"/><path d="M8 10V7a4 4 0 1 1 8 0"/><path d="M14 7v3"/><path d="M22 20a6 6 0 0 0-6-6c-1.035 0-2.018.27-2.91.75"/>
+            </svg>
+            Unidad Temática N° 2
+          </p>
+          <h2 class="hero-title">
+            RSC, Ética y <span class="hero-title-accent">Grupos de Interés</span>
+          </h2>
+          <p class="hero-subtitle">
+            10 simuladores didácticos interactivos para Ingeniería en Seguridad Industrial.
+            Aprende aplicando: índices de siniestralidad, ROI en SST, matriz de riesgo,
+            Poisson, jerarquía de controles NIOSH y más. Versión HTML standalone offline.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#sim-1" class="btn btn-primary btn-lg">
+              Comenzar a explorar
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>
+              </svg>
+            </a>
+            <a href="#contenido" class="btn btn-outline btn-lg">Índice de simuladores</a>
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>
+              </svg>
+              Dato clave
+            </div>
+            <p class="hero-stat-value">2,9 M</p>
+            <p class="hero-stat-desc">Muertes anuales por trabajo en el mundo (OIT). Una cada 11 segundos.</p>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="8" x2="16" y1="10" y2="10"/><line x1="8" x2="16" y1="14" y2="14"/>
+              </svg>
+              Dato clave
+            </div>
+            <p class="hero-stat-value">200% – 400%</p>
+            <p class="hero-stat-desc">ROI típico en SST: por cada USD 1 invertido se recuperan USD 2 – 4 (OIT 2018).</p>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 20a6 6 0 0 0 12 0c0-3.314-2.686-6-6-6a6 6 0 0 0-6 6Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><path d="M8 10V7a4 4 0 1 1 8 0"/>
+              </svg>
+              Dato clave
+            </div>
+            <p class="hero-stat-value">~33.000</p>
+            <p class="hero-stat-desc">Accidentes de trabajo en Ecuador durante 2023 (IESS). 140 mortales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       NAVEGACIÓN STICKY
+       ========================================================================= -->
+  <nav id="contenido" class="nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+        </svg>
+        UPSE · RSC y SST
+      </div>
+      <div class="nav-links" id="navLinks"></div>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="16" y1="6" y2="6"/><line x1="4" x2="16" y1="12" y2="12"/><line x1="4" x2="16" y1="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile"></div>
+  </nav>
+
+  <!-- =========================================================================
+       MAIN - 10 SIMULADORES
+       ========================================================================= -->
+  <main>
+    <!-- Sim 1: Pirámide Carroll -->
+    <section id="sim-1" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 1</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Pirámide de Carroll (1991)</h2>
+          </div>
+          <p class="section-subtitle">Modelo de cuatro niveles que ordena las responsabilidades de una empresa, de la base económica a la cima filantrópica. Haz clic en cada nivel para explorar su definición, ejemplo en empresa industrial ecuatoriana y aplicación en SST.</p>
+        </div>
+        <div id="sim1-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 2: Índices de Siniestralidad -->
+    <section id="sim-2" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 2</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="14"/><line x1="16" x2="16" y1="18" y2="18"/><line x1="16" x2="16" y1="21" y2="21"/><line x1="8" x2="8" y1="14" y2="14"/><line x1="8" x2="8" y1="18" y2="18"/><line x1="8" x2="8" y1="21" y2="21"/><line x1="12" x2="12" y1="14" y2="14"/><line x1="12" x2="12" y1="18" y2="18"/><line x1="12" x2="12" y1="21" y2="21"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Calculadora de Índices de Siniestralidad</h2>
+          </div>
+          <p class="section-subtitle">Calcula en tiempo real los cuatro indicadores obligatorios del IESS CD 513: Índice de Frecuencia (IF), Índice de Gravedad (IG), Tasa de Accidentabilidad (TA) y Tasa de Mortalidad (TM).</p>
+        </div>
+        <div id="sim2-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 3: Matriz de Riesgo -->
+    <section id="sim-3" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 3</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Matriz de Riesgo 5×5 y Fórmula de Fine</h2>
+          </div>
+          <p class="section-subtitle">Evalúa riesgos mediante R = P × C (matriz simple) o R = P × E × C (fórmula de Fine, 1971). Haz clic en cualquier celda para ver su interpretación y acción recomendada.</p>
+        </div>
+        <div id="sim3-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 4: Mapa de Stakeholders -->
+    <section id="sim-4" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 4</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Mapa de Stakeholders y Matriz Poder / Interés</h2>
+          </div>
+          <p class="section-subtitle">Modelo de Freeman (1984) y matriz de Mendelow. Identifica a cada grupo de interés, su tipo, su interés principal en SST y asigna su cuadrante de gestión estratégica.</p>
+        </div>
+        <div id="sim4-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 5: ROI en SST -->
+    <section id="sim-5" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 5</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Calculadora de ROI en SST</h2>
+          </div>
+          <p class="section-subtitle">Demuestra cuantitativamente que la seguridad es una inversión, no un costo. Aplica el modelo del Business Case for Safety (OIT 2018) con multiplicador de costos indirectos.</p>
+        </div>
+        <div id="sim5-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 6: Heinrich/Bird -->
+    <section id="sim-6" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 6</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m4 20 8-16 8 16"/><path d="m4 20 16-.01"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Pirámide de Heinrich / Bird</h2>
+          </div>
+          <p class="section-subtitle">Modelo empírico de la proporción entre accidentes graves, leves y casi-accidentes. Heinrich (1931) = 1:29:300, Bird (1969) = 1:10:30:600. Visualiza el iceberg de la siniestralidad.</p>
+        </div>
+        <div id="sim6-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 7: Poisson -->
+    <section id="sim-7" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 7</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" x2="3" y1="22" y2="16"/><line x1="9" x2="9" y1="22" y2="12"/><line x1="15" x2="15" y1="22" y2="8"/><line x1="21" x2="21" y1="22" y2="4"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Distribución de Poisson para Accidentes</h2>
+          </div>
+          <p class="section-subtitle">Modela la probabilidad de que ocurran k accidentes raros en un período con tasa media λ. Aplicación: accidentes catastróficos (explosiones, muertes, derrames) donde la frecuencia es baja pero el impacto es alto.</p>
+        </div>
+        <div id="sim7-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 8: Jerarquía NIOSH -->
+    <section id="sim-8" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 8</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Jerarquía de Controles NIOSH</h2>
+          </div>
+          <p class="section-subtitle">Modelo del Instituto Nacional para la Seguridad y Salud Ocupacional (EE.UU.). Ordena los controles por eficacia: de la eliminación (100%) al EPP (10-25%). El EPP es el último recurso, no el primero.</p>
+        </div>
+        <div id="sim8-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 9: Quiz -->
+    <section id="sim-9" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 9</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Quiz de Autoevaluación</h2>
+          </div>
+          <p class="section-subtitle">10 preguntas de opción múltiple con retroalimentación inmediata. Cubre conceptos de RSC (Carroll, Freeman), ética empresarial, pirámide de Carroll, ISO 26000/45001, marco legal ecuatoriano (CD 513, AM 0323) e indicadores IF, IG, ROI.</p>
+        </div>
+        <div id="sim9-card"></div>
+      </div>
+    </section>
+
+    <!-- Sim 10: Timeline -->
+    <section id="sim-10" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Simulador 10</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Línea de Tiempo de la RSC</h2>
+          </div>
+          <p class="section-subtitle">Evolución histórica de la Responsabilidad Social Corporativa desde la filantropía paternalista de los años 50 hasta la integración estratégica con los ODS y la Agenda 2030.</p>
+        </div>
+        <div id="sim10-card"></div>
+      </div>
+    </section>
+
+    <!-- Referencias -->
+    <section id="referencias" class="section fade-in-up">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">Referencias</span>
+          <div class="section-title-row">
+            <span class="section-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+              </svg>
+            </span>
+            <h2 class="section-title">Marco Normativo y Fuentes</h2>
+          </div>
+          <p class="section-subtitle">Normas internacionales y ecuatorianas consultadas para los datos y fórmulas de los simuladores.</p>
+        </div>
+        <div id="referencias-grid" class="ref-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="footer-band"></div>
+    <div class="footer-inner">
+      <div>
+        <h3>UPSE</h3>
+        <p>Universidad Estatal de la Península de Santa Elena</p>
+        <p>Facultad de Ci de la Tierra</p>
+        <p>Carrera de Ingeniería en Seguridad Industrial</p>
+        <p>La libertad, Santa Elena, Ecuador</p>
+      </div>
+      <div>
+        <h3>Datos académicos</h3>
+        <p>Unidad Temática N° 2: RSC, Ética y Stakeholders</p>
+        <p>Período lectivo 2025 - 2026</p>
+        <p>Modalidad: presencial</p>
+        <p>Créditos: 4 (cuatro)</p>
+      </div>
+      <div>
+        <h3>Fuentes consultadas</h3>
+        <p>OIT (Organización Internacional del Trabajo)</p>
+        <p>IESS CD 513 - Ecuador</p>
+        <p>ISO 26000:2010 - ISO 45001:2018</p>
+        <p>NIOSH (CDC - EE.UU.)</p>
+        <p>GRI - Global Reporting Initiative</p>
+        <p>ONU - Pacto Mundial y Agenda 2030</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Documento académico de uso didáctico · UPSE 2025-2026 · Versión HTML standalone (offline) · Creative Commons Atribución-NoComercial 4.0 Internacional (CC BY-NC 4.0)
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       SCRIPT - TODO EL JS VANILLA
+       ========================================================================= -->
+  <script>
+  "use strict";
+
+  /* ========================================================================
+     UTILIDADES MATEMÁTICAS Y DE FORMATO
+     ======================================================================== */
+  function factorial(n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+  }
+
+  function poissonPMF(k, lambda) {
+    return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k);
+  }
+
+  function formatNumber(n, decimals) {
+    if (decimals === undefined) decimals = 2;
+    return n.toLocaleString('es-EC', { maximumFractionDigits: decimals, minimumFractionDigits: 0 });
+  }
+
+  // Crea elemento DOM con atributos
+  function el(tag, attrs, children) {
+    const node = document.createElement(tag);
+    if (attrs) {
+      for (const k in attrs) {
+        if (k === 'class') node.className = attrs[k];
+        else if (k === 'style') node.setAttribute('style', attrs[k]);
+        else if (k === 'html') node.innerHTML = attrs[k];
+        else if (k === 'text') node.textContent = attrs[k];
+        else if (k.startsWith('on') && typeof attrs[k] === 'function') node.addEventListener(k.substring(2), attrs[k]);
+        else if (k === 'dataset') for (const dk in attrs[k]) node.dataset[dk] = attrs[k][dk];
+        else node.setAttribute(k, attrs[k]);
+      }
+    }
+    if (children) {
+      if (!Array.isArray(children)) children = [children];
+      children.forEach(c => {
+        if (c == null || c === false) return;
+        if (typeof c === 'string' || typeof c === 'number') node.appendChild(document.createTextNode(String(c)));
+        else node.appendChild(c);
+      });
+    }
+    return node;
+  }
+
+  /* ========================================================================
+     DATOS COMPARTIDOS (data solo en español)
+     ======================================================================== */
+
+  // Sim 1: Pirámide de Carroll
+  const SIM1_NIVELES = [
+    {
+      id: 'filantropica', nombre: 'Filantrópica', orden: 4, base: 35,
+      color: '#F4A261', colorHover: '#E8924A',
+      icon: 'gift',
+      definicion: 'Acciones voluntarias que mejoran la calidad de vida de la sociedad: donaciones, programas comunitarios, becas, patrocinios culturales y deportivos. Va más allá de lo que la sociedad espera de una empresa.',
+      ejemplo: 'Una camarera ecuatoriana financia becas técnicas para hijos de trabajadores y apoya al GAD municipal en brigadas de vacunación en la comunidad de Salinas.',
+      sst: 'En SST se traduce en campañas gratuitas de prevención para pymes de la cadena de proveedores, charlas en colegios técnicos sobre riesgos laborales y donación de EPP a voluntarios de bomberos.'
+    },
+    {
+      id: 'etica', nombre: 'Ética', orden: 3, base: 60,
+      color: '#3D6EA5', colorHover: '#346192',
+      icon: 'heart-handshake',
+      definicion: 'Hacer lo correcto, justo y razonable más allá del cumplimiento legal. Reconoce que la empresa tiene responsabilidades éticas hacia sus grupos de interés, aún cuando no exista una norma que la obligue.',
+      ejemplo: 'Una empresa bananera publica su lista de proveedores y audita condiciones laborales aunque la ley no lo exija. Renuncia a contratar intermediarios que incurran en trabajo infantil.',
+      sst: 'Reportar transparentemente los casi-accidentes, investigar las causas raíz de cada incidente (no buscar culpables), permitir que los trabajadores se detengan ante una condición insegura sin represalia (right to refuse unsafe work).'
+    },
+    {
+      id: 'legal', nombre: 'Legal', orden: 2, base: 80,
+      color: '#2A9D8F', colorHover: '#218A7D',
+      icon: 'scale',
+      definicion: 'Cumplir las leyes y regulaciones del país donde opera. En Ecuador: Código del Trabajo, IESS CD 513, AM 0323, Reglamento de Seguridad y Salud, normativa ambiental.',
+      ejemplo: 'Afiliar al 100% de los trabajadores al IESS, conformar el Comité de Seguridad (15+ trabajadores), cumplir el Reglamento de Seguridad, declarar accidentes en el formulario 102 del IESS.',
+      sst: 'Implementar el SG-SST según AM 0323, mantener el registro de accidentes, auditorías anuales, investigación de accidentes graves en 24 h, vigilancia médica ocupacional según el tipo de riesgo.'
+    },
+    {
+      id: 'economica', nombre: 'Económica', orden: 1, base: 100,
+      color: '#1F3A5F', colorHover: '#172E48',
+      icon: 'building',
+      definicion: 'Base de todo. La empresa debe ser rentable y sostenible económicamente para poder sostener empleo, pagar impuestos, invertir en seguridad y devolver valor a accionistas. Sin rentabilidad no hay RSC posible.',
+      ejemplo: 'Una procesadora camaronera genera empleo para 240 personas, paga USD 1,8 M en impuestos y reinvierte 12% de utilidades en mantenimiento de la planta y modernización de procesos.',
+      sst: 'Sin viabilidad económica no se sostiene el sistema de gestión SST: presupuesto para EPP, capacitación, vigilancia médica, comités paritarios y mejoras de ingeniería provienen de la operación rentable.'
+    }
+  ];
+
+  // SVG icons map (paths simplificados)
+  const ICONS = {
+    'gift': '<polyline points="20 12 20 22 4 22 4 12"/><rect width="16" height="12" x="4" y="2" rx="2"/><line x1="2" x2="22" y1="7" y2="7"/><line x1="12" x2="12" y1="22" y2="2"/><path d="M12 7H8.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h3.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/>',
+    'heart-handshake': '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/><path d="m12 5 0 7"/>',
+    'scale': '<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1"/><path d="M7 21h10"/><path d="M4.75 3.5C5.5 5 6.5 6.5 7.5 7.5"/><path d="M8 7h8"/><path d="m12 7 4 8"/>',
+    'building': '<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>',
+    'users': '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    'briefcase': '<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/><path d="M2 12h20"/>',
+    'shopping-cart': '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+    'truck': '<path d="M14 18V6a2 2 0 0 0-2-2H2v14h2"/><path d="M14 9h4l4 4v5h-2"/><path d="M2 18h2"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
+    'globe': '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+    'landmark': '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
+    'newspaper': '<path d="M15 12h6a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h13"/><path d="M6 12h6"/><path d="M6 8h6"/><path d="M6 16h6"/>',
+    'shield': '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+    'trash': '<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
+    'refresh': '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/>',
+    'cog': '<path d="M14.7 6.3a1 1 0 0 0 .26 1.51l1.06.62a1 1 0 0 1 0 1.51l-1.06.62a1 1 0 0 0-.26 1.51l.5 1.06a1 1 0 0 1-1.51.26l-1.06-.5a1 1 0 0 0-1.51 0l-.5.5a1 1 0 0 1-1.51-.26l-.5-1.06a1 1 0 0 0-1.51-.26l-1.06.5a1 1 0 0 1-1.51-.26L4.49 9.5a1 1 0 0 1 0-1.51l1.06-.62a1 1 0 0 0 .26-1.51l-.5-1.06a1 1 0 0 1 1.51-.26l1.06.5a1 1 0 0 0 1.51 0l.5-.5a1 1 0 0 1 1.51.26l.5 1.06z"/><circle cx="12" cy="12" r="3"/>',
+    'clipboard': '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/><path d="M9 12h6"/><path d="M9 16h6"/>',
+    'hardhat': '<path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><path d="M14 6a6 6 0 0 1 6 6v3"/>',
+    'gift2': '<polyline points="20 12 20 22 4 22 4 12"/><rect width="16" height="12" x="4" y="2" rx="2"/><line x1="2" x2="22" y1="7" y2="7"/><line x1="12" x2="12" y1="22" y2="2"/><path d="M12 7H8.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h3.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/>',
+    'heart': '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>',
+    'book': '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
+    'award': '<path d="m15.47 12.53 3.59 3.59A2 2 0 0 1 18 20H6a2 2 0 0 1-1.41-1.41L8.53 12.53"/><path d="M12 9.83V15"/><circle cx="12" cy="8" r="6"/>',
+    'check': '<polyline points="20 6 9 17 4 12"/>',
+    'x': '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    'trophy': '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+    'reset': '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>'
+  };
+
+  function svgIcon(name, size) {
+    if (!size) size = 20;
+    const path = ICONS[name] || '';
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + path + '</svg>';
+  }
+
+  /* ========================================================================
+     SIMCARD HELPER (wrapper común)
+     ======================================================================== */
+  function simCard(titulo, descripcion, bodyHTML) {
+    return '' +
+      '<article class="sim-card">' +
+        '<header class="sim-card-header">' +
+          '<h3 class="sim-card-title">' + titulo + '</h3>' +
+          (descripcion ? '<p class="sim-card-desc">' + descripcion + '</p>' : '') +
+        '</header>' +
+        '<div class="sim-card-body">' + bodyHTML + '</div>' +
+      '</article>';
+  }
+
+  function pedagogico(variant, html) {
+    const titulos = { info: 'Nota técnica', alerta: 'Atención', exito: 'Buenas prácticas', tip: 'Tip didáctico' };
+    return '<div class="pedagogico ' + variant + '"><div class="pedagogico-label">' + titulos[variant] + '</div><div>' + html + '</div></div>';
+  }
+
+  function formulaBox(formula, descripcion, ejemplo) {
+    return '<div class="formula-box">' +
+      '<div class="formula-box-label">Fórmula</div>' +
+      '<code class="formula-box-code">' + formula + '</code>' +
+      (descripcion ? '<p class="formula-box-desc">' + descripcion + '</p>' : '') +
+      (ejemplo ? '<p class="formula-box-ej">' + ejemplo + '</p>' : '') +
+    '</div>';
+  }
+
+  function semaphBadge(valor, estado, unidad) {
+    return '<span class="semaph-badge ' + estado + '">' + valor + (unidad ? '<span class="unit">' + unidad + '</span>' : '') + '</span>';
+  }
+
+  function subH(text) {
+    return '<h4 class="subh">' + text + '</h4>';
+  }
+
+  /* ========================================================================
+     SIM 1: PIRÁMIDE DE CARROLL
+     ======================================================================== */
+  let sim1_activo = 'economica';
+
+  function renderSim1() {
+    const card = document.getElementById('sim1-card');
+    const body = '' +
+      '<div class="grid-2">' +
+        '<div class="pyramid-wrap">' +
+          '<div style="display:flex; flex-direction:column; align-items:center; gap:6px; width:100%;">' +
+            SIM1_NIVELES.slice().sort((a,b) => b.orden - a.orden).map(n => {
+              const isActive = sim1_activo === n.id;
+              return '<button class="pyramid-level ' + (isActive ? 'active' : '') + '" data-id="' + n.id + '" ' +
+                'style="width:' + n.base + '%; background-color:' + (isActive ? n.colorHover : n.color) + ';" ' +
+                'aria-pressed="' + isActive + '" aria-label="Nivel ' + n.nombre + '">' +
+                  svgIcon(n.icon, 18) +
+                  '<span style="font-size:12px;">' + n.nombre + '</span>' +
+                '</button>';
+            }).join('') +
+          '</div>' +
+          '<p class="pyramid-caption">Base amplia · Estabilidad económica → Cima estrecha · Discrecional</p>' +
+        '</div>' +
+        '<div id="sim1-detail"></div>' +
+      '</div>' +
+      pedagogico('info',
+        'Carroll (1979/1991) propuso que la RSC no es una sola cosa, sino una pila de cuatro capas interdependientes. La base económica sostiene a las demás: sin rentabilidad no hay empleo, impuestos ni inversión en seguridad. La cima filantrópica es discrecional: la empresa la elige libremente y la sociedad la valora pero no la exige.'
+      );
+
+    card.innerHTML = simCard('Pirámide interactiva de Carroll', 'Clic sobre cada nivel para ver su contenido pedagógico.', body);
+
+    // Eventos
+    card.querySelectorAll('.pyramid-level').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sim1_activo = btn.dataset.id;
+        renderSim1();
+      });
+    });
+    renderSim1Detail();
+  }
+
+  function renderSim1Detail() {
+    const nivel = SIM1_NIVELES.find(n => n.id === sim1_activo);
+    const html = '' +
+      '<div class="detail-card" style="display:flex; flex-direction:column;">' +
+        '<div class="detail-card-header" style="background-color:' + nivel.color + ';">' +
+          '<span style="display:inline-flex;">' + svgIcon(nivel.icon, 20) + '</span>' +
+          '<h4 class="detail-card-title">Responsabilidad ' + nivel.nombre + '</h4>' +
+          '<span class="detail-card-badge">Nivel ' + nivel.orden + '/4</span>' +
+        '</div>' +
+        '<div class="detail-card-body">' +
+          '<div class="detail-section">' + subH('Definición') + '<p>' + nivel.definicion + '</p></div>' +
+          '<div class="detail-section">' + subH('Ejemplo en empresa industrial ecuatoriana') + '<p>' + nivel.ejemplo + '</p></div>' +
+          '<div class="detail-section">' + subH('Aplicación en SST') + '<p>' + nivel.sst + '</p></div>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('sim1-detail').innerHTML = html;
+  }
+
+  /* ========================================================================
+     SIM 2: ÍNDICES DE SINIESTRALIDAD
+     ======================================================================== */
+  const SIM2_CONTROLES = [
+    { id: 'N', etiqueta: 'Accidentes con baja médica', simbolo: 'N', min: 0, max: 50, paso: 1, defecto: 4, unidad: 'acc.', ayuda: 'Eventos que generaron al menos un día de baja laboral.' },
+    { id: 'H', etiqueta: 'Horas-hombre trabajadas/año', simbolo: 'H', min: 100000, max: 1000000, paso: 1000, defecto: 506880, unidad: 'h', ayuda: '240 trabajadores × 8 h × 22 días × 12 meses = 506.880 h' },
+    { id: 'D', etiqueta: 'Días perdidos totales', simbolo: 'D', min: 0, max: 500, paso: 1, defecto: 65, unidad: 'días', ayuda: 'Sumatoria de días de baja por los accidentes registrados.' },
+    { id: 'M', etiqueta: 'Muertes por accidente de trabajo', simbolo: 'M', min: 0, max: 10, paso: 1, defecto: 0, unidad: 'fatales', ayuda: 'Eventos mortales notificados al IESS en el período.' },
+    { id: 'P', etiqueta: 'Población trabajadora promedio', simbolo: 'P', min: 10, max: 1000, paso: 1, defecto: 240, unidad: 'pers.', ayuda: 'Trabajadores expuestos promedio del período.' }
+  ];
+  let sim2_valores = {};
+  SIM2_CONTROLES.forEach(c => sim2_valores[c.id] = c.defecto);
+
+  function renderSim2() {
+    const card = document.getElementById('sim2-card');
+    const body = '' +
+      '<div class="grid-2">' +
+        '<div>' +
+          subH('Variables de entrada') +
+          SIM2_CONTROLES.map(c => '' +
+            '<div class="slider-row">' +
+              '<div class="slider-row-header">' +
+                '<div class="slider-row-label">' +
+                  '<span class="slider-symbol">' + c.simbolo + '</span>' +
+                  '<span class="slider-label-text">' + c.etiqueta + '</span>' +
+                '</div>' +
+                '<span class="slider-value"><span id="sim2-val-' + c.id + '">' + formatNumber(sim2_valores[c.id]) + '</span> ' + c.unidad + '</span>' +
+              '</div>' +
+              '<input type="range" min="' + c.min + '" max="' + c.max + '" step="' + c.paso + '" value="' + sim2_valores[c.id] + '" data-id="' + c.id + '" aria-label="' + c.etiqueta + '" />' +
+              '<p class="slider-help">' + c.ayuda + '</p>' +
+            '</div>'
+          ).join('') +
+        '</div>' +
+        '<div id="sim2-resultados"></div>' +
+      '</div>' +
+      '<div class="mt-6" style="display:grid; grid-template-columns:1fr; gap:0.75rem;" id="sim2-formulas">' +
+        formulaBox('IF = (N × 10⁶) / H', 'N = accidentes con baja, H = horas-hombre, 10⁶ = normalización a un millón.', '') +
+        formulaBox('IG = (D × 10⁶) / H', 'D = días perdidos totales, H = horas-hombre.', '') +
+      '</div>' +
+      pedagogico('info',
+        'Estos cuatro indicadores son los exigidos por el <strong>IESS CD 513</strong> (Ecuador) para clasificar a las empresas en el sistema de experiencia y ajustar la prima de riesgos del trabajo. Un IF elevado puede incrementar la prima hasta un 50% por encima del promedio, mientras que empresas con bajo siniestral reciben descuentos. La regulación fomenta la prevención mediante incentivos económicos.'
+      );
+
+    card.innerHTML = simCard('Índices de siniestralidad SST', 'Mueve los sliders para simular distintos escenarios operativos.', body);
+
+    // Eventos sliders
+    card.querySelectorAll('input[type=range]').forEach(slider => {
+      slider.addEventListener('input', () => {
+        sim2_valores[slider.dataset.id] = parseFloat(slider.value);
+        const valSpan = document.getElementById('sim2-val-' + slider.dataset.id);
+        if (valSpan) valSpan.textContent = formatNumber(sim2_valores[slider.dataset.id]);
+        updateSim2();
+      });
+    });
+    updateSim2();
+  }
+
+  function updateSim2() {
+    const N = sim2_valores.N, H = sim2_valores.H, D = sim2_valores.D, M = sim2_valores.M, P = sim2_valores.P;
+    const IF = (N * 1000000) / H;
+    const IG = (D * 1000000) / H;
+    const TA = (N / P) * 100;
+    const TM = (M / P) * 100000;
+    const benchmark = 5.2;
+
+    const estadoIF = IF <= benchmark ? 'verde' : (IF <= 10 ? 'amarillo' : 'rojo');
+    const estadoIG = IG <= 100 ? 'verde' : (IG <= 200 ? 'amarillo' : 'rojo');
+    const estadoTA = TA <= 2 ? 'verde' : (TA <= 5 ? 'amarillo' : 'rojo');
+    const estadoTM = TM <= 1 ? 'verde' : (TM <= 5 ? 'amarillo' : 'rojo');
+
+    const comparacionIF = IF <= benchmark
+      ? 'Por debajo del benchmark ecuatoriano (' + benchmark + '). Buen desempeño.'
+      : 'Por encima del benchmark ecuatoriano (' + benchmark + '). Requiere intervención.';
+
+    const html = subH('Resultados en tiempo real') +
+      indicadorCard('Índice de Frecuencia (IF)', 'IF = (N × 10⁶) / H', IF, estadoIF, 'acc / millón h',
+        'Accidentes con baja por cada millón de horas-hombre. Benchmark Ecuador: 5,2 (sector camaronero 7,2).', comparacionIF) +
+      indicadorCard('Índice de Gravedad (IG)', 'IG = (D × 10⁶) / H', IG, estadoIG, 'días / millón h',
+        'Días perdidos por cada millón de horas-hombre. Indica la severidad de los accidentes.', '') +
+      indicadorCard('Tasa de Accidentabilidad (TA)', 'TA = (N / P) × 100', TA, estadoTA, '%',
+        'Porcentaje de la población trabajadora que sufrió al menos un accidente.', '') +
+      indicadorCard('Tasa de Mortalidad (TM)', 'TM = (M / P) × 10⁵', TM, estadoTM, 'muertes / 100.000',
+        'Muertes por cada 100.000 trabajadores. Ecuador: ~7,5 (2023). Región andina: 11,5.', '');
+
+    document.getElementById('sim2-resultados').innerHTML = html;
+
+    // Actualizar fórmulas con ejemplo
+    document.getElementById('sim2-formulas').innerHTML =
+      formulaBox('IF = (N × 10⁶) / H', 'N = accidentes con baja, H = horas-hombre, 10⁶ = normalización a un millón.',
+        'Ejemplo: N=' + N + ', H=' + formatNumber(H) + ' → IF = ' + IF.toFixed(2)) +
+      formulaBox('IG = (D × 10⁶) / H', 'D = días perdidos totales, H = horas-hombre.',
+        'Ejemplo: D=' + D + ', H=' + formatNumber(H) + ' → IG = ' + IG.toFixed(2));
+  }
+
+  function indicadorCard(nombre, formula, valor, estado, unidad, ayuda, comparacion) {
+    return '<div class="indicator-card">' +
+      '<div class="indicator-head">' +
+        '<div>' +
+          '<p class="indicator-name">' + nombre + '</p>' +
+          '<code class="indicator-formula">' + formula + '</code>' +
+        '</div>' +
+        semaphBadge(valor.toFixed(2), estado, unidad) +
+      '</div>' +
+      '<p class="indicator-help">' + ayuda + '</p>' +
+      (comparacion ? '<p class="indicator-comparison">' + comparacion + '</p>' : '') +
+    '</div>';
+  }
+
+  /* ========================================================================
+     SIM 3: MATRIZ DE RIESGO 5x5 + FINE
+     ======================================================================== */
+  let sim3_tab = 'simple';
+  let sim3_exp = 6;
+  let sim3_seleccion = null;
+
+  function colorRiesgo(R) {
+    if (R <= 5) return { bg: '#2A9D8F', estado: 'Aceptable', accion: 'Monitoreo periódico. Sin acciones urgentes.' };
+    if (R <= 15) return { bg: '#F4A261', estado: 'Tolerable', accion: 'Requiere controles adicionales y plan de mitigación.' };
+    return { bg: '#E76F51', estado: 'Inaceptable', accion: 'Acción inmediata: detener tarea o aislar el peligro.' };
+  }
+
+  function colorFine(R) {
+    if (R <= 70) return { bg: '#2A9D8F', estado: 'Aceptable', accion: 'Monitoreo periódico. Riesgo marginal.' };
+    if (R <= 200) return { bg: '#F4A261', estado: 'Tolerable', accion: 'Atención razonable, mejorar si es posible.' };
+    if (R <= 400) return { bg: '#E76F51', estado: 'Sustancial', accion: 'Corrección antes de continuar la operación.' };
+    return { bg: '#7A1A0A', estado: 'Inaceptable', accion: 'Detener actividad hasta reducir el riesgo.' };
+  }
+
+  const SIM3_EXP_OPCIONES = [
+    { valor: 0.5, label: '0,5 · Extremadamente rara' },
+    { valor: 1, label: '1 · Muy rara (1 vez/año)' },
+    { valor: 2, label: '2 · Rara (varias/año)' },
+    { valor: 3, label: '3 · Ocasional (semanal-mensual)' },
+    { valor: 6, label: '6 · Frecuente (diaria)' },
+    { valor: 10, label: '10 · Continua (varias/día)' }
+  ];
+
+  function renderSim3() {
+    const card = document.getElementById('sim3-card');
+    const body = '' +
+      '<div class="matrix-tabs">' +
+        '<button class="matrix-tab ' + (sim3_tab === 'simple' ? 'active' : '') + '" data-tab="simple">Matriz simple · R = P × C</button>' +
+        '<button class="matrix-tab ' + (sim3_tab === 'fine' ? 'active' : '') + '" data-tab="fine">Fórmula de Fine · R = P × E × C</button>' +
+      '</div>' +
+      (sim3_tab === 'fine' ? '' +
+        '<div style="border:1px solid rgba(61,110,165,0.4); background:rgba(61,110,165,0.08); border-radius:8px; padding:1rem; margin-bottom:1rem;">' +
+          subH('Selector de exposición (E)') +
+          '<div style="display:grid; grid-template-columns:1fr; gap:0.75rem; align-items:center;">' +
+            '<div>' +
+              '<input type="range" min="0.5" max="10" step="0.5" value="' + sim3_exp + '" id="sim3-exp-slider" aria-label="Factor de exposición E" />' +
+              '<div style="margin-top:4px; display:flex; justify-content:space-between; font-size:10px; color:var(--color-gray);"><span>0,5</span><span>10</span></div>' +
+            '</div>' +
+            '<div style="display:flex; align-items:baseline; gap:4px;"><span style="font-size:12px; color:#475569;">E =</span>' +
+              '<span style="background:var(--color-primary); color:white; padding:2px 12px; border-radius:6px; font-family:var(--font-mono); font-size:18px; font-weight:700;" id="sim3-exp-val">' + sim3_exp.toFixed(1) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="exp-presets">' +
+            SIM3_EXP_OPCIONES.map(o => '<button class="exp-preset ' + (sim3_exp === o.valor ? 'active' : '') + '" data-exp="' + o.valor + '">' + o.label + '</button>').join('') +
+          '</div>' +
+        '</div>'
+      : '') +
+      '<div class="matrix-wrap">' +
+        '<div class="matrix-axis-y">Consecuencia (C)</div>' +
+        '<div>' +
+          '<div class="matrix-header">' +
+            [1,2,3,4,5].map(P => '<div class="matrix-header-cell">P = ' + P + '</div>').join('') +
+          '</div>' +
+          '<div class="matrix-grid" id="sim3-matrix"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div id="sim3-detail" class="mt-4"></div>' +
+      '<div class="mt-6" style="display:grid; grid-template-columns:1fr; gap:0.75rem;" id="sim3-formulas">' +
+        formulaBox('R = P × C', 'R = riesgo, P = probabilidad (1-5), C = consecuencia (1-5). Rango R ∈ [1, 25].', 'Ejemplo: P=4 × C=3 = R=12 → Tolerable') +
+        formulaBox('R = P × E × C', 'Fórmula de Fine (1971). E = exposición (0,5 a 10). Permite diferenciar peligros con igual P y C pero distinta frecuencia.', '') +
+      '</div>' +
+      pedagogico('alerta',
+        'La matriz simple <strong>R = P × C</strong> asigna el mismo riesgo (R = 12) a un peligro que ocurre continuamente que a uno anual con la misma P y C. La <strong>fórmula de Fine</strong> corrige esta debilidad introduciendo el factor exposición E: un peligro con E = 10 (continuo) multiplica por 20 el riesgo del mismo peligro con E = 0,5. En SST industrial este matiz es crítico para priorizar inversiones de control.'
+      );
+
+    card.innerHTML = simCard('Matriz de riesgo interactiva', 'Selector entre matriz simple 5×5 y fórmula de Fine con factor de exposición.', body);
+
+    // Renderizar matriz
+    renderSim3Matrix();
+
+    // Eventos tabs
+    card.querySelectorAll('.matrix-tab').forEach(t => {
+      t.addEventListener('click', () => {
+        sim3_tab = t.dataset.tab;
+        sim3_seleccion = null;
+        renderSim3();
+      });
+    });
+    // Eventos slider exp
+    const expSlider = document.getElementById('sim3-exp-slider');
+    if (expSlider) {
+      expSlider.addEventListener('input', () => {
+        sim3_exp = parseFloat(expSlider.value);
+        document.getElementById('sim3-exp-val').textContent = sim3_exp.toFixed(1);
+        // Actualizar presets activos
+        card.querySelectorAll('.exp-preset').forEach(p => p.classList.toggle('active', parseFloat(p.dataset.exp) === sim3_exp));
+        renderSim3Matrix();
+        renderSim3Detail();
+        renderSim3Formulas();
+      });
+    }
+    // Eventos presets
+    card.querySelectorAll('.exp-preset').forEach(p => {
+      p.addEventListener('click', () => {
+        sim3_exp = parseFloat(p.dataset.exp);
+        if (expSlider) expSlider.value = sim3_exp;
+        document.getElementById('sim3-exp-val').textContent = sim3_exp.toFixed(1);
+        card.querySelectorAll('.exp-preset').forEach(pp => pp.classList.toggle('active', parseFloat(pp.dataset.exp) === sim3_exp));
+        renderSim3Matrix();
+        renderSim3Detail();
+        renderSim3Formulas();
+      });
+    });
+    renderSim3Detail();
+    renderSim3Formulas();
+  }
+
+  function renderSim3Matrix() {
+    const grid = document.getElementById('sim3-matrix');
+    if (!grid) return;
+    let html = '';
+    for (let C = 5; C >= 1; C--) {
+      for (let P = 1; P <= 5; P++) {
+        const R = sim3_tab === 'simple' ? (P * C) : (P * sim3_exp * C);
+        const color = sim3_tab === 'simple' ? colorRiesgo(R) : colorFine(R);
+        const isActive = sim3_seleccion && sim3_seleccion.P === P && sim3_seleccion.C === C;
+        html += '<button class="matrix-cell ' + (isActive ? 'active' : '') + '" ' +
+          'style="background-color:' + color.bg + '; border-color:' + color.bg + ';" ' +
+          'data-p="' + P + '" data-c="' + C + '" ' +
+          'aria-label="P=' + P + ' C=' + C + ' R=' + (R % 1 === 0 ? R : R.toFixed(1)) + ' ' + color.estado + '">' +
+          '<span class="matrix-cell-value">' + (R % 1 === 0 ? R : R.toFixed(1)) + '</span>' +
+          '<span class="matrix-cell-estado">' + color.estado + '</span>' +
+        '</button>';
+      }
+    }
+    grid.innerHTML = html;
+    grid.querySelectorAll('.matrix-cell').forEach(cell => {
+      cell.addEventListener('click', () => {
+        sim3_seleccion = { P: parseInt(cell.dataset.p), C: parseInt(cell.dataset.c) };
+        renderSim3Matrix();
+        renderSim3Detail();
+      });
+    });
+  }
+
+  function renderSim3Detail() {
+    const detail = document.getElementById('sim3-detail');
+    if (!sim3_seleccion) {
+      detail.innerHTML = '<p class="matrix-detail-empty">Haz clic en una celda para ver su interpretación detallada.</p>';
+      return;
+    }
+    const { P, C } = sim3_seleccion;
+    const R = sim3_tab === 'simple' ? (P * C) : (P * sim3_exp * C);
+    const color = sim3_tab === 'simple' ? colorRiesgo(R) : colorFine(R);
+    const rDisplay = R % 1 === 0 ? R : R.toFixed(1);
+    detail.innerHTML = '<div class="matrix-detail">' +
+      '<div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem;">' +
+        '<span style="background-color:' + color.bg + '; color:white; padding:4px 12px; border-radius:6px; font-family:var(--font-mono); font-size:18px; font-weight:700;">R = ' + rDisplay + '</span>' +
+        '<span style="font-size:14px; font-weight:600; color:var(--color-primary);">P = ' + P + (sim3_tab === 'fine' ? ' · E = ' + sim3_exp : '') + ' · C = ' + C + '</span>' +
+      '</div>' +
+      '<p style="margin-top:0.5rem; font-size:14px; color:var(--color-dark);"><strong>Estado:</strong> ' + color.estado + '</p>' +
+      '<p style="margin-top:0.25rem; font-size:14px; color:#475569;"><strong>Acción:</strong> ' + color.accion + '</p>' +
+    '</div>';
+  }
+
+  function renderSim3Formulas() {
+    const div = document.getElementById('sim3-formulas');
+    if (!div) return;
+    const fineEx = (4 * sim3_exp * 5);
+    const fineColor = colorFine(fineEx);
+    div.innerHTML =
+      formulaBox('R = P × C', 'R = riesgo, P = probabilidad (1-5), C = consecuencia (1-5). Rango R ∈ [1, 25].', 'Ejemplo: P=4 × C=3 = R=12 → Tolerable') +
+      formulaBox('R = P × E × C', 'Fórmula de Fine (1971). E = exposición (0,5 a 10). Permite diferenciar peligros con igual P y C pero distinta frecuencia.',
+        'Ejemplo: P=4 × E=' + sim3_exp + ' × C=5 = R=' + (fineEx % 1 === 0 ? fineEx : fineEx.toFixed(1)) + ' → ' + fineColor.estado);
+  }
+
+  /* ========================================================================
+     SIM 4: MAPA DE STAKEHOLDERS
+     ======================================================================== */
+  const SIM4_STAKEHOLDERS = [
+    { id: 'trabajadores', nombre: 'Trabajadores', tipo: 'interno', cat: 'primario',
+      interes: 'Condiciones seguras, EPP, capacitación, salario justo, salud ocupacional.',
+      poder: 4, influencia: 5, icon: 'users', color: '#1F3A5F' },
+    { id: 'accionistas', nombre: 'Accionistas', tipo: 'interno', cat: 'primario',
+      interes: 'Rentabilidad, gestión de riesgos que afecten la continuidad del negocio.',
+      poder: 5, influencia: 5, icon: 'briefcase', color: '#3D6EA5' },
+    { id: 'clientes', nombre: 'Clientes', tipo: 'externo', cat: 'primario',
+      interes: 'Calidad del producto, trazabilidad, evidencia de SST en la cadena productiva.',
+      poder: 4, influencia: 4, icon: 'shopping-cart', color: '#2A9D8F' },
+    { id: 'proveedores', nombre: 'Proveedores', tipo: 'externo', cat: 'primario',
+      interes: 'Órdenes estables, cumplimiento de pagos, exigencia de SST homologable.',
+      poder: 3, influencia: 3, icon: 'truck', color: '#F4A261' },
+    { id: 'comunidad', nombre: 'Comunidad', tipo: 'externo', cat: 'secundario',
+      interes: 'Empleo local, ambiente sano, prevención de contaminación y accidentes que afecten al territorio.',
+      poder: 3, influencia: 4, icon: 'globe', color: '#3D6EA5' },
+    { id: 'estado', nombre: 'Estado / IESS', tipo: 'externo', cat: 'secundario',
+      interes: 'Cumplimiento del CD 513, AM 0323, declaración de accidentes, pago de aportes.',
+      poder: 5, influencia: 5, icon: 'landmark', color: '#1F3A5F' },
+    { id: 'medios', nombre: 'Medios', tipo: 'externo', cat: 'secundario',
+      interes: 'Casos noticiables, accidentes graves, conflictividad laboral, reputación.',
+      poder: 2, influencia: 4, icon: 'newspaper', color: '#E76F51' },
+    { id: 'ong', nombre: 'ONG / Sindicatos', tipo: 'externo', cat: 'secundario',
+      interes: 'Derechos laborales, transparencia, presión pública ante incumplimientos SST.',
+      poder: 2, influencia: 3, icon: 'heart-handshake', color: '#2A9D8F' }
+  ];
+
+  const SIM4_CUADRANTES = [
+    { id: 'monitorear', titulo: 'Monitorizar (poco interés / poca influencia)', desc: 'Mantener informado sin invertir muchos recursos. Ej: ONG locales, medios pequeños.' },
+    { id: 'informar', titulo: 'Mantener informado (alto interés / poca influencia)', desc: 'Comunicación periódica, atención a quejas. Ej: comunidad cercana, proveedores pequeños.' },
+    { id: 'satisfecho', titulo: 'Mantener satisfecho (poco interés / alta influencia)', desc: 'Información mínima pero oportuna, evitar sorpresas. Ej: Estado regulador, accionistas pasivos.' },
+    { id: 'gestionar', titulo: 'Gestionar estrechamente (alto interés / alta influencia)', desc: 'Participación activa, alianzas, reportes detallados. Ej: trabajadores, IESS, accionistas.' }
+  ];
+
+  let sim4_sel = 'trabajadores';
+  let sim4_cuadrantes = {
+    trabajadores: 'gestionar', accionistas: 'satisfecho', clientes: 'gestionar',
+    proveedores: 'informar', comunidad: 'informar', estado: 'satisfecho',
+    medios: 'monitorear', ong: 'monitorear'
+  };
+
+  function renderSim4() {
+    const card = document.getElementById('sim4-card');
+    const stake = SIM4_STAKEHOLDERS.find(s => s.id === sim4_sel);
+    const n = SIM4_STAKEHOLDERS.length;
+    const nodesHTML = SIM4_STAKEHOLDERS.map((s, i) => {
+      const ang = (i / n) * 2 * Math.PI - Math.PI / 2;
+      const r = 42;
+      const x = 50 + r * Math.cos(ang);
+      const y = 50 + r * Math.sin(ang);
+      const isActive = sim4_sel === s.id;
+      return '<button class="stakeholder-node ' + (isActive ? 'active' : '') + '" data-id="' + s.id + '" ' +
+        'style="left:' + x + '%; top:' + y + '%; background-color:' + s.color + ';" ' +
+        'aria-label="' + s.nombre + '" aria-pressed="' + isActive + '">' +
+          svgIcon(s.icon, 22) +
+        '</button>';
+    }).join('');
+
+    const chipsHTML = SIM4_STAKEHOLDERS.map(s => {
+      const isActive = sim4_sel === s.id;
+      return '<button class="stakeholder-chip ' + (isActive ? 'active' : '') + '" data-id="' + s.id + '">' + s.nombre + '</button>';
+    }).join('');
+
+    const fichaHTML = '' +
+      '<div class="stakeholder-ficha">' +
+        '<div class="stakeholder-ficha-head">' +
+          '<span class="stakeholder-ficha-icon" style="background-color:' + stake.color + ';">' + svgIcon(stake.icon, 20) + '</span>' +
+          '<div>' +
+            '<h4 class="stakeholder-ficha-name">' + stake.nombre + '</h4>' +
+            '<div class="stakeholder-ficha-tags">' +
+              '<span class="stakeholder-ficha-tag tipo">' + stake.tipo + '</span>' +
+              '<span class="stakeholder-ficha-tag cat">' + stake.cat + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">' +
+          '<div>' +
+            '<p class="stakeholder-bar-label">Interés principal en SST</p>' +
+            '<p class="stakeholder-text">' + stake.interes + '</p>' +
+          '</div>' +
+          '<div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">' +
+            '<div>' +
+              '<p class="stakeholder-bar-label">Poder</p>' +
+              '<div class="stakeholder-bar">' +
+                Array.from({length:5}).map((_,i) => '<span class="stakeholder-bar-seg ' + (i < stake.poder ? 'on poder' : '') + '"></span>').join('') +
+              '</div>' +
+            '</div>' +
+            '<div>' +
+              '<p class="stakeholder-bar-label">Influencia / interés</p>' +
+              '<div class="stakeholder-bar">' +
+                Array.from({length:5}).map((_,i) => '<span class="stakeholder-bar-seg ' + (i < stake.influencia ? 'on influencia' : '') + '"></span>').join('') +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    const mendelowCells = SIM4_CUADRANTES.map(c => {
+      const list = SIM4_STAKEHOLDERS.filter(s => sim4_cuadrantes[s.id] === c.id);
+      return '<div class="mendelow-cell">' +
+        '<p class="mendelow-cell-title">' + c.titulo + '</p>' +
+        '<p class="mendelow-cell-desc">' + c.desc + '</p>' +
+        '<div class="mendelow-cell-list">' +
+          list.map(s => {
+            const isActive = s.id === sim4_sel;
+            return '<button class="mendelow-cell-item" data-sel="' + s.id + '" style="background-color:' + (isActive ? s.color : '#E2E8F0') + '; color:' + (isActive ? 'white' : '#1F3A5F') + ';">' + s.nombre + '</button>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    const assignBtns = SIM4_CUADRANTES.map(c => {
+      const isActive = sim4_cuadrantes[stake.id] === c.id;
+      return '<button class="mendelow-assign-btn ' + (isActive ? 'active' : '') + '" data-cuad="' + c.id + '">' + c.titulo.split(' ')[0] + '</button>';
+    }).join('');
+
+    const body = '' +
+      '<div class="grid-2">' +
+        '<div>' +
+          subH('Mapa relacional (empresa en el centro)') +
+          '<div class="stakeholder-map">' +
+            '<div class="stakeholder-ring" style="inset:0;"></div>' +
+            '<div class="stakeholder-ring inner"></div>' +
+            '<div class="stakeholder-center">' +
+              '<span class="stakeholder-center-icon">' + svgIcon('building', 32) + '</span>' +
+              '<p class="stakeholder-center-label">EMPRESA</p>' +
+            '</div>' +
+            nodesHTML +
+          '</div>' +
+          '<div class="stakeholder-chips">' + chipsHTML + '</div>' +
+        '</div>' +
+        '<div style="display:flex; flex-direction:column; gap:1rem;">' +
+          fichaHTML +
+          '<div>' +
+            subH('Matriz Poder / Interés (Mendelow)') +
+            '<div class="mendelow-matrix">' +
+              '<div class="mendelow-grid">' + mendelowCells + '</div>' +
+              '<div class="mendelow-assign">' +
+                '<p class="mendelow-assign-label">Asignar <strong style="color:var(--color-primary);">' + stake.nombre + '</strong> a un cuadrante:</p>' +
+                '<div class="mendelow-assign-buttons">' + assignBtns + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div style="margin-top:0.5rem; display:grid; grid-template-columns:auto 1fr; gap:4px; font-size:10px; color:var(--color-gray);">' +
+              '<span style="font-weight:700; color:var(--color-warn);">→ eje Y:</span><span>Poder / influencia (arriba = alta)</span>' +
+              '<span style="font-weight:700; color:var(--color-accent);">→ eje X:</span><span>Interés (derecha = alto)</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      pedagogico('info',
+        '<strong>Freeman (1984)</strong> define stakeholder como "todo individuo o grupo que puede afectar o ser afectado por el cumplimiento de los objetivos de la empresa". En SST esto es operacional: la jerarquía de controles NIOSH, los planes de emergencia y el sistema de gestión SST solo son efectivos si se reconoce y gestiona a cada stakeholder según su poder e interés reales, no según su nombre formal.'
+      );
+
+    card.innerHTML = simCard('Stakeholders de una empresa industrial ecuatoriana', 'Haz clic en un stakeholder para ver sus datos, y en los botones de cuadrante para asignar su estrategia.', body);
+
+    // Eventos
+    card.querySelectorAll('.stakeholder-node, .stakeholder-chip, .mendelow-cell-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sim4_sel = btn.dataset.id || btn.dataset.sel;
+        renderSim4();
+      });
+    });
+    card.querySelectorAll('.mendelow-assign-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sim4_cuadrantes[stake.id] = btn.dataset.cuad;
+        renderSim4();
+      });
+    });
+  }
+
+  /* ========================================================================
+     SIM 5: ROI EN SST
+     ======================================================================== */
+  const SIM5_CONTROLES = [
+    { id: 'costo', etiqueta: 'Costo anual del programa SST', simbolo: 'C', min: 5000, max: 200000, paso: 1000, defecto: 45000, unidad: 'USD' },
+    { id: 'acc', etiqueta: 'Accidentes prevenidos al año', simbolo: 'Ap', min: 0, max: 30, paso: 1, defecto: 6, unidad: 'acc.' },
+    { id: 'costoAcc', etiqueta: 'Costo promedio por accidente', simbolo: 'Ca', min: 1000, max: 30000, paso: 500, defecto: 8500, unidad: 'USD' },
+    { id: 'mult', etiqueta: 'Multiplicador de costos indirectos', simbolo: 'm', min: 1, max: 4, paso: 0.1, defecto: 2, unidad: '×' }
+  ];
+  let sim5_v = { costo: 45000, acc: 6, costoAcc: 8500, mult: 2 };
+
+  function renderSim5() {
+    const card = document.getElementById('sim5-card');
+    const slidersHTML = SIM5_CONTROLES.map(c => {
+      return '<div class="slider-row">' +
+        '<div class="slider-row-header">' +
+          '<div class="slider-row-label">' +
+            '<span class="slider-symbol">' + c.simbolo + '</span>' +
+            '<span class="slider-label-text">' + c.etiqueta + '</span>' +
+          '</div>' +
+          '<span class="slider-value"><span id="sim5-val-' + c.id + '">' + formatNumber(sim5_v[c.id], 1) + '</span> ' + c.unidad + '</span>' +
+        '</div>' +
+        '<input type="range" min="' + c.min + '" max="' + c.max + '" step="' + c.paso + '" value="' + sim5_v[c.id] + '" data-id="' + c.id + '" aria-label="' + c.etiqueta + '" />' +
+      '</div>';
+    }).join('');
+
+    const body = '' +
+      '<div class="grid-2">' +
+        '<div style="display:flex; flex-direction:column; gap:1rem;">' +
+          subH('Variables de entrada') +
+          slidersHTML +
+          '<div id="sim5-calc" style="display:flex; flex-direction:column; gap:4px; border:1px solid rgba(61,110,165,0.3); background:rgba(61,110,165,0.08); border-radius:8px; padding:0.75rem; font-family:var(--font-mono); font-size:12px; color:var(--color-primary);"></div>' +
+        '</div>' +
+        '<div style="display:flex; flex-direction:column; gap:1rem;">' +
+          subH('Visualización de retorno') +
+          '<div class="roi-display" id="sim5-roi"></div>' +
+          '<div style="display:grid; grid-template-columns:1fr; gap:1rem;">' +
+            '<div class="chart-box">' +
+              '<p class="chart-label">Costo vs Beneficio</p>' +
+              '<canvas id="sim5-canvas" width="400" height="160" style="width:100%; height:160px;"></canvas>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="mt-6" style="display:grid; grid-template-columns:1fr; gap:0.75rem;" id="sim5-formulas"></div>' +
+      pedagogico('tip',
+        'El <strong>multiplicador de costos indirectos</strong> captura gastos no obvios: productividad perdida, reemplazo del trabajador lesionado, investigación del accidente, multas, daño reputacional, prima del IESS incrementada y litigios. La OIT lo estima entre 2× y 4× el costo directo. Subestimarlo es el error más común al no aprobar presupuestos de SST.'
+      ) +
+      '<div class="mt-3" id="sim5-msg" style="display:flex; align-items:center; gap:0.5rem; border-radius:6px; padding:0.5rem 0.75rem; font-size:12px;"></div>';
+
+    card.innerHTML = simCard('Retorno sobre la inversión en SST', 'Ajusta los sliders y observa el ROI en tiempo real.', body);
+
+    // Eventos
+    card.querySelectorAll('input[type=range]').forEach(slider => {
+      slider.addEventListener('input', () => {
+        sim5_v[slider.dataset.id] = parseFloat(slider.value);
+        const valSpan = document.getElementById('sim5-val-' + slider.dataset.id);
+        if (valSpan) valSpan.textContent = formatNumber(sim5_v[slider.dataset.id], 1);
+        updateSim5();
+      });
+    });
+    updateSim5();
+  }
+
+  function updateSim5() {
+    const C = sim5_v.costo, Ap = sim5_v.acc, Ca = sim5_v.costoAcc, m = sim5_v.mult;
+    const Bdir = Ap * Ca;
+    const Bind = Bdir * m;
+    const Btot = Bdir + Bind;
+    const roi = C > 0 ? ((Btot - C) / C) * 100 : 0;
+    const porUSD = C > 0 ? Btot / C : 0;
+    const estado = roi < 100 ? 'rojo' : (roi <= 200 ? 'amarillo' : 'verde');
+    const mensaje = roi < 100
+      ? 'Subóptimo: revisa la asignación presupuestaria o la eficacia de los controles.'
+      : (roi <= 200 ? 'Buen retorno: el programa es rentable y sostenible.' : 'Excelente: el programa genera valor superior al promedio (200-400% OIT).');
+
+    document.getElementById('sim5-calc').innerHTML =
+      '<p>B directo = Ap × Ca = ' + formatNumber(Bdir) + ' USD</p>' +
+      '<p>B indirecto = Bdir × m = ' + formatNumber(Bind) + ' USD</p>' +
+      '<p>B total = Bdir + Bind = <strong>' + formatNumber(Btot) + ' USD</strong></p>' +
+      '<p>Por cada USD invertido → <strong>' + porUSD.toFixed(2) + ' USD</strong></p>';
+
+    document.getElementById('sim5-roi').innerHTML =
+      '<p class="roi-label">ROI en SST</p>' +
+      '<p class="roi-value">' + roi.toFixed(1) + '%</p>' +
+      '<div>' + semaphBadge(porUSD.toFixed(2) + ' USD', estado, 'por USD invertido') + '</div>' +
+      '<p class="roi-message">' + mensaje + '</p>';
+
+    // Dibujar canvas
+    drawSim5Chart(C, Btot);
+
+    // Fórmulas
+    document.getElementById('sim5-formulas').innerHTML =
+      formulaBox('B = B directo + B indirecto', 'B directo = accidentes prevenidos × costo accidente. B indirecto = B directo × multiplicador (1 a 4, OIT).',
+        'Ejemplo: ' + Ap + ' × ' + formatNumber(Ca) + ' × ' + m + ' = ' + formatNumber(Btot) + ' USD') +
+      formulaBox('ROI (%) = ((B − C) / C) × 100', 'C = costo del programa. Rango típico OIT: 100% - 400%.',
+        'Ejemplo: (' + formatNumber(Btot) + ' − ' + formatNumber(C) + ') / ' + formatNumber(C) + ' × 100 = ' + roi.toFixed(1) + '%');
+
+    // Mensaje footer
+    const msgDiv = document.getElementById('sim5-msg');
+    if (roi >= 200) {
+      msgDiv.style.background = 'rgba(244,162,97,0.15)';
+      msgDiv.style.color = '#7A4118';
+      msgDiv.innerHTML = svgIcon('check', 16) + '<span>Excelente: este programa supera el ROI promedio de la OIT (200-400%).</span>';
+    } else {
+      msgDiv.style.background = 'rgba(231,111,81,0.15)';
+      msgDiv.style.color = '#7A2A14';
+      msgDiv.innerHTML = svgIcon('x', 16) + '<span>Atención: el ROI está por debajo del promedio OIT (200-400%). Revisa la relación costo/beneficio.</span>';
+    }
+  }
+
+  function drawSim5Chart(C, B) {
+    const canvas = document.getElementById('sim5-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const W = canvas.clientWidth, H = 160;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, W, H);
+
+    const data = [
+      { label: 'C · Costo', value: C, color: '#E76F51' },
+      { label: 'B · Beneficio', value: B, color: '#2A9D8F' }
+    ];
+    const maxVal = Math.max(C, B, 1);
+    const barH = 36;
+    const barGap = 24;
+    const labelW = 110;
+    const padL = 8, padR = 8, padT = 12, padB = 16;
+    const chartW = W - labelW - padL - padR;
+    const chartH = H - padT - padB;
+
+    // Etiquetas eje Y y barras
+    data.forEach((d, i) => {
+      const y = padT + i * (barH + barGap);
+      // Etiqueta
+      ctx.fillStyle = '#1F3A5F';
+      ctx.font = '11px ' + getComputedStyle(document.body).fontFamily;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(d.label, padL, y + barH/2);
+      // Barra
+      const barW = Math.max(2, (d.value / maxVal) * chartW);
+      ctx.fillStyle = d.color;
+      ctx.beginPath();
+      // Rounded rect
+      const x = padL + labelW;
+      const r = 6;
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + barW - r, y);
+      ctx.quadraticCurveTo(x + barW, y, x + barW, y + r);
+      ctx.lineTo(x + barW, y + barH - r);
+      ctx.quadraticCurveTo(x + barW, y + barH, x + barW - r, y + barH);
+      ctx.lineTo(x + r, y + barH);
+      ctx.quadraticCurveTo(x, y + barH, x, y + barH - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.fill();
+      // Valor
+      ctx.fillStyle = '#1F3A5F';
+      ctx.font = 'bold 11px ' + getComputedStyle(document.body).fontFamily;
+      ctx.fillText(formatNumber(d.value) + ' USD', x + barW + 6, y + barH/2);
+    });
+
+    // Grid líneas verticales discretas
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]);
+    for (let i = 1; i <= 4; i++) {
+      const x = padL + labelW + (chartW * i / 4);
+      ctx.beginPath();
+      ctx.moveTo(x, padT);
+      ctx.lineTo(x, padT + chartH);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+  }
+
+  /* ========================================================================
+     SIM 6: HEINRICH / BIRD
+     ======================================================================== */
+  let sim6_modelo = 'heinrich';
+  let sim6_graves = 1;
+
+  function renderSim6() {
+    const card = document.getElementById('sim6-card');
+    let niveles, totalEventos, visibles, ocultos;
+    if (sim6_modelo === 'heinrich') {
+      const leves = sim6_graves * 29;
+      const casi = sim6_graves * 300;
+      totalEventos = sim6_graves + leves + casi;
+      visibles = sim6_graves;
+      ocultos = totalEventos - visibles;
+      niveles = [
+        { nombre: 'Accidentes graves', cantidad: sim6_graves, ratio: '1', color: '#7A1A0A', descripcion: 'Accidentes con baja médica > 1 día, lesiones incapacitantes o mortales.' },
+        { nombre: 'Accidentes leves', cantidad: leves, ratio: '29', color: '#E76F51', descripcion: 'Heridas menores con primeros auxilios, sin baja médica significativa.' },
+        { nombre: 'Casi-accidentes (incidentes sin lesión)', cantidad: casi, ratio: '300', color: '#F4A261', descripcion: 'Eventos donde nadie se lesionó por azar. NO reportados en la mayoría de empresas.' }
+      ];
+    } else {
+      const menores = sim6_graves * 10;
+      const danos = sim6_graves * 30;
+      const incidentes = sim6_graves * 600;
+      totalEventos = sim6_graves + menores + danos + incidentes;
+      visibles = sim6_graves;
+      ocultos = totalEventos - sim6_graves;
+      niveles = [
+        { nombre: 'Accidentes graves', cantidad: sim6_graves, ratio: '1', color: '#7A1A0A', descripcion: 'Lesión incapacitante o muerte.' },
+        { nombre: 'Accidentes menores', cantidad: menores, ratio: '10', color: '#E76F51', descripcion: 'Lesión con baja médica corta, recuperable.' },
+        { nombre: 'Daños a propiedad', cantidad: danos, ratio: '30', color: '#F4A261', descripcion: 'Pérdida económica por daño a equipos, instalaciones o producto.' },
+        { nombre: 'Incidentes sin lesión ni daño', cantidad: incidentes, ratio: '600', color: '#3D6EA5', descripcion: 'Eventos imperceptibles o subreportados que preceden a la materialización del daño.' }
+      ];
+    }
+
+    const pctVisible = totalEventos > 0 ? (visibles / totalEventos) * 100 : 0;
+    const pctOculto = totalEventos > 0 ? (ocultos / totalEventos) * 100 : 0;
+    const maxCantidad = Math.max(...niveles.map(n => n.cantidad));
+
+    const nivelesHTML = niveles.map(n => {
+      const ancho = (n.cantidad / maxCantidad) * 100;
+      return '<div style="width:100%; padding-left:' + ((100 - ancho) / 2) + '%; padding-right:' + ((100 - ancho) / 2) + '%;">' +
+        '<div class="pyramid-inverted-level" style="background-color:' + n.color + '; width:' + ancho + '%; margin:0 auto;">' +
+          '<span style="font-size:10px; font-weight:600;">' + n.nombre + '</span>' +
+          '<span style="font-family:var(--font-mono); font-size:12px; font-weight:700;">' + formatNumber(n.cantidad) + '</span>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    const detallesHTML = niveles.map(n => {
+      return '<div style="display:flex; gap:0.75rem; border:1px solid var(--color-border); background:white; border-radius:8px; padding:0.75rem;">' +
+        '<span style="display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; flex-shrink:0; border-radius:6px; background-color:' + n.color + '; color:white; font-family:var(--font-mono); font-size:14px; font-weight:700;">' + n.ratio + '</span>' +
+        '<div style="flex:1;">' +
+          '<p style="font-size:12px; font-weight:700; color:var(--color-primary);">' + n.nombre + ' · <span style="font-family:var(--font-mono);">' + formatNumber(n.cantidad) + '</span></p>' +
+          '<p style="font-size:11px; color:#475569;">' + n.descripcion + '</p>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    const body = '' +
+      '<div class="grid-2">' +
+        '<div style="display:flex; flex-direction:column; gap:1rem;">' +
+          '<div>' +
+            subH('Modelo') +
+            '<div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">' +
+              '<button class="modelo-btn ' + (sim6_modelo === 'heinrich' ? 'active' : '') + '" data-modelo="heinrich" style="border-radius:8px; border:1px solid ' + (sim6_modelo === 'heinrich' ? 'var(--color-primary)' : 'var(--color-border)') + '; background:' + (sim6_modelo === 'heinrich' ? 'rgba(31,58,95,0.1)' : 'white') + '; padding:0.5rem 0.75rem; text-align:left; transition:all 0.2s;">' +
+                '<p style="font-size:14px; font-weight:700; color:var(--color-primary);">Heinrich (1931)</p>' +
+                '<p style="font-size:12px; color:#475569;">Proporción 1 : 29 : 300</p>' +
+              '</button>' +
+              '<button class="modelo-btn ' + (sim6_modelo === 'bird' ? 'active' : '') + '" data-modelo="bird" style="border-radius:8px; border:1px solid ' + (sim6_modelo === 'bird' ? 'var(--color-primary)' : 'var(--color-border)') + '; background:' + (sim6_modelo === 'bird' ? 'rgba(31,58,95,0.1)' : 'white') + '; padding:0.5rem 0.75rem; text-align:left; transition:all 0.2s;">' +
+                '<p style="font-size:14px; font-weight:700; color:var(--color-primary);">Bird (1969)</p>' +
+                '<p style="font-size:12px; color:#475569;">Proporción 1 : 10 : 30 : 600</p>' +
+              '</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="slider-row">' +
+            '<div class="slider-row-header">' +
+              '<span class="slider-symbol" style="font-size:12px; font-weight:700; color:var(--color-primary);">N° accidentes graves</span>' +
+              '<span class="slider-value">' + sim6_graves + '</span>' +
+            '</div>' +
+            '<input type="range" min="1" max="20" step="1" value="' + sim6_graves + '" id="sim6-graves-slider" aria-label="Número de accidentes graves" />' +
+            '<p class="slider-help">Datos base de Ecuador 2023: ~140 accidentes mortales. Si aplicamos Bird → ~84.000 incidentes sin lesión.</p>' +
+          '</div>' +
+          '<div class="iceberg-calc">' +
+            '<p>Eventos totales: <strong>' + formatNumber(totalEventos) + '</strong></p>' +
+            '<p>Visibles (graves): <strong>' + visibles + '</strong> (' + pctVisible.toFixed(1) + '%)</p>' +
+            '<p>Sumergidos: <strong>' + formatNumber(ocultos) + '</strong> (' + pctOculto.toFixed(1) + '%)</p>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex; flex-direction:column; gap:1rem;">' +
+          subH('Visualización del iceberg') +
+          '<div class="pyramid-inverted">' +
+            nivelesHTML +
+            '<p style="margin-top:0.5rem; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:#475569;">Cima = graves · Base = casi-accidentes</p>' +
+          '</div>' +
+          '<div class="iceberg-wrap">' +
+            '<div class="iceberg-canvas-wrap" id="sim6-iceberg"></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="mt-6" style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">' + detallesHTML + '</div>' +
+      '<div class="mt-4" id="sim6-formula"></div>' +
+      pedagogico('alerta',
+        '<strong>Lección ingenieril:</strong> por cada accidente grave que el sistema registra, existen <strong>' + formatNumber(ocultos) + '</strong> eventos invisibles (casi-accidentes, condiciones inseguras, actos inseguros) que el sistema <strong>NO</strong> registra. La prevención eficaz actúa en la base de la pirámide: si los casi-accidentes se reportan y corrigen, la cima (lesiones graves) disminuye sin necesidad de esperar el accidente. Implementar un sistema confidencial de reporte de casi-accidentes es la palanca más rentable en SST.'
+      );
+
+    card.innerHTML = simCard('Pirámide de accidentes interactiva', 'Cambia el modelo, ajusta el número de accidentes graves y observa el iceberg.', body);
+
+    // Eventos
+    card.querySelectorAll('.modelo-btn').forEach(b => {
+      b.addEventListener('click', () => { sim6_modelo = b.dataset.modelo; renderSim6(); });
+    });
+    const gravesSlider = document.getElementById('sim6-graves-slider');
+    if (gravesSlider) {
+      gravesSlider.addEventListener('input', () => {
+        sim6_graves = parseInt(gravesSlider.value);
+        renderSim6();
+      });
+    }
+    // Dibujar iceberg
+    drawSim6Iceberg(pctVisible, pctOculto);
+    // Actualizar fórmula
+    document.getElementById('sim6-formula').innerHTML = formulaBox(
+      sim6_modelo === 'heinrich' ? 'graves : leves : casi-accidentes = 1 : 29 : 300' : 'graves : menores : daños : incidentes = 1 : 10 : 30 : 600',
+      'Proporción empírica. Cada nivel superior emerge de la base de eventos sin lesión.',
+      'Con ' + sim6_graves + ' accidente(s) grave(s) → ' + formatNumber(totalEventos) + ' eventos totales en el sistema. Solo ' + pctVisible.toFixed(1) + '% es visible en estadísticas oficiales.'
+    );
+  }
+
+  function drawSim6Iceberg(pctVisible, pctOculto) {
+    const wrap = document.getElementById('sim6-iceberg');
+    if (!wrap) return;
+    // Línea de flotación
+    let html = '' +
+      '<div style="position:absolute; left:0; right:0; top:14%; border-top:2px dashed rgba(15,23,42,0.4);"></div>' +
+      '<div style="position:absolute; left:4px; top:4px; background:rgba(255,255,255,0.8); padding:1px 4px; font-size:9px; font-weight:700; color:var(--color-dark);">Nivel del mar · ' + pctVisible.toFixed(1) + '% visible</div>';
+    // Iceberg visible (cima pequeña)
+    const visW = Math.max(8, pctVisible * 0.8);
+    html += '<div style="position:absolute; left:' + (50 - visW/2) + '%; width:' + visW + '%; top:5%; height:9%; background:white; border-radius:6px 6px 0 0; box-shadow:0 2px 4px rgba(0,0,0,0.15);"></div>';
+    // Iceberg sumergido (trapecio)
+    html += '<div style="position:absolute; left:25%; right:25%; top:14%; height:82%; background-color:#1F3A5F; opacity:0.85; clip-path:polygon(15% 0%, 85% 0%, 100% 95%, 0% 95%);"></div>';
+    // Badge sumergido
+    html += '<div style="position:absolute; bottom:8px; right:8px; background:rgba(31,58,95,0.8); color:white; padding:4px 8px; border-radius:4px; font-size:10px; font-weight:700;">' + pctOculto.toFixed(1) + '% sumergido</div>';
+    wrap.innerHTML = html;
+  }
+
+  /* ========================================================================
+     SIM 7: DISTRIBUCIÓN DE POISSON
+     ======================================================================== */
+  let sim7_lambda = 0.5;
+  let sim7_anios = 5;
+
+  function renderSim7() {
+    const card = document.getElementById('sim7-card');
+    const ks = [0,1,2,3,4,5];
+    const probs = ks.map(k => ({ k, P: parseFloat((poissonPMF(k, sim7_lambda) * 100).toFixed(2)) }));
+    const p0 = Math.exp(-sim7_lambda);
+    const pAlMenosUno = 1 - p0;
+    const pAlMenosUnoN = 1 - Math.pow(p0, sim7_anios);
+    const kMasProbable = Math.floor(sim7_lambda);
+    const estado = pAlMenosUnoN <= 0.30 ? 'verde' : (pAlMenosUnoN <= 0.60 ? 'amarillo' : 'rojo');
+
+    const body = '' +
+      '<div class="grid-2">' +
+        '<div style="display:flex; flex-direction:column; gap:1rem;">' +
+          subH('Parámetros') +
+          '<div class="slider-row">' +
+            '<div class="slider-row-header">' +
+              '<div>' +
+                '<p class="slider-symbol" style="font-size:12px;">λ</p>' +
+                '<p style="font-size:11px; color:#475569;">Tasa media de accidentes/año</p>' +
+              '</div>' +
+              '<span class="slider-value" style="font-size:18px; padding:4px 12px;">' + sim7_lambda.toFixed(2) + '</span>' +
+            '</div>' +
+            '<input type="range" min="0.1" max="5" step="0.05" value="' + sim7_lambda + '" id="sim7-lambda-slider" aria-label="Tasa lambda" />' +
+            '<p class="slider-help">Ejemplo: λ = 0,3 → 0,3 muertes/año equivale a 3 muertes cada 10 años.</p>' +
+          '</div>' +
+          '<div class="slider-row">' +
+            '<div class="slider-row-header">' +
+              '<div>' +
+                '<p class="slider-symbol" style="font-size:12px;">N</p>' +
+                '<p style="font-size:11px; color:#475569;">Horizonte temporal (años)</p>' +
+              '</div>' +
+              '<span class="slider-value" style="font-size:18px; padding:4px 12px;">' + sim7_anios + '</span>' +
+            '</div>' +
+            '<input type="range" min="1" max="20" step="1" value="' + sim7_anios + '" id="sim7-anios-slider" aria-label="Horizonte en años" />' +
+            '<p class="slider-help">Horizonte de planificación del programa SST o vida útil del proyecto.</p>' +
+          '</div>' +
+          '<div style="display:flex; flex-direction:column; gap:0.5rem;">' +
+            poissonResult('P(0 accidentes en 1 año)', 'e^(-λ)', (p0 * 100).toFixed(2) + '%', '#2A9D8F', false) +
+            poissonResult('P(≥1 accidente en 1 año)', '1 − e^(-λ)', (pAlMenosUno * 100).toFixed(2) + '%', '#F4A261', false) +
+            poissonResult('P(≥1 accidente en ' + sim7_anios + ' años)', '1 − (e^(-λ))^' + sim7_anios, (pAlMenosUnoN * 100).toFixed(2) + '%', '#E76F51', true) +
+            '<p class="poisson-msg"><span class="poisson-msg-badge ' + estado + '">En ' + sim7_anios + ' años hay un <strong>' + (pAlMenosUnoN * 100).toFixed(1) + '%</strong> de probabilidad de al menos 1 accidente.</span></p>' +
+          '</div>' +
+        '</div>' +
+        '<div>' +
+          subH('Distribución de probabilidad P(k)') +
+          '<div style="border:1px solid var(--color-border); background:white; border-radius:12px; padding:0.75rem;">' +
+            '<canvas id="sim7-canvas" width="500" height="280" style="width:100%; height:280px;"></canvas>' +
+            '<p style="margin-top:0.5rem; text-align:center; font-size:10px; color:var(--color-gray);">k más probable (moda) = ' + kMasProbable + ' accidente(s) · Suma P(k) ≈ 100% (k = 0 a 5).</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="mt-6" style="display:grid; grid-template-columns:1fr; gap:0.75rem;" id="sim7-formulas"></div>' +
+      pedagogico('alerta',
+        '<strong>Paradoja del ingeniero:</strong> con λ = 0,3 muertes/año la probabilidad de ningún accidente <em>en un año</em> es alta (74%), pero en <strong>10 años</strong> la probabilidad de al menos una muerte salta a <strong>95%</strong>. Eventos raros se vuelven casi seguros en horizontes largos. Por eso las normas SST exigen ALARP (riesgo tan bajo como sea razonablemente practicable) y no un umbral "aceptable" estático.'
+      );
+
+    card.innerHTML = simCard('Modelo probabilístico de Poisson', 'Ajusta λ (tasa anual) y el horizonte temporal en años.', body);
+
+    // Eventos
+    const lSlider = document.getElementById('sim7-lambda-slider');
+    lSlider.addEventListener('input', () => { sim7_lambda = parseFloat(lSlider.value); renderSim7(); });
+    const aSlider = document.getElementById('sim7-anios-slider');
+    aSlider.addEventListener('input', () => { sim7_anios = parseInt(aSlider.value); renderSim7(); });
+
+    // Dibujar canvas
+    drawSim7Chart(probs);
+
+    // Fórmulas
+    document.getElementById('sim7-formulas').innerHTML =
+      formulaBox('P(k) = (λ^k × e^(-λ)) / k!', 'λ = tasa media, e = 2,71828, k! = factorial de k. Modelo de eventos raros, independientes y homogéneos en el tiempo.',
+        'Ejemplo λ=' + sim7_lambda.toFixed(2) + ', k=2: P = (' + sim7_lambda.toFixed(2) + '² × e^-' + sim7_lambda.toFixed(2) + ') / 2! = ' + (poissonPMF(2, sim7_lambda) * 100).toFixed(2) + '%') +
+      formulaBox('P(≥1 en N años) = 1 − (e^(-λ))^N', 'Probabilidad de al menos un evento en un horizonte de N años. Aumenta con N incluso con λ pequeño.',
+        'Ejemplo λ=' + sim7_lambda.toFixed(2) + ', N=' + sim7_anios + ': 1 − (e^-' + sim7_lambda.toFixed(2) + ')^' + sim7_anios + ' = ' + (pAlMenosUnoN * 100).toFixed(2) + '%');
+  }
+
+  function poissonResult(etiqueta, formula, valor, color, destacado) {
+    return '<div class="poisson-result ' + (destacado ? 'destacado' : '') + '" style="' + (destacado ? 'border-color:' + color + '; background:' + color + '20;' : '') + '">' +
+      '<div>' +
+        '<p class="poisson-result-label">' + etiqueta + '</p>' +
+        '<code class="poisson-result-formula">' + formula + '</code>' +
+      '</div>' +
+      '<span class="poisson-result-value" style="background-color:' + color + ';">' + valor + '</span>' +
+    '</div>';
+  }
+
+  function drawSim7Chart(data) {
+    const canvas = document.getElementById('sim7-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const W = canvas.clientWidth, H = 280;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 32, padR = 12, padT = 16, padB = 36;
+    const chartW = W - padL - padR;
+    const chartH = H - padT - padB;
+    const maxP = Math.max(...data.map(d => d.P), 1);
+
+    function colorBar(p) {
+      if (p >= 40) return '#1F3A5F';
+      if (p >= 20) return '#3D6EA5';
+      if (p >= 10) return '#2A9D8F';
+      if (p >= 5) return '#F4A261';
+      return '#E76F51';
+    }
+
+    // Grid horizontal
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]);
+    for (let i = 0; i <= 5; i++) {
+      const y = padT + (chartH * i / 5);
+      ctx.beginPath();
+      ctx.moveTo(padL, y);
+      ctx.lineTo(padL + chartW, y);
+      ctx.stroke();
+      // Y label
+      ctx.fillStyle = '#475569';
+      ctx.font = '10px ' + getComputedStyle(document.body).fontFamily;
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(Math.round(maxP - (maxP * i / 5)) + '%', padL - 4, y);
+    }
+    ctx.setLineDash([]);
+
+    // Línea de referencia máxima
+    const maxY = padT + (chartH * (1 - Math.max(...data.map(d => d.P)) / maxP));
+    ctx.strokeStyle = '#1F3A5F';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(padL, maxY);
+    ctx.lineTo(padL + chartW, maxY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#1F3A5F';
+    ctx.font = '9px ' + getComputedStyle(document.body).fontFamily;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('Máxima P(k)', padL + 4, maxY - 2);
+
+    // Barras
+    const barW = chartW / data.length;
+    const barInnerW = barW * 0.6;
+    data.forEach((d, i) => {
+      const x = padL + i * barW + (barW - barInnerW) / 2;
+      const barH = (d.P / maxP) * chartH;
+      const y = padT + chartH - barH;
+      ctx.fillStyle = colorBar(d.P);
+      // Rounded top
+      const r = Math.min(6, barInnerW / 2, barH / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + barInnerW - r, y);
+      ctx.quadraticCurveTo(x + barInnerW, y, x + barInnerW, y + r);
+      ctx.lineTo(x + barInnerW, y + barH);
+      ctx.lineTo(x, y + barH);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.fill();
+      // X label
+      ctx.fillStyle = '#475569';
+      ctx.font = '11px ' + getComputedStyle(document.body).fontFamily;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(d.k, x + barInnerW / 2, padT + chartH + 4);
+      // Value label
+      ctx.fillStyle = '#1F3A5F';
+      ctx.font = 'bold 10px ' + getComputedStyle(document.body).fontFamily;
+      ctx.fillText(d.P.toFixed(1) + '%', x + barInnerW / 2, y - 12);
+    });
+
+    // Axis labels
+    ctx.fillStyle = '#1F3A5F';
+    ctx.font = '10px ' + getComputedStyle(document.body).fontFamily;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('k (número de accidentes)', padL + chartW / 2, H - 2);
+    ctx.save();
+    ctx.translate(8, padT + chartH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('P(%)', 0, 0);
+    ctx.restore();
+  }
+
+  /* ========================================================================
+     SIM 8: JERARQUÍA NIOSH
+     ======================================================================== */
+  const SIM8_NIVELES = [
+    { id: 'eliminacion', nombre: 'Eliminación', orden: 1, eficacia: '100% (ideal)', eficaciaNum: 100, color: '#1F3A5F', icon: 'trash',
+      definicion: 'Rediseñar el proceso para eliminar físicamente el peligro en su fuente. No existe exposición porque el peligro ha dejado de existir.',
+      ejemplos: 'Sector camaronero: reemplazar el uso de cloro gas por sistema de ozono para desinfección, eliminando el peligro de nube tóxica. Sector petrolero: automatización remota de válvulas para eliminar exposición del operador al punto de fuga.' },
+    { id: 'sustitucion', nombre: 'Sustitución', orden: 2, eficacia: '85% – 95%', eficaciaNum: 90, color: '#3D6EA5', icon: 'refresh',
+      definicion: 'Reemplazar el agente peligroso por otro menos peligroso que cumpla la misma función técnica. Mantiene la exposición pero reduce la severidad.',
+      ejemplos: 'Cambiar solventes con benceno (cancerígeno) por solventes a base de agua. Sustituir pinturas con plomo por pinturas base agua. Reemplazar asbestos por fibra de vidrio en aislamientos. Cambiar amoníaco anhidro por urea en refrigeración industrial.' },
+    { id: 'ingenieria', nombre: 'Controles de Ingeniería', orden: 3, eficacia: '70% – 90%', eficaciaNum: 80, color: '#2A9D8F', icon: 'cog',
+      definicion: 'Aislar a las personas del peligro mediante barreras físicas, equipos de control, encerramiento, ventilación, instrumentación de seguridad y diseño ergonómico.',
+      ejemplos: 'Guardas mecánicas en puntos de operación de máquinas (NSPAI). Sistema de bloqueo y etiquetado LOTO. Ventilación por extracción localizada en soldadura. Barandillas y redes anti-caída en construcción. Sistema contra incendios (NFPA 30). Encerramiento de áreas ruidosas (cámaras de generadores).' },
+    { id: 'administrativo', nombre: 'Controles Administrativos', orden: 4, eficacia: '30% – 50%', eficaciaNum: 40, color: '#F4A261', icon: 'clipboard',
+      definicion: 'Cambiar la forma en que las personas trabajan: procedimientos, capacitación, rotación, permisos de trabajo, señalización, inspecciones, gestión documental.',
+      ejemplos: 'Procedimiento de trabajo en caliente con permiso. Capacitación en SST (acuerdo 0323). Rotación de personal expuesto a ruido (>85 dB). Señalización de áreas. Inspecciones planeadas. Análisis de seguridad en la tarea (AST). Investigación de accidentes en 24 h.' },
+    { id: 'epp', nombre: 'EPP - Equipo de Protección Personal', orden: 5, eficacia: '10% – 25%', eficaciaNum: 20, color: '#E76F51', icon: 'hardhat',
+      definicion: 'Última barrera. Equipos individuales que el trabajador porta sobre su cuerpo para reducir la exposición residual cuando todos los controles anteriores ya están implementados.',
+      ejemplos: 'Casco dieléctrico, gafas contra impacto, respirador con filtro para cloro, guantes nitrilo, botas dieléctricas, arnés de cuerpo completo, protectores auditivos tipo tapón o orejera, ropa ignífuga.' }
+  ];
+  let sim8_sel = 'eliminacion';
+
+  function renderSim8() {
+    const card = document.getElementById('sim8-card');
+    const nivel = SIM8_NIVELES.find(n => n.id === sim8_sel);
+    const ordenados = SIM8_NIVELES.slice().sort((a, b) => a.orden - b.orden);
+
+    const nivelesHTML = ordenados.map(n => {
+      const base = 100 - (n.orden - 1) * 22;
+      const isActive = sim8_sel === n.id;
+      return '<button class="nihos-level ' + (isActive ? 'active' : '') + '" data-id="' + n.id + '" ' +
+        'style="width:' + base + '%; background-color:' + (isActive ? n.color : n.color + 'CC') + '; box-shadow:' + (isActive ? '0 6px 16px -4px ' + n.color + '80' : '0 2px 4px -2px ' + n.color + '50') + ';" ' +
+        'aria-pressed="' + isActive + '" aria-label="Nivel ' + n.nombre + '">' +
+          '<span style="display:flex; align-items:center; gap:0.5rem;">' + svgIcon(n.icon, 18) + '<span style="font-size:12px; font-weight:700;">' + n.nombre + '</span></span>' +
+          '<span style="font-family:var(--font-mono); font-size:10px; font-weight:600;">' + n.eficacia + '</span>' +
+        '</button>';
+    }).join('');
+
+    const body = '' +
+      '<div class="grid-2">' +
+        '<div>' +
+          subH('Pirámide invertida (cima = mejor)') +
+          '<div style="display:flex; flex-direction:column; align-items:center; gap:6px; background:var(--color-light); border-radius:12px; padding:1rem;">' +
+            nivelesHTML +
+            '<div style="margin-top:0.75rem; width:100%; display:flex; align-items:center; justify-content:space-between; padding:0 4px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#475569;">' +
+              '<span style="display:flex; align-items:center; gap:4px;"><span style="display:inline-block; width:8px; height:8px; border-radius:9999px; background:var(--color-primary);"></span>Mayor eficacia</span>' +
+              '<span style="display:flex; align-items:center; gap:4px;">Menor eficacia<span style="display:inline-block; width:8px; height:8px; border-radius:9999px; background:var(--color-warn);"></span></span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex; flex-direction:column;">' +
+          '<div class="detail-card" style="display:flex; flex-direction:column;">' +
+            '<div class="detail-card-header" style="background-color:' + nivel.color + ';">' +
+              '<span>' + svgIcon(nivel.icon, 20) + '</span>' +
+              '<h4 class="detail-card-title">' + nivel.nombre + '</h4>' +
+              '<span class="detail-card-badge">Nivel ' + nivel.orden + '/5</span>' +
+            '</div>' +
+            '<div class="detail-card-body">' +
+              '<div class="detail-section">' + subH('Definición') + '<p>' + nivel.definicion + '</p></div>' +
+              '<div class="detail-section">' +
+                subH('Eficacia relativa') +
+                '<div style="display:flex; align-items:center; gap:0.5rem;">' +
+                  '<div class="nihos-efficacy-bar">' +
+                    '<div class="nihos-efficacy-fill" style="width:' + nivel.eficaciaNum + '%; background-color:' + nivel.color + ';"></div>' +
+                  '</div>' +
+                  '<span style="font-family:var(--font-mono); font-size:14px; font-weight:700; color:white; background-color:' + nivel.color + '; padding:2px 8px; border-radius:4px;">' + nivel.eficacia + '</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="detail-section">' + subH('Ejemplos en industria ecuatoriana') + '<p>' + nivel.ejemplos + '</p></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      pedagogico('alerta',
+        '<strong>El EPP es el ÚLTIMO recurso, no el primero.</strong> Es el control menos eficaz (10-25%) porque depende de que el trabajador lo use correctamente, lo mantenga en buen estado y no lo retire por comodidad. En SST industrial se prioriza la inversión en eliminación, sustitución e ingeniería: son controles <em>pasivos</em> que protegen a todos, sin requerir acción individual. El EPP complementa, no sustituye.'
+      ) +
+      '<div class="mt-3" style="display:flex; align-items:flex-start; gap:0.5rem; border:1px solid rgba(42,157,143,0.3); background:rgba(42,157,143,0.08); border-radius:8px; padding:0.75rem; font-size:12px; color:#1F6F62;">' +
+        svgIcon('check', 16) +
+        '<span>Regla práctica de decisión NIOSH: si un peligro puede ser eliminado o sustituido, no se debe recurrir a controles inferiores. Si no se puede eliminar, se aplica ingeniería. Si queda exposición residual, se complementa con administrativos y EPP. Documentar el análisis en el IPERC / ARO justifica la inversión ante auditoría ISO 45001.</span>' +
+      '</div>';
+
+    card.innerHTML = simCard('Jerarquía de controles interactiva', 'Haz clic en cada nivel para ver su definición, eficacia y ejemplos en empresa industrial ecuatoriana.', body);
+
+    // Eventos
+    card.querySelectorAll('.nihos-level').forEach(btn => {
+      btn.addEventListener('click', () => { sim8_sel = btn.dataset.id; renderSim8(); });
+    });
+  }
+
+  /* ========================================================================
+     SIM 9: QUIZ DE AUTOEVALUACIÓN
+     ======================================================================== */
+  const SIM9_PREGUNTAS = [
+    { id: 1, tema: 'Concepto de RSC',
+      enunciado: 'Según Carroll (1979), la Responsabilidad Social Corporativa es:',
+      opciones: [
+        'Una donación voluntaria que la empresa hace cuando tiene utilidades extras.',
+        'La suma de cuatro responsabilidades: económica, legal, ética y filantrópica.',
+        'El cumplimiento estricto de las normas ambientales del país.',
+        'La gestión orientada únicamente a maximizar el valor para los accionistas.'
+      ],
+      correcta: 1,
+      explicacion: 'Carroll (1979) definió la RSC como una pirámide de cuatro niveles interdependientes: económica (base), legal, ética y filantrópica (cima). La RSC no se limita a filantropía ni a cumplimiento legal.'
+    },
+    { id: 2, tema: 'Definición clásica de Stakeholder',
+      enunciado: 'Bowen (1953) y Freeman (1984) caracterizan a un stakeholder como:',
+      opciones: [
+        'Cualquier persona que tenga acciones de la empresa.',
+        'Todo individuo o grupo que pueda afectar o ser afectado por el cumplimiento de los objetivos de la empresa.',
+        'Solo los trabajadores y accionistas con contrato formal vigente.',
+        'Los proveedores y clientes que aparecen en el estado de resultados.'
+      ],
+      correcta: 1,
+      explicacion: 'Freeman (1984) define stakeholder como "todo individuo o grupo que puede afectar o ser afectado por el cumplimiento de los objetivos de la empresa". Incluye internos y externos, primarios y secundarios.'
+    },
+    { id: 3, tema: 'Ética empresarial',
+      enunciado: 'La ética basada en deberes y reglas universales (categorías kantianas) corresponde a:',
+      opciones: [
+        'Utilitarismo (maximiza el bienestar agregado).',
+        'Deontología (cumplir el deber aunque las consecuencias sean negativas).',
+        'Ética de virtudes (cultivar el carácter moral del agente).',
+        'Pragmatismo moral (lo útil es lo bueno).'
+      ],
+      correcta: 1,
+      explicacion: 'La deontología, fundada por Immanuel Kant, sostiene que ciertos deberes son universales y deben cumplirse independientemente de las consecuencias. En SST aplica: NO se puede aceptar un riesgo inaceptable aunque sea "rentable" (deber moral sobre cálculo utilitarista).'
+    },
+    { id: 4, tema: 'Pirámide de Carroll',
+      enunciado: 'En la pirámide de Carroll, ¿cuál es la BASE (nivel más amplio y fundamental)?',
+      opciones: [
+        'Responsabilidad filantrópica.',
+        'Responsabilidad ética.',
+        'Responsabilidad legal.',
+        'Responsabilidad económica.'
+      ],
+      correcta: 3,
+      explicacion: 'La base es la económica: sin rentabilidad no hay empleo, impuestos, inversión en SST ni filantropía posible. La cima (nivel más estrecho) es la filantrópica, que es discrecional.'
+    },
+    { id: 5, tema: 'Norma ISO 26000',
+      enunciado: 'Sobre ISO 26000:2010, es correcto afirmar que:',
+      opciones: [
+        'Es una norma certificable por entidades acreditadas como ISO 9001.',
+        'Es una guía de responsabilidad social no certificable, con 7 principios y 7 materias.',
+        'Reemplaza a ISO 45001 para el sistema de gestión SST.',
+        'Solo aplica a empresas multinacionales con más de 250 trabajadores.'
+      ],
+      correcta: 1,
+      explicacion: 'ISO 26000 es una GUÍA (no norma certificable). Define 7 principios (rendición de cuentas, transparencia, comportamiento ético, respeto a los intereses, respeto al Estado de derecho, respeto a los derechos humanos, respeto a la normativa internacional) y 7 materias fundamentales: gobernanza, derechos humanos, prácticas laborales, medio ambiente, prácticas justas, asuntos del consumidor, participación y desarrollo de la comunidad.'
+    },
+    { id: 6, tema: 'Norma ISO 45001',
+      enunciado: 'ISO 45001:2018 se diferencia de su predecesora OHSAS 18001 principalmente en:',
+      opciones: [
+        'Es más corta y elimina el ciclo PHVA.',
+        'Adopta la estructura de alto nivel (Anexo SL) y enfoque de riesgo, no solo cumplimiento.',
+        'Solo aplica a empresas europeas.',
+        'Es certificable únicamente por el IESS en Ecuador.'
+      ],
+      correcta: 1,
+      explicacion: 'ISO 45001:2018 adopta la estructura de alto nivel (Annex SL) común con ISO 9001:2015 e ISO 14001:2015, lo que facilita la integración. Cambia de enfoque reactivo a enfoque proactivo basado en riesgo. Reemplaza formalmente a OHSAS 18001:2007. En Ecuador es certificable por entes como Bureau Veritas, SGS, TÜV.'
+    },
+    { id: 7, tema: 'Marco legal ecuatoriano',
+      enunciado: 'El IESS CD 513 (2013) establece la obligación del Comité Paritario de Seguridad cuando la empresa tenga:',
+      opciones: ['10 o más trabajadores.', '15 o más trabajadores.', '25 o más trabajadores.', '50 o más trabajadores.'],
+      correcta: 1,
+      explicacion: 'El CD 513 establece que las empresas con 15 o más trabajadores deben conformar el Comité Paritario de Seguridad, integrado por 3 representantes del empleador y 3 de los trabajadores. Registra accidentes en el formulario 102 del IESS y su siniestralidad ajusta la prima del seguro de riesgos.'
+    },
+    { id: 8, tema: 'Índices de siniestralidad',
+      enunciado: 'Una empresa tiene N=4 accidentes con baja y H=506.880 horas-hombre/año. Su Índice de Frecuencia (IF) es:',
+      opciones: ['0,79', '7,89', '78,9', '789'],
+      correcta: 1,
+      explicacion: 'IF = (N × 10⁶) / H = (4 × 1.000.000) / 506.880 = 7,89 accidentes por millón de horas-hombre. Está por encima del benchmark ecuatoriano (5,2).'
+    },
+    { id: 9, tema: 'ROI en SST',
+      enunciado: 'Un programa SST cuesta C = USD 45.000/año y previene 6 accidentes (costo USD 8.500 c/u). Con multiplicador de costos indirectos m = 2, ¿cuál es el ROI?',
+      opciones: ['13%', '100%', '240%', '560%'],
+      correcta: 2,
+      explicacion: 'B directo = 6 × 8.500 = USD 51.000. B indirecto = 51.000 × 2 = USD 102.000. B total = 153.000. ROI = ((153.000 − 45.000) / 45.000) × 100 = 240%. Es un retorno excelente dentro del rango OIT (200%-400%).'
+    },
+    { id: 10, tema: 'Jerarquía de controles NIOSH',
+      enunciado: 'Según la jerarquía NIOSH, el control MÁS eficaz es y el MENOS eficaz es:',
+      opciones: [
+        'Más: ingeniería / Menos: EPP.',
+        'Más: administrativo / Menos: sustitución.',
+        'Más: eliminación / Menos: EPP.',
+        'Más: EPP / Menos: eliminación.'
+      ],
+      correcta: 2,
+      explicacion: 'La jerarquía NIOSH ordena de mayor a menor eficacia: 1) Eliminación (100% ideal), 2) Sustitución (85-95%), 3) Ingeniería (70-90%), 4) Administrativo (30-50%), 5) EPP (10-25%). El EPP es el último recurso, no el primero.'
+    }
+  ];
+
+  let sim9_respuestas = {};
+  let sim9_reveladas = {};
+  let sim9_finalizado = false;
+
+  function renderSim9() {
+    const card = document.getElementById('sim9-card');
+    let body;
+    if (!sim9_finalizado) {
+      const respondidas = Object.keys(sim9_reveladas).length;
+      const progreso = Math.round((respondidas / SIM9_PREGUNTAS.length) * 100);
+
+      body = '' +
+        '<div class="quiz-progress-wrap">' +
+          '<div class="quiz-progress-head">' +
+            '<span class="left">Respondidas: ' + respondidas + ' / ' + SIM9_PREGUNTAS.length + '</span>' +
+            '<span class="right">' + progreso + '%</span>' +
+          '</div>' +
+          '<div class="quiz-progress-track"><div class="quiz-progress-fill" style="width:' + progreso + '%;"></div></div>' +
+        '</div>' +
+        '<div>' +
+          SIM9_PREGUNTAS.map((p, i) => {
+            const rev = !!sim9_reveladas[p.id];
+            const sel = sim9_respuestas[p.id];
+            return '<article class="quiz-question">' +
+              '<div class="quiz-question-head">' +
+                '<div>' +
+                  '<span class="quiz-question-num">P' + (i + 1) + '.</span>' +
+                  '<span class="quiz-question-tag">' + p.tema + '</span>' +
+                '</div>' +
+                (rev ? '<span class="quiz-badge ' + (sel === p.correcta ? 'correct' : 'incorrect') + '">' + svgIcon(sel === p.correcta ? 'check' : 'x', 12) + (sel === p.correcta ? ' Correcto' : ' Incorrecto') + '</span>' : '') +
+              '</div>' +
+              '<p class="quiz-question-text">' + p.enunciado + '</p>' +
+              '<ul>' +
+                p.opciones.map((op, idx) => {
+                  const esCorrecta = idx === p.correcta;
+                  const esSeleccionada = sel === idx;
+                  let cls = 'quiz-option';
+                  if (rev) {
+                    if (esCorrecta) cls += ' correct';
+                    else if (esSeleccionada) cls += ' incorrect';
+                    else cls += ' dimmed';
+                  }
+                  return '<li><button class="' + cls + '" data-pid="' + p.id + '" data-idx="' + idx + '" ' + (rev ? 'disabled' : '') + '>' +
+                    '<span class="quiz-option-letter">' + (rev && esCorrecta ? svgIcon('check', 14) : (rev && esSeleccionada ? svgIcon('x', 14) : String.fromCharCode(65 + idx))) + '</span>' +
+                    '<span style="flex:1;">' + op + '</span>' +
+                  '</button></li>';
+                }).join('') +
+              '</ul>' +
+              (rev ? '<div class="quiz-feedback"><p class="quiz-feedback-label">Explicación</p>' + p.explicacion + '</div>' : '') +
+            '</article>';
+          }).join('') +
+        '</div>' +
+        '<div style="margin-top:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.75rem;">' +
+          '<button id="sim9-finalizar" class="btn btn-primary btn-lg" ' + (respondidas < SIM9_PREGUNTAS.length ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : '') + '>Ver resultado final</button>' +
+          (respondidas < SIM9_PREGUNTAS.length ? '<p style="text-align:center; font-size:12px; color:var(--color-gray);">Te faltan ' + (SIM9_PREGUNTAS.length - respondidas) + ' pregunta(s) por responder.</p>' : '') +
+        '</div>' +
+        pedagogico('tip',
+          'Este quiz cubre los seis ejes del documento de la Unidad 2: (1) conceptos de RSC (Carroll, Bowen, Freeman), (2) ética empresarial (utilitarismo, deontología, virtudes), (3) clasificación de stakeholders, (4) pirámide de Carroll, (5) normas ISO 26000 e ISO 45001, y (6) marco legal ecuatoriano (CD 513, AM 0323) e indicadores SST. Una puntuación alta indica dominio de los conceptos teóricos y aplicados necesarios para la auditoría interna ISO 45001.'
+        );
+    } else {
+      const puntaje = SIM9_PREGUNTAS.filter(p => sim9_respuestas[p.id] === p.correcta).length;
+      const estadoFinal = puntaje >= 9 ? 'excellent' : (puntaje >= 7 ? 'good' : (puntaje >= 5 ? 'warn' : 'fail'));
+      const mensajes = {
+        excellent: 'Sobresaliente. Dominas los conceptos clave. Estás listo para el examen.',
+        good: 'Buen desempeño. Repasa los temas en los que fallaste.',
+        warn: 'Aprobado con observaciones. Refuerza los pilares de RSC y los índices.',
+        fail: 'Requiere repaso. Vuelve a leer el documento y reintenta el quiz.'
+      };
+      const colores = { excellent: '#2A9D8F', good: '#3D6EA5', warn: '#F4A261', fail: '#E76F51' };
+
+      body = '' +
+        '<div class="quiz-final">' +
+          '<div class="quiz-final-trophy" style="background-color:' + colores[estadoFinal] + ';">' + svgIcon('trophy', 48) + '</div>' +
+          '<p class="quiz-final-score">' + puntaje + ' <span>/ 10</span></p>' +
+          '<p class="quiz-final-msg">' + mensajes[estadoFinal] + '</p>' +
+          '<div class="quiz-final-progress">' +
+            '<div class="quiz-progress-track"><div class="quiz-progress-fill" style="width:' + (puntaje * 10) + '%;"></div></div>' +
+            '<p style="margin-top:4px; font-size:10px; color:var(--color-gray);">' + (puntaje * 10) + '% de respuestas correctas</p>' +
+          '</div>' +
+          '<div class="quiz-final-grid">' +
+            SIM9_PREGUNTAS.map((p, i) => {
+              const correcta = sim9_respuestas[p.id] === p.correcta;
+              return '<div class="quiz-final-cell ' + (correcta ? 'correct' : 'incorrect') + '" title="P' + (i + 1) + ': ' + (correcta ? 'Correcta' : 'Incorrecta') + '">P' + (i + 1) + '</div>';
+            }).join('') +
+          '</div>' +
+          '<div style="margin-top:1.5rem;">' +
+            '<button id="sim9-reiniciar" class="btn btn-outline btn-lg">' + svgIcon('reset', 16) + ' Reiniciar quiz</button>' +
+          '</div>' +
+        '</div>';
+    }
+
+    card.innerHTML = simCard('Quiz interactivo - 10 preguntas', 'Selecciona una respuesta para cada pregunta y observa el feedback.', body);
+
+    // Eventos
+    card.querySelectorAll('.quiz-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pid = parseInt(btn.dataset.pid);
+        const idx = parseInt(btn.dataset.idx);
+        if (sim9_reveladas[pid]) return;
+        sim9_respuestas[pid] = idx;
+        sim9_reveladas[pid] = true;
+        renderSim9();
+      });
+    });
+    const finBtn = document.getElementById('sim9-finalizar');
+    if (finBtn) finBtn.addEventListener('click', () => {
+      if (Object.keys(sim9_reveladas).length < SIM9_PREGUNTAS.length) return;
+      sim9_finalizado = true;
+      renderSim9();
+      document.getElementById('sim-9').scrollIntoView({ behavior: 'smooth' });
+    });
+    const reBtn = document.getElementById('sim9-reiniciar');
+    if (reBtn) reBtn.addEventListener('click', () => {
+      sim9_respuestas = {};
+      sim9_reveladas = {};
+      sim9_finalizado = false;
+      renderSim9();
+      document.getElementById('sim-9').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  /* ========================================================================
+     SIM 10: TIMELINE RSC
+     ======================================================================== */
+  const SIM10_ETAPAS = [
+    { id: 'filantropica', periodo: '1950 – 1960', nombre: 'RSC Filantrópica', color: '#1F3A5F', icon: 'gift',
+      caracteristica: 'La responsabilidad social se entiende como caridad empresarial. Las grandes empresas donan a hospitales, orfanatos y universidades. Sin integración a la estrategia.',
+      hecho: 'Howard Bowen publica "Social Responsibilities of the Businessman" (1953). Considerado el "padre" de la RSC moderna. La empresa se concibe como una institución social.' },
+    { id: 'conciencia', periodo: '1960 – 1970', nombre: 'Conciencia Social', color: '#3D6EA5', icon: 'heart',
+      caracteristica: 'Movimientos civiles, ambientales y laborales presionan a las empresas. Surgen críticas a la contaminación, discriminación racial y prácticas monopólicas. La empresa debe responder.',
+      hecho: 'Ralph Nader y la "guerra sucia" contra GM (1965). Se cuestiona al automóvil inseguro (Unsafe at Any Speed). Nace la idea de "responsabilidad social corporativa" como respuesta a la sociedad.' },
+    { id: 'marco', periodo: '1970 – 1990', nombre: 'Marco Teórico', color: '#2A9D8F', icon: 'book',
+      caracteristica: 'Academicización de la RSC. Se publican los modelos teóricos centrales que aún se usan: pirámide de Carroll (1979/1991) y teoría de stakeholders de Freeman (1984).',
+      hecho: 'Archie Carroll publica su pirámide de 4 niveles en 1979. R. Edward Freeman publica "Strategic Management: A Stakeholder Approach" (1984). Stakeholders reemplaza a accionistas como unidad de análisis.' },
+    { id: 'estandares', periodo: '1990 – 2010', nombre: 'Estándares y Normas', color: '#F4A261', icon: 'award',
+      caracteristica: 'La RSC se institucionaliza mediante normas internacionales. Aparecen guías, estándares y reportes: OHSAS 18001, GRI, ISO 26000, Pacto Mundial ONU (2000) y ODS Millennium (2000-2015).',
+      hecho: 'GRI (1997) - Global Reporting Initiative. SA8000 (1997). Pacto Mundial ONU (2000). OHSAS 18001 (1999). ISO 26000 publicada en 2010 como guía de RSC no certificable. Se masifica el reporte de sostenibilidad.' },
+    { id: 'integracion', periodo: '2010 – hoy', nombre: 'Integración Estratégica', color: '#E76F51', icon: 'globe',
+      caracteristica: 'La RSC se integra a la estrategia del negocio. Ya no es un departamento aislado, forma parte del modelo de gestión. ISO 45001:2018 alinea SST con ISO 9001/14001. Agenda 2030 con 17 ODS.',
+      hecho: 'ISO 45001:2018 (sustituye a OHSAS 18001). Agenda 2030 con 17 Objetivos de Desarrollo Sostenible (ODS). Normas ESG (Ambiental, Social, Gobernanza) integradas a reportes financieros. Ecuador adopta ISO 26000 como normativa nacional (INEN 26300).' }
+  ];
+  let sim10_sel = 'filantropica';
+
+  function renderSim10() {
+    const card = document.getElementById('sim10-card');
+    const etapa = SIM10_ETAPAS.find(e => e.id === sim10_sel);
+
+    const itemsHTML = SIM10_ETAPAS.map((e, i) => {
+      const isActive = sim10_sel === e.id;
+      return '<li class="timeline-item">' +
+        '<button class="timeline-node" data-id="' + e.id + '" style="background-color:' + (isActive ? e.color : e.color + '99') + '; box-shadow:' + (isActive ? '0 0 0 4px ' + e.color + '40' : 'none') + ';" aria-pressed="' + isActive + '" aria-label="Etapa ' + (i + 1) + ': ' + e.nombre + ' (' + e.periodo + ')">' + svgIcon(e.icon, 22) + '</button>' +
+        '<p class="timeline-period">' + e.periodo + '</p>' +
+        '<p class="timeline-name" style="color:' + (isActive ? 'var(--color-dark)' : '#475569') + ';">' + e.nombre + '</p>' +
+      '</li>';
+    }).join('');
+
+    const miniHTML = SIM10_ETAPAS.map((e, i) => {
+      const isActive = sim10_sel === e.id;
+      return '<button class="timeline-mini-btn ' + (isActive ? 'active' : '') + '" data-id="' + e.id + '" style="' + (isActive ? 'border-color:' + e.color + '; background:' + e.color + '08;' : '') + '">' +
+        '<span class="timeline-mini-label" style="color:' + e.color + ';">Etapa ' + (i + 1) + '</span>' +
+        '<span class="timeline-mini-period">' + e.periodo + '</span>' +
+      '</button>';
+    }).join('');
+
+    const body = '' +
+      '<ol class="timeline" aria-label="Línea de tiempo">' +
+        '<div class="timeline-line"></div>' +
+        itemsHTML +
+      '</ol>' +
+      '<div class="timeline-ficha">' +
+        '<div class="timeline-ficha-head" style="background-color:' + etapa.color + ';">' +
+          svgIcon(etapa.icon, 24) +
+          '<div>' +
+            '<p class="timeline-ficha-period">' + etapa.periodo + '</p>' +
+            '<h4 class="timeline-ficha-name">' + etapa.nombre + '</h4>' +
+          '</div>' +
+        '</div>' +
+        '<div class="timeline-ficha-body">' +
+          '<div>' + subH('Característica principal') + '<p>' + etapa.caracteristica + '</p></div>' +
+          '<div>' + subH('Hecho clave') + '<p>' + etapa.hecho + '</p></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="timeline-mini-grid">' + miniHTML + '</div>' +
+      pedagogico('info',
+        'La evolución de la RSC es una trayectoria desde la <strong>filantropía</strong> (hacer el bien con excedentes) hasta la <strong>integración estratégica</strong> (ser sostenible por diseño). En SST esto se traduce: en los 50 se donaba a hospitales para trabajadores lesionados; hoy se diseña el proceso para que la lesión no ocurra. El cambio de paradigma es de <em>reactivo</em> a <em>proactivo</em>, de <em>compensación</em> a <em>prevención</em>. ISO 45001:2018 es la materialización técnica de este cambio.'
+      );
+
+    card.innerHTML = simCard('Timeline histórico de la RSC', 'Clic en cada etapa para explorar su característica principal y hecho clave.', body);
+
+    // Eventos
+    card.querySelectorAll('.timeline-node, .timeline-mini-btn').forEach(btn => {
+      btn.addEventListener('click', () => { sim10_sel = btn.dataset.id; renderSim10(); });
+    });
+  }
+
+  /* ========================================================================
+     REFERENCIAS
+     ======================================================================== */
+  function renderReferencias() {
+    const data = [
+      { tag: 'ISO', title: 'ISO 26000:2010', desc: 'Guía de Responsabilidad Social. 7 principios y 7 materias fundamentales. No certificable.', link: 'https://www.iso.org/standard/42546.html' },
+      { tag: 'ISO', title: 'ISO 45001:2018', desc: 'Sistema de Gestión de Seguridad y Salud en el Trabajo. Reemplaza a OHSAS 18001. Estructura Annex SL.', link: 'https://www.iso.org/standard/63787.html' },
+      { tag: 'GRI', title: 'GRI 403', desc: 'Estándar Global Reporting Initiative para reporte de SST. Indicadores 403-1 a 403-9.', link: 'https://www.globalreporting.org/standards/' },
+      { tag: 'Ecuador', title: 'IESS CD 513', desc: 'Acuerdo Ministerial del IESS que regula el sistema de seguros de riesgos del trabajo. Comité Paritario con 15+ trab.', link: 'https://www.iess.gob.ec/' },
+      { tag: 'Ecuador', title: 'AM 0323', desc: 'Acuerdo Ministerial 0323. Reglamento de Seguridad y Salud de los Trabajadores. Vigilancia médica ocupacional.', link: 'https://www.trabajo.gob.ec/' },
+      { tag: 'ONU', title: 'Pacto Mundial ONU', desc: 'Iniciativa corporativa de Naciones Unidas. 10 principios en derechos humanos, laboral, ambiente y anticorrupción.', link: 'https://www.unglobalcompact.org/' },
+      { tag: 'ONU', title: 'ODS - Agenda 2030', desc: '17 Objetivos de Desarrollo Sostenible. ODS 8 (trabajo decente) y ODS 3 (salud) directamente relacionados con SST.', link: 'https://www.un.org/sustainabledevelopment/es/' },
+      { tag: 'OIT', title: 'OIT - Estadísticas SST', desc: 'Organización Internacional del Trabajo. 2,9 M muertes/año por trabajo en el mundo. Estimaciones nacionales y regionales.', link: 'https://www.ilo.org/' },
+      { tag: 'NIOSH', title: 'NIOSH Hierarchy of Controls', desc: 'Instituto Nacional para la Seguridad y Salud Ocupacional (EE.UU.). Jerarquía de controles de peligros.', link: 'https://www.cdc.gov/niosh/' }
+    ];
+    document.getElementById('referencias-grid').innerHTML = data.map(r => 
+      '<article class="ref-card">' +
+        '<span class="ref-card-tag">' + r.tag + '</span>' +
+        '<p class="ref-card-title">' + r.title + '</p>' +
+        '<p class="ref-card-desc">' + r.desc + '</p>' +
+        '<a class="ref-card-link" href="' + r.link + '" target="_blank" rel="noopener noreferrer">Abrir referencia →</a>' +
+      '</article>'
+    ).join('');
+  }
+
+  /* ========================================================================
+     NAVEGACIÓN
+     ======================================================================== */
+  function renderNav() {
+    const links = [
+      { href: '#sim-1', label: '1. Carroll' },
+      { href: '#sim-2', label: '2. Índices' },
+      { href: '#sim-3', label: '3. Matriz' },
+      { href: '#sim-4', label: '4. Stakeholders' },
+      { href: '#sim-5', label: '5. ROI' },
+      { href: '#sim-6', label: '6. Heinrich' },
+      { href: '#sim-7', label: '7. Poisson' },
+      { href: '#sim-8', label: '8. NIOSH' },
+      { href: '#sim-9', label: '9. Quiz' },
+      { href: '#sim-10', label: '10. Timeline' }
+    ];
+    const html = links.map(l => '<a class="nav-link" href="' + l.href + '">' + l.label + '</a>').join('');
+    document.getElementById('navLinks').innerHTML = html;
+    document.getElementById('navMobile').innerHTML = html;
+  }
+
+  function setupNavToggle() {
+    const toggle = document.getElementById('navToggle');
+    const mobile = document.getElementById('navMobile');
+    toggle.addEventListener('click', () => {
+      const open = mobile.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobile.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+  }
+
+  /* ========================================================================
+     INICIALIZACIÓN
+     ======================================================================== */
+  function init() {
+    renderNav();
+    setupNavToggle();
+    renderSim1();
+    renderSim2();
+    renderSim3();
+    renderSim4();
+    renderSim5();
+    renderSim6();
+    renderSim7();
+    renderSim8();
+    renderSim9();
+    renderSim10();
+    renderReferencias();
+  }
+
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  </script>
+</body>
+</html>
