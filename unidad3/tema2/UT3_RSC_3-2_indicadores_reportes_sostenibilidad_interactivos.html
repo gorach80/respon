@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UT3 · 3.2 Indicadores y Reportes de Sostenibilidad (GRI, ESG) | UPSE</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f1f5f9;color:#1e293b;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+.page{max-width:900px;margin:0 auto;padding:10px}
+h1,h2,h3,h4{letter-spacing:-0.01em}
+h1{font-size:26px;font-weight:800;margin:0 0 8px}
+h2{font-size:17px;font-weight:700;margin:0;color:#0f172a}
+h3{font-size:15px;font-weight:700;margin:0 0 10px;color:#0f172a}
+h4{font-size:13px;font-weight:700;margin:0 0 6px;color:#0f172a}
+p{margin:0 0 10px;font-size:13.5px;color:#475569}
+ul,ol{margin:0 0 10px;padding-left:20px;font-size:13px;color:#475569}
+li{margin-bottom:6px}
+small{color:#64748b}
+a{color:#2563eb}
+.card{background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:24px}
+.badge{background:#1d4ed8;color:#fff;padding:4px 12px;border-radius:9999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:inline-block;margin-bottom:12px}
+.tag{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;display:inline-block}
+.sec-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sec-title .n{background:#dbeafe;color:#1d4ed8;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:0 0 auto}
+.kbox{border-radius:8px;padding:12px;border:1px solid}
+.kbox-c{background-color:#eff6ff;border-color:#bfdbfe}
+.kbox-v{background-color:#f0fdf4;border-color:#bbf7d0}
+.kbox-a{background-color:#fffbeb;border-color:#fde68a}
+.kbox-r{background-color:#fef2f2;border-color:#fecaca}
+.kbox-g{background-color:#f8fafc;border-color:#e2e8f0}
+.kbox-h{background-color:#112240;border-color:#112240;color:#e2e8f0}
+.kbox h4{color:#0f172a}
+.kbox-a h4{color:#92400e}.kbox-v h4{color:#065f46}.kbox-c h4{color:#1d4ed8}.kbox-r h4{color:#991b1b}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{border:1px solid #e2e8f0;padding:8px 10px;text-align:left;vertical-align:top}
+thead th{background:#111e2e;color:#fff;border-right:1px solid #1e293b}
+tbody tr:nth-child(odd){background:#f8fafc}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs-bar{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 10px;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+.tab-btn{flex:0 0 auto;background:#ffffff;border:1px solid #cbd5e1;color:#334155;padding:8px 14px;border-radius:9999px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.tab-btn:hover{border-color:#2563eb;color:#1d4ed8}
+.tab-btn.active{background:#1d4ed8;border-color:#1d4ed8;color:#ffffff}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.url-note{background:#f8fafc;border:1px dashed #94a3b8;border-radius:8px;padding:8px 12px;font-size:11.5px;color:#64748b;margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.url-note code{background:#e2e8f0;color:#0f172a;padding:1px 6px;border-radius:4px;font-size:11px;word-break:break-all}
+details.sr{border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;padding:10px 12px;margin-bottom:12px}
+details.sr summary{cursor:pointer;font-size:12.5px;font-weight:700;color:#1d4ed8;user-select:none}
+details.sr[open] summary{margin-bottom:8px}
+details.sr .sr-body{font-size:12.5px;color:#334155}
+.calc-in{width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:6px;padding:7px 9px;font-size:12.5px;font-family:inherit;background:#fff;color:#1e293b}
+.calc-out{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #2563eb;border-radius:8px;padding:12px;font-size:12.8px;color:#1e293b;display:none;margin-top:10px}
+.calc-out.ok{display:block}
+.calc-out.err{display:block;border-left-color:#dc2626;background:#fef2f2}
+.btn-main{background:#1d4ed8;color:#ffffff;border:none;border-radius:8px;padding:9px 16px;font-size:12.8px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-main:hover{background:#1e40af}
+.btn-ghost{background:#ffffff;color:#334155;border:1px solid #cbd5e1;border-radius:8px;padding:8px 14px;font-size:12.3px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-ghost:hover{border-color:#2563eb;color:#1d4ed8}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.sq{border:1px solid #e2e8f0;border-radius:8px;padding:12px;background:#fff}
+.sq .sv{font-size:22px;font-weight:800;color:#0f172a;display:block;line-height:1.2}
+.sq .sl{font-size:11px;color:#64748b;display:block;margin-top:4px}
+.opt-btn{background:#fff;border:1.5px solid #cbd5e1;border-radius:8px;padding:9px 12px;font-size:12.5px;font-family:inherit;cursor:pointer;text-align:left;color:#334155;width:100%;display:block;margin-bottom:7px}
+.opt-btn:hover{border-color:#2563eb}
+.opt-btn.sel{border-color:#2563eb;background:#eff6ff;color:#1d4ed8;font-weight:700}
+.opt-btn.right{border-color:#059669;background:#f0fdf4;color:#065f46;font-weight:700}
+.opt-btn.wrong{border-color:#dc2626;background:#fef2f2;color:#991b1b;font-weight:700}
+.qbox{border:1px solid #e2e8f0;border-radius:10px;background:#fff;padding:14px;margin-bottom:14px}
+.tl{list-style:none;padding:0;margin:0}
+.tl li{position:relative;padding:0 0 18px 26px;border-left:2px solid #cbd5e1;margin-left:8px}
+.tl li:before{content:'';position:absolute;left:-7px;top:2px;width:12px;height:12px;border-radius:50%;background:#2563eb;border:2px solid #fff;box-shadow:0 0 0 2px #bfdbfe}
+.tl li:last-child{border-left-color:transparent}
+.chk{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:#334155;margin-bottom:6px;cursor:pointer}
+.chk input{margin-top:2px;flex:0 0 auto}
+.sem{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-1px;margin-right:6px}
+.sem-v{background:#059669}.sem-a{background:#d97706}.sem-r{background:#dc2626}
+.fw-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #e2e8f0;background:#fff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;color:#334155;cursor:pointer;user-select:none}
+.fw-pill.on{background:#112240;color:#fff;border-color:#112240}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.bar-lab{flex:0 0 150px;font-size:12px;font-weight:600;color:#334155}
+.bar-tr{flex:1 1 160px;height:14px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+.bar-fi{height:100%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#059669)}
+.bar-val{flex:0 0 auto;font-size:12px;color:#475569;font-variant-numeric:tabular-nums}
+.copiable{cursor:pointer;position:relative}
+.copiable:hover:after{content:'copiar';position:absolute;right:6px;top:-8px;background:#1d4ed8;color:#fff;font-size:10px;padding:1px 6px;border-radius:4px}
+.copy-btn{background:#1d4ed8;color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex:0 0 auto}
+.copy-btn:hover{background:#1e40af}
+.url-note a.ulink{font-size:11px;color:#2563eb;word-break:break-all}
+.fase-panel{display:none}
+.fase-panel.active{display:block}
+.fase-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:12px 0}
+.fase-step{border:1.5px solid #e2e8f0;border-radius:8px;padding:10px;background:#fff;cursor:pointer;font-size:12.5px;font-weight:700;color:#334155;text-align:left;font-family:inherit}
+.fase-step small{display:block;font-weight:600;color:#64748b;margin-top:2px;font-size:11px}
+.fase-step.cur{border-color:#2563eb;background:#eff6ff;color:#1d4ed8}
+.fase-step.done{border-color:#059669;background:#f0fdf4;color:#065f46}
+.prog-track{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:10px 0 4px 0}
+.prog-fill{height:100%;background:linear-gradient(90deg,#2563eb,#059669);border-radius:999px;transition:width .3s}
+textarea.txt{width:100%;min-height:90px;border:1px solid #cbd5e1;border-radius:8px;padding:10px;font-family:inherit;font-size:12.5px;color:#1e293b;box-sizing:border-box;background:#fff;resize:vertical}
+.txt-ok{border-color:#059669!important}
+.txt-bad{border-color:#dc2626!important}
+.rub-item{border:1px solid #e2e8f0;border-radius:8px;padding:10px;margin-bottom:10px;background:#fff}
+</style>
+</head>
+<body>
+<div style="font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1e293b;line-height:1.5;max-width:900px;margin:0 auto;padding:10px;">
+
+  <!-- ENCABEZADO PRINCIPAL -->
+  <div style="background-color:#112240;border-radius:12px;padding:24px;color:#ffffff;margin-bottom:24px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">
+    <span style="background-color:#1d4ed8;color:#ffffff;padding:4px 12px;border-radius:9999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;display:inline-block;margin-bottom:12px;">UNIDAD TEMÁTICA 3 · GESTIÓN Y APLICACIÓN PRÁCTICA DE LA RESPONSABILIDAD SOCIAL</span>
+    <h1 style="color:#ffffff;font-size:26px;font-weight:800;margin:0 0 8px 0;letter-spacing:-0.025em;">3.2 Indicadores y Reportes de Sostenibilidad (GRI, ESG)</h1>
+    <p style="color:#94a3b8;font-size:14px;margin:0;">Interpretación de indicadores clave y elaboración de informes siguiendo estándares internacionales: GRI Standards, ESG, SASB, TCFD, Pacto Mundial y dashboards de KPIs.</p>
+  </div>
+
+  <!-- RESULTADOS DE APRENDIZAJE CLAVE (RdA) -->
+  <div style="background-color:#ffffff;border:1px solid #e2e8f0;border-left:5px solid #2563eb;border-radius:10px;padding:20px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+    <div style="display:flex;align-items:center;margin-bottom:12px;">
+      <span style="background-color:#dbeafe;color:#1d4ed8;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;margin-right:10px;">✓</span>
+      <h2 style="font-size:17px;font-weight:700;color:#0f172a;margin:0;">Resultados de Aprendizaje Clave (RdA)</h2>
+    </div>
+    <ul style="margin:0;padding-left:20px;font-size:13.5px;color:#334155;">
+      <li style="margin-bottom:8px;"><strong>3.2-a:</strong> Interpreta indicadores clave de sostenibilidad (IRE, huella de carbono por alcances, SROI, Scorecard ESG, IBG) y explica su significado, tendencias y brechas frente a benchmarks.</li>
+      <li style="margin-bottom:8px;"><strong>3.2-b:</strong> Elabora informes de sostenibilidad siguiendo estándares internacionales (GRI, ESG/SASB/TCFD, Pacto Mundial), aplicando los principios de calidad del reporte y el análisis de materialidad.</li>
+      <li style="margin-bottom:0;"><strong>3.2-c:</strong> Diseña dashboards de KPIs ESG con jerarquía estratégica-táctica-operativa, trazabilidad auditada y semáforos de cumplimiento por framework.</li>
+    </ul>
+  </div>
+
+  <!-- BARRA DE PESTAÑAS (URL INDEPENDIENTE POR PESTAÑA) -->
+  <div class="tabs-bar" id="tabsbar" role="tablist" aria-label="Secciones del tema 3.2">
+    <button type="button" class="tab-btn active" data-tab="tp1" onclick="goTab('tp1')">1 · Marcos de reporte</button>
+    <button type="button" class="tab-btn" data-tab="tp2" onclick="goTab('tp2')">2 · GRI Standards</button>
+    <button type="button" class="tab-btn" data-tab="tp3" onclick="goTab('tp3')">3 · ESG, SASB y TCFD</button>
+    <button type="button" class="tab-btn" data-tab="tp4" onclick="goTab('tp4')">4 · Indicadores clave</button>
+    <button type="button" class="tab-btn" data-tab="tp5" onclick="goTab('tp5')">5 · Laboratorio de cálculo</button>
+    <button type="button" class="tab-btn" data-tab="tp6" onclick="goTab('tp6')">6 · Dashboards y datos</button>
+    <button type="button" class="tab-btn" data-tab="tp7" onclick="goTab('tp7')">7 · Elaborar el informe</button>
+    <button type="button" class="tab-btn" data-tab="tp8" onclick="goTab('tp8')">8 · Caso de estudio (4 fases)</button>
+    <button type="button" class="tab-btn" data-tab="tp9" onclick="goTab('tp9')">9 · Autoevaluación</button>
+  </div>
+
+  <!-- ============ PESTAÑA 1: MARCOS DE REPORTE ============ -->
+  <div id="tp1" class="tab-panel active">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp1"></code> <a class="ulink" id="lnk-tp1" href="#tp1" onclick="goTab('tp1');return false;"></a> — cópiela para volver directo a esta sección o compartirla.</span><button type="button" class="copy-btn" id="cpbtn-tp1" onclick="copiarURL('tp1')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">1</span><h2>Del compromiso a la rendición de cuentas: por qué reportar</h2></div>
+      <p>Un reporte de sostenibilidad es el documento mediante el cual una organización <strong>mide, gestiona y comunica públicamente</strong> sus impactos económicos, ambientales y sociales. No es una pieza de marketing: es un instrumento de rendición de cuentas ante los stakeholders, comparable entre organizaciones y verificable por terceros. La cifra que lo demuestra: en 2024, el <strong>92% de las empresas del S&amp;P 500</strong> publicó un reporte de sostenibilidad, frente a solo el 20% en 2010; la inversión global ESG superó los <strong>USD 35 trillones</strong> y se proyecta alcanzar USD 50 trillones hacia 2030 (Bloomberg Intelligence).</p>
+      <p>El punto de inflexión histórico fue <strong>2015</strong>, cuando Naciones Unidas adoptó los ODS: desde entonces los reportes se estandarizaron mayoritariamente bajo el formato GRI y, progresivamente, los estándares SASB y TCFD. En la Unión Europea el reporte dejó de ser voluntario: la <strong>Directiva CSRD</strong> lo hace obligatorio para más de 50.000 empresas a partir del ejercicio 2024-2026.</p>
+
+      <h3 style="margin-top:18px;">Evolución de los marcos de reporte de sostenibilidad</h3>
+      <ul class="tl">
+        <li><strong>1997 · Nace GRI</strong> — Creado en Ámsterdam por la ONG Ceres y el Tellus Institute; hoy es el estándar global de reporte más utilizado.</li>
+        <li><strong>1999 · DJSI</strong> — Dow Jones lanza el primer índice bursátil de sostenibilidad (S&amp;P Dow Jones Indices + RobecoSAM), hoy evalúa 4.500 empresas en 61 industrias.</li>
+        <li><strong>2000 · Pacto Mundial ONU</strong> — Kofi Annan lanza la mayor iniciativa voluntaria de ciudadanía corporativa: 24.000 empresas en 160 países reportan su COP anual.</li>
+        <li><strong>2005 · Nace el acrónimo ESG</strong> — El informe <em>Who Cares Wins</em> de Naciones Unidas integra la sostenibilidad en la lógica de los mercados financieros.</li>
+        <li><strong>2010 · ISO 26000</strong> — Guía de responsabilidad social (no certificable); ese mismo año GRI publica sus directrices G3.1 y se funda el International Integrated Reporting Council.</li>
+        <li><strong>2011 · SASB</strong> — Sustainability Accounting Standards Board: estándares de contabilidad de sostenibilidad para 77 industrias (fusionado con IFRS Foundation en 2021).</li>
+        <li><strong>2015 · TCFD y ODS</strong> — El Financial Stability Board del G20 crea la Task Force on Climate-related Financial Disclosures; los ODS dan marco común a la sostenibilidad empresarial.</li>
+        <li><strong>2021-2023 · Consolidación financiera</strong> — SASB se integra en el IFRS Foundation; nacen los estándares ISSB (IFRS S1/S2) que absorben a TCFD; la UE aprueba CSRD.</li>
+      </ul>
+
+      <h3 style="margin-top:18px;">Interactivo: ¿qué marco se ajusta a su organización?</h3>
+      <p>Responda las cuatro preguntas y el selector recomendará el marco de reporte más adecuado, con el porqué.</p>
+      <div id="fw-q1" style="margin-bottom:10px;"></div>
+      <div id="fw-q2" style="margin-bottom:10px;"></div>
+      <div id="fw-q3" style="margin-bottom:10px;"></div>
+      <div id="fw-q4" style="margin-bottom:10px;"></div>
+      <div id="fw-resultado" class="calc-out"></div>
+    </div>
+
+    <div class="card">
+      <h3>Fuentes oficiales para profundizar (URL)</h3>
+      <div class="tblwrap"><table>
+        <thead><tr><th style="width:30%;">Marco</th><th>Recurso oficial</th></tr></thead>
+        <tbody>
+          <tr><td><strong>GRI</strong></td><td>Global Reporting Initiative — <a href="https://www.globalreporting.org/standards/" target="_blank" rel="noopener">globalreporting.org/standards</a></td></tr>
+          <tr><td><strong>ESG / ISSB</strong></td><td>IFRS Foundation — <a href="https://www.ifrs.org/issued-standards/ifrs-sustainability-standards-navigator/" target="_blank" rel="noopener">ifrs.org (ISSB, IFRS S1/S2)</a></td></tr>
+          <tr><td><strong>SASB</strong></td><td>SASB Standards — <a href="https://sasb.ifrs.org/standards/" target="_blank" rel="noopener">sasb.ifrs.org/standards</a></td></tr>
+          <tr><td><strong>TCFD</strong></td><td>TCFD Knowledge Hub — <a href="https://www.fsb-tcfd.org/" target="_blank" rel="noopener">fsb-tcfd.org</a></td></tr>
+          <tr><td><strong>Pacto Mundial</strong></td><td>UN Global Compact — <a href="https://unglobalcompact.org/what-is-gc/participation/cop" target="_blank" rel="noopener">unglobalcompact.org (Communication on Progress)</a></td></tr>
+          <tr><td><strong>CSRD (UE)</strong></td><td>Directiva europea de reporte — <a href="https://finance.ec.europa.eu/regulation-and-supervision/financial-services-legislation/implementing-and-delegated-acts/corporate-sustainability-reporting-directive_csrd_en" target="_blank" rel="noopener">finance.ec.europa.eu (CSRD)</a></td></tr>
+          <tr><td><strong>GHG Protocol</strong></td><td>Alcances 1, 2 y 3 — <a href="https://ghgprotocol.org/" target="_blank" rel="noopener">ghgprotocol.org</a></td></tr>
+        </tbody>
+      </table></div>
+      <p style="margin-top:10px;"><small>Enlaces a los sitios oficiales de cada organismo emisor; consultados en noviembre de 2026.</small></p>
+    </div>
+  </div>
+
+  <!-- ============ PESTAÑA 2: GRI STANDARDS ============ -->
+  <div id="tp2" class="tab-panel">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp2"></code> <a class="ulink" id="lnk-tp2" href="#tp2" onclick="goTab('tp2');return false;"></a></span><button type="button" class="copy-btn" id="cpbtn-tp2" onclick="copiarURL('tp2')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">2</span><h2>GRI Standards: el estándar global de reporte</h2></div>
+      <p>El <strong>Global Reporting Initiative (GRI)</strong>, fundado en 1997 en Ámsterdam por la ONG Ceres y el Tellus Institute, es hoy el estándar global más utilizado para elaborar <strong>memorias de sostenibilidad</strong>. A diferencia de ISO 26000 (guía de gestión no certificable), GRI sí es un estándar de reporte: <strong>produce indicadores cuantitativos verificables</strong>. Su adopción es voluntaria pero ampliamente difundida: más de <strong>10.000 organizaciones en 100 países</strong> reportan según GRI, incluyendo el <strong>75% de las empresas del Global Fortune 250</strong>.</p>
+
+      <h3 style="margin-top:16px;">Arquitectura de los GRI Standards (tres bloques)</h3>
+      <div class="grid3" style="margin-bottom:12px;">
+        <div class="sq" style="border-top:3px solid #2563eb;">
+          <strong style="font-size:12.5px;color:#1d4ed8;">Universal Standards</strong>
+          <p style="font-size:12px;margin:6px 0 0 0;">GRI 1 (fundamentos), GRI 2 (revelaciones generales) y GRI 3 (temas materiales 2021). Aplicables a toda organización.</p>
+        </div>
+        <div class="sq" style="border-top:3px solid #059669;">
+          <strong style="font-size:12.5px;color:#065f46;">Sector Standards</strong>
+          <p style="font-size:12px;margin:6px 0 0 0;">Específicos por sector: petróleo y gas (GRI 11), agricultura (GRI 13), minería (GRI 14), servicios financieros (GRI 15)…</p>
+        </div>
+        <div class="sq" style="border-top:3px solid #d97706;">
+          <strong style="font-size:12.5px;color:#92400e;">Topic Standards</strong>
+          <p style="font-size:12px;margin:6px 0 0 0;">Por tema: emisiones (GRI 305), agua (GRI 303), biodiversidad, empleo, derechos humanos… Más de 170 indicadores en total.</p>
+        </div>
+      </div>
+      <p>Cada empresa <strong>reporta solo los indicadores materiales</strong> según su análisis de materialidad: no se reportan los 170, sino el subconjunto relevante para sus impactos y stakeholders.</p>
+
+      <h3 style="margin-top:16px;">Los principios del reporte según GRI</h3>
+      <p>Para definir el <strong>contenido</strong> del reporte: inclusión de stakeholders, contexto de sostenibilidad, materialidad y exhaustividad. Para definir la <strong>calidad</strong> de la información: exactitud, balance, claridad, comparabilidad, fiabilidad y puntualidad. Estos principios garantizan que la memoria no sea un catálogo propagandístico, sino un instrumento de rendición de cuentas comparable entre organizaciones.</p>
+
+      <div class="kbox kbox-c" style="margin-top:10px;">
+        <h4>💡 Los 8 principios GRI — ¿cuál es cuál?</h4>
+        <p style="margin:0;font-size:12.5px;"><strong>Contenido:</strong> inclusión de stakeholders · contexto de sostenibilidad · materialidad · exhaustividad. <strong>Calidad:</strong> exactitud · balance · claridad · comparabilidad · fiabilidad · puntualidad. El PDF condensa seis de calidad y cuatro de contenido en el marco de los "diez principios" de definición de reporte de calidad.</p>
+      </div>
+
+      <h3 style="margin-top:18px;">Interactivo: construya el índice GRI de su informe</h3>
+      <p>Marque los temas materiales de su organización; el generador produce el <strong>índice de contenido GRI</strong> (con códigos de revelación) listo para copiar en su memoria.</p>
+      <div id="gri-gen"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+        <button type="button" class="btn-main" onclick="griGenerar()">Generar índice GRI</button>
+        <button type="button" class="btn-ghost" onclick="griReset()">Limpiar selección</button>
+      </div>
+      <div id="gri-out" class="calc-out"></div>
+    </div>
+  </div>
+
+  <!-- ============ PESTAÑA 3: ESG, SASB Y TCFD ============ -->
+  <div id="tp3" class="tab-panel">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp3"></code> <a class="ulink" id="lnk-tp3" href="#tp3" onclick="goTab('tp3');return false;"></a></span><button type="button" class="copy-btn" id="cpbtn-tp3" onclick="copiarURL('tp3')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">3</span><h2>ESG, SASB y TCFD: los estándares financieros de sostenibilidad</h2></div>
+      <p>El acrónimo <strong>ESG</strong> (Environmental, Social, Governance) fue acuñado en 2005 en el informe <em>Who Cares Wins</em> de Naciones Unidas y redefinió el discurso empresarial al integrar la sostenibilidad en la lógica de los mercados financieros. Frente a la RSC clásica —voluntaria, comunicacional, gestionada por departamentos de sostenibilidad—, el enfoque ESG es <strong>inversor, exigente en datos cuantitativos comparables y crecientemente regulatorio</strong>.</p>
+      <div class="kbox kbox-c">
+        <h4>ESG vs. RSC — la distinción clave para el informe</h4>
+        <p style="margin:0;font-size:12.5px;">RSC: enfoque de impacto, stakeholders múltiples, gestión interna de sostenibilidad. ESG: enfoque de <strong>riesgo y valor para el inversor</strong>, métricas estandarizadas, integración en decisiones de inversión. Un informe moderno combina ambos: revelaciones de impacto (GRI) + métricas financieramente materiales (ESG/ISSB).</p>
+      </div>
+
+      <div class="grid2" style="margin-top:14px;">
+        <div class="sq" style="border-left:3px solid #2563eb;">
+          <strong style="font-size:13px;">SASB (2011 · fusionado con IFRS en 2021)</strong>
+          <p style="font-size:12.3px;margin:6px 0 0 0;">Estándares de <strong>contabilidad de sostenibilidad sectoriales</strong>: para cada una de <strong>77 industrias</strong> identifica los temas financieramente materiales y estandariza <strong>13 indicadores clave por industria</strong>. Su enfoque en impacto en valor para el accionista lo ha convertido en el estándar preferido de inversores.</p>
+        </div>
+        <div class="sq" style="border-left:3px solid #059669;">
+          <strong style="font-13px;">TCFD (2015 · G20 Financial Stability Board)</strong>
+          <p style="font-size:12.3px;margin:6px 0 0 0;">Estándar específico para reportar <strong>riesgos financieros climáticos</strong>. Cuatro recomendaciones: <strong>gobernanza, estrategia, gestión de riesgos, y métricas y metas</strong>. Obligatorias en varias jurisdicciones; desde 2024 sus funciones fueron absorbidas por el ISSB (IFRS S2).</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:16px;">Agencias de rating ESG: quién califica a las empresas</h3>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Agencia</th><th>Escala</th><th>Cobertura</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MSCI ESG Ratings</strong></td><td>CCC a AAA</td><td>8.500 empresas cotizadas</td></tr>
+          <tr><td><strong>Sustainalytics</strong></td><td>Riesgo ESG (0-50, menor = mejor)</td><td>12.000 empresas</td></tr>
+          <tr><td><strong>S&amp;P Global CSA</strong></td><td>Score 0-100 (alimenta el DJSI)</td><td>4.500 empresas, 61 industrias</td></tr>
+          <tr><td><strong>ISS ESG</strong></td><td>D- a A+</td><td>Gobernanza y voting de inversores</td></tr>
+        </tbody>
+      </table></div>
+      <p style="margin-top:10px;">Estos ratings influyen directamente en las decisiones de inversión institucional: las empresas con buen rating acceden a mejores condiciones de financiamiento, atraen capital de fondos ESG y reducen su costo de capital. Los grandes gestores (BlackRock, Vanguard, State Street) aplican criterios ESG en sus decisiones de voto y selección de carteras.</p>
+
+      <h3 style="margin-top:16px;">Materialidad doble: el corazón del informe moderno</h3>
+      <p>La materialidad simple pregunta: <em>¿qué temas ESG afectan la cuenta de resultados?</em> La <strong>materialidad doble</strong> —exigida por la CSRD europea— obliga a reportar tanto el riesgo financiero ESG como el <strong>impacto de la empresa en el mundo</strong>. GRI parte del impacto (impact materiality); ISSB/SASB parten del valor para el inversor (financial materiality). Un informe completo responde ambas preguntas.</p>
+
+      <div class="kbox kbox-a" style="margin-top:8px;">
+        <h4>⚠️ Greenwashing y cómo el reporte lo combate</h4>
+        <p style="margin:0;font-size:12.5px;">Los criterios ESG y las regulaciones (SFDR, Taxonomía UE, CSRD) han intentado frenar el greenwashing <strong>exigiendo reportes con datos verificables</strong>: trazabilidad de cada dato, método de cálculo documentado y verificación independiente. Un dato sin fuente verificable no es una revelación: es propaganda.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PESTAÑA 4: INDICADORES CLAVE ============ -->
+  <div id="tp4" class="tab-panel">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp4"></code> <a class="ulink" id="lnk-tp4" href="#tp4" onclick="goTab('tp4');return false;"></a></span><button type="button" class="copy-btn" id="cpbtn-tp4" onclick="copiarURL('tp4')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">4</span><h2>Interpretación de indicadores clave de sostenibilidad</h2></div>
+      <p>Reportar exige primero <strong>interpretar</strong>: saber qué mide cada indicador, cuál es un valor bueno y qué decisión se deriva de él. Esta pestaña consolida los siete indicadores del material con su fórmula, rangos de referencia y lectura de resultados. Todos se calculan paso a paso en el laboratorio de la pestaña 5.</p>
+
+      <div class="tblwrap"><table>
+        <thead><tr><th style="width:19%;">Indicador</th><th style="width:29%;">Fórmula</th><th style="width:15%;">Mide</th><th>Rangos y lectura</th></tr></thead>
+        <tbody>
+          <tr><td><strong>IRE</strong><br><small>Índice de Rendimiento Ético</small></td><td>IRE = Σ(Pi × Wi) / ΣWi × 100/10</td><td>Cumplimiento agregado de las 7 materias ISO 26000</td><td>0-100. &lt;60 Incipiente · 60-79 En desarrollo · 80-89 Avanzado · 90+ Ejemplar. EcoManufactura: 82.72 → Avanzado.</td></tr>
+          <tr><td><strong>Huella de carbono</strong><br><small>GHG Protocol</small></td><td>Σ(Actividad × Factor de emisión)</td><td>GEI totales en tCO2e por alcance (1, 2, 3)</td><td>Alcance 3 suele representar 65-85% del total en manufactureras → priorizar ecodiseño y cadena de suministro.</td></tr>
+          <tr><td><strong>ROI Social</strong></td><td>(Beneficio total − Inversión) / Inversión × 100</td><td>Retorno económico de la inversión social para la empresa</td><td>Rango típico en programas maduros: 30-150%. EcoManufactura: 48% → USD 1.48 por USD 1 invertido.</td></tr>
+          <tr><td><strong>SROI</strong></td><td>Valor social total ajustado / Inversión</td><td>Valor social creado para todos los stakeholders</td><td>&gt;3 se considera excelente. EcoManufactura: 7.11 → USD 7.11 de valor social por USD 1. Siempre supera al ROI Social.</td></tr>
+          <tr><td><strong>ICI</strong><br><small>Índice ISO 26000</small></td><td>Asuntos implementados / 36 × 100</td><td>Cobertura de los 36 asuntos ISO 26000</td><td>Métrica de cobertura, no de calidad (eso lo da el IRE). EcoManufactura: 88.89% (32/36 asuntos).</td></tr>
+          <tr><td><strong>Scorecard ESG</strong></td><td>SE×We + SS×Ws + SG×Wg</td><td>Desempeño integral E-S-G ponderado por materialidad sectorial</td><td>0-100, escala MSCI BBB- a AAA. EcoManufactura: 78.60 → rating BB+, percentil 75 del sector.</td></tr>
+          <tr><td><strong>IBG</strong><br><small>Brecha de género</small></td><td>0.40·PE + 0.15·EF + 0.15·SB + 0.30·EG</td><td>Paridad de oportunidades (1.0 = paridad total)</td><td>Referencias: España 0.795 · Ecuador 0.752 · LATAM 0.743. EcoManufactura: 0.782 (78.2% de brecha cerrada).</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 style="margin-top:18px;">Interactivo: interprete el indicador</h3>
+      <p>Seleccione la lectura correcta para cada escenario real. La retroalimentación explica el porqué.</p>
+      <div id="interp-q"></div>
+      <div id="interp-out" class="calc-out"></div>
+    </div>
+  </div>
+
+  <!-- ============ PESTAÑA 5: LABORATORIO DE CÁLCULO ============ -->
+  <div id="tp5" class="tab-panel">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp5"></code> <a class="ulink" id="lnk-tp5" href="#tp5" onclick="goTab('tp5');return false;"></a></span><button type="button" class="copy-btn" id="cpbtn-tp5" onclick="copiarURL('tp5')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">5</span><h2>Laboratorio de cálculo de indicadores</h2></div>
+      <p>Cuatro calculadoras con los <strong>datos del caso EcoManufactura S.A.</strong> ya precargados (pyme manufacturera de 900 empleados, facturación USD 120M). Modifíquelos y calcule sus propios indicadores; cada resultado incluye interpretación automática.</p>
+
+      <!-- Calculadora IRE -->
+      <div class="kbox kbox-g" style="margin-bottom:16px;">
+        <h4>Calculadora 1 · Índice de Rendimiento Ético (IRE)</h4>
+        <p style="font-size:12.3px;">Puntuación Pi (0-10) y peso Wi (%) de las siete materias ISO 26000.</p>
+        <div class="tblwrap"><table style="font-size:12px;">
+          <thead><tr><th>Materia ISO 26000</th><th style="width:21%;">Pi (0-10)</th><th style="width:21%;">Wi (%)</th></tr></thead>
+          <tbody id="ire-tb"></tbody>
+        </table></div>
+        <button type="button" class="btn-main" style="margin-top:10px;" onclick="calcIRE()">Calcular IRE</button>
+        <div id="ire-out" class="calc-out"></div>
+      </div>
+
+      <!-- Calculadora Huella -->
+      <div class="kbox kbox-g" style="margin-bottom:16px;">
+        <h4>Calculadora 2 · Huella de carbono (Alcances 1, 2 y 3)</h4>
+        <p style="font-size:12.3px;">Huella = Σ(Actividad × Factor de emisión). Datos 2024 de EcoManufactura.</p>
+        <div class="tblwrap"><table style="font-size:12px;">
+          <thead><tr><th>Actividad</th><th style="width:17%;">Cantidad</th><th style="width:22%;">Factor (kgCO2e/unid)</th><th style="width:13%;">Alcance</th></tr></thead>
+          <tbody id="huella-tb"></tbody>
+        </table></div>
+        <div class="grid2" style="margin-top:10px;">
+          <label style="font-size:12px;font-weight:600;color:#334155;">Unidades producidas (para intensidad)<input id="hc-unid" class="calc-in" type="number" value="80000" min="1"></label>
+        </div>
+        <button type="button" class="btn-main" style="margin-top:10px;" onclick="calcHuella()">Calcular huella</button>
+        <div id="huella-out" class="calc-out"></div>
+      </div>
+
+      <!-- Calculadora SROI / ROI -->
+      <div class="kbox kbox-g" style="margin-bottom:16px;">
+        <h4>Calculadora 3 · ROI Social y SROI</h4>
+        <div class="grid2">
+          <label style="font-size:12px;font-weight:600;color:#334155;">Inversión del programa (USD)<input id="sroi-inv" class="calc-in" type="number" value="200000" min="0"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Beneficio directo empresa (USD)<input id="sroi-dir" class="calc-in" type="number" value="215000" min="0"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Beneficio indirecto empresa (USD)<input id="sroi-ind" class="calc-in" type="number" value="155000" min="0"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Valor social otros stakeholders, sin ajustes (USD)<input id="sroi-vst" class="calc-in" type="number" value="1422300" min="0"></label>
+        </div>
+        <button type="button" class="btn-main" style="margin-top:10px;" onclick="calcSROI()">Calcular ROI Social y SROI</button>
+        <div id="sroi-out" class="calc-out"></div>
+      </div>
+
+      <!-- Calculadora Scorecard -->
+      <div class="kbox kbox-g" style="margin-bottom:16px;">
+        <h4>Calculadora 4 · Scorecard ESG</h4>
+        <div class="grid3">
+          <label style="font-size:12px;font-weight:600;color:#334155;">Score Ambiental SE (0-100)<input id="esg-se" class="calc-in" type="number" value="75.30" min="0" max="100" step="0.01"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Score Social SS (0-100)<input id="esg-ss" class="calc-in" type="number" value="80.10" min="0" max="100" step="0.01"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Score Gobernanza SG (0-100)<input id="esg-sg" class="calc-in" type="number" value="81.75" min="0" max="100" step="0.01"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Peso Ambiental We (%)<input id="esg-we" class="calc-in" type="number" value="40" min="0" max="100"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Peso Social Ws (%)<input id="esg-ws" class="calc-in" type="number" value="35" min="0" max="100"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Peso Gobernanza Wg (%)<input id="esg-wg" class="calc-in" type="number" value="25" min="0" max="100"></label>
+        </div>
+        <button type="button" class="btn-main" style="margin-top:10px;" onclick="calcESG()">Calcular Scorecard ESG</button>
+        <div id="esg-out" class="calc-out"></div>
+      </div>
+
+      <!-- Calculadora IBG -->
+      <div class="kbox kbox-g">
+        <h4>Calculadora 5 · Índice de Brecha de Género (IBG)</h4>
+        <p style="font-size:12.3px;">IBG = 0.40·PE + 0.15·EF + 0.15·SB + 0.30·EG (pesos del Foro Económico Mundial).</p>
+        <div class="grid2">
+          <label style="font-size:12px;font-weight:600;color:#334155;">PE: ratio participación económica (mujeres/hombres)<input id="ibg-pe" class="calc-in" type="number" value="0.842" min="0" max="1.5" step="0.001"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">EF: ratio educación/formación<input id="ibg-ef" class="calc-in" type="number" value="0.913" min="0" max="1.5" step="0.001"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">SB: ratio salud y bienestar<input id="ibg-sb" class="calc-in" type="number" value="0.980" min="0" max="1.5" step="0.001"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">EG: ratio empoderamiento en gobernanza<input id="ibg-eg" class="calc-in" type="number" value="0.538" min="0" max="1.5" step="0.001"></label>
+        </div>
+        <button type="button" class="btn-main" style="margin-top:10px;" onclick="calcIBG()">Calcular IBG</button>
+        <div id="ibg-out" class="calc-out"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PESTAÑA 6: DASHBOARDS Y DATOS ============ -->
+  <div id="tp6" class="tab-panel">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp6"></code> <a class="ulink" id="lnk-tp6" href="#tp6" onclick="goTab('tp6');return false;"></a></span><button type="button" class="copy-btn" id="cpbtn-tp6" onclick="copiarURL('tp6')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">6</span><h2>Dashboards de KPIs y análisis de datos comparados</h2></div>
+      <p>Un <strong>dashboard ESG</strong> integra en una sola vista los indicadores clave, permitiendo monitorear el desempeño en tiempo real, identificar desviaciones y priorizar acciones correctivas. El caso EcoManufactura S.A. (900 empleados, USD 120M de facturación, adhesión al Pacto Mundial e ISO 14001) estructura su tablero 2024 en cinco bloques:</p>
+      <div class="grid2" style="margin-bottom:14px;">
+        <div class="sq" style="border-top:3px solid #2563eb;"><strong style="font-size:12.5px;color:#1d4ed8;">KPIs sintéticos</strong><p style="font-size:12px;margin:4px 0 0 0;">ICI 82% · CO2 −28% vs línea base 2020 · SROI 3.42 · 48% mujeres en plantilla.</p></div>
+        <div class="sq" style="border-top:3px solid #059669;"><strong style="font-size:12.5px;color:#065f46;">Cuadrantes ESG+E</strong><p style="font-size:12px;margin:4px 0 0 0;">Ambiental, Social, Gobernanza y Económico con score y calificación A+/A/B+/B.</p></div>
+        <div class="sq" style="border-top:3px solid #d97706;"><strong style="font-size:12.5px;color:#92400e;">Semáforo por framework</strong><p style="font-size:12px;margin:4px 0 0 0;">ISO 26000, GRI, Pacto Mundial (COP), SA8000, TCFD y SASB en verde/ámbar/rojo.</p></div>
+        <div class="sq" style="border-top:3px solid #dc2626;"><strong style="font-size:12.5px;color:#991b1b;">Resumen estratégico</strong><p style="font-size:12px;margin:4px 0 0 0;">Inversión RSC USD 2.8M (+18%) · 9/17 ODS impactados · Top 15% ranking ESG sectorial.</p></div>
+      </div>
+
+      <h3>Arquitectura de un sistema de KPIs ESG (5 pasos)</h3>
+      <ol>
+        <li><strong>Jerarquía de indicadores:</strong> 3-5 estratégicos para el Consejo · 10-15 tácticos para el Comité de Sostenibilidad · 40-60 operativos para gerentes funcionales.</li>
+        <li><strong>Cadencia de actualización:</strong> mensual (operativos), trimestral (tácticos), semestral/anual (estratégicos).</li>
+        <li><strong>Trazabilidad auditada:</strong> cada dato con fuente verificable, método de cálculo documentado y responsable designado.</li>
+        <li><strong>Selección tecnológica:</strong> hojas de cálculo (&lt;20 KPIs) → BI intermedio (Power BI, Tableau, Qlik) → plataformas especializadas (Enablon, Diligent ESG, Workiva, Sphera).</li>
+        <li><strong>Cultura organizacional:</strong> el dashboard solo aporta valor si se revisa en reuniones formales y las desviaciones disparan acciones con responsables y plazos.</li>
+      </ol>
+
+      <div class="kbox kbox-v" style="margin:10px 0 16px;">
+        <h4>💡 Sabía que…</h4>
+        <p style="margin:0;font-size:12.5px;">La empresa con dashboard ESG en tiempo real más maduro del mundo es <strong>Siemens AG</strong>: más de 1.700 indicadores ESG actualizados mensualmente y públicos en su Sustainability Insight Hub, con rating MSCI AAA y Top 10 del Corporate Knights Global 100 durante 6 años consecutivos (2019-2024).</p>
+      </div>
+
+      <h3>Interactivo: semáforo de cumplimiento por framework</h3>
+      <p>Ajuste el estado de cada marco (verde / ámbar / rojo) según el nivel de implementación de su organización y obtenga el diagnóstico con acciones recomendadas.</p>
+      <div id="sem-map"></div>
+      <div id="sem-out" class="calc-out"></div>
+
+      <h3 style="margin-top:18px;">Datos comparados: indicadores ESG de empresas modelo (2023-2024)</h3>
+      <p>Haga clic en los encabezados para ordenar la tabla por cualquier columna y comparar el desempeño.</p>
+      <div class="tblwrap"><table id="tbl-esg">
+        <thead><tr>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-esg',0)">Indicador</th>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-esg',1)">Patagonia</th>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-esg',2)">Unilever</th>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-esg',3)">Natura</th>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-esg',4)">Danone</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Año inicio RSC</td><td>1973</td><td>2010 (USLP)</td><td>1969</td><td>1919</td></tr>
+          <tr><td>Ingresos (USD miles M)</td><td>1.0</td><td>60.0</td><td>7.8</td><td>28.0</td></tr>
+          <tr><td>Emisiones CO2 total (MtCO2e)</td><td>11.4</td><td>25.3</td><td>14.4</td><td>33.8</td></tr>
+          <tr><td>Intensidad CO2 (kg/USD mil)</td><td>11.4</td><td>0.42</td><td>1.85</td><td>1.21</td></tr>
+          <tr><td>Energía renovable (%)</td><td>100</td><td>60</td><td>85</td><td>75</td></tr>
+          <tr><td>Mujeres en plantilla (%)</td><td>54</td><td>52</td><td>60</td><td>50</td></tr>
+          <tr><td>Mujeres en junta (%)</td><td>50</td><td>45</td><td>40</td><td>46</td></tr>
+          <tr><td>Inversión social (% ingresos)</td><td>1.0</td><td>0.5</td><td>0.7</td><td>0.6</td></tr>
+          <tr><td>Scorecard ESG (0-100)</td><td>92</td><td>85</td><td>88</td><td>82</td></tr>
+          <tr><td>Rating MSCI</td><td>AAA</td><td>AA</td><td>AA</td><td>A</td></tr>
+          <tr><td>Certificación B Corp</td><td>Sí</td><td>No</td><td>Sí</td><td>No</td></tr>
+          <tr><td>Pacto Mundial</td><td>Sí (LEAD)</td><td>Sí (LEAD)</td><td>Sí (LEAD)</td><td>Sí</td></tr>
+        </tbody>
+      </table></div>
+      <p style="margin-top:8px;"><small>Fuente: material didáctico UT3 (tabla 7.1, datos 2023-2024). El radar ESG del PDF muestra a Patagonia como el perfil más equilibrado (&gt;88 en cada eje), Unilever sólido (82-88) y Nestlé como benchmark bajo (55-75).</small></p>
+
+      <h3 style="margin-top:16px;">Ranking Global 100 de empresas sostenibles (Corporate Knights 2024, extracto)</h3>
+      <div class="tblwrap"><table id="tbl-rank">
+        <thead><tr>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-rank',0)">#</th>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-rank',1)">Empresa</th>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-rank',2)">País</th>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-rank',3)">Sector</th>
+          <th style="cursor:pointer;" onclick="sortTabla('tbl-rank',4)">Score</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Schneider Electric</td><td>Francia</td><td>Energía</td><td>83.2</td></tr>
+          <tr><td>2</td><td>Ørsted</td><td>Dinamarca</td><td>Energía renovable</td><td>82.8</td></tr>
+          <tr><td>3</td><td>Patagonia</td><td>EEUU</td><td>Textil</td><td>82.5</td></tr>
+          <tr><td>4</td><td>Banco do Brasil</td><td>Brasil</td><td>Financiero</td><td>81.9</td></tr>
+          <tr><td>5</td><td>Natura &Co</td><td>Brasil</td><td>Cosmética</td><td>81.7</td></tr>
+          <tr><td>6</td><td>Unilever</td><td>Reino Unido</td><td>Consumo masivo</td><td>81.4</td></tr>
+          <tr><td>7</td><td>Siemens</td><td>Alemania</td><td>Industrial</td><td>80.9</td></tr>
+          <tr><td>8</td><td>Iberdrola</td><td>España</td><td>Energía</td><td>80.6</td></tr>
+          <tr><td>9</td><td>Microsoft</td><td>EEUU</td><td>Tecnología</td><td>80.3</td></tr>
+          <tr><td>10</td><td>Danone</td><td>Francia</td><td>Alimentación</td><td>80.1</td></tr>
+          <tr><td>11</td><td>Nestlé</td><td>Suiza</td><td>Alimentación</td><td>72.4</td></tr>
+          <tr><td>12</td><td>Toyota</td><td>Japón</td><td>Automotriz</td><td>70.8</td></tr>
+          <tr><td>13</td><td>Apple</td><td>EEUU</td><td>Tecnología</td><td>70.5</td></tr>
+          <tr><td>14</td><td>Coca-Cola Co</td><td>EEUU</td><td>Bebidas</td><td>68.9</td></tr>
+          <tr><td>15</td><td>ExxonMobil</td><td>EEUU</td><td>Petróleo</td><td>42.1</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 style="margin-top:16px;">Interactivo: barras comparadas — evolución del reporte 2010-2024</h3>
+      <p>Porcentaje de grandes empresas que publican reportes de sostenibilidad (S&amp;P 500). El punto de inflexión 2015 = adopción de los ODS.</p>
+      <div id="chart-reporte" style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px;"></div>
+      <p style="margin-top:8px;"><small>2010: 20% · 2013: 72% · 2015: 81% · 2017: 85% · 2019: 90% · 2021: 96% · 2024: 92% de las S&amp;P 500 (según el material: 92% en 2024 frente al 20% en 2010). En UE la CSRD vuelve el reporte obligatorio desde 2024-2026 para más de 50.000 empresas.</small></p>
+    </div>
+  </div>
+
+  <!-- ============ PESTAÑA 7: ELABORAR EL INFORME ============ -->
+  <div id="tp7" class="tab-panel">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp7"></code> <a class="ulink" id="lnk-tp7" href="#tp7" onclick="goTab('tp7');return false;"></a></span><button type="button" class="copy-btn" id="cpbtn-tp7" onclick="copiarURL('tp7')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">7</span><h2>Elaborar el informe: proceso en nueve pasos</h2></div>
+      <p>Elaborar un informe conforme a estándares internacionales es un proceso disciplinado, no un documento de última hora. La secuencia resume el flujo completo, del análisis de materialidad a la verificación externa:</p>
+      <ol>
+        <li><strong>Preparar:</strong> definir alcance (organizacional y temporal), equipo responsable y presupuesto del reporte.</li>
+        <li><strong>Análisis de materialidad:</strong> identificar y priorizar temas (encuesta a stakeholders + evaluación de impacto); construir la matriz materialidad vs. importancia para el negocio.</li>
+        <li><strong>Seleccionar estándares:</strong> GRI (impacto) + ESG/ISSB/SASB (materialidad financiera) según audiencia; TCFD si los riesgos climáticos son materiales.</li>
+        <li><strong>Recopilar datos:</strong> construir el inventario de indicadores con trazabilidad: fuente, método de cálculo y responsable por dato.</li>
+        <li><strong>Calcular y consolidar:</strong> aplicar las fórmulas (IRE, huella, SROI, Scorecard…), consolidar el dashboard de KPIs y validar tendencias contra línea base.</li>
+        <li><strong>Redactar revelaciones:</strong> contenido según los principios GRI (inclusión, contexto, materialidad, exhaustividad) y calidad (exactitud, balance, claridad, comparabilidad, fiabilidad, puntualidad).</li>
+        <li><strong>Verificación:</strong> someter los datos a verificación por terceros (assurance) — crecientemente exigida por reguladores e inversores.</li>
+        <li><strong>Publicar y comunicar:</strong> publicar la memoria, el índice de contenido y difundir los KPIs clave a stakeholders.</li>
+        <li><strong>Ciclo de mejora:</strong> recoger feedback, corregir desviaciones y fijar metas del siguiente ciclo (PDCA del reporte).</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h3>Interactivo: asistente de revelaciones GRI por tema material</h3>
+      <p>Seleccione un tema material del informe; el asistente muestra las revelaciones GRI asociadas y un borrador guía de qué debe contener esa sección.</p>
+      <div id="asist-temas" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;"></div>
+      <div id="asist-out" class="calc-out"></div>
+    </div>
+
+    <div class="card">
+      <h3>Interactivo: checklist de calidad del informe (principios GRI)</h3>
+      <p>Verifique su informe contra los principios de calidad; el semáforo indica si está listo para publicar.</p>
+      <div id="chk-informe"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+        <button type="button" class="btn-main" onclick="evaluarInforme()">Evaluar informe</button>
+        <button type="button" class="btn-ghost" onclick="resetInforme()">Reiniciar checklist</button>
+      </div>
+      <div id="chk-out" class="calc-out"></div>
+    </div>
+
+    <div class="card">
+      <h3>Errores comunes al reportar y cómo evitarlos</h3>
+      <div class="grid2">
+        <div class="sq" style="border-left:3px solid #dc2626;"><strong style="font-size:12.5px;color:#991b1b;">Datos sin trazabilidad</strong><p style="font-size:12px;margin:4px 0 0 0;">Cada cifra debe tener fuente verificable y método documentado; sin ello no pasa verificación y se convierte en greenwashing.</p></div>
+        <div class="sq" style="border-left:3px solid #dc2626;"><strong style="font-size:12.5px;color:#991b1b;">Reportar solo lo positivo</strong><p style="font-size:12px;margin:4px 0 0 0;">El principio de balance exige revelar también los retrocesos y brechas; un informe 100% positivo genera desconfianza.</p></div>
+        <div class="sq" style="border-left:3px solid #d97706;"><strong style="font-size:12.5px;color:#92400e;">Ignorar el Alcance 3</strong><p style="font-size:12px;margin:4px 0 0 0;">Representa 65-85% de la huella en manufactureras; omitirlo subestima el impacto y es la primera observación de los verificadores.</p></div>
+        <div class="sq" style="border-left:3px solid #d97706;"><strong style="font-size:12.5px;color:#92400e;">KPIs sin línea base ni meta</strong><p style="font-size:12px;margin:4px 0 0 0;">Un dato sin comparación (año anterior, sector, meta) no permite interpretar tendencias ni evaluar el avance.</p></div>
+        <div class="sq" style="border-left:3px solid #2563eb;"><strong style="font-size:12.5px;color:#1d4ed8;">Materialidad no consultada</strong><p style="font-size:12px;margin:4px 0 0 0;">Decidir los temas materiales sin consultar a los stakeholders viola el principio de inclusión y debilita el contenido.</p></div>
+        <div class="sq" style="border-left:3px solid #2563eb;"><strong style="font-size:12.5px;color:#1d4ed8;">Informe no comparable</strong><p style="font-size:12px;margin:4px 0 0 0;">Cambiar métodos o alcances cada año rompe la comparabilidad; toda modificación metodológica debe divulgarse.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PESTAÑA 8: CASO DE ESTUDIO EN 4 FASES (DESARROLLADO POR EL ESTUDIANTE) ============ -->
+  <div id="tp8" class="tab-panel">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp8"></code> <a class="ulink" id="lnk-tp8" href="#tp8" onclick="goTab('tp8');return false;"></a></span><button type="button" class="copy-btn" id="cpbtn-tp8" onclick="copiarURL('tp8')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">8</span><h2>Caso de estudio: primera memoria de sostenibilidad de TextiAndes S.A.</h2></div>
+      <p><strong>Contexto.</strong> Usted acaba de ser contratado/a como analista junior de sostenibilidad de <strong>TextiAndes S.A.</strong>, una textil ecuatoriana de 450 empleados con planta en Ambato, facturación anual de USD 18M (80% exportación a EE.UU. y Europa) y un cliente europeo que exige memoria GRI para renovar el contrato 2027. La gerencia le encarga liderar el primer reporte.</p>
+      <div class="kbox kbox-c" style="margin-bottom:14px;">
+        <h4>📋 Datos base de TextiAndes S.A. (inventario 2026)</h4>
+        <div class="tblwrap"><table style="font-size:11.8px;">
+          <thead><tr><th>Variable</th><th>Valor</th><th>Variable</th><th>Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Gas natural (Alcance 1)</td><td>85,000 m³ × 2.02 kgCO2e/m³</td><td>Mujeres en plantilla</td><td>58% (261 de 450)</td></tr>
+            <tr><td>Diésel flota (Alcance 1)</td><td>32,000 L × 2.68 kgCO2e/L</td><td>Mujeres en cargos directivos</td><td>22% (11 de 50)</td></tr>
+            <tr><td>Electricidad (Alcance 2)</td><td>950,000 kWh × 0.32 kgCO2e/kWh</td><td>Horas formación (mujer/hombre)</td><td>24 h / 38 h</td></tr>
+            <tr><td>Algodón importado por mar (Alcance 3)</td><td>620,000 t·km × 0.016 kgCO2e/t·km</td><td>Salario mujeres/hombres</td><td>0.92 (ratio)</td></tr>
+            <tr><td>Uso y lavado de prendas vendidas (Alcance 3)</td><td>4,200,000 kWh × 0.32 kgCO2e/kWh</td><td>Accidentes con baja</td><td>14 (tasa 3.1/100 trabajadores)</td></tr>
+            <tr><td>Residuos textiles a vertedero</td><td>210 t × 450 kgCO2e/t</td><td>Programa comunitario</td><td>USD 90,000 invertidos</td></tr>
+            <tr><td>Prendas producidas</td><td>1,250,000 unidades</td><td>Beneficio estimado del programa</td><td>USD 126,000 (empresa)</td></tr>
+            <tr><td>Energía renovable</td><td>18% del total</td><td>Valor social del programa (stakeholders)</td><td>USD 585,000 ajustado</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin:8px 0 0 0;font-size:11.5px;">Los factores de emisión son los mismos del material (caso EcoManufactura). Estos datos alimentan las cuatro fases; trabaje con lápiz y papel, la pestaña 5 o una hoja de cálculo.</p>
+      </div>
+
+      <h3>Las cuatro fases del encargo</h3>
+      <div class="fase-steps" id="fase-steps">
+        <button type="button" class="fase-step cur" id="fs1" onclick="goFase(1)">FASE 1 · Diagnóstico y materialidad<small>Stakeholders + doble materialidad</small></button>
+        <button type="button" class="fase-step" id="fs2" onclick="goFase(2)">FASE 2 · Indicadores y cálculo<small>IBC, IBG, SROI, Scorecard</small></button>
+        <button type="button" class="fase-step" id="fs3" onclick="goFase(3)">FASE 3 · Informe según GRI<small>Índice de contenido y revelaciones</small></button>
+        <button type="button" class="fase-step" id="fs4" onclick="goFase(4)">FASE 4 · Dashboard y verificación<small>Tablero ESG + checklist de calidad</small></button>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="fase-prog" style="width:0%"></div></div>
+      <p style="font-size:11.5px;color:#64748b;margin-bottom:0;"><span id="fase-prog-txt">Fase 1 de 4 — avance del caso: 0%</span></p>
+
+      <!-- FASE 1 -->
+      <div class="fase-panel active" id="fase1">
+        <div class="kbox kbox-h" style="margin:14px 0;">
+          <h4 style="color:#ffffff;">FASE 1 · Diagnóstico y análisis de materialidad (trabajo del estudiante)</h4>
+          <p style="font-size:12.5px;color:#e2e8f0;margin:0;">Antes de calcular cualquier número, debe decidir <em>qué</em> reportar. Esta fase replica el paso 2 del proceso de la pestaña 7 aplicado a TextiAndes.</p>
+        </div>
+        <h4>Actividad 1.1 · Mapa de stakeholders (10 min)</h4>
+        <p style="font-size:12.5px;">Identifique los stakeholders de TextiAndes y su expectativa principal frente al reporte (una línea por grupo). Mínimo cinco grupos; piense en el cliente europeo, los trabajadores, la comunidad de Ambato, proveedores de algodón y la Dirección del Trabajo.</p>
+        <textarea class="txt" id="fa1a" placeholder="Grupo → expectativa (una línea por grupo)&#10;Ej.: Trabajadores → seguridad, equidad salarial y formación..."></textarea>
+        <h4 style="margin-top:12px;">Actividad 1.2 · Matriz de doble materialidad (15 min)</h4>
+        <p style="font-size:12.5px;">De la lista de temas, marque los que considera <strong>materiales por impacto</strong> (efecto de TextiAndes en el mundo) y los <strong>materiales financieramente</strong> (efecto en el negocio — recuerde el contrato europeo). Luego justifique los dos temas más materiales.</p>
+        <div id="mat-chips"></div>
+        <textarea class="txt" id="fa1b" style="margin-top:10px;" placeholder="Justificación de los dos temas más materiales (3-5 líneas): ¿por qué lideran la matriz?"></textarea>
+        <h4 style="margin-top:12px;">Actividad 1.3 · Autocontrol (responda antes de avanzar)</h4>
+        <p style="font-size:12.5px;">¿Cuál es la diferencia entre materialidad simple y doble, y cuál exige la CSRD? (2-3 líneas)</p>
+        <textarea class="txt" id="fa1c" placeholder="Su respuesta..."></textarea>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="btn-main" onclick="faseCheck(1)">Guardar fase 1 y continuar</button>
+          <details class="sr" style="margin:0;flex:1 1 260px;"><summary>Ver pista de la actividad 1.3</summary><div class="sr-body">La materialidad simple pregunta solo por el efecto financiero; la <strong>doble</strong> (exigida por la CSRD) suma el impacto de la empresa en el mundo. GRI parte del impacto; ISSB/SASB del valor para el inversor.</div></details>
+        </div>
+        <div id="fase1-out" class="calc-out"></div>
+      </div>
+
+      <!-- FASE 2 -->
+      <div class="fase-panel" id="fase2">
+        <div class="kbox kbox-h" style="margin:14px 0;">
+          <h4 style="color:#ffffff;">FASE 2 · Cálculo de indicadores clave (trabajo del estudiante)</h4>
+          <p style="font-size:12.5px;color:#e2e8f0;margin:0;">Con los datos base de TextiAndes, calcule a mano (y verifique luego en la pestaña 5) los indicadores que irán a la memoria.</p>
+        </div>
+        <h4>Actividad 2.1 · Huella de carbono por alcances (20 min)</h4>
+        <p style="font-size:12.5px;">Calcule el Alcance 1 (gas + diésel), el Alcance 2 (electricidad) y el Alcance 3 (flete marítimo + uso de prendas + residuos), la huella total y la intensidad por prenda (kgCO2e/unidad). Anote también qué % del total es el Alcance 3.</p>
+        <div class="tblwrap"><table style="font-size:12px;">
+          <thead><tr><th>Cálculo solicitado</th><th style="width:26%;">Su resultado</th><th style="width:22%;">Unidad</th></tr></thead>
+          <tbody>
+            <tr><td>Alcance 1 (gas + diésel)</td><td><input class="calc-in" id="f2a1" type="number" step="any" placeholder="tCO2e"></td><td>tCO2e</td></tr>
+            <tr><td>Alcance 2 (electricidad)</td><td><input class="calc-in" id="f2a2" type="number" step="any" placeholder="tCO2e"></td><td>tCO2e</td></tr>
+            <tr><td>Alcance 3 (flete + uso + residuos)</td><td><input class="calc-in" id="f2a3" type="number" step="any" placeholder="tCO2e"></td><td>tCO2e</td></tr>
+            <tr><td>Huella total</td><td><input class="calc-in" id="f2a4" type="number" step="any" placeholder="tCO2e"></td><td>tCO2e</td></tr>
+            <tr><td>Intensidad (total ÷ 1.250.000 prendas)</td><td><input class="calc-in" id="f2a5" type="number" step="any" placeholder="kgCO2e/unidad"></td><td>kgCO2e/prenda</td></tr>
+          </tbody>
+        </table></div>
+        <h4 style="margin-top:12px;">Actividad 2.2 · Índice de Brecha de Género (15 min)</h4>
+        <p style="font-size:12.5px;">Con los datos base construya los cuatro subíndices del IBG: PE (participación/remuneración), EF (formación: 24/38), SB (asuma 1.0) y EG (directivas: 22%/50% → ratio 0.44 si la referencia de paridad es 50%... calcule EG = proporción de mujeres en directivos ÷ proporción de hombres, aplicando la misma lógica del caso EcoManufactura donde 35% de directivas → EG 0.538). Luego: IBG = 0.40·PE + 0.15·EF + 0.15·SB + 0.30·EG.</p>
+        <div class="grid2">
+          <label style="font-size:12px;font-weight:600;color:#334155;">PE (use salario 0.92)<input class="calc-in" id="f2b1" type="number" step="any" placeholder="0.000"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">EF (formación 24/38)<input class="calc-in" id="f2b2" type="number" step="any" placeholder="0.000"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">SB (salud, asuma 1.0)<input class="calc-in" id="f2b3" type="number" step="any" placeholder="0.000"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">EG (directivas 11/39)<input class="calc-in" id="f2b4" type="number" step="any" placeholder="0.000"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">IBG total (0.40·PE+0.15·EF+0.15·SB+0.30·EG)<input class="calc-in" id="f2b5" type="number" step="any" placeholder="0.000"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">% de brecha cerrada (IBG × 100)<input class="calc-in" id="f2b6" type="number" step="any" placeholder="%"></label>
+        </div>
+        <h4 style="margin-top:12px;">Actividad 2.3 · SROI del programa comunitario (10 min)</h4>
+        <p style="font-size:12.5px;">Con la inversión (USD 90,000), el beneficio empresarial (USD 126,000) y el valor social ajustado (USD 585,000): calcule el ROI Social (%) y el SROI (ratio). Interprete: ¿por qué el SROI supera al ROI Social?</p>
+        <div class="grid2">
+          <label style="font-size:12px;font-weight:600;color:#334155;">ROI Social (%)<input class="calc-in" id="f2c1" type="number" step="any" placeholder="%"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">SROI (ratio x:1)<input class="calc-in" id="f2c2" type="number" step="any" placeholder="x"></label>
+        </div>
+        <textarea class="txt" id="fa2d" style="margin-top:10px;" placeholder="Interpretación (2-3 líneas): ¿por qué SROI > ROI Social? ¿Qué significan los valores obtenidos?"></textarea>
+        <h4 style="margin-top:12px;">Actividad 2.4 · Scorecard ESG (15 min)</h4>
+        <p style="font-size:12.5px;">La gerencia estima SE = 62 (huella alta, solo 18% renovable), SS = 74 (accidentabilidad y brecha de formación) y SG = 71 (directivas 22%, sin comité de sostenibilidad). Para textil-consumo masivo use pesos 35/40/25. Calcule el Scorecard e interprete el rating aproximado (escala de la pestaña 4).</p>
+        <div class="grid2">
+          <label style="font-size:12px;font-weight:600;color:#334155;">Scorecard ESG (35/40/25)<input class="calc-in" id="f2e1" type="number" step="any" placeholder="0-100"></label>
+          <label style="font-size:12px;font-weight:600;color:#334155;">Rating aproximado (BB, BB+...)<input class="calc-in" id="f2e2" type="text" placeholder="rating"></label>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="btn-main" onclick="faseCheck(2)">Guardar fase 2 y continuar</button>
+          <button type="button" class="btn-ghost" onclick="fase2Pistas()">Ver resultados de referencia</button>
+        </div>
+        <div id="fase2-out" class="calc-out"></div>
+      </div>
+
+      <!-- FASE 3 -->
+      <div class="fase-panel" id="fase3">
+        <div class="kbox kbox-h" style="margin:14px 0;">
+          <h4 style="color:#ffffff;">FASE 3 · Redacción del informe según GRI (trabajo del estudiante)</h4>
+          <p style="font-size:12.5px;color:#e2e8f0;margin:0;">Ahora convierta los números de la fase 2 en revelaciones GRI. Puede reutilizar el generador de índice de la pestaña 2 y el asistente de la pestaña 7.</p>
+        </div>
+        <h4>Actividad 3.1 · Índice de contenido GRI (15 min)</h4>
+        <p style="font-size:12.5px;">Con los temas materiales de la fase 1, liste las revelaciones GRI que incluirá la memoria de TextiAndes (mínimo 6 códigos con su tema; use la nomenclatura GRI 2-x para generales y GRI 305/303/403/405/413 para temas). Justifique brevemente la exclusión de un tema no material.</p>
+        <textarea class="txt" id="fa3a" placeholder="Índice propuesto:&#10;GRI 2-1 … · GRI 2-6 … · GRI 305-1/2/3 (emisiones) …&#10;Tema excluido y por qué: ..."></textarea>
+        <h4 style="margin-top:12px;">Actividad 3.2 · Revelación 305 (borrador, 20 min)</h4>
+        <p style="font-size:12.5px;">Redacte la revelación de emisiones siguiendo la estructura: contexto → dato cuantitativo → método y fuente → comparación (no hay línea base previa; compare con el benchmark sectorial de la pestaña 6) → meta y plazo (proponga una). Incluya los tres alcances y la intensidad de la fase 2.</p>
+        <textarea class="txt" id="fa3b" style="min-height:120px;" placeholder="Borrador de la revelación GRI 305 de TextiAndes..."></textarea>
+        <h4 style="margin-top:12px;">Actividad 3.3 · Revelación 405 (borrador, 10 min)</h4>
+        <p style="font-size:12.5px;">Redacte la revelación de diversidad: composición de plantilla y directivos por género, el IBG calculado, la brecha de formación y una meta concreta (recuerde la lógica de EcoManufactura: meta 85% de brecha cerrada con mentoring y promoción).</p>
+        <textarea class="txt" id="fa3c" placeholder="Borrador de la revelación GRI 405 de TextiAndes..."></textarea>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="btn-main" onclick="faseCheck(3)">Guardar fase 3 y continuar</button>
+          <details class="sr" style="margin:0;flex:1 1 260px;"><summary>Criterios de una buena revelación</summary><div class="sr-body">Dato + método + fuente + comparación + meta. Sin método y fuente, la revelación no pasa verificación (exactitud y fiabilidad); sin comparación ni meta, no permite evaluar avance (comparabilidad).</div></details>
+        </div>
+        <div id="fase3-out" class="calc-out"></div>
+      </div>
+
+      <!-- FASE 4 -->
+      <div class="fase-panel" id="fase4">
+        <div class="kbox kbox-h" style="margin:14px 0;">
+          <h4 style="color:#ffffff;">FASE 4 · Dashboard ESG y verificación (trabajo del estudiante)</h4>
+          <p style="font-size:12.5px;color:#e2e8f0;margin:0;">Cierre el ciclo: presente los resultados al Consejo y prepare el informe para verificación externa.</p>
+        </div>
+        <h4>Actividad 4.1 · Tablero para el Consejo (15 min)</h4>
+        <p style="font-size:12.5px;">Diseñe la primera fila del dashboard: los <strong>3-5 KPIs estratégicos</strong> que presentaría al Consejo de Administración de TextiAndes (use los calculados en la fase 2; indique KPI, valor y meta propuesta). Explique en una línea por qué eligió cada uno.</p>
+        <textarea class="txt" id="fa4a" placeholder="KPI 1: Huella total — valor: ... tCO2e — meta 2028: -20%&#10;Por qué: ..."></textarea>
+        <h4 style="margin-top:12px;">Actividad 4.2 · Semáforo de frameworks (10 min)</h4>
+        <p style="font-size:12.5px;">Asigne un color a cada marco para TextiAndes hoy y justifique en una línea los dos más urgentes:</p>
+        <div id="caso-sem"></div>
+        <textarea class="txt" id="fa4b" style="margin-top:10px;" placeholder="Los dos frameworks más urgentes y por qué: ..."></textarea>
+        <h4 style="margin-top:12px;">Actividad 4.3 · Preparación para la verificación (10 min)</h4>
+        <p style="font-size:12.5px;">Aplique el checklist de calidad (pestaña 7) al informe que redactó en la fase 3: marque los ítems que hoy cumpliría TextiAndes y liste los dos vacíos críticos que un verificador externo señalaría primero.</p>
+        <div id="caso-chk"></div>
+        <textarea class="txt" id="fa4c" style="margin-top:10px;" placeholder="Vacío crítico 1: ...&#10;Vacío crítico 2: ..."></textarea>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="btn-main" onclick="faseCheck(4)">Finalizar caso y ver rubrica</button>
+          <button type="button" class="btn-ghost" onclick="casoReset()">Reiniciar el caso</button>
+          <button type="button" class="btn-ghost" onclick="casoDescargar()">Descargar mis respuestas (.txt)</button>
+        </div>
+        <div id="fase4-out" class="calc-out"></div>
+
+        <div id="rubrica" style="display:none;margin-top:16px;">
+          <h3 style="border-top:1px solid #e2e8f0;padding-top:14px;">Rúbrica de evaluación del caso (100 puntos)</h3>
+          <div class="tblwrap"><table style="font-size:12px;">
+            <thead><tr><th style="width:22%;">Fase</th><th style="width:52%;">Criterio central</th><th>Puntos</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="2"><strong>1 · Materialidad</strong></td><td>Mapa de stakeholders con expectativas y matriz de doble materialidad coherente (5+ grupos, 2 temas justificados).</td><td>15</td></tr>
+              <tr><td>Distingue materialidad simple vs. doble y su vínculo con GRI/ISSB.</td><td>10</td></tr>
+              <tr><td rowspan="2"><strong>2 · Indicadores</strong></td><td>Huella por alcances correcta (±2% de la referencia) con intensidad y % Alcance 3.</td><td>15</td></tr>
+              <tr><td>IBG, SROI y Scorecard correctos con interpretación (no solo cifras).</td><td>15</td></tr>
+              <tr><td rowspan="2"><strong>3 · Informe GRI</strong></td><td>Índice de contenido con 6+ revelaciones pertinentes y exclusión justificada.</td><td>10</td></tr>
+              <tr><td>Revelaciones 305 y 405 con dato + método + fuente + comparación + meta.</td><td>15</td></tr>
+              <tr><td rowspan="2"><strong>4 · Dashboard</strong></td><td>3-5 KPIs estratégicos con valor y meta; semáforo justificado.</td><td>10</td></tr>
+              <tr><td>Vacíos críticos identificados frente al checklist de calidad y verificación.</td><td>10</td></tr>
+            </tbody>
+          </table></div>
+          <p style="font-size:11.5px;color:#64748b;margin:8px 0 0 0;">≥85 sobresaliente · 70-84 muy bueno · 50-69 suficiente (revisar fases débiles) · &lt;50 debe rehacer el caso con la guía de las pestañas 2, 4, 5 y 7.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PESTAÑA 9: AUTOEVALUACIÓN ============ -->
+  <div id="tp9" class="tab-panel">
+    <div class="url-note">🔗 <span>Esta pestaña tiene dirección URL propia: <code id="url-tp9"></code> <a class="ulink" id="lnk-tp9" href="#tp9" onclick="goTab('tp9');return false;"></a></span><button type="button" class="copy-btn" id="cpbtn-tp9" onclick="copiarURL('tp9')">Copiar URL</button></div>
+    <div class="card">
+      <div class="sec-title"><span class="n">9</span><h2>Autoevaluación final del tema 3.2</h2></div>
+      <p>Diez preguntas de opción múltiple sobre indicadores y reportes. Responda todas y pulse «Finalizar» para ver su resultado con retroalimentación por pregunta.</p>
+      <div id="quiz-boxes"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+        <button type="button" class="btn-main" id="quiz-fin-btn" onclick="quizFin()">Finalizar y ver resultado</button>
+        <button type="button" class="btn-ghost" onclick="quizReset()">Reiniciar autoevaluación</button>
+      </div>
+      <div id="quiz-result" class="calc-out"></div>
+    </div>
+
+    <div style="background-color:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+      <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin:0 0 12px 0;">Metodología y Sistema de Evaluación (UPSE)</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;font-size:12.5px;color:#475569;">
+        <div>
+          <strong style="color:#1e293b;display:block;margin-bottom:4px;">Estrategia Metodológica:</strong>
+          Horas de Acompañamiento Docente (ACD), aprendizaje colaborativo con las calculadoras y el asistente de revelaciones, construcción del propio informe en talleres autónomos apoyados en Moodle, Zoom y Teams.
+        </div>
+        <div>
+          <strong style="color:#1e293b;display:block;margin-bottom:4px;">Técnicas de Evaluación:</strong>
+          <ul style="margin:0;padding-left:16px;">
+            <li>Inmediata: control interactivo en sesión sincrónica (pestaña 9).</li>
+            <li>Continua: interpretación de indicadores y laboratorio de cálculo (pestañas 4-5).</li>
+            <li>Especial: taller asincrónico — caso de estudio en 4 fases de TextiAndes S.A. (pestaña 8) con la rúbrica de 100 puntos; apoyo del índice GRI (pestaña 2) y del checklist de calidad (pestaña 7).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== PESTAÑAS CON URL INDEPENDIENTE (ROUTING POR HASH) ===== */
+var TAB_IDS=['tp1','tp2','tp3','tp4','tp5','tp6','tp7','tp8','tp9'];
+function showTab(id){
+  if(TAB_IDS.indexOf(id)<0)id='tp1';
+  TAB_IDS.forEach(function(t){document.getElementById(t).classList.toggle('active',t===id);});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===id);});
+  updUrlNotes(id);
+}
+function updUrlNotes(id){
+  var base=location.href.split('#')[0];
+  var c=document.getElementById('url-'+id);
+  if(c)c.textContent=base+'#'+id;
+  var l=document.getElementById('lnk-'+id);
+  if(l){l.textContent=base+'#'+id;l.href='#'+id;}
+}
+function goTab(id){
+  if(TAB_IDS.indexOf(id)<0)id='tp1';
+  if(location.hash!=='#'+id){location.hash=id;}
+  showTab(id);
+  var m=document.getElementById('tabsbar');
+  if(m){var b=m.querySelector('[data-tab="'+id+'"]');if(b)b.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function copiarURL(id){
+  var base=location.href.split('#')[0]+'#'+id;
+  var done=function(){var b=document.getElementById('cpbtn-'+id);if(b){b.textContent='✔ Copiada';setTimeout(function(){b.textContent='Copiar URL';},1800);}};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(base).then(done,done);}
+  else{
+    var ta=document.createElement('textarea');ta.value=base;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);done();
+  }
+}
+window.addEventListener('hashchange',function(){showTab(location.hash.replace('#',''));window.scrollTo(0,0);});
+
+/* ===== PESTAÑA 1: SELECTOR DE MARCO ===== */
+var fwPreguntas=[
+  {q:'¿Cuál es la audiencia principal de su reporte?',ops:[['Stakeholders múltiples y sociedad (impacto)','i'],['Inversores y analistas financieros','f'],['Ambos por igual (doble materialidad)','d']]},
+  {q:'¿Su organización pertenece a un sector con estándar específico?',ops:[['Sí (petróleo, agro, minería, finanzas…)','s'],['No / multisector','n']]},
+  {q:'¿Los riesgos climáticos son centrales en su negocio?',ops:[['Sí','c'],['No necesariamente','n']]},
+  {q:'¿Opera o capta capital en la Unión Europea?',ops:[['Sí','e'],['No','n']]}
+];
+var fwSel=[null,null,null,null];
+function buildFwQ(){
+  fwPreguntas.forEach(function(p,i){
+    var h='<div style="font-size:12.5px;font-weight:700;color:#334155;margin-bottom:6px;">'+(i+1)+'. '+p.q+'</div>';
+    p.ops.forEach(function(o,j){
+      h+='<button type="button" class="opt-btn" id="fw-'+i+'-'+j+'" onclick="fwPick('+i+','+j+')">'+o[0]+'</button>';
+    });
+    document.getElementById('fw-q'+(i+1)).innerHTML=h;
+  });
+}
+function fwPick(i,j){
+  fwSel[i]=fwPreguntas[i].ops[j][1];
+  fwPreguntas[i].ops.forEach(function(o,k){
+    document.getElementById('fw-'+i+'-'+k).classList.toggle('sel',k===j);
+  });
+  if(fwSel.indexOf(null)<0)fwResultado();
+}
+function fwResultado(){
+  var el=document.getElementById('fw-resultado');
+  el.className='calc-out ok';
+  var rec='';
+  if(fwSel[3]==='e'){
+    rec='<strong>Recomendación principal: GRI + CSRD/ESRS (obligatorio)</strong><br>Su organización está sujeta a la Directiva CSRD europea: el reporte no es voluntario. Debe reportar con <strong>materialidad doble</strong> (impacto + financiera) siguiendo los ESRS, usando GRI como referencia de revelaciones de impacto. Añada TCFD/IFRS S2 para riesgos climáticos.';
+  }else if(fwSel[0]==='f'){
+    rec='<strong>Recomendación principal: ESG · SASB/ISSB (IFRS S1/S2)</strong><br>Su audiencia son inversores: reporte centrado en <strong>materialidad financiera</strong>. Use los estándares SASB para su industria (13 indicadores clave) e IFRS S2 para clima (estructura TCFD: gobernanza, estrategia, riesgos, métricas).';
+  }else if(fwSel[0]==='d'){
+    rec='<strong>Recomendación principal: GRI + ISSB (informe integrado)</strong><br>Necesita cubrir la doble materialidad: <strong>GRI</strong> para revelaciones de impacto (stakeholders) y <strong>ISSB/SASB</strong> para métricas financieramente materiales (inversores). Es la combinación del informe moderno.';
+  }else{
+    rec='<strong>Recomendación principal: GRI Standards</strong><br>Su audiencia son los stakeholders: GRI es el estándar global de reporte de impacto (10.000+ organizaciones, 75% del Fortune 250). Comience con las revelaciones universales (GRI 2) y los temas materiales de su análisis.';
+  }
+  var extras=[];
+  if(fwSel[2]==='c')extras.push('Añada <strong>TCFD/IFRS S2</strong>: los riesgos climáticos son centrales (gobernanza, estrategia, gestión de riesgos, métricas y metas).');
+  if(fwSel[1]==='s')extras.push('Use el <strong>GRI Sector Standard</strong> de su industria (p. ej. GRI 11 petróleo y gas, GRI 13 agricultura, GRI 14 minería, GRI 15 finanzas).');
+  extras.push('Considere adherirse al <strong>Pacto Mundial ONU</strong> y reportar el COP anual (24.000 empresas en 160 países).');
+  el.innerHTML=rec+'<br><br><strong>Complementos:</strong><br>· '+extras.join('<br>· ');
+}
+
+/* ===== PESTAÑA 2: GENERADOR DE ÍNDICE GRI ===== */
+var griTemas=[
+  {c:'305',t:'Emisiones',u:'GRI 305-1/2/3/4/5/6/7'},
+  {c:'303',t:'Agua y efluentes',u:'GRI 303-1/2/3/4/5'},
+  {c:'304',t:'Biodiversidad',u:'GRI 304-1/2/3/4'},
+  {c:'306',t:'Residuos',u:'GRI 306-1/2/3/4/5'},
+  {c:'302',t:'Energía',u:'GRI 302-1/2/3/4/5'},
+  {c:'403',t:'Salud y seguridad laboral',u:'GRI 403-1…10'},
+  {c:'405',t:'Diversidad e igualdad de oportunidades',u:'GRI 405-1/2'},
+  {c:'404',t:'Formación y educación',u:'GRI 404-1/2/3'},
+  {c:'406',t:'No discriminación',u:'GRI 406-1'},
+  {c:'413',t:'Comunidades locales',u:'GRI 413-1/2'},
+  {c:'414',t:'Evaluación ambiental de proveedores',u:'GRI 414-1/2'},
+  {c:'205',t:'Anticorrupción',u:'GRI 205-1/2/3'},
+  {c:'418',t:'Privacidad del cliente',u:'GRI 418-1'}
+];
+function buildGri(){
+  var h='<div class="grid2">';
+  griTemas.forEach(function(g,i){
+    h+='<label class="chk"><input type="checkbox" id="grk'+i+'"><span><strong>GRI '+g.c+'</strong> — '+g.t+'</span></label>';
+  });
+  h+='</div>';
+  document.getElementById('gri-gen').innerHTML=h;
+}
+function griGenerar(){
+  var sel=[];
+  griTemas.forEach(function(g,i){if(document.getElementById('grk'+i).checked)sel.push(g);});
+  var el=document.getElementById('gri-out');
+  if(!sel.length){el.className='calc-out err';el.innerHTML='Marque al menos un tema material para generar el índice.';return;}
+  el.className='calc-out ok';
+  var h='<strong>Índice de contenido GRI — informe de sostenibilidad</strong><br><br>'+
+  'GRI 1: Fundamentos 2021 · GRI 2: Revelaciones generales 2021 · GRI 3: Temas materiales 2021<br><br>';
+  sel.forEach(function(g){h+='· <strong>GRI '+g.c+'</strong> '+g.t+' — revelaciones: '+g.u+'<br>';});
+  h+='<br><small>Recuerde: cada revelación citada debe incluir el dato, su método de cálculo y la fuente verificable (principios de exactitud y fiabilidad).</small>';
+  el.innerHTML=h;
+}
+function griReset(){
+  griTemas.forEach(function(g,i){document.getElementById('grk'+i).checked=false;});
+  document.getElementById('gri-out').className='calc-out';
+}
+
+/* ===== PESTAÑA 4: INTERPRETA EL INDICADOR ===== */
+var interpQs=[
+  {q:'EcoManufactura reporta IRE = 82.72. ¿Cómo se interpreta?',ops:['La empresa cumple el 82.72% de las 36 materias de ISO 26000','Desempeño ético agregado ponderado: nivel Avanzado (80-89), con foco de mejora en Derechos Humanos (7.0) y Prácticas Justas (7.5)','Debe reportar 82.72 indicadores GRI el próximo año'],c:1,
+   fb:'El IRE promedia las puntuaciones de las 7 materias ISO 26000 ponderadas por materialidad: 82.72 → rango Avanzado. Los 36 asuntos corresponden al ICI (cobertura), no al IRE (profundidad).'},
+  {q:'La huella de EcoManufactura: Alcance 3 = 82% del total. ¿Qué estrategia se prioriza?',ops:['Reducir únicamente el consumo de electricidad propia (Alcance 2)','Ecodiseño del producto y gestión de la cadena de suministro (flete y uso del producto)','Comprar certificados de compensación y no reportar el Alcance 3'],c:1,
+   fb:'Cuando el Alcance 3 domina (65-85% en manufactureras), las palancas clave están en la cadena de valor: ecodiseño del producto vendido (su mayor componente) y logística verde de proveedores.'},
+  {q:'SROI = 7.11 y ROI Social = 48% en el mismo programa. ¿Por qué el SROI es tan superior?',ops:['Error de cálculo: deberían coincidir','El SROI monetiza el valor creado para TODOS los stakeholders (jóvenes, Estado, salud, comunidad), no solo el retorno empresarial','El SROI no aplica descuentos por deadweight ni atribución'],c:1,
+   fb:'El ROI Social solo cuantifica beneficios empresariales (48%); el SROI suma el valor social de todos los stakeholders ajustado por deadweight, atribución y desplazamiento: USD 7.11 de valor social por USD 1 invertido.'},
+  {q:'Scorecard ESG = 78.60 en manufactura. ¿Qué lectura es correcta?',ops:['Rating AAA según MSCI','Percentil 75 del sector, rating BB+; para alcanzar A (≥85) priorizar energía renovable y economía circular','La empresa no necesita reportar porque está sobre 75'],c:1,
+   fb:'78.60/100 equivale a rating BB+ y percentil 75 del sector. Las áreas débiles (inversión comunitaria 60, energía renovable 65, residuos 72) marcan la ruta: renovables (+3.5 pts) y economía circular (+2.0 pts).'},
+  {q:'IBG = 0.782 con EG = 0.538 como subíndice más débil. ¿Qué acción correctiva es más directa?',ops:['Aumentar el salario promedio general sin tocar cargos','Programa de mentoring femenino y cuotas voluntarias en promoción a cargos directivos','Mejorar la cobertura de salud al 100%'],c:1,
+   fb:'La brecha se concentra en empoderamiento/gobernanza (0.538, mujeres solo 35% de directivos): la palanca es la promoción a cargos directivos. Salario (PE) y salud (SB) ya están cerca de 1.'}
+];
+var interpAns=[];
+function buildInterp(){
+  var h='';
+  interpQs.forEach(function(q,i){
+    h+='<div class="qbox" id="iq'+i+'"><div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:8px;">'+(i+1)+'. '+q.q+'</div>';
+    q.ops.forEach(function(o,j){h+='<button type="button" class="opt-btn" id="io'+i+'-'+j+'" onclick="interpPick('+i+','+j+')">'+String.fromCharCode(65+j)+'. '+o+'</button>';});
+    h+='<div id="ifb'+i+'" style="display:none;font-size:12px;color:#475569;margin-top:6px;"></div></div>';
+  });
+  document.getElementById('interp-q').innerHTML=h;
+}
+function interpPick(i,j){
+  interpAns[i]=j;
+  var q=interpQs[i];
+  q.ops.forEach(function(o,k){
+    var b=document.getElementById('io'+i+'-'+k);
+    b.classList.remove('sel','right','wrong');
+    if(k===q.c)b.classList.add('right');
+    else if(k===j)b.classList.add('wrong');
+  });
+  var f=document.getElementById('ifb'+i);
+  f.style.display='block';
+  f.innerHTML=(j===q.c?'✅ Correcto. ':'❌ Revisar. ')+q.fb;
+  var ok=0;interpAns.forEach(function(a,k){if(a===interpQs[k].c)ok++;});
+  var el=document.getElementById('interp-out');
+  el.className='calc-out ok';
+  el.innerHTML='<strong>Progreso: '+ok+' / '+interpQs.length+' interpretaciones correctas.</strong>';
+}
+
+/* ===== PESTAÑA 5: CALCULADORAS ===== */
+var ireMaterias=[['Gobernanza de la organización',8.5,15],['Derechos humanos',7.0,12],['Relaciones y condiciones laborales',8.8,18],['Medio ambiente',9.2,22],['Prácticas justas de operación',7.5,15],['Asuntos de consumidores',8.0,10],['Participación y desarrollo comunitario',7.8,8]];
+function buildIRE(){
+  var h='';
+  ireMaterias.forEach(function(m,i){
+    h+='<tr><td>'+m[0]+'</td><td><input class="calc-in" id="ire-p'+i+'" type="number" value="'+m[1]+'" min="0" max="10" step="0.1"></td><td><input class="calc-in" id="ire-w'+i+'" type="number" value="'+m[2]+'" min="0" max="100" step="1"></td></tr>';
+  });
+  document.getElementById('ire-tb').innerHTML=h;
+}
+function fmt(n,d){return n.toLocaleString('es-EC',{minimumFractionDigits:d===undefined?2:d,maximumFractionDigits:d===undefined?2:d});}
+function calcIRE(){
+  var num=0,den=0,det=[];
+  for(var i=0;i<7;i++){
+    var p=parseFloat(document.getElementById('ire-p'+i).value)||0;
+    var w=parseFloat(document.getElementById('ire-w'+i).value)||0;
+    num+=p*w;den+=w;det.push(ireMaterias[i][0]+': '+fmt(p*w,1));
+  }
+  var el=document.getElementById('ire-out');
+  if(den<=0){el.className='calc-out err';el.innerHTML='Los pesos deben sumar más de 0.';return;}
+  var ire=num/den*10;
+  var nivel=ire<60?'Incipiente':ire<80?'En desarrollo':ire<90?'Avanzado':'Ejemplar';
+  var debil=ireMaterias.map(function(m,i){return[parseFloat(document.getElementById('ire-p'+i).value)||0,i];}).sort(function(a,b){return a[0]-b[0];}).slice(0,2).map(function(x){return ireMaterias[x[1]][0];});
+  el.className='calc-out ok';
+  el.innerHTML='<strong>IRE = '+fmt(ire)+' / 100</strong> — nivel <strong>'+nivel+'</strong><br>'+
+  'Σ(Pi×Wi) = '+fmt(num,1)+' · ΣWi = '+fmt(den,0)+'<br>Detalle: '+det.join(' · ')+'<br><strong>Interpretación:</strong> cumplimiento agregado del '+fmt(ire,1)+'%. Priorizar mejora en: '+debil.join(' y ')+'.<br><small>Caso base EcoManufactura: 82.72 (Avanzado).</small>';
+}
+var huellaActs=[
+  ['Gas natural (calefacción) — m³',45000,2.02,1],
+  ['Diésel flota propia — L',18000,2.68,1],
+  ['Electricidad comprada — kWh',320000,0.32,2],
+  ['Flete proveedores — km',85000,0.105,3],
+  ['Viajes aéreos — km·pasajero',630000,0.158,3],
+  ['Uso del producto vendido — kWh',3000000,0.32,3],
+  ['Residuos a vertedero — t',85,450,3]
+];
+function buildHuella(){
+  var h='';
+  huellaActs.forEach(function(a,i){
+    h+='<tr><td>'+a[0]+'</td><td><input class="calc-in" id="ha-c'+i+'" type="number" value="'+a[1]+'" min="0" step="any"></td><td><input class="calc-in" id="ha-f'+i+'" type="number" value="'+a[2]+'" min="0" step="0.001"></td><td>A'+a[3]+'</td></tr>';
+  });
+  document.getElementById('huella-tb').innerHTML=h;
+}
+function calcHuella(){
+  var sc=[0,0,0],rows=[];
+  huellaActs.forEach(function(a,i){
+    var c=parseFloat(document.getElementById('ha-c'+i).value)||0;
+    var f=parseFloat(document.getElementById('ha-f'+i).value)||0;
+    var kg=c*f;sc[a[3]-1]+=kg;
+    rows.push(a[0]+': '+fmt(c,0)+' × '+f+' = '+fmt(kg/1000)+' tCO2e');
+  });
+  var tot=sc[0]+sc[1]+sc[2];
+  var unid=parseFloat(document.getElementById('hc-unid').value)||0;
+  var el=document.getElementById('huella-out');
+  el.className='calc-out ok';
+  var h='<strong>Huella total = '+fmt(tot/1000)+' tCO2e</strong><br>Alcance 1 (directas): '+fmt(sc[0]/1000)+' tCO2e · Alcance 2 (energía): '+fmt(sc[1]/1000)+' tCO2e · Alcance 3 (cadena de valor): '+fmt(sc[2]/1000)+' tCO2e ('+fmt(sc[2]/tot*100,1)+'%)<br><strong>Paso a paso:</strong><br>· '+rows.join('<br>· ');
+  if(unid>0)h+='<br><strong>Intensidad de emisiones:</strong> '+fmt(tot/1000*1000/unid,2)+' kgCO2e/unidad ('+fmt(tot/1000)+' tCO2e / '+fmt(unid,0)+' unidades)';
+  h+='<br><strong>Interpretación:</strong> el Alcance 3 representa el '+fmt(sc[2]/tot*100,0)+'% de la huella — típico en manufactureras. Estrategia: priorizar ecodiseño del producto y logística verde.<br><small>Caso base EcoManufactura: 1.348,26 tCO2e (A1 139,14 · A2 102,40 · A3 1.106,72 · 82% · 16,85 kg/unidad).</small>';
+  el.innerHTML=h;
+}
+function calcSROI(){
+  var inv=parseFloat(document.getElementById('sroi-inv').value)||0;
+  var dir=parseFloat(document.getElementById('sroi-dir').value)||0;
+  var ind=parseFloat(document.getElementById('sroi-ind').value)||0;
+  var vst=parseFloat(document.getElementById('sroi-vst').value)||0;
+  var el=document.getElementById('sroi-out');
+  if(inv<=0){el.className='calc-out err';el.innerHTML='La inversión debe ser mayor que 0.';return;}
+  var bt=dir+ind;
+  var roi=(bt-inv)/inv*100;
+  var sroi=vst/inv;
+  el.className='calc-out ok';
+  el.innerHTML='<strong>ROI Social = '+fmt(roi,1)+'%</strong> — Beneficio total: USD '+fmt(bt,0)+' · Inversión: USD '+fmt(inv,0)+'<br>'+
+  'Por cada USD 1 invertido, la empresa recupera USD '+fmt(1+roi/100)+'.<br>'+
+  '<strong>SROI = '+fmt(sroi)+'</strong> — Valor social total (ajustado por deadweight, atribución y desplazamiento): USD '+fmt(vst,0)+'<br>'+
+  'Por cada USD 1 invertido se generan USD '+fmt(sroi)+' de valor social agregado para todos los stakeholders ('+(sroi>3?'excelente: umbral >3':'bajo el umbral de excelencia (>3)')+').<br>'+
+  '<small>Caso base EcoManufactura: ROI Social 48% (USD 1.48 por USD 1) y SROI 7.11 con ajustes por stakeholder. El SROI siempre supera al ROI Social porque incluye stakeholders externos.</small>';
+}
+function calcESG(){
+  var se=parseFloat(document.getElementById('esg-se').value)||0;
+  var ss=parseFloat(document.getElementById('esg-ss').value)||0;
+  var sg=parseFloat(document.getElementById('esg-sg').value)||0;
+  var we=parseFloat(document.getElementById('esg-we').value)||0;
+  var ws=parseFloat(document.getElementById('esg-ws').value)||0;
+  var wg=parseFloat(document.getElementById('esg-wg').value)||0;
+  var el=document.getElementById('esg-out');
+  var st=we+ws+wg;
+  if(Math.round(st)!==100){el.className='calc-out err';el.innerHTML='Los pesos deben sumar 100% (suman '+fmt(st,0)+'%).';return;}
+  var sc=se*we/100+ss*ws/100+sg*wg/100;
+  var rat=sc>=85?'A':sc>=78?'BB+':sc>=70?'BB':sc>=60?'B':'CCC';
+  el.className='calc-out ok';
+  el.innerHTML='<strong>Scorecard ESG = '+fmt(sc)+'</strong> / 100<br>'+
+  'Cálculo: ('+fmt(se)+'×'+fmt(we,0)+'%) + ('+fmt(ss)+'×'+fmt(ws,0)+'%) + ('+fmt(sg)+'×'+fmt(wg,0)+'%) = '+fmt(se*we/100)+' + '+fmt(ss*ws/100)+' + '+fmt(sg*wg/100)+'<br>'+
+  '<strong>Interpretación:</strong> rating aproximado <strong>'+rat+'</strong> (escala MSCI BBB- a AAA). '+(sc>=85?'Nivel de liderazgo sectorial.':sc>=75?'Posición competitiva; para alcanzar A (≥85) priorizar energía renovable y economía circular.':'Brecha significativa frente a los líderes; revisar subindicadores más débiles.')+'<br>'+
+  '<small>Caso base EcoManufactura: 78.60 → BB+, percentil 75 del sector manufactura (pesos 40/35/25).</small>';
+}
+function calcIBG(){
+  var pe=parseFloat(document.getElementById('ibg-pe').value)||0;
+  var ef=parseFloat(document.getElementById('ibg-ef').value)||0;
+  var sb=parseFloat(document.getElementById('ibg-sb').value)||0;
+  var eg=parseFloat(document.getElementById('ibg-eg').value)||0;
+  var ibg=0.40*pe+0.15*ef+0.15*sb+0.30*eg;
+  var el=document.getElementById('ibg-out');
+  var comps=[[0.40*pe,'Participación económica (40%×'+fmt(pe,3)+')'],[0.15*ef,'Educación/formación (15%×'+fmt(ef,3)+')'],[0.15*sb,'Salud y bienestar (15%×'+fmt(sb,3)+')'],[0.30*eg,'Empoderamiento gobernanza (30%×'+fmt(eg,3)+')']];
+  comps.sort(function(a,b){return a[0]-b[0];});
+  el.className='calc-out ok';
+  el.innerHTML='<strong>IBG = '+fmt(ibg,3)+'</strong> — brecha de género cerrada al '+fmt(ibg*100,1)+'% (restante: '+fmt((1-ibg)*100,1)+'%)<br>'+
+  'Aportes: '+comps.map(function(c){return fmt(c[0],3)+' ('+c[1]+')';}).join(' + ')+'<br>'+
+  '<strong>Interpretación:</strong> el subíndice más débil es <strong>'+comps[0][1].split('(')[0].trim()+'</strong>. Referencias: España 0.795 · Ecuador 0.752 · LATAM 0.743. '+
+  (ibg>=0.85?'La empresa supera la meta del 85%.':'Meta sugerida 2025: 85%, priorizando el subíndice débil mediante mentoring y cuotas voluntarias en promoción.')+'<br>'+
+  '<small>Caso base EcoManufactura: 0.782 (78.2%), EG = 0.538 como eslabón débil.</small>';
+}
+
+/* ===== PESTAÑA 6: SEMÁFORO + TABLAS + BARRAS ===== */
+var semFw=[
+  ['ISO 26000','Materias ambiental y derechos humanos'],
+  ['GRI Standards','Indicadores universales y de tema'],
+  ['Pacto Mundial ONU','COP anual publicado'],
+  ['SA8000','Derechos laborales certificables'],
+  ['TCFD / IFRS S2','Riesgos climáticos'],
+  ['SASB','Indicadores sectoriales']
+];
+var semSt=[2,1,2,0,1,0];
+function buildSem(){
+  var h='';
+  semFw.forEach(function(f,i){
+    h+='<div class="bar-row"><span class="bar-lab">'+f[0]+'</span>';
+    [2,1,0].forEach(function(v){
+      var lbl=v===2?'Verde':v===1?'Ámbar':'Rojo';
+      h+='<button type="button" class="fw-pill'+(semSt[i]===v?' on':'')+'" id="sem-'+i+'-'+v+'" onclick="semSet('+i+','+v+')"><span class="sem '+(v===2?'sem-v':v===1?'sem-a':'sem-r')+'"></span>'+lbl+'</button>';
+    });
+    h+='<span style="flex:1 1 100%;font-size:11px;color:#64748b;">'+f[1]+'</span></div>';
+  });
+  document.getElementById('sem-map').innerHTML=h;
+}
+function semSet(i,v){
+  semSt[i]=v;buildSem();semEval();
+}
+function semEval(){
+  var el=document.getElementById('sem-out');
+  el.className='calc-out ok';
+  var v=0,a=0,r=0,idx=[];
+  semSt.forEach(function(s,i){if(s===2)v++;else if(s===1)a++;else{r++;idx.push(semFw[i][0]);}});
+  var msg;
+  if(r===0&&a===0)msg='✅ <strong>Todos los frameworks en verde.</strong> El reporte está alineado con los estándares; mantenga la verificación externa anual.';
+  else if(r===0)msg='🟡 <strong>Sin frameworks en rojo, '+a+' en ámbar.</strong> Plan de cierre: documentar los métodos de cálculo pendientes y completar las revelaciones no financieras antes del cierre del ejercicio.';
+  else if(r<=2)msg='🟠 <strong>'+r+' framework(s) en rojo: '+idx.join(', ')+'.</strong> Acción prioritaria: asignar responsable y presupuesto para implementar las revelaciones básicas (nivel básico del estándar) en los próximos 12 meses.';
+  else msg='🔴 <strong>'+r+' frameworks en rojo: '+idx.join(', ')+'.</strong> El reporte tiene brechas estructurales: se recomienda empezar por GRI (revelaciones universales GRI 2) y el COP del Pacto Mundial como base mínima creíble.';
+  el.innerHTML='<strong>Diagnóstico del semáforo:</strong> '+v+' verde · '+a+' ámbar · '+r+' rojo<br>'+msg;
+}
+function sortTabla(tid,col){
+  var tb=document.querySelector('#'+tid+' tbody');
+  var rows=Array.prototype.slice.call(tb.rows);
+  var asc=!(tid+col in sortTabla.st)?true:!sortTabla.st[tid+col];
+  sortTabla.st[tid+col]=asc;
+  rows.sort(function(a,b){
+    var x=a.cells[col].textContent.trim().replace(',','.'),y=b.cells[col].textContent.trim().replace(',','.');
+    var nx=parseFloat(x),ny=parseFloat(y);
+    if(!isNaN(nx)&&!isNaN(y!==undefined?parseFloat(y):NaN)&&!isNaN(parseFloat(y))&&!isNaN(ny)){return asc?nx-ny:ny-nx;}
+    return asc?x.localeCompare(y,'es'):y.localeCompare(x,'es');
+  });
+  rows.forEach(function(r){tb.appendChild(r);});
+}
+sortTabla.st={};
+var repDatos=[['2010',20],['2013',72],['2015',81],['2017',85],['2019',90],['2021',96],['2024',92]];
+function buildChart(){
+  var h='';
+  repDatos.forEach(function(d){
+    h+='<div class="bar-row"><span class="bar-lab">'+d[0]+'</span><span class="bar-tr"><span class="bar-fi" style="width:'+d[1]+'%;display:block;"></span></span><span class="bar-val">'+d[1]+'%</span></div>';
+  });
+  document.getElementById('chart-reporte').innerHTML=h;
+}
+
+/* ===== PESTAÑA 7: ASISTENTE + CHECKLIST ===== */
+var asistTemas=[
+  {t:'Emisiones (GRI 305)',rec:'Revelar emisiones por alcance (305-1/2/3), metodología de cálculo, factores de emisión usados y consolidación. Incluir intensidad (kgCO2e/unidad o por ingresos) y meta de reducción vs línea base. EcoManufactura: 1.348,26 tCO2e, 82% Alcance 3, −28% vs 2020.'},
+  {t:'Agua (GRI 303)',rec:'Extracción por fuente, consumo y vertidos con impacto significativo (303-3/4). En sectores intensivos en agua (alimentación, textil, minería) es tema material crítico: benchmark Nestlé muestra brechas en este eje.'},
+  {t:'Empleo y formación (GRI 401/404)',rec:'Rotación, beneficios, horas de formación por empleado (404-1) desglosadas por género. EcoManufactura: 42 h/mujer vs 46 h/hombre — la brecha alimenta el subíndice EF del IBG.'},
+  {t:'Diversidad (GRI 405)',rec:'Composición de gobernanza y plantilla por género y grupo de edad (405-1). Vincular con el IBG: EG = 0.538 en EcoManufactura revela que solo 35% de directivos son mujeres; meta 2025: 85% de brecha cerrada.'},
+  {t:'Comunidades locales (GRI 413)',rec:'Programas e impacto en comunidades: % de operaciones con participación local, quejas y grievance mechanisms. Cuantificar con SROI: USD 7.11 de valor social por USD 1 invertido en formación técnica.'},
+  {t:'Anticorrupción (GRI 205)',rec:'Riesgos evaluados, comunicación y capacitación en políticas anticorrupción (205-2/3), casos confirmados e acciones tomadas. Es revelación clave del principio 10 del Pacto Mundial.'},
+  {t:'Cadena de suministro (GRI 414/308)',rec:'% de proveedores evaluados ambientalmente, impacto ambiental de la cadena y eco-diseño. Con Alcance 3 = 82% de la huella, la cadena de valor es la palanca estratégica del informe.'},
+  {t:'Salud y seguridad (GRI 403)',rec:'Sistema de gestión SST, tasas de accidentes (403-9), participación de trabajadores. Vincular con ISO 45001 y la Certificación SA8000 si aplica (elemento 3 del estándar).'}
+];
+function buildAsist(){
+  var h='';
+  asistTemas.forEach(function(a,i){
+    h+='<button type="button" class="fw-pill" id="as'+i+'" onclick="asistPick('+i+')">'+a.t+'</button>';
+  });
+  document.getElementById('asist-temas').innerHTML=h;
+}
+function asistPick(i){
+  asistTemas.forEach(function(a,k){document.getElementById('as'+k).classList.toggle('on',k===i);});
+  var el=document.getElementById('asist-out');
+  el.className='calc-out ok';
+  el.innerHTML='<strong>Borrador guía — '+asistTemas[i].t+'</strong><br>'+asistTemas[i].rec+'<br><small>Estructura sugerida de la revelación: contexto → dato cuantitativo → método y fuente → comparación (línea base/benchmark) → meta y plazo.</small>';
+}
+var chkItems=[
+  'Alcance organizacional y temporal definidos y divulgados',
+  'Análisis de materialidad documentado con participación de stakeholders',
+  'Índice de contenido GRI incluido con todas las revelaciones citadas',
+  'Cada dato tiene fuente verificable, método de cálculo y responsable',
+  'Se revelan tanto logros como brechas y retrocesos (principio de balance)',
+  'Datos comparables: línea base, año anterior y/o benchmark sectorial',
+  'Métodos consistentes entre ejercicios; cambios metodológicos divulgados',
+  'Semáforo de frameworks actualizado (ISO 26000, GRI, PM, SA8000, TCFD, SASB)',
+  'Verificación externa (assurance) contratada o planificada',
+  'Informe publicado en plazo y difundido a los stakeholders'
+];
+function buildChk(){
+  var h='';
+  chkItems.forEach(function(c,i){h+='<label class="chk"><input type="checkbox" id="ck'+i+'"><span>'+c+'</span></label>';});
+  document.getElementById('chk-informe').innerHTML=h;
+}
+function evaluarInforme(){
+  var n=0;chkItems.forEach(function(c,i){if(document.getElementById('ck'+i).checked)n++;});
+  var el=document.getElementById('chk-out');
+  el.className='calc-out '+(n>=8?'ok':'err');
+  var pct=Math.round(n/chkItems.length*100);
+  var msg;
+  if(n>=9)msg='✅ <strong>Listo para publicar.</strong> El informe cumple los principios GRI de contenido y calidad.';
+  else if(n>=6)msg='🟡 <strong>Casi listo ('+pct+'%).</strong> Complete los ítems pendientes antes de publicar: son prerrequisitos de comparabilidad y fiabilidad.';
+  else msg='🔴 <strong>No publicar todavía ('+pct+'%).</strong> Un informe sin materialidad consultada ni trazabilidad de datos no pasa verificación y expone a la empresa a acusaciones de greenwashing.';
+  el.innerHTML='<strong>Checklist: '+n+' / '+chkItems.length+' ('+pct+'%)</strong><br>'+msg;
+}
+function resetInforme(){
+  chkItems.forEach(function(c,i){document.getElementById('ck'+i).checked=false;});
+  document.getElementById('chk-out').className='calc-out';
+}
+
+/* ===== PESTAÑA 8: QUIZ ===== */
+var quizQs=[
+  {q:'¿Cuál es la diferencia entre ISO 26000 y GRI Standards?',ops:['GRI es certificable por terceros; ISO 26000 no','ISO 26000 es guía de gestión; GRI es estándar de reporte con indicadores cuantitativos verificables','Ambos son obligatorios en la UE'],c:1},
+  {q:'Los tres bloques de los GRI Standards son:',ops:['Universal, Sector y Topic Standards','Económico, Social y Ambiental','Estratégico, táctico y operativo'],c:0},
+  {q:'¿Qué porcentaje del Global Fortune 250 reporta según GRI?',ops:['25%','50%','75%'],c:2},
+  {q:'El acrónimo ESG fue acuñado en 2005 en el informe:',ops:['Who Cares Wins (Naciones Unidas)','Silent Spring','Our Common Future'],c:0},
+  {q:'SASB estandariza indicadores clave para:',ops:['77 industrias, 13 indicadores por industria','170 temas para todas las empresas','36 asuntos de ISO 26000'],c:0},
+  {q:'Las cuatro recomendaciones TCFD son:',ops:['Exactitud, balance, claridad, comparabilidad','Gobernanza, estrategia, gestión de riesgos, métricas y metas','Alcances 1, 2, 3 y huella hídrica'],c:1},
+  {q:'La materialidad doble exige reportar:',ops:['Solo el impacto financiero ESG','Impacto ESG de la empresa en el mundo y riesgo financiero ESG','El doble de indicadores que el año anterior'],c:1},
+  {q:'Si el Alcance 3 es el 82% de la huella, la prioridad es:',ops:['Ecodiseño del producto y cadena de suministro','Reducir la flota propia','Comprar energía renovable'],c:0},
+  {q:'Un SROI de 7.11 significa:',ops:['USD 7.11 de valor social por cada USD 1 invertido','7.11% de retorno financiero','Una brecha de género del 7.11%'],c:0},
+  {q:'La jerarquía correcta de KPIs del dashboard ESG es:',ops:['40-60 estratégicos para el Consejo','3-5 estratégicos · 10-15 tácticos · 40-60 operativos','Todos los KPIs se actualizan anualmente'],c:1}
+];
+var quizAns=[];
+function buildQuiz(){
+  var h='';
+  quizQs.forEach(function(q,i){
+    h+='<div class="qbox" id="qbox'+i+'"><div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:8px;">'+(i+1)+'. '+q.q+'</div>';
+    q.ops.forEach(function(o,j){h+='<button type="button" class="opt-btn" id="qo'+i+'-'+j+'" onclick="quizPick('+i+','+j+')">'+String.fromCharCode(65+j)+'. '+o+'</button>';});
+    h+='</div>';
+  });
+  document.getElementById('quiz-boxes').innerHTML=h;
+  quizAns=[];
+  var el=document.getElementById('quiz-result');
+  el.className='calc-out';
+}
+function quizPick(i,j){
+  quizAns[i]=j;
+  quizQs[i].ops.forEach(function(o,k){
+    var b=document.getElementById('qo'+i+'-'+k);
+    b.classList.remove('sel');
+    if(k===j)b.classList.add('sel');
+  });
+}
+function quizFin(){
+  for(var i=0;i<quizQs.length;i++){
+    if(quizAns[i]===undefined){
+      var el=document.getElementById('quiz-result');
+      el.className='calc-out err';
+      el.innerHTML='Faltan preguntas por responder (lleva '+quizAns.filter(function(a){return a!==undefined;}).length+' de '+quizQs.length+').';
+      return;
+    }
+  }
+  var ok=0;
+  quizQs.forEach(function(q,i){
+    q.ops.forEach(function(o,k){
+      var b=document.getElementById('qo'+i+'-'+k);
+      b.classList.remove('right','wrong');
+      if(k===q.c)b.classList.add('right');
+      else if(k===quizAns[i])b.classList.add('wrong');
+    });
+    if(quizAns[i]===q.c)ok++;
+  });
+  var el=document.getElementById('quiz-result');
+  el.className='calc-out '+(ok>=7?'ok':'err');
+  var pct=Math.round(ok/quizQs.length*100);
+  el.innerHTML='<strong>Resultado: '+ok+' / '+quizQs.length+' ('+pct+'%)</strong> — '+(pct>=70?'✅ Aprobado. Domina la interpretación de indicadores y la lógica de los estándares de reporte.':'🔴 Repaso recomendado: revise las pestañas 2, 3 y 4 antes de reintentar.')+'<br><small>Las opciones correctas están en verde; revise en verde-azul las que falló y vuelva a la pestaña correspondiente.</small>';
+}
+function quizReset(){buildQuiz();}
+
+/* ===== PESTAÑA 8: CASO DE ESTUDIO EN 4 FASES (TEXTIANDES) ===== */
+var FASES=['fase1','fase2','fase3','fase4'];
+var faseHechas={1:false,2:false,3:false,4:false};
+var FASE_TITULOS=['Diagnóstico y materialidad','Indicadores y cálculo','Informe según GRI','Dashboard y verificación'];
+function goFase(n){
+  FASES.forEach(function(f,i){
+    document.getElementById(f).classList.toggle('active',i===n-1);
+    var s=document.getElementById('fs'+(i+1));
+    s.classList.toggle('cur',i===n-1);
+    s.classList.toggle('done',faseHechas[i+1]);
+  });
+  document.getElementById('fase-prog').style.width=((n-1)/4*100)+'%';
+  document.getElementById('fase-prog-txt').textContent='Fase '+n+' de 4 — '+FASE_TITULOS[n-1]+' · avance del caso: '+Math.round((n-1)/4*100)+'%';
+  var panel=document.getElementById('fase'+n);
+  if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+/* Materialidad: temas con doble selección (impacto / financiero) */
+var matTemas=['Emisiones y energía','Agua y efluentes','Residuos textiles','Condiciones laborales y SST','Diversidad de género','Desarrollo de proveedores','Relación con comunidad','Anticorrupción','Privacidad del cliente','Diseño y eco-innovación'];
+var matSel={};
+function buildMat(){
+  var h='';
+  matTemas.forEach(function(t,i){
+    h+='<div class="rub-item" style="padding:8px;"><div style="font-size:12.3px;font-weight:700;color:#0f172a;margin-bottom:6px;">'+t+'</div>'+
+    '<button type="button" class="fw-pill'+(matSel[i]==='i'?' on':'')+'" id="mat-i-'+i+'" onclick="matPick('+i+',\'i\')">Impacto (mundo)</button> '+
+    '<button type="button" class="fw-pill'+(matSel[i]==='f'?' on':'')+'" id="mat-f-'+i+'" onclick="matPick('+i+',\'f\')">Financiero (negocio)</button> '+
+    '<button type="button" class="fw-pill'+(matSel[i]==='d'?' on':'')+'" id="mat-d-'+i+'" onclick="matPick('+i+',\'d\')">Ambos (doble)</button></div>';
+  });
+  document.getElementById('mat-chips').innerHTML=h;
+}
+function matPick(i,t){
+  matSel[i]=t;buildMat();
+}
+/* Referencias de cálculo de la fase 2 (calculadas con los datos base) */
+var CASO_REF={
+  a1:257.46,a2:304.0,a3:1448.42,a4:2009.88,a5:1.61,
+  b1:0.92,b2:0.632,b3:1.0,b4:0.282,b5:0.697,b6:69.7,
+  c1:40,c2:6.5,e1:69.05
+};
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?null:v;}
+function cerca(v,ref,tol){return v!==null&&Math.abs(v-ref)<=tol;}
+function faseCheck(n){
+  var el=document.getElementById('fase'+n+'-out');
+  var ok=true,msg='';
+  if(n===1){
+    var a=document.getElementById('fa1a').value.trim(),b=document.getElementById('fa1b').value.trim(),c=document.getElementById('fa1c').value.trim();
+    var nGrupos=a?a.split('\n').filter(function(x){return x.trim().length>3;}).length:0;
+    var nMat=Object.keys(matSel).length;
+    if(nGrupos<5){ok=false;msg='El mapa de stakeholders necesita al menos 5 grupos con su expectativa (lleva '+nGrupos+').';}
+    else if(nMat<4){ok=false;msg='Marque al menos 4 temas en la matriz de materialidad (lleva '+nMat+').';}
+    else if(b.length<40){ok=false;msg='Justifique los dos temas más materiales (mínimo unas 40 caracteres).';}
+    else if(c.length<20){ok=false;msg='Complete la actividad 1.3 sobre materialidad simple vs. doble.';}
+    else{msg='✅ Fase 1 guardada. Stakeholders: '+nGrupos+' grupos · temas evaluados: '+nMat+'. Los temas marcados como "Ambos (doble)" son sus temas materiales doble — serán el eje del informe.';}
+    document.getElementById('fa1a').classList.toggle('txt-ok',nGrupos>=5);
+    document.getElementById('fa1a').classList.toggle('txt-bad',nGrupos<5);
+    document.getElementById('fa1b').classList.toggle('txt-ok',b.length>=40);
+    document.getElementById('fa1b').classList.toggle('txt-bad',b.length<40&&b.length>0);
+    document.getElementById('fa1c').classList.toggle('txt-ok',c.length>=20);
+    document.getElementById('fa1c').classList.toggle('txt-bad',c.length<20&&c.length>0);
+  }
+  if(n===2){
+    var faltan=[];
+    ['f2a1','f2a2','f2a3','f2a4','f2a5','f2b1','f2b2','f2b3','f2b4','f2b5','f2b6','f2c1','f2c2','f2e1'].forEach(function(id){
+      if(num(id)===null)faltan.push(id);
+    });
+    if(faltan.length){ok=false;msg='Complete todos los resultados numéricos de la fase 2 (faltan '+faltan.length+' campos).';}
+    else if(document.getElementById('fa2d').value.trim().length<20){ok=false;msg='Escriba la interpretación del SROI frente al ROI Social (actividad 2.3).';}
+    else{
+      var r=[];
+      if(!cerca(num('f2a1'),CASO_REF.a1,4))r.push('Alcance 1');
+      if(!cerca(num('f2a2'),CASO_REF.a2,4))r.push('Alcance 2');
+      if(!cerca(num('f2a3'),CASO_REF.a3,6))r.push('Alcance 3');
+      if(!cerca(num('f2a4'),CASO_REF.a4,8))r.push('Huella total');
+      if(!cerca(num('f2a5'),CASO_REF.a5,0.06))r.push('Intensidad');
+      if(!cerca(num('f2b5'),CASO_REF.b5,0.02))r.push('IBG');
+      if(!cerca(num('f2b6'),CASO_REF.b6,2))r.push('% brecha');
+      if(!cerca(num('f2c1'),CASO_REF.c1,2))r.push('ROI Social');
+      if(!cerca(num('f2c2'),CASO_REF.c2,0.3))r.push('SROI');
+      if(!cerca(num('f2e1'),CASO_REF.e1,1))r.push('Scorecard');
+      if(r.length){ok=false;msg='⚠ Revise estos cálculos (fuera de ±tolerancia): '+r.join(', ')+'. Puede contrastar con «Ver resultados de referencia».';}
+      else{msg='✅ Fase 2 correcta: los 14 resultados coinciden con la referencia. Sus revelaciones de la fase 3 partirán de datos verificados.';}
+    }
+    document.getElementById('fa2d').classList.toggle('txt-ok',document.getElementById('fa2d').value.trim().length>=20);
+  }
+  if(n===3){
+    var a3=document.getElementById('fa3a').value.trim(),b3=document.getElementById('fa3b').value.trim(),c3=document.getElementById('fa3c').value.trim();
+    var nCod=(a3.match(/GRI\s?\d{1,3}(-\d+)?/gi)||[]).length;
+    if(nCod<6){ok=false;msg='El índice necesita al menos 6 códigos GRI (detecté '+nCod+'). Use la nomenclatura GRI 2-x, 305, 403, 405, 413…';}
+    else if(b3.length<80){ok=false;msg='Desarrolle más el borrador de la revelación 305 (contexto, dato, método, comparación y meta).';}
+    else if(c3.length<60){ok=false;msg='Desarrolle más el borrador de la revelación 405 (composición, IBG, brecha y meta).';}
+    else{msg='✅ Fase 3 guardada: índice con '+nCod+' revelaciones y dos borradores completos. Estos textos son la base de la memoria GRI de TextiAndes.';}
+  }
+  if(n===4){
+    var a4=document.getElementById('fa4a').value.trim(),b4=document.getElementById('fa4b').value.trim(),c4=document.getElementById('fa4c').value.trim();
+    var nKpi=(a4.match(/KPI\s?\d/gi)||[]).length;
+    if(nKpi<3){ok=false;msg='El tablero del Consejo necesita al menos 3 KPIs estratégicos con valor y meta (formato "KPI 1: …").';}
+    else if(b4.length<20){ok=false;msg='Justifique los dos frameworks más urgentes del semáforo.';}
+    else if(c4.length<20){ok=false;msg='Liste los dos vacíos críticos de verificación.';}
+    else{
+      var nChk=0;casoChkEstado.forEach(function(v){if(v)nChk++;});
+      msg='✅ ¡Caso completado! Checklist de calidad cumplido: '+nChk+'/10. La rúbrica de 100 puntos se muestra abajo; descargue sus respuestas y entréguelas por Moodle.';
+      document.getElementById('rubrica').style.display='block';
+      document.getElementById('fase-prog').style.width='100%';
+      document.getElementById('fase-prog-txt').textContent='Caso completado — avance 100%';
+      FASES.forEach(function(f,i){faseHechas[i+1]=true;document.getElementById('fs'+(i+1)).classList.add('done');});
+    }
+  }
+  if(ok&&n<4){faseHechas[n]=true;goFase(n+1);}
+  el.className='calc-out '+(ok?'ok':'err');
+  el.innerHTML=msg;
+}
+function fase2Pistas(){
+  var el=document.getElementById('fase2-out');
+  el.className='calc-out ok';
+  el.innerHTML='<strong>Resultados de referencia (TextiAndes 2026):</strong><br>'+
+  '· Alcance 1: gas 85.000×2.02 = 171,70 + diésel 32.000×2.68 = 85,76 → <strong>A1 = 257,46 tCO2e</strong><br>'+
+  '· Alcance 2: 950.000×0.32 = <strong>304,00 tCO2e</strong><br>'+
+  '· Alcance 3: flete 620.000×0.016 = 9,92 + uso 4.200.000×0.32 = 1.344,00 + residuos 210×450 = 94,50 → <strong>1.448,42 tCO2e</strong><br>'+
+  '· Huella total: 257,46+304,00+1.448,42 = <strong>2.009,88 tCO2e</strong> · Alcance 3 = 72% del total<br>'+
+  '· Intensidad: 2.009.880 kg ÷ 1.250.000 prendas = <strong>1,61 kgCO2e/prenda</strong><br>'+
+  '· IBG: PE 0.92 · EF 24/38 = 0.632 · SB 1.0 · EG 11/39 = 0.282 → IBG = 0.368+0.0948+0.15+0.0846 = <strong>0.697</strong> (69.7% de brecha cerrada)<br>'+
+  '· ROI Social: (126.000−90.000)/90.000 = <strong>40%</strong> · SROI: 585.000/90.000 = <strong>6.5</strong><br>'+
+  '· Scorecard: 62×0.35+74×0.40+71×0.25 = 21.7+29.6+17.75 = <strong>69.05</strong> → rating aproximado <strong>B/BB</strong><br>'+
+  '<small>Use estos valores solo para contrastar su trabajo: la rúbrica evalúa su proceso, no copiar el resultado.</small>';
+}
+/* Semáforo y checklist propios del caso */
+var casoSemFw=['GRI Standards','Pacto Mundial ONU','TCFD / IFRS S2','SASB textil','ISO 26000','SA8000'];
+var casoSemSt=[1,0,0,2,1,0];
+function buildCasoSem(){
+  var h='';
+  casoSemFw.forEach(function(f,i){
+    h+='<div class="bar-row"><span class="bar-lab">'+f+'</span>';
+    [2,1,0].forEach(function(v){
+      var lbl=v===2?'Verde':v===1?'Ámbar':'Rojo';
+      h+='<button type="button" class="fw-pill'+(casoSemSt[i]===v?' on':'')+'" id="csem-'+i+'-'+v+'" onclick="casoSemSet('+i+','+v+')"><span class="sem '+(v===2?'sem-v':v===1?'sem-a':'sem-r')+'"></span>'+lbl+'</button>';
+    });
+    h+='</div>';
+  });
+  document.getElementById('caso-sem').innerHTML=h;
+}
+function casoSemSet(i,v){casoSemSt[i]=v;buildCasoSem();}
+var casoChkItems=[
+  'Alcance organizacional y temporal definidos y divulgados',
+  'Análisis de materialidad documentado con participación de stakeholders',
+  'Índice de contenido GRI incluido con todas las revelaciones citadas',
+  'Cada dato tiene fuente verificable, método de cálculo y responsable',
+  'Se revelan tanto logros como brechas y retrocesos (principio de balance)',
+  'Datos comparables: línea base, año anterior y/o benchmark sectorial',
+  'Métodos consistentes entre ejercicios; cambios metodológicos divulgados',
+  'Semáforo de frameworks actualizado',
+  'Verificación externa (assurance) contratada o planificada',
+  'Informe publicado en plazo y difundido a los stakeholders'
+];
+var casoChkEstado=casoChkItems.map(function(){return false;});
+function buildCasoChk(){
+  var h='';
+  casoChkItems.forEach(function(c,i){h+='<label class="chk"><input type="checkbox" id="cck'+i+'" onchange="casoChkSet('+i+')"><span>'+c+'</span></label>';});
+  document.getElementById('caso-chk').innerHTML=h;
+}
+function casoChkSet(i){casoChkEstado[i]=document.getElementById('cck'+i).checked;}
+function casoReset(){
+  ['fa1a','fa1b','fa1c','fa2d','fa3a','fa3b','fa3c','fa4a','fa4b','fa4c'].forEach(function(id){
+    var e=document.getElementById(id);if(e){e.value='';e.classList.remove('txt-ok','txt-bad');}
+  });
+  ['f2a1','f2a2','f2a3','f2a4','f2a5','f2b1','f2b2','f2b3','f2b4','f2b5','f2b6','f2c1','f2c2','f2e1'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
+  var e2=document.getElementById('f2e2');if(e2)e2.value='';
+  matSel={};
+  casoSemSt=[1,0,0,2,1,0];
+  casoChkEstado=casoChkItems.map(function(){return false;});
+  faseHechas={1:false,2:false,3:false,4:false};
+  document.getElementById('rubrica').style.display='none';
+  [1,2,3,4].forEach(function(n){var el=document.getElementById('fase'+n+'-out');if(el)el.className='calc-out';});
+  buildMat();buildCasoSem();buildCasoChk();goFase(1);
+}
+function casoDescargar(){
+  var L=[];
+  L.push('CASO DE ESTUDIO 3.2 — TEXTIANDES S.A. · UT3 Gestión y Aplicación Práctica de la RSC');
+  L.push('Estudiante: ____________________  Fecha: '+new Date().toLocaleDateString('es-EC'));
+  L.push('');
+  L.push('FASE 1 · DIAGNÓSTICO Y MATERIALIDAD');
+  L.push('1.1 Mapa de stakeholders:');L.push(document.getElementById('fa1a').value||'(vacío)');L.push('');
+  L.push('1.2 Temas marcados: '+Object.keys(matSel).map(function(i){return matTemas[i]+' ['+(matSel[i]==='d'?'doble':matSel[i]==='i'?'impacto':'financiero')+']';}).join(' · ')||'(ninguno)');
+  L.push('Justificación:');L.push(document.getElementById('fa1b').value||'(vacío)');L.push('');
+  L.push('1.3 Materialidad simple vs. doble:');L.push(document.getElementById('fa1c').value||'(vacío)');L.push('');
+  L.push('FASE 2 · INDICADORES');
+  L.push('Huella: A1='+(document.getElementById('f2a1').value||'-')+' · A2='+(document.getElementById('f2a2').value||'-')+' · A3='+(document.getElementById('f2a3').value||'-')+' · Total='+(document.getElementById('f2a4').value||'-')+' · Intensidad='+(document.getElementById('f2a5').value||'-'));
+  L.push('IBG: PE='+(document.getElementById('f2b1').value||'-')+' · EF='+(document.getElementById('f2b2').value||'-')+' · SB='+(document.getElementById('f2b3').value||'-')+' · EG='+(document.getElementById('f2b4').value||'-')+' · IBG='+(document.getElementById('f2b5').value||'-')+' · Brecha cerrada='+(document.getElementById('f2b6').value||'-')+'%');
+  L.push('ROI Social='+(document.getElementById('f2c1').value||'-')+'% · SROI='+(document.getElementById('f2c2').value||'-'));
+  L.push('Interpretación:');L.push(document.getElementById('fa2d').value||'(vacío)');
+  L.push('Scorecard='+(document.getElementById('f2e1').value||'-')+' · Rating='+(document.getElementById('f2e2').value||'-'));L.push('');
+  L.push('FASE 3 · INFORME GRI');
+  L.push('3.1 Índice:');L.push(document.getElementById('fa3a').value||'(vacío)');L.push('');
+  L.push('3.2 Revelación 305:');L.push(document.getElementById('fa3b').value||'(vacío)');L.push('');
+  L.push('3.3 Revelación 405:');L.push(document.getElementById('fa3c').value||'(vacío)');L.push('');
+  L.push('FASE 4 · DASHBOARD Y VERIFICACIÓN');
+  L.push('4.1 KPIs estratégicos:');L.push(document.getElementById('fa4a').value||'(vacío)');L.push('');
+  L.push('4.2 Semáforo: '+casoSemFw.map(function(f,i){return f+'='+(casoSemSt[i]===2?'verde':casoSemSt[i]===1?'ámbar':'rojo');}).join(' · '));
+  L.push('Justificación:');L.push(document.getElementById('fa4b').value||'(vacío)');L.push('');
+  L.push('4.3 Checklist cumplido: '+casoChkEstado.filter(function(v){return v;}).length+'/10');
+  L.push('Vacíos críticos:');L.push(document.getElementById('fa4c').value||'(vacío)');
+  var blob=new Blob([L.join('\n')],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Caso_TextiAndes_3-2_respuestas.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+
+/* ===== INICIALIZACIÓN ===== */
+buildFwQ();buildGri();buildInterp();buildIRE();buildHuella();
+buildSem();semEval();buildChart();buildAsist();buildChk();buildQuiz();
+buildMat();buildCasoSem();buildCasoChk();
+showTab(location.hash?location.hash.replace('#',''):'tp1');
+</script>
+</body>
+</html>
+
+
